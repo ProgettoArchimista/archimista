@@ -1,0 +1,48 @@
+<% content_for :status_bar do %>
+  <h2>Report complesso archivistico<%= path_separator %><%= @fond.name %></h2>
+  <div id="links">
+    <%= link_to_index "Report", reports_path %>
+  </div>
+<% end %>
+
+
+<div class="span8">
+  <h2>
+    <%= @fond.name %>
+    <span class="date"><%= @fond.preferred_event.try(:full_display_date) %></span>
+  </h2>
+
+  <!-- <h3>Placeholder</h3> -->
+
+  <table class="table" style="margin-top: 1em">
+    <tbody>
+      <tr>
+        <td><%= link_to 'Inventario', inventory_report_path(@fond) %></td>
+      </tr>
+      <tr>
+        <td><%= link_to_if @units_count > 0, 'Etichette unità', labels_report_path(@fond, :mode => "preview") %>
+            (<%= number_with_delimiter(@units_count) || "0" %>)
+          </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- <h3>Placeholder</h3> -->
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <td><%= link_to 'Struttura complesso archivistico', summary_report_path(@fond) %></td>
+      </tr>
+      <tr>
+        <td><%= link_to_if @units_count > 0, "Lista unità", units_report_path(@fond, :mode => "preview") %>
+           (<%= number_with_delimiter(@units_count) || "0" %>)</td>
+      </tr>
+      <tr>
+        <td><%= link_to_if @fond.creators.present?, "Lista soggetti produttori", creators_report_path(@fond) %>
+          (<%= @fond.creators.size || "0" %>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

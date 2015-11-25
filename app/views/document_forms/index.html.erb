@@ -1,0 +1,48 @@
+<% content_for :status_bar do %>
+  <h2><%= status_bar_context %></h2>
+<% end %>
+
+<div class="span12">
+<div id="index-controls">
+  <%= link_to t('new'), new_document_form_path, { :class => "btn btn-small new" } %>
+</div>
+
+<% if @document_forms.size > 0 %>
+<%= display_page_entries_info @document_forms %>
+
+<table class="table table-sortable">
+  <thead>
+  <tr>
+    <th class="span7"><%= sortable("name", t('document_forms_name')) %></th>
+    <th class="span2"><%= sortable("updated_at", t('updated_at')) %></th>
+    <th class="span1">&nbsp;</th>
+    <th class="span1">&nbsp;</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @document_forms.each do |document_form| %>
+    <tr class="<%= cycle("odd", "even") %>">
+      <td><%= link_to document_form.name, edit_document_form_path(document_form) %></td>
+      <td><%= l document_form.updated_at, :format => :long %></td>
+      <td><%= link_to t('show'), document_form %></td>
+      <td>
+<%# Upgrade 2.0.0 inizio %>
+        <%#= link_to t('destroy'), document_form, :confirm => t('are_you_sure'), :method => :delete %>
+        <%= link_to t('destroy'), document_form, data: {:confirm => t('are_you_sure')}, :method => :delete %>
+<%# Upgrade 2.0.0 fine %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%# Upgrade 2.0.0 inizio %>
+  <%#= will_paginate @document_forms %>
+  <div class="digg_pagination">
+    <%= will_paginate @document_forms, :container => false %>
+  </div>
+<%# Upgrade 2.0.0 fine %>
+<% else %>
+  <p>Non sono presenti schede profilo documentario.</p>
+<% end %>
+</div>

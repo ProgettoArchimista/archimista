@@ -1,0 +1,71 @@
+<%# OPTIMIZE: spostare style no-status-bar in helper (comune per ora a about e dashboard) %>
+<% content_for :stylesheets do %>
+  <style type="text/css">
+    body { padding-top: 104px; }
+  #status-bar { display: none; }
+  </style>
+<% end %>
+
+<div class="span8" style="text-align: justify;">
+  <div style="margin-top: 1em;">
+    <strong>2015</strong>
+    <p>
+      Promozione e finanziamento
+      <ul>
+        <li>
+          <%= link_to_unless(APP_EDITION == "standalone", "Politecnico di Milano", "http://www.polimi.it/", { target: "_blank" }) %>
+        </li>
+        <li>
+          <%= link_to_unless(APP_EDITION == "standalone", raw("Regione Lombardia - Direzione Generale Culture, Identit&agrave; e Autonomie"), "http://www.cultura.regione.lombardia.it/", { target: "_blank" }) %>
+        </li>
+      </ul>
+    </p>
+    <p>
+      Comitato di pilotaggio
+      <ul>
+        <li>
+          <%= link_to_unless(APP_EDITION == "standalone", "Politecnico di Milano", "http://www.polimi.it/", { target: "_blank" }) %>
+        </li>
+        <li>
+          <%= link_to_unless(APP_EDITION == "standalone", raw("Regione Lombardia - Direzione Generale Culture, Identit&agrave; e Autonomie"), "http://www.cultura.regione.lombardia.it/", { target: "_blank" }) %>
+        </li>
+        <li>
+          <%= link_to_unless(APP_EDITION == "standalone", "Soprintendenza Archivistica per la Lombardia", "http://www.sa-lom.archivi.beniculturali.it/", { target: "_blank" }) %>
+        </li>
+      </ul>
+    </p>
+  </div>
+
+  <div style="margin-top: 2em;">
+    <strong>Informazioni</strong>
+    <ul>
+      <li>
+        <%= link_to_unless(APP_EDITION == "standalone", "www.archimista.it", "http://www.archimista.it", { target: "_blank" }) %>
+      </li>
+      <li>
+        <%= link_to_unless(APP_EDITION == "standalone", "archimista@polimi.it", "mailto:archimista@polimi.it") %>
+      </li>
+    </ul>
+  </div>
+
+  <div style="margin-top: 2em;">
+    <strong><%= APP_NAME %></strong>
+    <p>
+      Versione <%= "#{APP_VERSION}" %>: <%= link_to_unless(APP_EDITION == "standalone", "TAI S.a.s.", "http://www.taisas.com/", { target: "_blank" }) %>, Milano
+      <br/>
+      Sino versione 1.2.1: <%= link_to_unless(APP_EDITION == "standalone", raw("Codex Societ&agrave; Cooperativa"), "http://www.codexcoop.it/", { target: "_blank" }) %>, Pavia
+      <br/>
+      Per la storia del progetto Archimista consultare il sito ufficiale <%= link_to_unless(APP_EDITION == "standalone", "www.archimista.it", "http://www.archimista.it", { target: "_blank" }) %>
+      <br/>
+    </p>
+  </div>
+
+  <div style="margin-top: 2em;">
+    <strong>Licenza</strong>.&nbsp;
+    Questo programma &egrave; software libero; &egrave; lecito redistribuirlo o modificarlo secondo i termini della GNU General Public License come &egrave; pubblicata dalla Free Software Foundation; o la versione 2 della licenza o una versione successiva.
+  </div>
+
+  <div id="read-license">
+    <pre class="pre-scrollable"><%= render :file => "LICENSE" %></pre>
+  </div>
+</div>

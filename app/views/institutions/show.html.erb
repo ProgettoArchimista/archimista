@@ -1,0 +1,37 @@
+<% content_for :status_bar do %>
+  <h2><%= status_bar_context %></h2>
+  <div id="links">
+    <%= link_to_index t('index_institutions'), institutions_path %>
+  </div>
+<% end %>
+
+<div id="record-main" class="span9">
+  <h3 class="section"><%= t('identification_area') %></h3>
+  <table class="table-show">
+    <tr>
+      <th><%= t('institution_name') %></th>
+      <td><%= @institution.name %></td>
+    </tr>
+    <tr>
+      <th><%= t('institution_description') %></th>
+<%# TAI aggiunto show_value() %>
+      <td><%= show_value(textilize(@institution.description)) %></td>
+    </tr>
+    <tr>
+      <th><%= t('institution_note') %></th>
+      <td><%= @institution.note %></td>
+    </tr>
+  </table>
+
+
+<%# Upgrade 2.0.0 inizio %>
+<%#= render :partial => "shared/show_editors", :locals => { :label => 'institution_editor' }, :object => @institution.institution_editors %>
+<%= render :partial => "shared/show_editors", :locals => { :label => 'institution_editor' }, :object => @institution.institution_editors, as: "object" %>
+<%# Upgrade 2.0.0 fine %>
+
+</div>
+
+<%# Upgrade 2.0.0 inizio %>
+<%#= render :partial => "shared/side", :object => @institution %>
+<%= render :partial => "shared/side", :object => @institution, as: "object" %>
+<%# Upgrade 2.0.0 fine %>

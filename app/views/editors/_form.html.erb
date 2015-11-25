@@ -1,0 +1,18 @@
+<%# Upgrade 2.0.0 inizio %>
+<%#= render :partial => "shared/generic_error_message", :object => @editor %>
+<%= render :partial => "shared/generic_error_message", object: @editor, as: "object"%>
+<%# Upgrade 2.0.0 fine %>
+<div class="span9">
+<%# TAI aggiunto = prima di form_for %>
+  <%= form_for @editor do |f| %>
+<%# TAI aggiunto parametro per specificare nome e caption, aggiunto raw() %>
+    <%= f.label 'editors_first_name', raw(t('editors_first_name') + required_marker) %>
+    <%= f.text_field :first_name, :class => "span3" %>
+
+<%# TAI aggiunto parametro per specificare nome e caption, aggiunto raw() %>
+    <%= f.label 'editors_last_name', raw(t('editors_last_name') + required_marker) %>
+    <%= f.text_field :last_name, :class => "span3" %>
+
+  <p><%= f.submit @editor.new_record? ? t('create_editor') : t('save'), :class => "btn btn-primary" %></p>
+  <% end %>
+</div>

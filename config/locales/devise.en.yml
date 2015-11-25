@@ -1,0 +1,47 @@
+en:
+  access_denied: 'You are not authorized to access this page.'
+  devise:
+    user: 'User'
+    attributes:
+      login: 'Email or username'
+      username: 'Username'
+      full_name: 'Name'
+      remember_me: 'Remember me on this computer'
+      password: 'Password'
+      password_confirmation: 'Confirm password'
+      group_id: 'Group'
+      role: 'Role'
+      group_id_prompt: 'Select group'
+      role_prompt: 'Select role'
+    sessions:
+      link: 'Sign in'
+      signed_in: '' # 'Signed in successfully.'
+      signed_out: 'Signed out successfully.'
+# Upgrade 2.0.0 inizio
+# spostati in failure
+#      unauthenticated: '' # 'You need to sign in or sign up before continuing.'
+#      invalid: 'Invalid email or password.'
+# Upgrade 2.0.0 fine
+      # added by Codex
+      sign_out: "Signout"
+# Upgrade 2.0.0 inizio
+# aggiunto per compatibilità con gemma devise-3.5.1
+    failure:
+      unauthenticated: '' # 'You need to sign in or sign up before continuing.'
+      invalid: 'Invalid email or password.'
+      not_found_in_database: "Invalid email or password."
+      inactive: "Inactive user"
+      already_authenticated: "You are already signed in."
+# Upgrade 2.0.0 fine
+    registrations:
+      link: 'Sign up'
+      updated: 'You updated your account successfully.'
+      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+      # added by Codex
+      edit_account: "Modify my account"
+      username_characters: "Use only letters, numbers and underscore sign. No spaces."
+      keep_current_password: "Leave the field blank if you want to keep the current password."
+    messages:
+      create_ok: "User correctly created"
+      save_ok: "User correctly modified"
+

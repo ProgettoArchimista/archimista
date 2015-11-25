@@ -1,0 +1,163 @@
+@media print {
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 800px;
+    /*
+    OPTIMIZE: secondo me la regola su width in px è da togliere del tutto.
+    Distorce la dimensione "reale" dei font.
+    Lasciando che il testo riempia tutto il body, i valori di headers e testo andranno diminuiti.
+    */
+  }
+  html {
+    color: #000;
+    background: #FFF;
+  }
+  body {
+    font-family: 'Georgia', serif;
+    font-size: 12pt;
+    text-align: justify;
+    text-rendering: optimizeLegibility;
+  }
+  /* headers */
+  h1, h2, h3, h4 {
+    line-height: 1.5em;
+  }
+  h1 {
+    font-size: 20pt;
+  }
+  h2 {
+    font-size: 18pt;
+  }
+  h3 {
+    font-size: 16pt;
+  }
+  h4 {
+    font-size: 12pt;
+  }
+  img {
+    border: 0;
+  }
+  #header,
+  #footer,
+  #footnotes_debug,
+  #index-controls,
+  #order-choice,
+  #preview-disclaimer,
+  #unit-path-wrapper {
+    display: none;
+  }
+  .unit-label {
+    margin: 4px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 1em;
+    width: 9.85cm;
+    height: 3.81cm;
+    text-align: center;
+    vertical-align:top;
+  }
+  .report_content
+   {
+    line-height: 1.5em;
+  }
+  .report_content p
+    {
+    text-align: justify;
+    widows: 3;
+    orphans: 3;
+  }
+  .report_content p.type {
+    text-transform: uppercase;
+  }
+  h2 span.date {
+    display: block;
+    font-size: 14pt;
+    font-weight: normal;
+  }
+  span.date {
+    display: block;
+    font-weight: normal;
+  }
+  h2 span.spec {
+    display: block;
+    font-size: 10pt;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+  #labels {
+    border-collapse: collapse;
+  }
+  #labels td, #labels th {
+    vertical-align: top;
+    font-size: 10pt;
+  }
+  .unit {
+    margin: 0;
+    /*line-height: 1.5em;*/
+  }
+  .unit p {
+    text-align: justify;
+    line-height: 1em;
+  }
+  table.table  {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    /*table-layout:fixed;*/
+  }
+  td.fixed-large {
+    width: 40%;
+  }
+  .table tbody tr {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #000;
+  }
+  .table td, .table th {
+    vertical-align: top;
+    line-height: 1.5em;
+    padding: 5px;
+    text-align: left;
+  }
+  .pull-right {
+    float: right;
+  }
+  .pull-left {
+    float: left;
+  }
+  .head {
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    line-height: 2em;
+    vertical-align: top;
+  }
+  #cover {
+    margin: auto;
+    text-align: center;
+  }
+  #cover h1 {
+    line-height: 1.5em;
+    font-size: 24pt;
+  }
+  #cover .date {
+    font-size: 18pt;
+  }
+  strong.field-header{
+    display: block;
+  }
+  /* Page Breaks */
+  .pb_before {
+    page-break-before: always !important;
+  }
+  .pb_after  {
+    page-break-after: always !important;
+  }
+  .pbi_avoid {
+    page-break-inside: avoid !important;
+  }
+}

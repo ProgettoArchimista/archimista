@@ -1,0 +1,141 @@
+<!DOCTYPE html><%# OPTIMIZE: aggiungere file shim per IE %>
+<html lang="<%= I18n.default_locale.to_s %>">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller_name %> - <%= action_name %></title>
+  <%= default_stylesheets %>
+  <%= stylesheet_link_tag "treeview" %>
+  <% if controller_name == "reports" %>
+    <%= stylesheet_link_tag "reports-screen", :media => "screen" %>
+<%# Upgrade 2.0.0 inizio %>
+    <%= stylesheet_link_tag "report_settings" %>
+<%# Upgrade 2.0.0 fine %>
+  <% end %>
+  <% if controller_name == "quality_checks" %>
+    <%= stylesheet_link_tag "quality_checks" %>
+  <% end %>
+  <% if controller_name == "digital_objects" %>
+    <%= stylesheet_link_tag "jquery.fileupload-ui" %>
+  <% end %>
+  <%= yield :stylesheets %>
+  <%# JAVASCRIPTS -%>
+<%# Upgrade 2.0.0 inizio %>
+  <!-- aggiunto nuovo application.js e spostati i .js seguenti nella cartella vendor\assets\javascripts -->
+  <%= javascript_include_tag 'application' %>
+  <%#= javascript_include_tag "jquery-1.7.1.min",
+                             "bootstrap.min",
+                             "jquery-ui-1.8.18.min",
+                             "jquery.ui.datepicker-it",
+                             "jquery.cookie",
+                             "jquery.blockUI",
+                             "markitup/jquery.markitup",
+                             "markitup/settings",
+                             "jquery.fancybox-1.3.4.pack.js",
+                             :cache => "/assets/libraries" -%>
+<%# Upgrade 2.0.0 fine %>
+
+  <%= javascript_include_tag "global",
+                             "archimate_autocomplete",
+                             "archidate",
+                             # "wordcount", # FIXME: non funziona. Ripristinare o dismettere
+                             :cache => "/assets/application" -%>
+  <%# if APP_EDITION == 'standalone' %>
+    <%#= javascript_include_tag "no-contextmenu" %>
+  <%# end %>
+  <% if controller_name == "fonds" %>
+    <%= javascript_include_tag "jsTree/jquery.jstree.min" %>
+    <%= javascript_include_tag "fonds-treeview" %>
+    <%= javascript_include_tag "fonds-merge" %>
+  <% end %>
+  <% if controller_name == "reports" %>
+    <%= javascript_include_tag "reports" %>
+<%# Upgrade 2.0.0 inizio %>
+    <%= javascript_include_tag "report_settings" %>
+<%# Upgrade 2.0.0 fine %>
+  <% end %>
+  <% if controller_name == "quality_checks" %>
+    <%= javascript_include_tag "quality_checks" %>
+  <% end %>
+  <% if ["fonds", "units"].include?(controller_name) %>
+    <%= javascript_include_tag "livesearch2" %>
+    <%= javascript_include_tag "headings" %>
+  <% end %>
+  <% if ["imports", "exports"].include?(controller_name) %>
+    <%= javascript_include_tag "imports-exports" %>
+  <% end %>
+  <% if controller_name == "digital_objects" && action_name == "index" %>
+    <%= javascript_include_tag "digital-objects-index" %>
+  <% end %>
+  <% if controller_name == "digital_objects" && action_name == "new" %>
+    <%= javascript_include_tag "jqFileUpload/vendor/jquery.ui.widget",
+                               "jqFileUpload/tmpl.min",
+                               "jqFileUpload/load-image-patched.min",
+                               "jqFileUpload/canvas-to-blob.min",
+                               "jqFileUpload/jquery.iframe-transport",
+                               "jqFileUpload/jquery.fileupload",
+                               "jqFileUpload/jquery.fileupload-fp",
+                               "jqFileUpload/jquery.fileupload-ui",
+                               "jqFileUpload/locale",
+                               "jqFileUpload/master",
+                               :cache => "/assets/file-upload" %>
+  <% end %>
+  <%= yield :javascripts %>
+</head>
+
+<body<%= body_id %>>
+  <div id="header">
+    <div id="header-image-area">
+      <img src="/images/archheader2.jpg"/>
+    </div>
+
+    <%= render :partial => "shared/navbar" %>
+    <div id="status-bar"><%= yield :status_bar %></div>
+  </div>
+
+  <div id="content">
+<%# Upgrade 2.0.0 inizio %>
+  <%# container_class = yield(:container_class) || "container" %>
+  <%
+    # per dashboard con ruby 1.8.7 yield(:container_class) ritornava nil? mentre adesso torna empty? Di conseguenza container_class non viene settato a "container"
+    container_class = yield(:container_class)
+    if container_class.nil? || container_class.empty?
+      container_class = "container"
+    end
+  %>
+<%# Upgrade 2.0.0 fine %>
+
+  <div<%= container_id %> class="<%= container_class %>">
+
+    <% flash.each do |key, message| %><%# OPTIMIZE: da rivedere, c'è anche in login e valutare se prendere lo shared %>
+<%# Upgrade 2.0.0 inizio %>
+      <%# if [:notice, :alert].include?(key) && message.present? %>
+      <% if [:notice, :alert].include?(key.to_sym) && message.present? %>
+<%# Upgrade 2.0.0 fine %>
+        <% status = key.to_s == "alert" ? "error" : "success" %>
+        <div class="row">
+          <div class="span9">
+            <div class="alert alert-<%= status %>">
+              <% if status == "error" %>
+                <a class="close" data-dismiss="alert">×</a>
+              <% end %>
+<%# TAI aggiunto raw() %>
+              <%= raw(message) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class="<%= row_class(container_class) %>">
+      <%= yield %>
+    </div>
+  </div>
+  </div>
+
+  <div id="footer">
+    <div class="pull-right"><%= link_to "Informazioni e Copyright", "/about" %></div>
+    <%= "#{APP_NAME} #{APP_VERSION} #{APP_STATUS}" %>
+  </div>
+</body>
+</html>
+

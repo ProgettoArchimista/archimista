@@ -1,0 +1,73 @@
+<% content_for :status_bar do %>
+  <h2>
+<%# TAI aggiunto raw() %>
+    <%= raw([
+      'Report complesso archivistico',
+      link_to(@fond.root.name, dashboard_report_path(@fond.root.id)),
+      "Lista unità"
+    ].join(path_separator)) %>
+  </h2>
+  <div id="links">
+    <%= link_to_index "Report", reports_path %>
+  </div>
+<% end %>
+
+<div class="span12">
+  <div id="index-controls">
+<%# Upgrade 2.0.0 inizio %>
+    <%#= link_to '<i class="icon-download-alt"></i> Genera CSV', units_report_path(@fond, params.merge({:format => "csv", :mode => nil})), {:class => "csv btn btn-small"} %>
+    <%#= link_to '<i class="icon-download-alt"></i> Genera XLS', units_report_path(@fond, params.merge({:format => "xls", :mode => nil})), {:class => "xls btn btn-small"} %>
+    <%#= link_to '<i class="icon-download-alt"></i> Genera PDF', units_report_path(@fond, params.merge({:format => "pdf", :mode => nil})), {:class => "btn btn-small pdf"} %>
+    <%= link_to raw('<i class="icon-download-alt"></i> Genera CSV'), units_report_path(@fond, params.merge({:format => "csv", :mode => nil})), {:class => "csv btn btn-small"} %>
+    <%= link_to raw('<i class="icon-download-alt"></i> Genera XLS'), units_report_path(@fond, params.merge({:format => "xls", :mode => nil})), {:class => "xls btn btn-small"} %>
+    <%= link_to raw('<i class="icon-download-alt"></i> Genera PDF'), units_report_path(@fond, params.merge({:format => "pdf", :mode => nil})), {:class => "btn btn-small pdf"} %>
+<%# Upgrade 2.0.0 fine %>
+  </div>
+
+  <%= render :partial => 'subtree_selector.html', :locals => {:root_id => @fond.root.id, :fond_id => @fond.id} %>
+
+  <%= render :partial => 'preview_disclaimer.html', :locals => {:count => @units_count} %>
+
+  <% if @units.any? %>
+    <div id="order-choice">
+      <p>
+        Ordina per:
+        <%= link_to_if params[:order] != "sequence_number", t("sequence_number").downcase,  units_report_path(@root_fond, params.merge({:order => "sequence_number"})) %> |
+        <%= link_to_if params[:order] != "reference_number",  t("reference_number").downcase, units_report_path(@root_fond, params.merge({:order => "reference_number"})) %> |
+        <%= link_to_if params[:order] != "tmp_reference_string",  t("tmp_reference_string").downcase, units_report_path(@root_fond, params.merge({:order => "tmp_reference_string"})) %>
+      </p>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th><%= t(params[:order]) %></th>
+          <th><%= t("title") %></th>
+          <th class="span2"><%= t("date_event") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @units.each do |unit| %>
+          <tr>
+            <td class="fixed">
+              <div class="pbi_avoid">
+                <%= params[:order] == "sequence_number" ? unit.display_sequence_number_from_hash(@display_sequence_numbers) : unit.send(params[:order].to_sym) %>
+              </div>
+            </td>
+            <td>
+              <div class="pbi_avoid">
+<%# TAI aggiunto raw() %>
+                <%= raw("&mdash;" * unit.ancestry_depth) %> <%= unit.formatted_title %>
+              </div>
+            </td>
+            <td class="fixed-large">
+              <div class="pbi_avoid"><%= unit.preferred_event.try(:full_display_date_with_place) %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p id="turn-off-buttons">Non sono presenti unità nei livelli selezionati.</p>
+  <% end %>
+</div>

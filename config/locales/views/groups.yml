@@ -1,0 +1,19 @@
+en:
+  groups: "Groups"
+  group: "Group"
+  index_groups: "Groups list"
+# Upgrade 2.0.0 inizio
+#  users_count: "Users count"
+  users_count: "Users count (active/total)"
+# Upgrade 2.0.0 fine
+  create_group: "Create group"
+it:
+  groups: "Gruppi"
+  group: "Gruppo"
+  index_groups: "Lista gruppi"
+# Upgrade 2.0.0 inizio
+#  users_count: "Numero utenti"
+  users_count: "Numero utenti (attivi/totali)"
+# Upgrade 2.0.0 fine
+  create_group: "Crea gruppo"
+

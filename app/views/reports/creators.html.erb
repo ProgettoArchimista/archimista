@@ -1,0 +1,34 @@
+<% content_for :status_bar do %>
+  <h2>Report complesso archivistico<%= path_separator %><%= link_to @root_fond_name, dashboard_report_path %><%= path_separator %>Lista <%= t('creators').downcase %> </h2>
+  <div id="links">
+    <%= link_to_index "Report", reports_path %>
+  </div>
+<% end %>
+
+<div class="span9">
+  <div id="index-controls">
+<%# Upgrade 2.0.0 inizio %>
+    <%#= link_to '<i class="icon-download-alt"></i> Genera PDF', creators_report_path(@fond, :format => "pdf"),  {:class => "btn btn-small pdf"}  %>
+    <%= link_to raw('<i class="icon-download-alt"></i> Genera PDF'), creators_report_path(@fond, :format => "pdf"),  {:class => "btn btn-small pdf"}  %>
+<%# Upgrade 2.0.0 fine %>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('short_fond_type') %></th>
+        <th><%= t('name') %></th>
+        <th><%= t('date_event') %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @creators.each do |creator| %>
+        <tr class="pbi_avoid">
+          <td><%= show_value(creator.try(:creator_type), "t") %></td>
+          <td><%= creator.preferred_name.try(:name) %></td>
+          <td class="fixed-large"><%= creator.preferred_event.try(:full_display_date) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

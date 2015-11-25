@@ -1,0 +1,9 @@
+<% content_for :status_bar do %>
+<%# TAI aggiunto raw() %>
+    <h2><%= raw([t(@attachable.class.name.underscore.pluralize), @attachable.display_name, status_bar_context].join(path_separator)) %></h2>
+  <div id="links">
+    <%= link_to_index t('index_digital_objects'), polymorphic_path([@attachable, "digital_objects"]) %>
+  </div>
+<% end %>
+
+<%= render :partial => "form_single" %>

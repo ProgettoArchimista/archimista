@@ -1,0 +1,29 @@
+<%# Upgrade 2.0.0 inizio %>
+<%#= render :partial => "shared/generic_error_message", :object => @heading %>
+<%= render :partial => "shared/generic_error_message", object: @heading, as: "object"%>
+<%# Upgrade 2.0.0 fine %>
+
+<%# TAI aggiunto = prima di form_for %>
+<%= form_for @heading do |f| %>
+  <div class="span9">
+<%# TAI aggiunto parametro per specificare nome e caption %>
+    <%= f.label 'heading_type', t('heading_type') %>
+    <%= terms_select(f, "headings.heading_type", {}) %>
+
+<%# TAI aggiunto parametro per specificare nome e caption, aggiunto raw() %>
+    <%= f.label 'heading_name', raw(t('heading_name') + required_marker) %>
+    <%= f.text_field :name, :class=> "span4" %>
+
+<%# TAI aggiunto parametro per specificare nome e caption %>
+    <%= f.label 'heading_dates', t('heading_dates') %>
+    <%= f.text_field :dates, :class=> "span4" %>
+
+<%# TAI aggiunto parametro per specificare nome e caption %>
+    <%= f.label 'heading_qualifier', t('heading_qualifier') %>
+    <%= f.text_field :qualifier, :class=> "span4"%>
+
+    <p><%= f.submit @heading.new_record? ? t('create_heading') : t('save'), :class => "btn btn-primary" %></p>
+  </div>
+<% end %>
+
+ 

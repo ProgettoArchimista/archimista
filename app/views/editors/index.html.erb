@@ -1,0 +1,47 @@
+<% content_for :status_bar do %>
+  <h2><%= status_bar_context %></h2>
+<% end %>
+
+<div class="span12">
+  <div id="index-controls">
+    <%= link_to t('new'), new_editor_path, {:class => "btn btn-small new"} %>
+  </div>
+
+<%= display_page_entries_info @editors %>
+
+<% if @editors.size > 0 %>
+
+  <table class="table table-sortable">
+    <thead>
+    <tr>
+      <th><%= t('editors_editor') %></th>
+      <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @editors.each do |editor| %>
+      <tr class="<%= cycle("odd", "even") %>">
+        <td><%= link_to editor.reverse_full_name, edit_editor_path(editor) %></td>
+        <td>
+<%# Upgrade 2.0.0 inizio %>
+          <%#= link_to t('destroy'), editor, :confirm => t('are_you_sure'), :method => :delete %>
+          <%= link_to t('destroy'), editor, data: {:confirm => t('are_you_sure')}, :method => :delete %>
+<%# Upgrade 2.0.0 fine %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+<%# Upgrade 2.0.0 inizio %>
+  <%#= will_paginate @editors %>
+  <div class="digg_pagination">
+    <%= will_paginate @editors, :container => false %>
+  </div>
+<%# Upgrade 2.0.0 fine %>
+
+<% else %>
+  <%#TODO: i18n. Vedi fonds/index %>
+  <p>Non sono presenti schede compilatore.</p>
+<% end %>
+</div>

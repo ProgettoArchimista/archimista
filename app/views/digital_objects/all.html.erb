@@ -1,0 +1,88 @@
+<% content_for :status_bar do %>
+  <h2><%= status_bar_context %></h2>
+<% end %>
+
+<%# TODO: [1.x] search e filtri per digital_objects %>
+<div class="span12">
+  <% if @digital_objects.size > 0 %>
+    <%= display_page_entries_info @digital_objects %>
+
+    <table class="table table-sortable">
+      <thead>
+        <tr>
+          <th class="span2">&nbsp;</th>
+          <th class="span6"><%= sortable("asset_file_name", "Nome file") %></th>
+          <th class="span3"><%= sortable("updated_at", t('updated_at')) %></th>
+          <th class="span1">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @digital_objects.each do |digital_object| %>
+          <tr class="<%= cycle("odd", "even") %>">
+            <td class="center">
+              <% if digital_object.is_image? %>
+                <% if FileTest.exist?(digital_object.asset.path(:medium)) %>
+                  <%= link_to image_tag(digital_object.asset(:thumb)), digital_object.asset(:large), :class => "fancybox" %>
+                <% else %>
+                  <%= image_tag "missing-thumb.jpg" %>
+                <% end %>
+              <% else %>
+                <% if digital_object.is_video? %>
+                  <%= image_tag "mp4-medium.png" %>
+                <% else %>
+                  <%= image_tag "pdf-medium.png" %>
+                <% end %>
+              <% end %>
+            </td>
+            <td><%= digital_object.asset_file_name %>
+              <p><span class="muted">Allegato a:</span>
+                <%= link_to t("activerecord.models.#{digital_object.attachable_type.downcase}.one"), polymorphic_path([digital_object.attachable, "digital_objects"]) %><br>
+                <%# FIXME: codice sporco e pesante. Vedi controller/all %>
+                <span class="light">
+                <% if digital_object.attachable_type == "Fond" %>
+<%# TAI aggiunto raw() %>
+                  <%= raw(digital_object.attachable.path_items.map(&:name).join(path_separator)) %>
+                <% elsif digital_object.attachable_type == "Unit" %>
+<%# TAI aggiunto raw() %>
+                  <%= raw((digital_object.attachable.ancestors.map(&:name) << digital_object.attachable.display_name).join(path_separator)) %><br>
+                  <em>Complesso</em>: <%= raw(digital_object.attachable.fond.path_items.map(&:name).join(path_separator)) %>
+                <% else %>
+                  <%= digital_object.attachable.display_name %>
+                <% end %>
+                </span>
+              </p>
+            </td>
+            <td><%= l digital_object.updated_at, :format => :long %></td>
+            <td>
+<%# Upgrade 2.0.0 inizio %>
+              <%#= link_to t('destroy'), digital_object, :confirm => t('are_you_sure'), :method => :delete %>
+              <%= link_to t('destroy'), digital_object, data: {:confirm => t('are_you_sure')}, :method => :delete %>
+<%# Upgrade 2.0.0 fine %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+<%# Upgrade 2.0.0 inizio %>
+  <%#= will_paginate @digital_objects %>
+  <div class="digg_pagination">
+    <%= will_paginate @digital_objects, :container => false %>
+  </div>
+<%# Upgrade 2.0.0 fine %>
+
+  <% else %>
+    <p>Non sono ancora presenti oggetti digitali.</p>
+    <p><strong>Nota</strong>. Gli oggetti digitali possono essere creati all'interno delle seguenti schede:</p>
+    <ul>
+      <%# TODO: digital_objects per fonds (treeview) %>
+      <li>Complessi archivistici</li>
+      <li>Unità archivistiche</li>
+      <li>Soggetti produttori</li>
+      <li>Soggetti conservatori</li>
+    </ul>
+    <ul>
+      <li>Fonti</li>
+    </ul>
+  <% end %>
+</div>

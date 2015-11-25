@@ -1,0 +1,98 @@
+#report-tabs
+{
+  margin-bottom: 5px;
+  margin-left: 0px;
+}
+#report-settings-dialog #report-tabs li a
+{
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+#report-settings-dialog .modal-body
+{
+	padding-top: 2px;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 0px;
+}
+
+.options-area
+{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.options-area .lblOptionsTitle
+{
+  display: inline-block;
+  width: 400px;
+  font-weight: bold;
+}
+.options-spec
+{
+  line-height: 1;
+  border-bottom: 1px dotted #ccc;
+  border-top: 1px dotted #ccc;
+}
+.options-spec label
+{
+  display: inline-block;
+  width: 400px;
+  margin-left: 10px;
+  font-weight: normal;
+}
+
+.list-area
+{
+  margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.list-area .lblListTitle
+{
+  display: inline-block;
+  width: 400px;
+  font-weight: bold;
+}
+.list-area-cmd
+{
+	margin-bottom: 5px;
+}
+.list-area-cmd-btn
+{
+	margin-bottom: 5px;
+}
+.list-area-cmd-btn-select
+{
+}
+.list-area-cmd-btn-unselect
+{
+}
+.list-area-cmd-btn-reset
+{
+}
+
+.attributes-list
+{
+  list-style: none;
+  padding: 0px;
+  margin-left: 0px;
+}
+.attributes-list li
+{
+  line-height: 1;
+  border-bottom: 1px dotted #ccc;
+} 
+.attributes-list checkbox
+{
+  display: inline-block;
+  width: 30px;
+  float: left;
+}
+.attributes-list label
+{
+  display: inline-block;
+  width: 400px;
+  margin-left: 10px;
+  font-weight: normal;
+}

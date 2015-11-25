@@ -1,0 +1,45 @@
+<div class="modal hide fade" id="mass-add-modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Aggiungi unità</h3>
+  </div>
+  <div id="add-rows-dialog" class="modal-body">
+<%# TAI aggiunto = prima di form_tag %>
+    <%= form_tag({:action => 'add_rows'}, {:method => :post, :id => "add-rows-form", :class => "skip-prompt modal-form"}) do %>
+      <%= hidden_field_tag 'unit[root_fond_id]', @root_fond.id %>
+      <%= hidden_field_tag 'unit[ancestry_depth]', 0 %>
+      <%= hidden_field_tag 'unit[fond_id]', @fond.id %>
+      <%= hidden_field_tag 'unit[created_at]', Time.now %>
+      <%= hidden_field_tag 'unit[updated_at]', Time.now %>
+      <%= hidden_field_tag 'unit[created_by]', current_user.id %>
+      <%= hidden_field_tag 'unit[updated_by]', current_user.id %>
+
+<%# TAI aggiunto raw() %>
+      <%= label_tag 'number_of_rows', raw(t('how_many_rows') + required_marker + content_tag(:span, "(#{t('rows_range')})", :class => "muted")) %>
+      <%= text_field_tag 'number_of_rows', 1, :class => "input-mini", :maxlength => 3, :autocomplete => "off" %>
+      <span id="number-of-rows-msg" class="inline-msg hide">deve essere un numero da 1 a 100</span>
+
+<%# TAI aggiunto raw() %>
+      <%= label_tag 'unit[title]', raw(t('tmp_title') + required_marker) %>
+      <%= text_field_tag 'unit[title]', '', :class => "span5", :autocomplete => "off" %>
+      <span id="unit-title-msg" class="inline-msg hide">obbligatorio</span>
+
+<%# TAI aggiunto raw() %>
+      <%= label_tag 'unit[unit_type]', raw(t('tmp_unit_type') + required_marker) %>
+      <%= select_tag 'unit[unit_type]', options_for_select(@vocabularies['units.unit_type'].to_a.map(&:reverse)), :class => "span5" %>
+      <span id="unit-type-msg" class="inline-msg hide">obbligatorio</span>
+
+<%# TAI aggiunto raw() %>
+      <%= label_tag 'unit[tmp_reference_number]', raw(t('tmp_reference_number') + content_tag(:span, raw("(#{t('start_at')})"), :class => "muted", :style => "padding-left: 5px;")) %>
+  <%# OPTIMIZE: Rails3 => number_field_tag %>
+      <%= text_field_tag 'unit[tmp_reference_number]', '', :class => "input-mini", :maxlength => 8, :autocomplete => "off" %>
+      <span id="tmp-reference-number-msg" class="inline-msg hide">deve essere un numero</span>
+    <% end %>
+    <p class="muted">Le nuove unità saranno classificate sotto il complesso:<br>
+      <strong><%= @fond.name %></strong></p>
+  </div>
+  <div class="modal-footer">
+    <button id="close-mass-add" class="btn" data-dismiss="modal"><%= t('cancel') %></button>
+    <button id="confirm-mass-add" class="btn btn-primary"><%= t('confirm') %></button>
+  </div>
+</div>

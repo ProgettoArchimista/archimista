@@ -1,0 +1,133 @@
+<div class="span12">
+
+  <p>Puoi caricare uno o più file dal tuo computer.
+  <span class="muted">Formati accettati: <code>JPEG</code> e <code>PDF</code>.
+  Massimo peso di ciascun file: <strong>8 Mb</strong></span></p>
+
+<%# TAI aggiunto = prima di form_for %>
+  <%= form_for [@attachable, @digital_object], :html => { :multipart => true, :id => "fileupload", :class => 'skip-prompt' } do |f| %>
+    <div class="row fileupload-buttonbar">
+      <div class="span7">
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-small btn-success fileinput-button">
+          <i class="icon-plus icon-white"></i>
+<%# TAI aggiunto raw() %>
+          <span><%= raw(t('add_files')) %></span>
+          <%= f.file_field :asset, :multiple => true, :name => "digital_object[asset]" %>
+        </span>
+        <button id="btn-start" type="submit" class="btn btn-small btn-primary start disabled">
+          <i class="icon-upload icon-white"></i>
+<%# TAI aggiunto raw() %>
+          <span><%= raw(t('start_upload')) %></span>
+        </button>
+        <button id="btn-cancel" type="reset" class="btn btn-small btn-warning cancel disabled" style="margin-left: 30px;">
+          <i class="icon-ban-circle icon-white"></i>
+<%# TAI aggiunto raw() %>
+          <span><%= raw(t('cancel_upload')) %></span>
+        </button>
+        <button id="btn-delete" type="button" class="btn btn-small btn-danger delete disabled">
+          <i class="icon-trash icon-white"></i>
+<%# TAI aggiunto raw() %>
+          <span><%= raw(t('delete_files')) %></span>
+        </button>
+        <input id="checkbox-delete" type="checkbox" class="toggle disabled">
+      </div>
+      <div class="span5">
+        <!-- The global progress information -->
+        <div class="span5 fileupload-progress fade">
+          <!-- The global progress bar -->
+          <div id="progress-bar" class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div class="bar" style="width:0%;"></div>
+          </div>
+          <!-- The extended global progress information -->
+          <div class="progress-extended">&nbsp;</div>
+        </div>
+      </div>
+      <!-- The loading indicator is shown during file processing -->
+      <div class="fileupload-loading"></div>
+    </div>
+    <div id="fileupload-status" class="hide">Upload completato. Vedi la <%= link_to "lista oggetti", polymorphic_path([@attachable, "digital_objects"]) %>.</div>
+    <!-- The table listing the files available for upload/download -->
+    <table id="files" role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+  <% end %>
+
+</div>
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+  <tr class="template-upload fade">
+    <td class="preview"><span class="fade"></span></td>
+    <td class="name"><span>{%=file.name%}</span><br>
+      <span class="muted">{%=o.formatFileSize(file.size)%}</span></td>
+    {% if (file.error) { %}
+    <td class="error" colspan="3"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error]%}</td>
+    {% } else if (o.files.valid && !i) { %}
+    <td class="fields">
+      <span><%= text_field :digital_object, :title, :placeholder => t('title') %></span><br>
+      <span><%= text_area :digital_object, :description, :placeholder => t('description'), :class => "x-short-content" %></span>
+    </td>
+    <td>
+      <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+    </td>
+    <td class="start">{% if (!o.options.autoUpload) { %}
+      <button class="btn btn-primary btn-small upload">
+        <i class="icon-upload icon-white"></i>
+        <span>{%=locale.fileupload.start%}</span>
+      </button>
+      {% } %}</td>
+    {% } else { %}
+    <td colspan="2"></td>
+    {% } %}
+    <td class="cancel">{% if (!i) { %}
+      <button class="btn btn-warning btn-small cancel">
+        <i class="icon-ban-circle icon-white"></i>
+        <span>{%=locale.fileupload.cancel%}</span>
+      </button>
+      {% } %}</td>
+  </tr>
+  {% } %}
+</script>
+
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+  <tr class="template-download fade">
+    {% if (file.error) { %}
+    <td></td>
+    <td class="name"><span>{%=file.name%}</span></td>
+    <td class="size"><span class="muted">{%=o.formatFileSize(file.size)%}</span></td>
+    <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error]%}</td>
+    {% } else { %}
+    <td class="preview">{% if (file.thumbnail_url) { %}
+      <a href="{%=file.url%}" title="{%=file.name%}" class="fancybox-live" rel="gallery"><img src="{%=file.thumbnail_url%}"></a>
+      {% } %}</td>
+    <td class="name"><span>{%=file.name%}</span></td>
+    <td class="fields"><span><strong>{%=file.title%}</strong><br>{%=file.description%}</span></td>
+    <td colspan="2"></td>
+    {% } %}
+    <td class="delete">
+      <button class="btn btn-danger btn-small" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"{% if (file.delete_with_credentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+              <i class="icon-trash icon-white"></i>
+        <span>{%=locale.fileupload.destroy%}</span>
+      </button>
+      <input type="checkbox" name="delete" value="1">
+    </td>
+  </tr>
+  {% } %}
+</script>
+
+<div id="pending" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Nota bene</h3>
+  </div>
+  <div class="modal-body">
+    <p>Al momento ci sono <strong><span id="pending-number"></span> upload in coda</strong>.</p>
+    <p>Lasciando questa pagina annullerai tutti gli upload in coda. Cosa vuoi fare?</p>
+  </div>
+  <div class="modal-footer">
+    <%= link_to "Annulla upload", new_polymorphic_path([@attachable, "digital_object"]), :class => "btn" %>
+    <button class="btn btn-primary" data-dismiss="modal">Rimani sulla pagina</button>
+  </div>
+</div>

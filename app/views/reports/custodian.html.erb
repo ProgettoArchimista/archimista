@@ -1,0 +1,78 @@
+<% content_for :status_bar do %>
+  <h2>Report soggetto conservatore<%= path_separator %><%= @custodian.display_name %></h2>
+  <div id="links">
+    <%= link_to_index "Report", reports_path %>
+  </div>
+<% end %>
+
+<div class="span12">
+
+  <div id="index-controls">
+    <%= link_to raw('<i class="icon-download-alt"></i> Genera RTF'), custodian_report_path(@custodian, :format => "rtf"),  {:class => "rtf btn btn-small"}  %>
+    <%= link_to raw('<i class="icon-download-alt"></i> Genera PDF'), custodian_report_path(@custodian, :format => "pdf"),  {:class => "pdf btn btn-small"}  %>
+    <button id="select-report-columns" data-target="#report-settings-dialog" data-toggle="modal" class="btn btn-small" tabindex="-1">
+      <i class="icon-cog"></i>&nbsp;Impostazioni report
+    </button>
+    <%= render :partial => 'reports/report_settings' %>
+  </div>
+
+	<div class="report_content">
+		<% extend ReportSupport %>
+
+		<% ####################################### %>
+		<h2><%= @custodian.display_name %></h2>
+		<%= raw(make_html(@report_settings, :custodian, @custodian)) %>
+
+		<% ####################################### %>
+		<% if @projects.size > 0 %>
+			<h3><%= Project.model_name.human({:count => @projects.size}) %></h3>
+			<% @projects.each do |project| %>
+				<% ####################################### %>
+				<h4><%= project.name %></h4>
+				<%= raw(make_html(@report_settings, :project, project)) %>
+			<% end %>
+		<% end %>
+
+		<% ####################################### %>
+		<% if @fonds.size > 0 %>
+			<h3><%= Fond.model_name.human({:count => @fonds.size}) %></h3>
+			
+			<% ####################################### %>
+			<% @fonds.each do |fond| %>
+
+				<% ####################################### %>
+				<% if fond.creators.present? %>
+					<h3><%= Creator.model_name.human({:count => fond.creators.size}) %></h3>
+					<% creators = fond.creators.sort{|a,b| a.display_name <=> b.display_name} %>
+					<% creators.each do |creator| %>
+						<h4><%= creator.display_name %></h4>
+						<%= raw(make_html(@report_settings, :creator, creator)) %>
+					<% end %>
+				<% end %>
+
+				<% ####################################### %>
+				<hr>
+				<h4><%= fond.name %></h4>
+				<%= raw(make_html(@report_settings, :fond, fond)) %>
+
+				<% if fond.units.present? %>
+          <% display_sequence_numbers = Unit.display_sequence_numbers_of(fond) %>
+
+					<hr>
+					<h3><%= Unit.model_name.human({:count => fond.units.size}) %></h3>
+					<% fond.units.each do |u| %>
+						<div class="pbi_avoid">
+							<p class="head">
+								<span class="pull-left"><strong><%= u.display_sequence_number_from_hash(display_sequence_numbers) %></strong></span>
+							</p>
+							<h4><%= u.formatted_title %></h4>
+							<%= raw(make_html(@report_settings, :unit, u)) %>
+						</div>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<hr /><hr />
+	</div>
+</div>

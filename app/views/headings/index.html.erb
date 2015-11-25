@@ -1,0 +1,89 @@
+<% content_for :status_bar do %>
+  <h2><%= t('headings') %></h2>
+<% end %>
+
+<div class="span12">
+  <div id="index-controls">
+  <%# if @headings.total_entries > Heading.per_page || params[:q].present? %>
+    <%# form_tag('/headings', :method => :get, :class => "skip-prompt form-search pull-right") do %>
+      <%#= text_field_tag :q, params[:q], :class => "search-query", :placeholder => "Lemma" %>
+      <%#= submit_tag "Cerca", :name => "", :class => "btn btn-small" %>
+    <%# end %>
+  <%# end %>
+  <div id="buttons">
+    <%= link_to t('new_heading'), new_heading_path, { :class => "btn btn-small new" } %>
+<%# Upgrade 2.0.0 inizio %>
+    <%#= link_to '<i class="icon-share"></i> ' + t('import_heading'), import_csv_headings_path, { :class => "btn btn-small" } %>
+    <%= link_to raw('<i class="icon-share"></i> ' + t('import_heading')), import_csv_headings_path, { :class => "btn btn-small" } %>
+<%# Upgrade 2.0.0 fine %>
+  </div>
+  </div>
+
+<% if @counts_by_type.present? %>
+<p>
+<%# Upgrade 2.0.0 inizio %>
+  <%#= link_to_unless(params[:view].nil?, "Tutti", headings_path) %>
+  <%#= @terms.select {|l| l.vocabulary_name == "headings.heading_type"}.map {|a|
+    " | " +
+    link_to_unless(params[:view] == "#{[a.term_value]}", "#{[a.term_value]} ", headings_path(:view => "#{[a.term_value]}")) +
+    "<span class='muted'>(#{(number_with_delimiter(@counts_by_type[a.term_value]) || 0).to_s})</span>"
+  } %>
+  <%
+    s1 = link_to_unless(params[:view].nil?, "Tutti", headings_path)
+    s2 = @terms.select {|l| l.vocabulary_name == "headings.heading_type"}.map {|a|
+    link_to_unless(params[:view] == "#{a.term_value}", "#{a.term_value} ", headings_path(:view => "#{a.term_value}")) +
+    raw("<span class='muted'>(#{(number_with_delimiter(@counts_by_type[a.term_value]) || 0).to_s})</span>")
+    }
+  %>
+  <%= raw(s1) + " | " + raw(s2.join(" | ")) if !s2.nil? && s2.length > 0 %>
+  <%= raw(s1) if s2.nil? || s2.length == 0 %>
+<%# Upgrade 2.0.0 fine %>
+</p>
+<% end %>
+
+<% if @headings.size > 0  %>
+
+<%= display_page_entries_info @headings %>
+
+<table class="table table-sortable">
+  <thead>
+  <tr>
+    <th><%= t('heading_type') %></th>
+    <th><%= sortable("name", t('heading_name')) %></th>
+    <%# FIXME: dubbio che servano colonne dates e qualifier %>
+    <th><%= sortable("dates", t('heading_dates')) %></th>
+    <th><%= t('heading_qualifier') %></th>
+    <th>Occorrenze</th>
+    <th>&nbsp;</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @headings.each do |heading| %>
+    <tr>
+      <td><%= show_value(heading.heading_type) %></td>
+      <td><%= link_to heading.name, edit_heading_path(heading) %></td>
+      <td><%= heading.dates %></td>
+      <td><%= heading.qualifier %></td>
+      <td><%= link_to "#{number_with_delimiter(@units_counts[heading.id] || "0")} unità", heading_path(heading) %></td>
+      <td>
+<%# Upgrade 2.0.0 inizio %>
+        <%#= link_to t('destroy'), heading, :confirm => t('are_you_sure'), :method => :delete %>
+        <%= link_to t('destroy'), heading, data: {:confirm => t('are_you_sure')}, :method => :delete %>
+<%# Upgrade 2.0.0 fine %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%# Upgrade 2.0.0 inizio %>
+  <%#= will_paginate @headings %>
+  <div class="digg_pagination">
+    <%= will_paginate @headings, :container => false %>
+  </div>
+<%# Upgrade 2.0.0 fine %>
+
+<% else %>
+  <p>Non sono presenti lemmi.</p>
+<% end %>
+</div>

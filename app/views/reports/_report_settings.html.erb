@@ -1,0 +1,87 @@
+<%# TAI nuovo %>
+<%
+  jsParams = {
+    cookie_name: @report_settings.report_cookie_name,
+    reportAttributesSuffix: ReportSettings::Report_attributes_control_name_suffix,
+    reportDontUseCaptionsSuffix: ReportSettings::Report_dont_use_captions_control_name_suffix
+  }
+%>
+<input id="hdfReportSettingsCfg" type="hidden" value="<%= jsParams.to_json %>" />
+
+<div class="modal hide fade" id="report-settings-dialog">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3><%= @report_settings.report_caption %>: impostazioni</h3>
+  </div>
+  <div class="modal-body">
+    <%= form_tag({:action => @report_settings.action.to_s}, {:method => :post, :id => "report-settings-dialog", :class => "skip-prompt modal-form"}) do %>
+      <ul class="nav nav-tabs" id="report-tabs">
+        <% @report_settings.entities.each_with_index do |ers, entity_index| %>
+          <li><a href="#<%= ers.entity_name %>" data-toggle="tab"><%= t("activerecord.models." + ers.entity_name.to_s + ".one")%></a></li>
+        <% end %>
+      </ul>
+      
+      <div class="tab-content">
+        <% @report_settings.entities.each_with_index do |ers, entity_index| %>
+          <div class="tab-pane" id="<%= ers.entity_name %>">
+            <div id="div<%=ers.entity_name.to_s%>-options-area" class="options-area">
+              <%= label_tag "Impostazioni generali", nil, { id: "lbl" + ers.entity_name.to_s + "-OptionsTitle", class: "lblOptionsTitle" } %>
+              <div id="div<%=ers.entity_name.to_s%>-options-spec" class="options-spec">
+                <%
+                  chkId = "chk" + ers.dont_use_fld_caption_control_name
+                  chkValue = ers.dont_use_fld_caption_control_name
+                  isChecked = ers.dont_use_fld_captions
+                %>
+                <%= check_box_tag ers.dont_use_fld_caption_control_name, chkValue, isChecked, { id: chkId } %>
+                <%= label_tag chkId, "Non utilizzare le etichette dei campi" %>
+              </div>
+            </div>
+            <div id="div<%=ers.entity_name.to_s%>-list-area" class="list-area">
+              <%= label_tag "Selezionare i campi da utilizzare per il report", nil, { id: "lbl" + ers.entity_name.to_s + "-ListTitle", class: "lblListTitle" } %>
+							<div id="div<%=ers.entity_name.to_s%>-list-area-cmd" class="list-area-cmd">
+								<button id="btn<%=ers.entity_name.to_s%>-select-all" class="btn btn-small list-area-cmd-btn list-area-cmd-btn-select" tabindex="-1">
+									Seleziona tutti i campi
+								</button>
+								<button id="btn<%=ers.entity_name.to_s%>-unselect-all" class="btn btn-small list-area-cmd-btn list-area-cmd-btn-unselect" tabindex="-1">
+									Deseleziona tutti i campi
+								</button>
+								<button id="btn<%=ers.entity_name.to_s%>-reset" class="btn btn-small list-area-cmd-btn list-area-cmd-btn-reset" tabindex="-1">
+									Ripristina i valori predefiniti
+								</button>
+							</div>
+              <ul id="ul<%=ers.entity_name.to_s%>-attributes-list" class="attributes-list">
+                <%       
+                  ers.available_attributes_info.each do |attrName, attrInfo|
+                  if ers.selected_attribute_names.nil?
+                    isChecked = false
+                  else
+                    isChecked = ers.selected_attribute_names.include?(attrName.to_s)
+                  end
+                  if attrInfo.is_default
+                    isDefault = "1"
+                  else
+                    isDefault = "0"
+                  end
+                %>
+                  <li class="<%= cycle("odd", "even") %>" >
+                    <%
+                      chkId = "chk" + ers.attribute_control_id_full(attrName)
+                      chkValue = ers.attribute_control_id_full(attrName)
+                    %>
+                    <%= check_box_tag ers.entity_control_names, chkValue, isChecked, { id: chkId, is_default: isDefault } %>
+                    <%= label_tag chkId, attrInfo.composed_caption %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <button id="close-select-columns" class="btn" data-dismiss="modal"><%= t('cancel') %></button>
+    <button id="confirm-columns" class="submit btn btn-primary"><%= t('save_and_update') %></button>
+  </div>
+</div>
