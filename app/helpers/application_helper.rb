@@ -69,9 +69,14 @@ module ApplicationHelper
     send("#{edit_or_treeview}_#{object.class.name.underscore.downcase}_path", object)
   end
 
-  def add_child_link(name, association)
-    link_to(name, "javascript:void(0)", :class => "add_child", :"data-association" => association)
+# Upgrade 2.0.0 inizio
+#  def add_child_link(name, association)
+#    link_to(name, "javascript:void(0)", :class => "add_child", :"data-association" => association)
+#  end
+  def add_child_link(name, association, replace_reference_string=nil)
+    link_to(name, "javascript:void(0)", :class => "add_child", :"data-association" => association, :replace_reference => replace_reference_string)
   end
+# Upgrade 2.0.0 fine
 
   def link_to_digital_objects_by_count(digital_objects_count, name, object, html_options = {})
     target_link = if digital_objects_count > 0
@@ -81,6 +86,25 @@ module ApplicationHelper
     end
     link_to(name, target_link, html_options)
   end
+
+# Upgrade 2.0.0 inizio
+  def link_to_carousel_images_by_count(carousel_images_count, name, object, html_options = {})
+    target_link = if carousel_images_count > 0
+      group_group_carousel_images_path(object)
+    else
+      new_group_group_carousel_image_path(object)
+    end
+    link_to(name, target_link, html_options)
+  end
+  def link_to_logo_images_by_count(logo_images_count, name, object, html_options = {})
+    target_link = if logo_images_count > 0
+      group_group_logo_images_path(object)
+    else
+      new_group_group_logo_image_path(object)
+    end
+    link_to(name, target_link, html_options)
+  end
+# Upgrade 2.0.0 fine
 
   # Sortable Columns
   def sortable(column, title = nil)
@@ -109,6 +133,13 @@ module ApplicationHelper
     attribute = list_name.split('.')[1]
     f.select(attribute, @iccd_terms.select {|l| l.vocabulary_name == "#{list_name}" && l.term_scope == term_scope}.map {|a| [ a.term_key, a.term_value ]}, options, html_options)
   end
+
+# Upgrade 2.1.0 inizio
+  def sc2_terms_select(f, list_name, term_scope = nil, options={}, html_options={})
+    attribute = list_name.split('.')[1]
+    f.select(attribute, @sc2_terms.select {|l| l.vocabulary_name == "#{list_name}" && l.term_scope == term_scope}.map {|a| [ a.term_key, a.term_value ]}, options, html_options.merge({:data_voc_name => list_name}))
+  end
+# Upgrade 2.1.0 inizio
 
   # Options for select heading_types
   def heading_types
@@ -233,9 +264,10 @@ module ApplicationHelper
 # Upgrade 2.0.0 fine
   end
 
-  def formatted_source(source, is_apply_raw = true)
 # Upgrade 2.0.0 inizio
 =begin
+  def formatted_source(source, is_apply_raw = true)
+# inizio versione pre 2.0.0
     if source.use_legacy?
       h source.legacy_description.gsub(/<C>|<N>|<T>|<CR>/i, '')
     else
@@ -249,7 +281,7 @@ module ApplicationHelper
         delete_if{|fragment| fragment.blank?}.
         join(", ")
     end
-=end
+# fine versione pre 2.0.0
     if source.use_legacy?
       ft = h source.legacy_description.gsub(/<C>|<N>|<T>|<CR>/i, '')
     else
@@ -263,10 +295,45 @@ module ApplicationHelper
         delete_if{|fragment| fragment.blank?}.
         join(", ")
     end
+  end
+=end
+# Upgrade 2.0.0 fine
+
+# Upgrade 2.1.0 inizio
+  def formatted_source(source, is_apply_raw = true, is_rtf = false)
+    if is_rtf
+      if source.use_legacy?
+        ft = source.legacy_description.gsub(/<C>|<N>|<T>|<CR>/i, '')
+      else
+        ft = [
+          source.author,
+          (source.title.present? ? "<em>" + source.title + "</em>" : nil),
+          source.place,
+          source.publisher,
+          source.date_string
+        ].
+          delete_if{|fragment| fragment.blank?}.
+          join(", ")
+      end
+    else
+      if source.use_legacy?
+        ft = h source.legacy_description.gsub(/<C>|<N>|<T>|<CR>/i, '')
+      else
+        ft = [
+          h(source.author),
+          (source.title.present? ? "<em>" + h(source.title) + "</em>" : nil),
+          h(source.place),
+          h(source.publisher),
+          h(source.date_string)
+        ].
+          delete_if{|fragment| fragment.blank?}.
+          join(", ")
+      end
+    end
     if is_apply_raw then ft = raw(ft) end
     return ft
-# Upgrade 2.0.0 fine
   end
+# Upgrade 2.1.0 fine
 
   def formatted_custodian_building(building)
     [

@@ -12,6 +12,7 @@ db/dumps/*
 public/assets/*
 public/downloads/*
 public/digital_objects/*
+public/group_images/*
 public/imports/*
 
 !.gitignore
@@ -24,6 +25,3 @@ public/imports/*
 nbproject
 .project
 .redcar
-/config/secrets.yml
-/Gemfile.lock
-/archimista.db

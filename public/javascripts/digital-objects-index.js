@@ -13,12 +13,12 @@ $(document).ready(function() {
     opacity : 0.7,
     update : function () {
       var order = $('#sortable').sortable('serialize');
-      var action = "/digital_objects/sort";
+      var action = getEntitySortAction(getContext());
       $.get(action+"?"+order, function(data) {});
     }
   });
 
-  $(document).on('change', "[id^=digital_object_ids_]", function() {
+  $(document).on('change', "[id^=" + getEntityIds(getContext()) + "]", function() {
     if($(this).is(':checked') ) {
       if(allChecked()) {
         $('#toggle-all').prop('checked', true);
@@ -34,7 +34,7 @@ $(document).ready(function() {
   $(document).on("click", "#bulk-destroy", function (){
     if ($(this).prop('disabled') === false) {
       var params = decodeURIComponent($('input:checkbox:checked').serialize());
-      var action = "/digital_objects/bulk_destroy";
+      var action = getEntityBulkDestroyAction(getContext());
       $.get(action+"?"+params, function(data) {
         window.location.reload();
       });
@@ -42,7 +42,7 @@ $(document).ready(function() {
   });
 
   $(document).on('change', "#toggle-all", function() {
-    var CheckBoxes = $("[id^=digital_object_ids_]");
+    var CheckBoxes = $("[id^=" + getEntityIds(getContext()) + "]");
     $(this).is(':checked') ? CheckBoxes.prop("checked", true) : CheckBoxes.prop("checked", false);
     toggleBulkDestroy();
   });
@@ -64,13 +64,13 @@ $(document).ready(function() {
   }
 
   function checkBoxes() {
-    var test = $("[id^=digital_object_ids_]").length ? true : false;
+    var test = $("[id^=" + getEntityIds(getContext()) + "]").length ? true : false;
     return test;
   }
 
   function allChecked() {
     var test = true;
-    $("[id^=digital_object_ids_]").each(function() {
+    $("[id^=" + getEntityIds(getContext()) + "]").each(function() {
       if(!$(this).is(':checked')) {
         test = false;
       }
@@ -78,5 +78,18 @@ $(document).ready(function() {
     return test;
   }
 
+/* Upgrade 2.1.0 inizio */
+  function getEntityIds(context) {
+    return context + "_ids_";
+  }
+
+  function getEntitySortAction(context) {
+    return "/" + context + "s/sort";
+  }
+
+  function getEntityBulkDestroyAction(context) {
+    return "/" + context + "s/bulk_destroy";
+  }
+/* Upgrade 2.1.0 fine */
 });
 

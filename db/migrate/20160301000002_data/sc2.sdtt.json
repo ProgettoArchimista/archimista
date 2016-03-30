@@ -1,0 +1,24 @@
+{"position":1,"term_key":"planimetria","term_value":"planimetria","term_scope":"CARS"}
+{"position":2,"term_key":"planivolumetria","term_value":"planivolumetria","term_scope":"CARS"}
+{"position":3,"term_key":"planisfero","term_value":"planisfero","term_scope":"CARS"}
+{"position":4,"term_key":"pianta","term_value":"pianta","term_scope":"CARS"}
+{"position":5,"term_key":"vista a volo d'uccello","term_value":"vista a volo d'uccello","term_scope":"CARS"}
+{"position":6,"term_key":"veduta prospettica","term_value":"veduta prospettica","term_scope":"CARS"}
+{"position":7,"term_key":"veduta assonometrica","term_value":"veduta assonometrica","term_scope":"CARS"}
+{"position":8,"term_key":"studio/schizzo","term_value":"studio/schizzo","term_scope":"CARS"}
+{"position":1,"term_key":"schema","term_value":"schema","term_scope":"DT"}
+{"position":2,"term_key":"planimetria","term_value":"planimetria","term_scope":"DT"}
+{"position":3,"term_key":"planivolumetria","term_value":"planivolumetria","term_scope":"DT"}
+{"position":4,"term_key":"pianta","term_value":"pianta","term_scope":"DT"}
+{"position":5,"term_key":"prospetto","term_value":"prospetto","term_scope":"DT"}
+{"position":6,"term_key":"assieme/complessivo","term_value":"assieme/complessivo","term_scope":"DT"}
+{"position":7,"term_key":"vista trasversale/frontale","term_value":"vista trasversale/frontale","term_scope":"DT"}
+{"position":8,"term_key":"vista longitudinale/laterale","term_value":"vista longitudinale/laterale","term_scope":"DT"}
+{"position":9,"term_key":"vista in pianta","term_value":"vista in pianta","term_scope":"DT"}
+{"position":10,"term_key":"sezione trasversale/frontale","term_value":"sezione trasversale/frontale","term_scope":"DT"}
+{"position":11,"term_key":"sezione longitudinale/laterale","term_value":"sezione longitudinale/laterale","term_scope":"DT"}
+{"position":12,"term_key":"assonometria ","term_value":"assonometria ","term_scope":"DT"}
+{"position":13,"term_key":"veduta prospettica","term_value":"veduta prospettica","term_scope":"DT"}
+{"position":14,"term_key":"studio/schizzo","term_value":"studio/schizzo","term_scope":"DT"}
+{"position":15,"term_key":"rendering","term_value":"rendering","term_scope":"DT"}
+{"position":16,"term_key":"particolare","term_value":"particolare","term_scope":"DT"}

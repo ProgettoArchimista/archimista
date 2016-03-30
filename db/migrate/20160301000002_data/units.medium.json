@@ -1,0 +1,115 @@
+{"position":1,"term_key":"carta","term_value":"carta","term_scope":"CARS"}
+{"position":2,"term_key":"carta vegetale","term_value":"carta vegetale","term_scope":"CARS"}
+{"position":3,"term_key":"carta di riso","term_value":"carta di riso","term_scope":"CARS"}
+{"position":4,"term_key":"carta telata","term_value":"carta telata","term_scope":"CARS"}
+{"position":5,"term_key":"pergamena","term_value":"pergamena","term_scope":"CARS"}
+{"position":6,"term_key":"cuoio","term_value":"cuoio","term_scope":"CARS"}
+{"position":7,"term_key":"tela","term_value":"tela","term_scope":"CARS"}
+{"position":8,"term_key":"supporti misti","term_value":"supporti misti","term_scope":"CARS"}
+{"position":1,"term_key":"carta","term_value":"carta","term_scope":"D"}
+{"position":2,"term_key":"carta a mano","term_value":"carta a mano","term_scope":"D"}
+{"position":3,"term_key":"carta argentata","term_value":"carta argentata","term_scope":"D"}
+{"position":4,"term_key":"carta bianca","term_value":"carta bianca","term_scope":"D"}
+{"position":5,"term_key":"carta cerata","term_value":"carta cerata","term_scope":"D"}
+{"position":6,"term_key":"carta colorata","term_value":"carta colorata","term_scope":"D"}
+{"position":7,"term_key":"carta da lucido","term_value":"carta da lucido","term_scope":"D"}
+{"position":8,"term_key":"carta da spolvero","term_value":"carta da spolvero","term_scope":"D"}
+{"position":9,"term_key":"carta di riso","term_value":"carta di riso","term_scope":"D"}
+{"position":10,"term_key":"carta dorata","term_value":"carta dorata","term_scope":"D"}
+{"position":11,"term_key":"carta filigranata","term_value":"carta filigranata","term_scope":"D"}
+{"position":12,"term_key":"carta giapponese","term_value":"carta giapponese","term_scope":"D"}
+{"position":13,"term_key":"carta goffrata","term_value":"carta goffrata","term_scope":"D"}
+{"position":14,"term_key":"carta lucida","term_value":"carta lucida","term_scope":"D"}
+{"position":15,"term_key":"carta marmorizzata","term_value":"carta marmorizzata","term_scope":"D"}
+{"position":16,"term_key":"carta millimetrata","term_value":"carta millimetrata","term_scope":"D"}
+{"position":17,"term_key":"carta oliata","term_value":"carta oliata","term_scope":"D"}
+{"position":18,"term_key":"carta paglierina","term_value":"carta paglierina","term_scope":"D"}
+{"position":19,"term_key":"carta patinata","term_value":"carta patinata","term_scope":"D"}
+{"position":20,"term_key":"carta pergamena","term_value":"carta pergamena","term_scope":"D"}
+{"position":21,"term_key":"carta quadrettata","term_value":"carta quadrettata","term_scope":"D"}
+{"position":22,"term_key":"carta timbrata","term_value":"carta timbrata","term_scope":"D"}
+{"position":23,"term_key":"carta tinta","term_value":"carta tinta","term_scope":"D"}
+{"position":24,"term_key":"carta velina","term_value":"carta velina","term_scope":"D"}
+{"position":25,"term_key":"carta vellutata","term_value":"carta vellutata","term_scope":"D"}
+{"position":26,"term_key":"carta vergata","term_value":"carta vergata","term_scope":"D"}
+{"position":27,"term_key":"cartoncino","term_value":"cartoncino","term_scope":"D"}
+{"position":28,"term_key":"cartoncino bianco","term_value":"cartoncino bianco","term_scope":"D"}
+{"position":29,"term_key":"cartoncino colorato","term_value":"cartoncino colorato","term_scope":"D"}
+{"position":30,"term_key":"cartoncino da spolvero","term_value":"cartoncino da spolvero","term_scope":"D"}
+{"position":31,"term_key":"cartoncino telato","term_value":"cartoncino telato","term_scope":"D"}
+{"position":32,"term_key":"cartone","term_value":"cartone","term_scope":"D"}
+{"position":33,"term_key":"cartone bianco","term_value":"cartone bianco","term_scope":"D"}
+{"position":34,"term_key":"cartone colorato","term_value":"cartone colorato","term_scope":"D"}
+{"position":35,"term_key":"cartone da spolvero","term_value":"cartone da spolvero","term_scope":"D"}
+{"position":36,"term_key":"cartone telato","term_value":"cartone telato","term_scope":"D"}
+{"position":37,"term_key":"pergamena","term_value":"pergamena","term_scope":"D"}
+{"position":1,"term_key":"carta","term_value":"carta","term_scope":"DT"}
+{"position":2,"term_key":"carta vegetale","term_value":"carta vegetale","term_scope":"DT"}
+{"position":3,"term_key":"carta di riso","term_value":"carta di riso","term_scope":"DT"}
+{"position":4,"term_key":"carta telata","term_value":"carta telata","term_scope":"DT"}
+{"position":5,"term_key":"carta da lucido","term_value":"carta da lucido","term_scope":"DT"}
+{"position":6,"term_key":"carta millimetrata","term_value":"carta millimetrata","term_scope":"DT"}
+{"position":7,"term_key":"radex","term_value":"radex","term_scope":"DT"}
+{"position":8,"term_key":"file/supporto elettronico","term_value":"file/supporto elettronico","term_scope":"DT"}
+{"position":9,"term_key":"supporti misti","term_value":"supporti misti","term_scope":"DT"}
+{"position":1,"term_key":"albumina/carta","term_value":"albumina/carta","term_scope":"F"}
+{"position":2,"term_key":"ambrotipo","term_value":"ambrotipo","term_scope":"F"}
+{"position":3,"term_key":"aristotipo","term_value":"aristotipo","term_scope":"F"}
+{"position":4,"term_key":"autocromia","term_value":"autocromia","term_scope":"F"}
+{"position":5,"term_key":"calotipo","term_value":"calotipo","term_scope":"F"}
+{"position":6,"term_key":"carbone/carta","term_value":"carbone/carta","term_scope":"F"}
+{"position":7,"term_key":"carta salata","term_value":"carta salata","term_scope":"F"}
+{"position":8,"term_key":"cianotipia","term_value":"cianotipia","term_scope":"F"}
+{"position":9,"term_key":"collodio/vetro","term_value":"collodio/vetro","term_scope":"F"}
+{"position":10,"term_key":"dagherrotipo","term_value":"dagherrotipo","term_scope":"F"}
+{"position":11,"term_key":"digitale / virtuale","term_value":"digitale / virtuale","term_scope":"F"}
+{"position":12,"term_key":"fax / carta termica","term_value":"fax / carta termica","term_scope":"F"}
+{"position":13,"term_key":"ferrotipo","term_value":"ferrotipo","term_scope":"F"}
+{"position":14,"term_key":"fotocopia","term_value":"fotocopia","term_scope":"F"}
+{"position":15,"term_key":"gelatina ai sali d'argento/carta","term_value":"gelatina ai sali d'argento/carta","term_scope":"F"}
+{"position":16,"term_key":"gelatina bromuro d'argento/carta","term_value":"gelatina bromuro d'argento/carta","term_scope":"F"}
+{"position":17,"term_key":"gelatina bromuro d'argento/pellicola in rullo diapositiva (acetato)","term_value":"gelatina bromuro d'argento/pellicola in rullo diapositiva (acetato)","term_scope":"F"}
+{"position":18,"term_key":"gelatina bromuro d'argento/pellicola in rullo diapositiva (nitrato)","term_value":"gelatina bromuro d'argento/pellicola in rullo diapositiva (nitrato)","term_scope":"F"}
+{"position":19,"term_key":"gelatina bromuro d'argento/pellicola in rullo negativa (acetato)","term_value":"gelatina bromuro d'argento/pellicola in rullo negativa (acetato)","term_scope":"F"}
+{"position":20,"term_key":"gelatina bromuro d'argento/pellicola in rullo negativa (nitrato)","term_value":"gelatina bromuro d'argento/pellicola in rullo negativa (nitrato)","term_scope":"F"}
+{"position":21,"term_key":"gelatina bromuro d'argento/pellicola piana diapositiva (acetato)","term_value":"gelatina bromuro d'argento/pellicola piana diapositiva (acetato)","term_scope":"F"}
+{"position":22,"term_key":"gelatina bromuro d'argento/pellicola piana diapositiva (nitrato)","term_value":"gelatina bromuro d'argento/pellicola piana diapositiva (nitrato)","term_scope":"F"}
+{"position":23,"term_key":"gelatina bromuro d'argento/pellicola piana negativa (acetato)","term_value":"gelatina bromuro d'argento/pellicola piana negativa (acetato)","term_scope":"F"}
+{"position":24,"term_key":"gelatina bromuro d'argento/pellicola piana negativa (nitrato)","term_value":"gelatina bromuro d'argento/pellicola piana negativa (nitrato)","term_scope":"F"}
+{"position":25,"term_key":"gelatina bromuro d'argento/vetro","term_value":"gelatina bromuro d'argento/vetro","term_scope":"F"}
+{"position":26,"term_key":"gelatina cloruro d'argento/carta","term_value":"gelatina cloruro d'argento/carta","term_scope":"F"}
+{"position":27,"term_key":"gomma bicromatata/carta","term_value":"gomma bicromatata/carta","term_scope":"F"}
+{"position":28,"term_key":"inchiostri grassi/carta","term_value":"inchiostri grassi/carta","term_scope":"F"}
+{"position":29,"term_key":"platinotipo/carta","term_value":"platinotipo/carta","term_scope":"F"}
+{"position":30,"term_key":"polaroid","term_value":"polaroid","term_scope":"F"}
+{"position":31,"term_key":"provini/carta","term_value":"provini/carta","term_scope":"F"}
+{"position":32,"term_key":"stampa ai pigmenti/carta","term_value":"stampa ai pigmenti/carta","term_scope":"F"}
+{"position":33,"term_key":"telefoto","term_value":"telefoto","term_scope":"F"}
+{"position":34,"term_key":"varie","term_value":"varie","term_scope":"F"}
+{"position":35,"term_key":"collotipia","term_value":"collotipia","term_scope":"F"}
+{"position":36,"term_key":"fotoincisione","term_value":"fotoincisione","term_scope":"F"}
+{"position":37,"term_key":"fotoincisione a retino","term_value":"fotoincisione a retino","term_scope":"F"}
+{"position":38,"term_key":"stampa dye-transfer / carta","term_value":"stampa dye-transfer / carta","term_scope":"F"}
+{"position":39,"term_key":"stampa cromogenica / carta","term_value":"stampa cromogenica / carta","term_scope":"F"}
+{"position":40,"term_key":"stampa cibachrome/ilfochrome / carta","term_value":"stampa cibachrome/ilfochrome / carta","term_scope":"F"}
+{"position":41,"term_key":"stampa lambda / carta","term_value":"stampa lambda / carta","term_scope":"F"}
+{"position":42,"term_key":"stampa ink-jet / carta","term_value":"stampa ink-jet / carta","term_scope":"F"}
+{"position":1,"term_key":"carta","term_value":"carta","term_scope":"S"}
+{"position":2,"term_key":"carta giapponese","term_value":"carta giapponese","term_scope":"S"}
+{"position":3,"term_key":"carta velina","term_value":"carta velina","term_scope":"S"}
+{"position":4,"term_key":"cartoncino","term_value":"cartoncino","term_scope":"S"}
+{"position":5,"term_key":"cartone","term_value":"cartone","term_scope":"S"}
+{"position":6,"term_key":"cuoio","term_value":"cuoio","term_scope":"S"}
+{"position":7,"term_key":"heliogravure","term_value":"heliogravure","term_scope":"S"}
+{"position":8,"term_key":"ialografia","term_value":"ialografia","term_scope":"S"}
+{"position":9,"term_key":"maniera a granito","term_value":"maniera a granito","term_scope":"S"}
+{"position":10,"term_key":"maniera a lavis","term_value":"maniera a lavis","term_scope":"S"}
+{"position":11,"term_key":"pergamena","term_value":"pergamena","term_scope":"S"}
+{"position":12,"term_key":"pirografia","term_value":"pirografia","term_scope":"S"}
+{"position":13,"term_key":"seta","term_value":"seta","term_scope":"S"}
+{"position":14,"term_key":"stoffa","term_value":"stoffa","term_scope":"S"}
+{"position":15,"term_key":"tela","term_value":"tela","term_scope":"S"}
+{"position":16,"term_key":"tessuto","term_value":"tessuto","term_scope":"S"}
+{"position":17,"term_key":"vari","term_value":"vari","term_scope":"S"}
+{"position":18,"term_key":"velluto","term_value":"velluto","term_scope":"S"}
+{"position":19,"term_key":"vetro","term_value":"vetro","term_scope":"S"}

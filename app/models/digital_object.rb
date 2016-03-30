@@ -20,8 +20,8 @@ class DigitalObject < ActiveRecord::Base
 
   # Paperclip
   has_attached_file :asset,
-    :styles => { :large => '1280x1280>', :medium => '210x210>', :thumb => '130x130>' },
-    :url => '/digital_objects/:access_token/:style.:extension',
+    :styles => { :large => "1280x1280>", :medium => "210x210>", :thumb => "130x130>" },
+    :url => "/digital_objects/:access_token/:style.:extension",
     :default_url => "/images/missing-:style.jpg"
 
   validates_attachment_presence :asset

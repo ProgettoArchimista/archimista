@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module TreeExt
   module Template
 

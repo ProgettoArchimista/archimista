@@ -7,16 +7,22 @@ class Project < ActiveRecord::Base
   belongs_to :updater,  :class_name => "User", :foreign_key => "updated_by"
   has_one :import, :as => :importable, :dependent => :destroy
 
-  has_many  :project_credits, :dependent => :destroy
+# Upgrade 2.1.0 inizio
+#  has_many  :project_credits, :dependent => :destroy
+# Upgrade 2.1.0 fine
   has_many  :project_urls, :dependent => :destroy
-# Upgrade 2.0.0 inizio
-=begin
+# Upgrade 2.1.0 inizio
+=begin 1.2.1
   has_many  :project_managers, :class_name => 'ProjectCredit', :conditions => {:credit_type => 'PM'}
   has_many  :project_stakeholders, :class_name => 'ProjectCredit', :conditions => {:credit_type => 'PS'}
 =end
+=begin 2.0.0
   has_many  :project_managers, -> { where({:credit_type => 'PM'}) }, :class_name => 'ProjectCredit'
   has_many  :project_stakeholders, -> { where({:credit_type => 'PS'}) }, :class_name => 'ProjectCredit'
-# Upgrade 2.0.0 fine
+=end
+  has_many  :project_managers, :dependent => :destroy
+  has_many  :project_stakeholders, :dependent => :destroy
+# Upgrade 2.1.0 fine
 
 
   # Many-to-many associations (rel)
@@ -33,10 +39,11 @@ class Project < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if => proc { |a| a['url'].blank? }
 
+# Upgrade 2.1.0 inizio
+=begin
   accepts_nested_attributes_for :project_credits,
                                 :allow_destroy => true,
                                 :reject_if => proc { |a| a['credit_name'].blank? }
-
   accepts_nested_attributes_for :project_managers,
                                 :allow_destroy => true,
                                 :reject_if => proc { |a| a['credit_name'].blank? }
@@ -44,6 +51,15 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :project_stakeholders,
                                 :allow_destroy => true,
                                 :reject_if => proc { |a| a['credit_name'].blank? }
+=end
+  accepts_nested_attributes_for :project_managers,
+                                :allow_destroy => true,
+                                :reject_if => proc { |a| a['name'].blank? }
+
+  accepts_nested_attributes_for :project_stakeholders,
+                                :allow_destroy => true,
+                                :reject_if => proc { |a| a['name'].blank? }
+# Upgrade 2.1.0 fine
 
   accepts_nested_attributes_for :rel_project_fonds,
                                 :allow_destroy => true,

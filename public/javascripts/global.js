@@ -182,26 +182,62 @@ $(document).ready(function() {
 
   // CLONE NESTED ATTRIBUTES
   // OPTIMIZE: la funzione clone può essere estratta e condivisa come quella di autocomplete
-
-  $('form a.add_child').click( function() {
-    var new_index = new Date().getTime();
-    var data_assoc = $(this).attr('data-association');
+/* Upgrade 2.1.0 inizio */
+  $('form a.add_child').click( function() { add_child_click($(this)); } );
+	
+  function add_child_click(jqCtl)
+	{
+		var new_index = new Date().getTime();
+    var data_assoc = jqCtl.attr('data-association');
     var new_fields_$ = $('#' + data_assoc).find('.fields:first').clone();
+		
+		var new_fields_to_be_removed = new_fields_$.find("input[type=hidden][id$='_id']");
+		new_fields_to_be_removed.each(function() { $(this).remove(); } );
+		
+		var inner_sc2_containers_fields_to_be_removed = new_fields_$.find(".sc2_container .fields:not(:first)");
+		inner_sc2_containers_fields_to_be_removed.each(function() { $(this).remove(); } );
 
+		new_fields_$.find(".sc2_container").attr('id',
+			function()
+			{
+				if ($(this).attr('id'))
+				{
+					return $(this).attr('id').replace(/(\d+)(?![a-zA-Z-_\[\]]*\d+)/, new_index);
+				}
+			}
+		);
+		new_fields_$.find(".add_child").attr('data-association',
+			function()
+			{
+				if ($(this).attr('data-association'))
+				{
+					return $(this).attr('data-association').replace(/(\d+)(?![a-zA-Z-_\[\]]*\d+)/, new_index);
+				}
+			}
+		);
+		new_fields_$.find(".add_child").each(function() { $(this).click(function() { add_child_click($(this)); } ) } );
+		new_fields_$.find(".sc2_openedvoc_link").each(function() { $(this).click(function() { pbl_openedvoc_open($(this)); } ) } );
+		
+		var replace_reference_string;
+		if (jqCtl.attr('replace_reference') == null)
+			replace_reference_string = null;
+		else
+			replace_reference_string = jqCtl.attr('replace_reference');
+		
     new_fields_$.find('label, input, select, textarea')
     .attr('for', function(){
       if ($(this).attr('for')) {
-        return $(this).attr('for').replace(/\d+/, new_index);
+				return prv_adjust_attribute($(this).attr('for'), new_index, replace_reference_string);
       }
     } )
     .attr('id', function(){
       if ($(this).attr('id')) {
-        return $(this).attr('id').replace(/\d+/, new_index);
+				return prv_adjust_attribute($(this).attr('id'), new_index, replace_reference_string);
       }
     } )
     .attr('name', function(){
       if ($(this).attr('name')) {
-        return $(this).attr('name').replace(/\d+/, new_index);
+				return prv_adjust_attribute($(this).attr('name'), new_index, replace_reference_string);
       }
     } );
 
@@ -217,10 +253,41 @@ $(document).ready(function() {
     new_fields_$.find('textarea').empty();
 
     new_fields_$.find('.autocomplete').archimate_autocomplete_setup();
-    $(this).parent().before(new_fields_$);
+    jqCtl.parent().before(new_fields_$);
 
-  });
-
+  }
+	
+	function prv_adjust_attribute(ip_value, new_index, replace_reference_string)
+	{
+		var op_value;
+		var p;
+		
+		try
+		{
+			if (replace_reference_string == null)
+			{
+				op_value = ip_value.replace(/(\d+)(?![a-zA-Z-_\[\]]*\d+)/, new_index);
+			}
+			else
+			{
+				p = ip_value.indexOf(replace_reference_string);
+				if (p >= 0)
+				{
+					p += replace_reference_string.length;
+					op_value = ip_value.substr(0, p) + ip_value.substr(p).replace(/\d+/, new_index);					
+				}
+				else
+					op_value = ip_value;
+			}
+		}
+		catch (e)
+		{
+			op_value = ip_value;
+		}
+		return op_value;
+	}
+/* Upgrade 2.1.0 fine */
+	
   $('.textile').markItUp(mySettings,{});
 
   // DIGITAL OBJECTS

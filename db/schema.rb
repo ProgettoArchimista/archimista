@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20120528085635) do
+ActiveRecord::Schema.define(version: 20160321000001) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "identifier",        limit: 255
@@ -538,10 +538,38 @@ ActiveRecord::Schema.define(version: 20120528085635) do
   add_index "fonds", ["db_source", "legacy_parent_id"], name: "index_fonds_on_source_and_legacy_parent_id"
   add_index "fonds", ["group_id"], name: "index_fonds_on_group_id"
 
-  create_table "groups", force: :cascade do |t|
-    t.string   "name",       limit: 255
+  create_table "group_images", force: :cascade do |t|
+    t.integer  "related_group_id"
+    t.string   "type",               limit: 255
+    t.integer  "position"
+    t.string   "title",              limit: 255
+    t.text     "description"
+    t.string   "access_token",       limit: 255
+    t.string   "asset_file_name",    limit: 255
+    t.string   "asset_content_type", limit: 255
+    t.integer  "asset_file_size"
+    t.datetime "asset_updated_at"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.integer  "group_id"
+    t.string   "db_source",          limit: 255
+    t.string   "legacy_id",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  add_index "group_images", ["db_source", "legacy_id"], name: "index_group_images_on_source_and_legacy_id"
+  add_index "group_images", ["related_group_id"], name: "index_group_images_on_related_group_id_id"
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name",                 limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "short_name",           limit: 30
+    t.string   "site_caption",         limit: 255
+    t.text     "description"
+    t.string   "credits_link_caption", limit: 255
+    t.text     "credits"
   end
 
   create_table "headings", force: :cascade do |t|
@@ -751,19 +779,31 @@ ActiveRecord::Schema.define(version: 20120528085635) do
     t.string  "display_name",    limit: 255
   end
 
-  create_table "project_credits", force: :cascade do |t|
+  create_table "project_managers", force: :cascade do |t|
     t.integer  "project_id"
-    t.string   "credit_type", limit: 255
-    t.string   "qualifier",   limit: 255
-    t.string   "credit_name", limit: 255
-    t.string   "db_source",   limit: 255
-    t.string   "legacy_id",   limit: 255
+    t.string   "qualifier",  limit: 255
+    t.string   "name",       limit: 255
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "project_credits", ["db_source", "legacy_id"], name: "index_project_credits_on_source_and_legacy_id"
-  add_index "project_credits", ["project_id"], name: "index_project_credits_on_project_id"
+  add_index "project_managers", ["db_source", "legacy_id"], name: "index_project_managers_on_source_and_legacy_id"
+  add_index "project_managers", ["project_id"], name: "index_project_managers_on_project_id"
+
+  create_table "project_stakeholders", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "qualifier",  limit: 255
+    t.string   "name",       limit: 255
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_stakeholders", ["db_source", "legacy_id"], name: "index_project_stakeholders_on_source_and_legacy_id"
+  add_index "project_stakeholders", ["project_id"], name: "index_project_stakeholders_on_project_id"
 
   create_table "project_urls", force: :cascade do |t|
     t.integer  "project_id"
@@ -981,6 +1021,146 @@ ActiveRecord::Schema.define(version: 20120528085635) do
   add_index "rel_unit_sources", ["db_source", "legacy_unit_id"], name: "index_rel_unit_sources_on_source_and_legacy_unit_id"
   add_index "rel_unit_sources", ["source_id"], name: "index_rel_unit_sources_on_source_id"
   add_index "rel_unit_sources", ["unit_id"], name: "index_rel_unit_sources_on_unit_id"
+
+  create_table "sc2_attribution_reasons", force: :cascade do |t|
+    t.integer  "sc2_author_id"
+    t.string   "autm",          limit: 250
+    t.string   "db_source",     limit: 255
+    t.string   "legacy_id",     limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_attribution_reasons", ["db_source", "legacy_id"], name: "index_sc2_attribution_reasons_on_db_source_and_legacy_id"
+  add_index "sc2_attribution_reasons", ["sc2_author_id"], name: "index_sc2_attribution_reasons_on_sc2_author_id"
+
+  create_table "sc2_authors", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.string   "autr",       limit: 50
+    t.string   "autn",       limit: 150
+    t.string   "auta",       limit: 100
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_authors", ["db_source", "legacy_id"], name: "index_sc2_authors_on_db_source_and_legacy_id"
+  add_index "sc2_authors", ["unit_id"], name: "index_sc2_authors_on_unit_id"
+
+  create_table "sc2_commission_names", force: :cascade do |t|
+    t.integer  "sc2_commission_id"
+    t.string   "cmmn",              limit: 70
+    t.string   "db_source",         limit: 255
+    t.string   "legacy_id",         limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_commission_names", ["db_source", "legacy_id"], name: "index_sc2_commission_names_on_db_source_and_legacy_id"
+  add_index "sc2_commission_names", ["sc2_commission_id"], name: "index_sc2_commission_names_on_sc2_commission_id"
+
+  create_table "sc2_commissions", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.string   "cmmc",       limit: 100
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_commissions", ["db_source", "legacy_id"], name: "index_sc2_commissions_on_db_source_and_legacy_id"
+  add_index "sc2_commissions", ["unit_id"], name: "index_sc2_commissions_on_unit_id"
+
+  create_table "sc2_scales", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.string   "sca",        limit: 100
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_scales", ["db_source", "legacy_id"], name: "index_sc2_scales_on_db_source_and_legacy_id"
+  add_index "sc2_scales", ["unit_id"], name: "index_sc2_scales_on_unit_id"
+
+  create_table "sc2_techniques", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.string   "mtct",       limit: 250
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_techniques", ["db_source", "legacy_id"], name: "index_sc2_techniques_on_db_source_and_legacy_id"
+  add_index "sc2_techniques", ["unit_id"], name: "index_sc2_techniques_on_unit_id"
+
+  create_table "sc2_terms", force: :cascade do |t|
+    t.integer  "sc2_vocabulary_id"
+    t.integer  "position"
+    t.string   "term_key",          limit: 255
+    t.string   "term_value",        limit: 255
+    t.string   "term_scope",        limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_terms", ["sc2_vocabulary_id"], name: "index_sc2_terms_on_sc2_vocabulary_id"
+
+  create_table "sc2_textual_elements", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.string   "isri",       limit: 2200
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_textual_elements", ["db_source", "legacy_id"], name: "index_sc2_textual_elements_on_db_source_and_legacy_id"
+  add_index "sc2_textual_elements", ["unit_id"], name: "index_sc2_textual_elements_on_unit_id"
+
+  create_table "sc2_visual_elements", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.string   "stmd",       limit: 500
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_visual_elements", ["db_source", "legacy_id"], name: "index_sc2_visual_elements_on_db_source_and_legacy_id"
+  add_index "sc2_visual_elements", ["unit_id"], name: "index_sc2_visual_elements_on_unit_id"
+
+  create_table "sc2_vocabularies", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2_vocabularies", ["name"], name: "index_sc2_vocabularies_on_name"
+
+  create_table "sc2s", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.string   "sgti",       limit: 250
+    t.string   "cmmr",       limit: 25
+    t.string   "lrc",        limit: 250
+    t.string   "lrd",        limit: 50
+    t.string   "mtce",       limit: 250
+    t.string   "sdtt",       limit: 50
+    t.string   "sdts",       limit: 50
+    t.string   "dpgf",       limit: 100
+    t.float    "misa",       limit: 6
+    t.float    "misl",       limit: 6
+    t.string   "ort",        limit: 50
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sc2s", ["db_source", "legacy_id"], name: "index_sc2s_on_db_source_and_legacy_id"
+  add_index "sc2s", ["unit_id"], name: "index_sc2s_on_unit_id"
 
   create_table "source_types", force: :cascade do |t|
     t.integer  "code"
@@ -1221,6 +1401,7 @@ ActiveRecord::Schema.define(version: 20120528085635) do
     t.string   "legacy_root_fond_id",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "sc2_tsk",                   limit: 10
   end
 
   add_index "units", ["ancestry"], name: "index_units_on_ancestry"

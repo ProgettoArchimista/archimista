@@ -36,6 +36,14 @@ class ApplicationController < ActionController::Base
 # Upgrade 2.0.0 fine
   end
 
+# Upgrade 2.1.0 inizio
+  def sc2_terms
+    @sc2_terms = Sc2Term.joins(:sc2_vocabulary).
+      select("sc2_terms.*, sc2_vocabularies.name AS vocabulary_name").
+      order("sc2_vocabularies.name, sc2_terms.position")
+  end
+# Upgrade 2.1.0 fine
+
   def langs
 # Upgrade 2.0.0 inizio
 #    @langs = Lang.find(:all, :conditions => {:active => true})

@@ -14,7 +14,10 @@
   <% if controller_name == "quality_checks" %>
     <%= stylesheet_link_tag "quality_checks" %>
   <% end %>
-  <% if controller_name == "digital_objects" %>
+<%# Upgrade 2.1.0 inizio %>
+<%# aggiunto controller_name == "group_images" %>
+<%# Upgrade 2.1.0 fine %>
+  <% if controller_name == "digital_objects" || controller_name == "group_images" %>
     <%= stylesheet_link_tag "jquery.fileupload-ui" %>
   <% end %>
   <%= yield :stylesheets %>
@@ -63,10 +66,16 @@
   <% if ["imports", "exports"].include?(controller_name) %>
     <%= javascript_include_tag "imports-exports" %>
   <% end %>
-  <% if controller_name == "digital_objects" && action_name == "index" %>
+<%# Upgrade 2.1.0 inizio %>
+<%# aggiunto controller_name == "group_images" %>
+<%# Upgrade 2.1.0 fine %>
+  <% if (controller_name == "digital_objects" || controller_name == "group_images") && action_name == "index" %>
     <%= javascript_include_tag "digital-objects-index" %>
   <% end %>
-  <% if controller_name == "digital_objects" && action_name == "new" %>
+<%# Upgrade 2.1.0 inizio %>
+<%# aggiunto controller_name == "group_images" %>
+<%# Upgrade 2.1.0 fine %>
+  <% if (controller_name == "digital_objects" || controller_name == "group_images") && action_name == "new" %>
     <%= javascript_include_tag "jqFileUpload/vendor/jquery.ui.widget",
                                "jqFileUpload/tmpl.min",
                                "jqFileUpload/load-image-patched.min",

@@ -1,0 +1,24 @@
+<%# Upgrade 2.1.0 inizio %>
+
+<%
+  context_caption = t("edit_record")
+  if @group_image.is_carousel?
+    context_caption = t("index_group_carousel_images")
+    goto_list_caption = t("index_group_carousel_images")
+  else
+    context_caption = t("index_group_logo_images")
+    goto_list_caption = t("index_group_logo_images")
+  end
+%>
+
+<% content_for :status_bar do %>
+<%# TAI aggiunto raw() %>
+    <h2><%= raw([t(@group.class.name.underscore.pluralize), @group.name, context_caption, t("edit_record")].join(path_separator)) %></h2>
+  <div id="links">
+    <%= link_to_index goto_list_caption, @group_image.group_group_images_path(@group) %>
+  </div>
+<% end %>
+
+<%= render :partial => "form_single" %>
+
+<%# Upgrade 2.1.0 fine %>

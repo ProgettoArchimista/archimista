@@ -7,9 +7,64 @@
 <%# TAI aggiunto = prima di form_for %>
 <%= form_for @group do |f| %>
 <%# TAI aggiunto raw() %>
-<%# TAI aggiunto parametro per specificare nome e caption %>
-  <%= f.label :name, raw(t('name') + required_marker) %>
-  <%= f.text_field :name, :class => "span6" %>
+<%# TAI aggiunto parametro per specificare nome e caption, cambiato t('name') in t('group_name') %>
+  <%= f.label :name, raw(t('group_name') + required_marker) %>
+<%# Upgrade 2.1.0 inizio %>
+  <% if @group.name == "default" %>
+    <%= f.text_field :name, :class => "span6", :readonly => true %>
+  <% else %>
+    <%= f.text_field :name, :class => "span6" %>
+  <% end %>
+<%# Upgrade 2.1.0 fine %>
+
+<%# Upgrade 2.1.0 inizio %>
+  <%= f.label :short_name, raw(t('group_short_name') + required_marker) %>
+  <%= f.text_field :short_name, :class => "span6" %>
+
+  <%= f.label :site_caption, t('group_site_caption') %>
+  <%= f.text_field :site_caption, :class => "span6" %>
+
+  <%= f.label :description, t('group_description') %>
+  <%= f.text_area :description, :class => "long-content span6" %>
+
+  <%= f.label :credits_link_caption, t('group_credits_link_caption') %>
+  <%= f.text_field :credits_link_caption, :class => "span6" %>
+
+  <%= f.label :credits, t('group_credits') %>
+  <%= f.text_area :credits, :class => "long-content span6" %>
+
+  <% if IM_ENABLED %>
+    <div class="well" style="padding-top: 5px; padding-bottom: 5px;">
+      <% if %w[new create].include?(action_name) %>
+        <span class="muted"><%= t('group_carousel_images') %></span>
+      <% else %>
+        <%= link_to_carousel_images_by_count(@group.carousel_images.count, t('group_carousel_images'), @group) %>
+        <%= link_to_carousel_images_by_count(@group.carousel_images.count, @group.carousel_images.count, @group, :class => "badge") unless @group.carousel_images.count == 0 %>
+      <% end %>
+    </div>
+  <% else %>
+    <div id="digital-objects-warning" class="well">
+      <span class="muted"><%= t('group_carousel_images') %></span>
+    </div>
+  <% end %>
+
+  <% if IM_ENABLED %>
+    <div class="well" style="padding-top: 5px; padding-bottom: 5px;">
+      <% if %w[new create].include?(action_name) %>
+        <span class="muted"><%= t('group_logo_images') %></span>
+      <% else %>
+        <%= link_to_logo_images_by_count(@group.logo_images.count, t('group_logo_images'), @group) %>
+        <%= link_to_logo_images_by_count(@group.logo_images.count, @group.logo_images.count, @group, :class => "badge") unless @group.logo_images.count == 0 %>
+      <% end %>
+    </div>
+  <% else %>
+    <div id="digital-objects-warning" class="well">
+      <span class="muted"><%= t('group_logo_images') %></span>
+    </div>
+  <% end %>
+
+<%# Upgrade 2.1.0 fine %>
+
   <p><%= f.submit @group.new_record? ? t('create_group') : t('save'), :class => "btn btn-primary" %></p>
 <% end %>
 </div>

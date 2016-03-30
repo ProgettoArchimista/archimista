@@ -54,7 +54,7 @@ class Unit < ActiveRecord::Base
   has_many :unit_urls, :dependent => :destroy
 # Upgrade 2.0.0 inizio
 #  has_many :unit_editors, :dependent => :destroy, :order => :edited_at
-  has_many :unit_editors, -> { order :edited_at }, :dependent => :destroy
+  has_many :unit_editors, -> { order(:edited_at) }, :dependent => :destroy
 # Upgrade 2.0.0 fine
 
   has_many :digital_objects, :as => :attachable, :dependent => :destroy
@@ -70,6 +70,78 @@ class Unit < ActiveRecord::Base
   has_many :iccd_authors, :dependent => :destroy
   has_many :iccd_subjects, :dependent => :destroy
   has_many :iccd_damages, :dependent => :destroy
+
+# Upgrade 2.1.0 inizio
+  has_one :sc2
+  has_many :sc2_textual_elements, :dependent => :destroy
+  has_many :sc2_visual_elements, :dependent => :destroy
+  has_many :sc2_authors, :dependent => :destroy
+  has_many :sc2_attribution_reasons, :through => :sc2_authors, :dependent => :destroy
+  has_many :sc2_commissions, :dependent => :destroy
+  has_many :sc2_commission_names, :through => :sc2_commissions, :dependent => :destroy
+	has_many :sc2_techniques, :dependent => :destroy
+  has_many :sc2_scales, :dependent => :destroy
+
+  accepts_nested_attributes_for :sc2, :allow_destroy => true
+  accepts_nested_attributes_for :sc2_textual_elements, :allow_destroy => true, :reject_if => proc { |a| a['isri'].blank? }
+  accepts_nested_attributes_for :sc2_visual_elements, :allow_destroy => true, :reject_if => proc { |a| a['stmd'].blank? }
+  accepts_nested_attributes_for :sc2_authors, :allow_destroy => true, :reject_if => :sc2_authors_reject_if
+	accepts_nested_attributes_for :sc2_attribution_reasons, :allow_destroy => true
+	accepts_nested_attributes_for :sc2_commissions, :allow_destroy => true, :reject_if => :sc2_commissions_reject_if
+	accepts_nested_attributes_for :sc2_commission_names, :allow_destroy => true, :reject_if => proc { |a| a['cmmn'].blank? }
+	accepts_nested_attributes_for :sc2_techniques, :allow_destroy => true, :reject_if => proc { |a| a['mtct'].blank? }
+  accepts_nested_attributes_for :sc2_scales, :allow_destroy => true, :reject_if => proc { |a| a['sca'].blank? }
+
+  def sc2_authors_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:autr].blank? && attributes[:autn].blank? && attributes[:auta].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  def sc2_commissions_reject_if_org(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:cmmc].blank?
+    if (empty)
+      begin
+        sc2_commission_names = attributes[:sc2_commission_names_attributes]
+        sc2_commission_names.each do |r|
+          if !r[1][:cmmn].blank?
+            empty = false
+            break
+          end
+        end
+      rescue Exception => e
+        empty = false
+      end
+    end
+    attributes.merge!({_destroy: 1}) if (exists and empty)
+    return (!exists and empty)
+  end
+
+# gestisce i seguenti casi: 1) cmmc="" e tutti i cmmn="" 2) cmmc="" e tutti i cmmn hanno destroy=1 e almeno un cmmn<>""
+  def sc2_commissions_reject_if(attributes)
+    exists = attributes[:id].present?
+    sc2_commissions_empty = attributes[:cmmc].blank?
+
+    sc2_commission_names = attributes[:sc2_commission_names_attributes]
+		sc2_commission_names_empty = (sc2_commission_names.size > 0)
+    if (sc2_commissions_empty)
+      begin
+        sc2_commission_names.each do |r|
+          if !r[1][:cmmn].blank? && (!r[1][:_destroy].present? || (r[1][:_destroy].present? && r[1][:_destroy] == "0"))
+            sc2_commission_names_empty = false
+            break
+          end
+        end
+      rescue Exception => e
+        sc2_commission_names_empty = false
+      end
+    end
+    attributes.merge!({_destroy: 1}) if (exists and sc2_commissions_empty and sc2_commission_names_empty)
+    return (!exists and (sc2_commissions_empty and sc2_commission_names_empty))
+  end
+# Upgrade 2.1.0 fine
 
   # Nested attributes
   accepts_nested_attributes_for :iccd_damages,
@@ -239,7 +311,7 @@ class Unit < ActiveRecord::Base
 
   def formatted_title
 # Upgrade 2.0.0 inizio
-# OCIO : non si capisce perché su given_title? si verifica ActionView::Template::Error (missing attribute: given_title)
+# OCIO : non si capisce perche' su given_title? si verifica ActionView::Template::Error (missing attribute: given_title)
 #   given_title? ? "[#{title}]" : title
     title
 # Upgrade 2.0.0 fine

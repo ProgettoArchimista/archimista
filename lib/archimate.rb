@@ -1,5 +1,3 @@
-# coding: utf-8
-
 require 'archimate/module_utils'
 require 'archimate/core_ext/array'
 require 'archimate/core_ext/hash'

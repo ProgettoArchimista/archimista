@@ -10,7 +10,12 @@
 <div class="span12">
 
 <div id="index-controls">
-  <%= link_to t('new'), new_group_path, { :class => "btn btn-small new" } %>
+<%# Upgrade 2.1.0 inizio %>
+  <%#= link_to t('new'), new_group_path, { :class => "btn btn-small new" } %>
+  <% if current_ability.can?(:create, Group) %>
+    <%= link_to t('new'), new_group_path, { :class => "btn btn-small new" } %>
+  <% end %>
+<%# Upgrade 2.1.0 fine %>
 </div>
 
 <div class="row">
@@ -25,7 +30,12 @@
       </tr>
       <% @groups.each do |group| %>
       <tr>
-        <td><%= link_to_unless(group.name == 'default', group.name, edit_group_path(group)) %></td>
+        <td>
+<%# Upgrade 2.1.0 inizio %>
+          <%#= link_to_unless(group.name == 'default', group.name, edit_group_path(group)) %>
+          <%= link_to group.name, edit_group_path(group) %>
+<%# Upgrade 2.1.0 fine %>
+        </td>
         <td class="center"><%= group.users.select {|u| u.active == true }.size %> / <%= group.users.size %></td>
 <%# TAI aggiunto raw() %>
         <td class="center"><%= number_to_human_size(@assets[group.id]) || raw("&mdash;") %></td>

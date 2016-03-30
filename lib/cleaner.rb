@@ -25,7 +25,13 @@ module Cleaner
   def blank_default(*fields)
     before_validation do |record|
       fields.each do |attr_name|
-        record.send("#{attr_name}=".to_sym, I18n.translate("activerecord.blank_defaults.#{name.underscore}.#{attr_name}")) if record.send(attr_name).blank?
+# Upgrade 2.1.0 inizio
+#        record.send("#{attr_name}=".to_sym, I18n.translate("activerecord.blank_defaults.#{name.underscore}.#{attr_name}")) if record.send(attr_name).blank?
+        begin
+          record.send("#{attr_name}=".to_sym, I18n.translate("activerecord.blank_defaults.#{self.class.name.underscore}.#{attr_name}")) if record.send(attr_name).blank?
+        rescue Exception => e
+        end
+# Upgrade 2.1.0 fine
       end
     end
   end

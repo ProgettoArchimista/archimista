@@ -160,6 +160,8 @@ module ReportSupport
       # compilatori
       { :name => "unit_editors.group", :name_tag => "unit_editors", :callback => proc { |report_settings, entity_sym, entity_obj, ai| if entity_obj.unit_editors.present? then prv_html_rtf_editors_callback(report_settings, entity_sym, ai.name_caption, entity_obj.unit_editors) else "" end } },
 
+# Upgrade 2.1.0 inizio
+=begin
       # schede speciali - identificazione
       { :name => "tsk", :name_caption => "TSK (tipologia scheda)" },
       { :name => "iccd_description.ogtd", :name_caption => "OGTD/OGTT (definizione dell'oggetto)" },
@@ -186,6 +188,28 @@ module ReportSupport
       { :name => "iccd_damages.group", :name_caption => "STCS (stato di conservazione specifico)", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_unit_iccd_damages_callback(report_settings, entity_sym, entity_obj, ai) } },
       { :name => "iccd_description.utf", :name_caption => "UTF (funzione)" },
       { :name => "iccd_description.uto", :name_caption => "UTO (occasione)" }
+=end
+
+      # schede speciali - identificazione
+      { :name => "sc2_tsk", :name_caption => "Scheda speciale" },
+      { :name => "sc2_textual_elements.group", :name_tag => "sc2_textual_elements", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_sc2_textual_elements_callback(report_settings, entity_sym, entity_obj, ai) } },
+      { :name => "sc2_visual_elements.group", :name_tag => "sc2_visual_elements", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_sc2_visual_elements_callback(report_settings, entity_sym, entity_obj, ai) } },
+      { :name => "sc2.sgti", :name_caption => "Soggetto" },
+      { :name => "sc2_authors.group", :name_tag => "sc2_authors", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_sc2_authors_callback(report_settings, entity_sym, entity_obj, ai) } },
+      { :name => "sc2_commissions.group", :name_tag => "sc2_commissions", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_sc2_commissions_callback(report_settings, entity_sym, entity_obj, ai) } },
+      { :name => "sc2.cmmr", :name_caption => "Numero di commessa" },
+      { :name => "sc2.lrc", :name_caption => "Luogo della ripresa" },
+      { :name => "sc2.lrd", :name_caption => "Data della ripresa" },
+      { :name => "sc2_techniques.group", :name_tag => "sc2_techniques", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_sc2_techniques_callback(report_settings, entity_sym, entity_obj, ai) } },
+      { :name => "sc2.mtce", :name_caption => "Esecuzione" },
+      { :name => "sc2_scales.group", :name_tag => "sc2_scales", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_sc2_scales_callback(report_settings, entity_sym, entity_obj, ai) } },
+      { :name => "sc2.sdtt", :name_caption => "Tipo di rappresentazione" },
+      { :name => "sc2.sdts", :name_caption => "Rappresentazione tematica" },
+      { :name => "sc2.dpgf", :name_caption => "Numero tavola" },
+      { :name => "sc2.misa", :name_caption => "Altezza" },
+      { :name => "sc2.misl", :name_caption => "Larghezza" },
+      { :name => "sc2.ort", :name_caption => "Orientamento" }
+# Upgrade 2.1.0 fine
     ]
     return prv_make_available_attributes_info(attributes_template)
   end
@@ -748,7 +772,7 @@ private
         entity_obj.sources.each do |source|
           op_html = op_html + prv_html_get_list_item_open_tag
           op_html = op_html + "[<em>" + source.short_title + "</em>]"
-          op_html = op_html + " " + formatted_source(source, false)
+          op_html = op_html + " " + formatted_source(source, false, false)
           op_html = op_html + prv_html_get_list_item_close_tag
         end
         op_html = op_html + prv_html_get_list_close_tag
@@ -762,7 +786,7 @@ private
         rtf_stylesheet_index = report_settings.get_attribute_rtf_stylesheet_code(rtf_stylesheet_key)
 
         entity_obj.sources.each do |source|
-          s = formatted_source(source, false)
+          s = formatted_source(source, false, true)
           s = s.gsub("<em>", "\\i" + GCrwFontItalicEnabled.to_s + " ")
           s = s.gsub("</em>", "\\i" + GCrwFontItalicDisabled.to_s + " ")
 
@@ -1313,12 +1337,86 @@ private
     return op_html
   end
 
+# Upgrade 2.1.0 inizio
+# -------------------------------
+  def prv_html_rtf_sc2_textual_elements_callback(report_settings, entity_sym, entity_obj, ai)
+    if entity_obj.sc2_textual_elements.present?
+      ers = report_settings.entity_search_by_name(entity_sym)
+      rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "sc2_textual_elements")
+      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_textual_elements, ["isri"], " ", [""], [""], [""])
+    else
+      op_html = ""
+    end
+    return op_html
+  end
+
+  def prv_html_rtf_sc2_visual_elements_callback(report_settings, entity_sym, entity_obj, ai)
+    if entity_obj.sc2_visual_elements.present?
+      ers = report_settings.entity_search_by_name(entity_sym)
+      rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "sc2_visual_elements")
+      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_visual_elements, ["stmd"], " ", [""], [""], [""])
+    else
+      op_html = ""
+    end
+    return op_html
+  end
+
+# -------------------------------
+  def prv_html_rtf_sc2_authors_callback(report_settings, entity_sym, entity_obj, ai)
+    if entity_obj.sc2_authors.present? then
+      ers = report_settings.entity_search_by_name(entity_sym)
+      rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "sc2_authors")
+
+      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_authors, ["autn", "auta", "autr"], " ", ["", "", " ("], ["", "", ")"], ["", "", ""])
+    else
+      op_html = ""
+    end
+    return op_html
+  end
+
+  def prv_html_rtf_sc2_commissions_callback(report_settings, entity_sym, entity_obj, ai)
+    if entity_obj.sc2_commissions.present?
+      ers = report_settings.entity_search_by_name(entity_sym)
+      rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "sc2_commissions")
+      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_commissions, ["cmmc"], " ", [""], [""], [""])
+    else
+      op_html = ""
+    end
+    return op_html
+  end
+
+  def prv_html_rtf_sc2_techniques_callback(report_settings, entity_sym, entity_obj, ai)
+    if entity_obj.sc2_techniques.present?
+      ers = report_settings.entity_search_by_name(entity_sym)
+      rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "sc2_techniques")
+      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_techniques, ["mtct"], " ", [""], [""], [""])
+    else
+      op_html = ""
+    end
+    return op_html
+  end
+
+  def prv_html_rtf_sc2_scales_callback(report_settings, entity_sym, entity_obj, ai)
+    if entity_obj.sc2_scales.present?
+      ers = report_settings.entity_search_by_name(entity_sym)
+      rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "sc2_scales")
+      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_scales, ["sca"], " ", [""], [""], [""])
+    else
+      op_html = ""
+    end
+    return op_html
+  end
+# Upgrade 2.1.0 fine
+
 # -------------------------------
   def prv_html_rtf_project_managers_callback(report_settings, entity_sym, entity_obj, ai)
     if entity_obj.project_managers.present? then
       ers = report_settings.entity_search_by_name(entity_sym)
       rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "project_managers")
-      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.project_managers, ["credit_name", "qualifier"], " ", ["", " ["], ["", "]"], ["", ""])
+# Upgrade 2.1.0 inizio
+#      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.project_managers, ["credit_name", "qualifier"], " ", ["", " ["], ["", "]"], ["", ""])
+      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.project_managers, ["name", "qualifier"], " ", ["", " ["], ["", "]"], ["", ""])
+# Upgrade 2.1.0 fine
     else
       op_html = ""
     end
@@ -1330,7 +1428,10 @@ private
     if entity_obj.project_stakeholders.present? then
       ers = report_settings.entity_search_by_name(entity_sym)
       rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "project_stakeholders")
-      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.project_stakeholders, ["credit_name", "qualifier"], " ", ["", " ["], ["", "]"], ["", ""])
+# Upgrade 2.1.0 inizio
+#      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.project_stakeholders, ["credit_name", "qualifier"], " ", ["", " ["], ["", "]"], ["", ""])
+      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.project_stakeholders, ["name", "qualifier"], " ", ["", " ["], ["", "]"], ["", ""])
+# Upgrade 2.1.0 fine
     else
       op_html = ""
     end

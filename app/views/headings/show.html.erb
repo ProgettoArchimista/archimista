@@ -35,7 +35,10 @@
         </td>
         <td>
           <%= "&mdash;" * unit.ancestry_depth %>
-          <% if unit.is_iccd? %>
+<%# Upgrade 2.1.0 inizio %>
+          <%# if unit.is_iccd? %>
+          <% if false %>
+<%# Upgrade 2.1.0 fine %>
             <%= link_to unit.title, edit_iccd_unit_path(unit, :t => unit.tsk) %>
             <span class="light">[<%= unit.tsk %>]</span>
           <% else %>

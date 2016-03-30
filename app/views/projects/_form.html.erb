@@ -41,7 +41,7 @@
 
           <div class="span2">
             <%= f.label :status, t('status') %>
-            <%= terms_select(f, "projects.status", {:prompt => true}, :class => "span2") %>
+            <%= terms_select(f, "projects.status", {:prompt => true}, :class => "span3") %>
           </div>
         </div>
 
@@ -82,7 +82,10 @@
             </div>                                              
 <%# TAI aggiunto = prima di fields_for %>
             <%= f.fields_for :project_managers do |pm_form| %>
-              <%= render :partial => "project_credit", :locals => { :f => pm_form } %>
+<%# Upgrade 2.1.0 inizio %>
+              <%#= render :partial => "project_credit", :locals => { :f => pm_form } %>
+              <%= render :partial => "project_manager", :locals => { :f => pm_form } %>
+<%# Upgrade 2.1.0 fine %>
             <% end %>
             <p><%= add_child_link t('add_credit_pm'), "project_managers" %></p>
           </div>
@@ -97,7 +100,10 @@
             </div>                                              
 <%# TAI aggiunto = prima di fields_for %>
             <%= f.fields_for :project_stakeholders do |pm_form| %>
-              <%= render :partial => "project_credit", :locals => { :f => pm_form } %>
+<%# Upgrade 2.1.0 inizio %>
+              <%#= render :partial => "project_credit", :locals => { :f => pm_form } %>
+              <%= render :partial => "project_stakeholder", :locals => { :f => pm_form } %>
+<%# Upgrade 2.1.0 fine %>
             <% end %>
             <p><%= add_child_link t('add_credit_ps'), "project_stakeholders" %></p>
           </div>

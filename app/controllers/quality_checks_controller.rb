@@ -26,9 +26,10 @@ class QualityChecksController < ApplicationController
   end
 
   def fond
-    @fonds = Fond.subtree_of(params[:id]).active.
-      all(:include => :preferred_event,
-      :order => "sequence_number")
+# Upgrade 2.0.0 inizio
+#    @fonds = Fond.subtree_of(params[:id]).active.all(:include => :preferred_event, :order => "sequence_number")
+    @fonds = Fond.subtree_of(params[:id]).active.includes(:preferred_event).order("sequence_number")
+# Upgrade 2.0.0 fine
 
     # campi minimi
     @fonds_with_no_name = @fonds.select { |e| e.name.blank? || e.name == '[nome non compilato]'}

@@ -53,7 +53,7 @@ class HeadingsController < ApplicationController
                                   OR LOWER(name) LIKE '%#{term}%'
                                   OR LOWER(dates) LIKE '%#{term}%'
                                   OR LOWER(qualifier) LIKE '%#{term}%')
-                                  #{exclude_condition}").order("name").limit(20)
+                                  #{exclude_condition}").order("name")
 # Upgrade 2.0.0 fine
 
     ActiveRecord::Base.include_root_in_json = false
@@ -74,9 +74,7 @@ class HeadingsController < ApplicationController
      :conditions => "rel_unit_headings.heading_id = #{@heading.id}"
     ).paginate(:page => params[:page])
 =end
-    @units = Unit.
-     includes(:rel_unit_headings).where("rel_unit_headings.heading_id = #{@heading.id}").
-     page(params[:page])
+    @units = Unit.includes(:rel_unit_headings).where("rel_unit_headings.heading_id = #{@heading.id}").references(:rel_unit_headings).page(params[:page])
 # Upgrade 2.0.0 fine
   end
 
@@ -224,9 +222,9 @@ class HeadingsController < ApplicationController
       begin
 # Upgrade 2.0.0 inizio
 #        @csv = FasterCSV.parse(params[:upload][:csv], :col_sep => ";", :headers => headers)
-        @csv = CSV.parse(params[:upload][:csv], :col_sep => ";", :headers => headers)
+        @csv = CSV.read(params[:upload][:csv].path(), :col_sep => ";", :headers => headers)
 # Upgrade 2.0.0 fine
-      rescue
+      rescue Exception => e
         flash.now[:alert] = "CSV non valido"
         render :action => "import_csv"
       end

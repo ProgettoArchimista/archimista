@@ -1,0 +1,99 @@
+<%# Upgrade 2.1.0 inizio %>
+
+<script>
+  function getContext()
+  {
+    return "group_image";
+  }
+</script>
+
+<% container_class "container-fluid" %>
+
+<%
+  image_asset_missing_prefix = "group_image_"
+  image_asset_zoom_style = :original
+  if group_image_type_is_carousel?(@group_image_type)
+    context_caption = t("index_group_carousel_images")
+    new_object_caption = t("new_group_carousel_images")
+		new_object_path = new_group_group_carousel_image_path(@group)
+    image_asset_preview_style = :carousel
+    no_images_message = "Al gruppo \"" + @group.name + "\" non sono state ancora associate immagini rappresentative."
+  else
+    context_caption = t("index_group_logo_images")
+    new_object_caption = t("new_group_logo_images")
+		new_object_path = new_group_group_logo_image_path(@group)
+    image_asset_preview_style = :logo
+    no_images_message = "Al gruppo \"" + @group.name + "\" non sono stati ancora associati loghi."
+  end
+%>
+
+<% content_for :status_bar do %>
+  <h2><%= raw([t(@group.class.name.underscore.pluralize), truncate(@group.name, :length => 100), context_caption].join(path_separator)) %></h2>
+  <div id="links">
+    <% target_link = edit_group_path(@group) %>
+    <%= link_to_index "Scheda " + t("activerecord.models.#{@group.class.name.underscore}.one").downcase, target_link %>
+  </div>
+<% end %>
+
+<div class="span12">
+  <div id="index-controls">
+    <%= link_to new_object_caption, new_object_path, :class => "btn btn-small new", :id => 'new-digital-object' %>
+    <div class="pull-right">
+      <button id="bulk-destroy" type="button" class="btn btn-small delete disabled">
+        <i class="icon-trash"></i>
+        <span><%= t('delete_selected_files') %></span>
+      </button>
+      <input id="toggle-all" type="checkbox" class="toggle" pippo="pluto">
+    </div>
+  </div>
+
+  <% if @group_images.size > 0 %>
+    <% if @group_images.size > 1 %>
+      <p>Puoi modificare l'ordine degli oggetti mediante <em>drag and drop</em>: clicca su un oggetto e trascinalo nella posizione desiderata.</p>
+    <% end %>
+    <%= display_page_entries_info @group_images %>
+
+    <ul id="sortable" class="thumbnails">
+      <% @group_images.each do |group_image| %>
+        <li id="list-<%= group_image.id %>" class="span3">
+          <div class="thumbnail">
+            <div class="img-container">
+              <% if group_image.is_image? %>
+                <% if FileTest.exist?(group_image.asset.path(image_asset_preview_style)) %>
+                  <%= image_tag group_image.asset(image_asset_preview_style) %>
+                <% else %>
+                  <%= image_tag "#{image_asset_missing_prefix}missing-#{image_asset_preview_style}.jpg" %>
+                <% end %>
+              <% else %>
+                <% if group_image.is_video? %>
+                  <%= image_tag "mp4-medium.png" %>
+                <% else %>
+                  <%= image_tag "pdf-medium.png" %>
+                <% end %>
+              <% end %>
+            </div>
+            <p class="title muted"><%= group_image.title.present? ? truncate(group_image.title, :length => 60) : "" %></p>
+            <div class="actions btn-group">
+              <% if group_image.is_image? %>
+                <%= link_to raw('<i class="icon-zoom-in"></i>'), group_image.asset(image_asset_zoom_style), :class => "btn fancybox-gallery", :rel => "gallery", :title => t('zoom_in') %>
+              <% else %>
+                <%= link_to raw('<i class="icon-download"></i>'), group_image.asset(:original), :class => "btn", :title => t('download'), :target => "new" %>
+              <% end %>
+              <%= link_to raw('<i class="icon-edit"></i>'), group_image.edit_group_group_image_path(@group), :class => "btn", :title => t('edit') %>
+              <%= link_to raw('<i class="icon-trash"></i>'), group_image_path(group_image), data: {:confirm => t('are_you_sure')}, :method => :delete, :class => "btn", :title => t('destroy') %>
+              <%= check_box_tag "group_image_ids[#{group_image.id}]", group_image.id, false, :name => "group_image_ids[]", :class => "check-digital-object" %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="digg_pagination">
+      <%= will_paginate @group_images, :container => false %>
+    </div>
+  <% else %>
+    <p><%= no_images_message %></p>
+  <% end %>
+</div>
+
+<%# Upgrade 2.1.0 fine %>

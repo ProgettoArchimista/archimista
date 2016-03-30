@@ -3,7 +3,7 @@ module Archimate
 
 # Upgrade 2.0.0 inizio
     # merge_conditions is a deprecated ActiveRecord::Base method from rails 2.3.8
-    # questo è il codice della funzione merge_conditions() di ActiveRecord 2.3.17
+    # questo e' il codice della funzione merge_conditions() di ActiveRecord 2.3.17
     def misc_merge_conditions(*conditions)
       segments = []
 

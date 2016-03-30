@@ -1,0 +1,54 @@
+<%# Upgrade 2.1.0 inizio %>
+
+<%
+  image_asset_missing_prefix = "group_image_"
+  image_asset_zoom_style = :original
+  if @group_image.is_carousel?
+    image_asset_preview_style = :thumb
+  else
+    image_asset_preview_style = :thumb
+  end
+%>
+
+<%= form_for [@group, @group_image], :html => { :multipart => true } do |f| %>
+  <div id="record-main" class="span9">
+
+    <%= f.label :asset, t('group_image_asset') %>
+
+    <div class="pull-left" style="width: 220px; margin: 0 20px 10px 0;">
+      <% if @group_image.valid? %>
+        <% if @group_image.is_image? %>
+          <% if FileTest.exist?(@group_image.asset.path(image_asset_preview_style)) %>
+            <%= link_to image_tag(@group_image.asset(image_asset_preview_style)), @group_image.asset(image_asset_zoom_style), :class => "fancybox" %>
+          <% else %>
+            <%= image_tag "#{image_asset_missing_prefix}missing-thumb.jpg" %>
+          <% end %>
+        <% else %>
+          <% if @group_image.is_video? %>
+            <%= image_tag "mp4-medium.png" %>
+          <% else %>
+            <%= image_tag "pdf-medium.png" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="alert alert-error">File non valido</div>
+      <% end %>
+    </div>
+
+    <div class="clearfix">
+      <%= f.file_field :asset, :name => "group_image[asset]" %>
+    </div>
+
+    <%= f.label :title, t('group_image_title') %>
+    <%#= f.text_field :title, :class => "span9" %>
+    <%= text_field :group_image, :title, :class => "span9" %>
+
+    <%= f.label :description, t(@group_image.group_image_description_field_key) %>
+    <%#= f.text_area :description, :class => "span9 short-content" %>
+    <%= text_area :group_image, :description, :class => "span9 short-content" %>
+
+    <%= render :partial => "shared/side", :object => @group_image, as: "object" %>
+
+  </div>
+<% end %>
+<%# Upgrade 2.1.0 fine %>

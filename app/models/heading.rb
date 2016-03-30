@@ -80,7 +80,10 @@ class Heading < ActiveRecord::Base
 # Upgrade 2.0.0 fine
 
   def self.find_or_initialize(params)
-    self.find_or_initialize_by_name_and_dates_and_qualifier_and_heading_type_and_group_id(params)
+# Upgrade 2.0.0 inizio
+#    self.find_or_initialize_by_name_and_dates_and_qualifier_and_heading_type_and_group_id(params)
+    self.find_or_initialize_by(params)
+# Upgrade 2.0.0 fine
   end
 end
 

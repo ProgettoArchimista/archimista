@@ -81,7 +81,12 @@ $(document).ready(function(){
     // Aggiunge il link "modifica" alle celle standalone-editable
     edit_text_command :function(){
       $.archigrid.commons.jqgrid_table.delegate("td.standalone-editable", "mouseenter", function(){
-        var $edit_text_command_wrapper  = $("#standalone-edit-command-wrapper").clone().show();
+
+/* Upgrade 2.1.0 inizio */
+//        var $edit_text_command_wrapper  = $("#standalone-edit-command-wrapper").clone().show();
+        var $edit_text_command_wrapper  = $("#standalone-edit-command-wrapper").clone().removeClass("hide").show();
+/* Upgrade 2.1.0 fine */
+
         //var $edit_text_command          = $edit_text_command_wrapper.find("a");
         var $td                         = $(this);
         var $inner_wrapper              = $td.find(".inner-wrapper");

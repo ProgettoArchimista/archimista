@@ -4,23 +4,50 @@ en:
   index_projects: "Projects list"
   project_type: "Activity type"
   editing_project: "Editing project"
-  censimento: "Censum/Poll?"
-  riordino: "Riordino?"
-  schedatura: "Schedatura?"
+# Upgrade 2.1.0 inizio
+# projects.project_type
+  # censimento: "Censum/Poll?"
+  # riordino: "Riordino?"
+  # schedatura: "Schedatura?"
+  censimento: "Censimento/guida"
+  riordino: "Riordino e inventariazione"
+  recupero: "Recupero e rielaborazione di corredo pregresso"
+  elenchi: "Elenchi"
+# Upgrade 2.1.0 fine
   name: "Name"
   start_year: "Start year"
   end_year: "End year"
   duration: "Duration"
   status: "Status"
   description: "Description"
-  open: "In progress"
-  closed: "Closed"
-  promoter: "Promoter"
-  funder: "Funder"
-  realizzatore: "Realizzatore" 
-  coordinator: "Coordinator" 
-  scientific_consultant: "Scientific consultant"
+# Upgrade 2.1.0 inizio
+# projects.status
+  # open: "In progress"
+  # closed: "Closed"
+  in_corso: "In progress"
+  concluso: "Closed"
+  revisione: "Revision"
+  pubblicato: "Published"
+# Upgrade 2.1.0 fine
+# Upgrade 2.1.0 inizio
+# project_credits.qualifier
+  # promoter: "Promoter"
+  # funder: "Funder"
+  # realizzatore: "Realizzatore" 
+  # coordinator: "Coordinator" 
+  # scientific_consultant: "Scientific consultant"
+  # schedatore: "Schedatore"
+# project_managers.qualifier
+  responsabile_scientifico: "Responsabile scientifico"
+  responsabile_operativo: "Responsabile operativo"
   schedatore: "Schedatore"
+  coordinatore: "Coordinatore" 
+# project_stakeholders.qualifier
+  finanziamento: "Finanziamento"
+  realizzazione: "Realizzazione" 
+  promozione: "Promozione"
+  coordinamento_operativo: "Coordinamento operativo"
+# Upgrade 2.1.0 fine
   credits_area: "Credits area"
   project_managers: "Project managers"
   project_stakeholders: "Project stakeholders"
@@ -36,25 +63,55 @@ it:
   index_projects: "Lista progetti"
   project_type: "Tipologia d'intervento"
   editing_project: "Modifica progetto"
-  censimento: "Censimento"
+# Upgrade 2.1.0 inizio
+# projects.project_type
+  # censimento: "Censimento"
+  # riordino: "Riordino e inventariazione"
+  # schedatura: "Schedatura"
+  censimento: "Censimento/guida"
   riordino: "Riordino e inventariazione"
-  schedatura: "Schedatura"
+  recupero: "Recupero e rielaborazione di corredo pregresso"
+  elenchi: "Elenchi"
+# Upgrade 2.1.0 fine
   name: "Denominazione"
   start_year: "Anno d'inizio"
   end_year: "Anno di fine"
   duration: "Durata"
   status: "Status"
   description: "Descrizione"
-  open: "In corso"
-  closed: "Concluso"
-  promoter: "Soggetto promotore"
-  funder: "Soggetto finanziatore"
-  realizzatore: "Soggetto realizzatore"
-  coordinator: "Soggetto coordinatore"
-  scientific_consultant: "Responsabile scientifico"
+# Upgrade 2.1.0 inizio
+# projects.status
+  # open: "In corso"
+  # closed: "Concluso"
+  in_corso: "In corso"
+  concluso: "Concluso/consegnato"
+  revisione: "Revisione"
+  pubblicato: "Pubblicato/da pubblicare"
+# Upgrade 2.1.0 fine
+# Upgrade 2.1.0 inizio
+# project_credits.qualifier
+  # promoter: "Soggetto promotore"
+  # funder: "Soggetto finanziatore"
+  # realizzatore: "Soggetto realizzatore"
+  # coordinator: "Soggetto coordinatore"
+  # scientific_consultant: "Responsabile scientifico"
+  # schedatore: "Schedatore"
+# project_managers.qualifier
+  responsabile_scientifico: "Responsabile scientifico"
+  responsabile_operativo: "Responsabile operativo"
   schedatore: "Schedatore"
+  coordinatore: "Coordinatore" 
+# project_stakeholders.qualifier
+  finanziamento: "Finanziamento"
+  realizzazione: "Realizzazione" 
+  promozione: "Promozione"
+  coordinamento_operativo: "Coordinamento operativo"
+# Upgrade 2.1.0 fine
   credits_area: "Responsabilit&agrave;"
-  project_managers: "Responsabili di progetto"
+# Upgrade 2.1.0 inizio
+  # project_managers: "Responsabili di progetto"
+  project_managers: "Responsabili"
+# Upgrade 2.1.0 fine
   project_stakeholders: "Soggetti coinvolti"
   add_credit_pm: "Aggiungi un responsabile"
   add_credit_ps: "Aggiungi un soggetto"

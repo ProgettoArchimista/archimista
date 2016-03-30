@@ -5,9 +5,21 @@ class Group < ActiveRecord::Base
   before_destroy :is_empty?
   has_many :users
 
+# Upgrade 2.0.0 inizio
+  has_many :carousel_images, :dependent => :destroy, :class_name => 'GroupCarouselImage', :foreign_key => "related_group_id"
+  has_many :logo_images, :dependent => :destroy, :class_name => 'GroupLogoImage', :foreign_key => "related_group_id"
+# Upgrade 2.0.0 fine
+
   validates_presence_of :name
   validates_uniqueness_of :name
   squished_fields :name
+
+# Upgrade 2.1.0 inizio
+  validates_presence_of :short_name
+  validates_length_of :short_name, :maximum => 30, :message => :too_long_value
+  validates_uniqueness_of :short_name, :message => :not_unique_value
+  validates_format_of :short_name, :with => /\A[a-zA-Z]([a-zA-Z0-9_-]*)\z/, :message => :illegal_format
+# Upgrade 2.1.0 fine
 
   def is_empty?
     users.empty?

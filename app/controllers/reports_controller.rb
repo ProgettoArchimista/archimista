@@ -10,7 +10,14 @@ class ReportsController < ApplicationController
     # la funzione command() contenuta nella versione 0.7.0 di pdfkit non produce delle command line corrette se ci sono caratteri come spazi, " (doppiapici), [] (parentesi quadre) in alcuni dei parametri. Questa è un adattamento della versione di command() presente nella versione 0.5.1
     def command(path = nil)
       # da pdfkit-0.5.1 - inizio
-      args = [executable]
+      # TAI 11/01/2016 per gestire correttamente i percorsi con eventuali spazi
+      # args = [executable]
+      strExe = executable
+      if strExe.include? " "
+        strExe = "\"" + strExe + "\""
+      end
+      args = [strExe]
+      #
       args += @options.to_a.flatten.compact
       args << '--quiet'
 
@@ -19,7 +26,14 @@ class ReportsController < ApplicationController
       else
         args << @source.to_s
       end
-      args << (path || '-') # Write to file or stdout
+      # TAI 11/01/2016 per gestire correttamente i percorsi con eventuali spazi
+      # args << (path || '-') # Write to file or stdout
+      strPath = (path || '-') # Write to file or stdout
+      if strPath.include? " "
+        strPath = "\"" + strPath + "\""
+      end
+      args << strPath
+      #
       args.map {|arg| %Q{"#{arg.gsub('"', '\"')}"}}
       # da pdfkit-0.5.1 - fine
 

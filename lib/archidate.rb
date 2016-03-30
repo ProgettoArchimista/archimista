@@ -116,7 +116,7 @@ module Archidate
 =end
 # non è chiaro perché si è resa necessaria questa correzione. E' giusta?
 # non capisco come self.class.start_date_spec_values possa essere la stessa self.start_date_spec_values inizializzata in initialize_defaults
-# credo che l'idea era che che in initialize_defaults s impostassero dei valori nelle singole istanze e non nella classe
+# credo che l'idea era che in initialize_defaults si dovevano impostare dei valori nelle singole istanze e non nella classe
     validates_presence_of :start_date_from,
       :if => lambda{|record|
         !record.invalid_start_date?                               &&

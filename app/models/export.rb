@@ -34,7 +34,10 @@ class Export < ActiveRecord::Base
       :units => ["unit_events", "unit_identifiers","unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects"],
       :creators => ["creator_events", "creator_identifiers","creator_legal_statuses", "creator_names", "creator_urls", "creator_activities", "creator_editors"],
       :custodians => ["custodian_buildings", "custodian_contacts","custodian_identifiers", "custodian_names", "custodian_owners", "custodian_urls", "custodian_editors"],
-      :projects => ["project_credits", "project_urls"],
+# Upgrade 2.0.0 inizio
+#      :projects => ["project_credits", "project_urls"],
+      :projects => ["project_managers", "project_stakeholders", "project_urls"],
+# Upgrade 2.0.0 fine
       :sources => ["source_urls"],
       :institutions => ["institution_editors"],
       :headings => [],

@@ -48,6 +48,11 @@
       <% if current_user.is_admin? %>
         <li class="divider"></li>
         <li><%= link_to "Gestione utenti", users_path %></li>
+<%# Upgrade 2.1.0 inizio %>
+        <% if current_ability.can?(:manage, Group) %>
+          <li><%= link_to "Gestione gruppi", groups_path %></li>
+        <% end %>
+<%# Upgrade 2.1.0 end %>
       <% end %>
     </ul>
   </li>

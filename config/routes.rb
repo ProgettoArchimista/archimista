@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   resources :users do
     put 'toggle_active', on: :member
   end
-  resources :groups
 
   # Polymorphic resources (must be here, prior to parent resources)
   resources :digital_objects, :only => [:destroy] do
@@ -15,6 +14,19 @@ Rails.application.routes.draw do
       get :sort
       get :bulk_destroy
     end
+  end
+  resources :group_images, :only => [:destroy] do
+    collection do
+      get :all
+      get :disabled
+      get :sort
+      get :bulk_destroy
+    end
+  end
+
+  resources :groups do
+    resources :group_carousel_images, :except => [:show, :destroy], :controller => "group_images", :type => "carousel"
+    resources :group_logo_images, :except => [:show, :destroy], :controller => "group_images", :type => "logo"
   end
 
   resources :fonds, :except => [:new] do
@@ -48,7 +60,9 @@ Rails.application.routes.draw do
         post :add_rows
         put  :remove_rows
         put  :reorder_rows
-        get  :new_iccd
+# Upgrade 2.1.0 inizio
+#        get  :new_iccd
+# Upgrade 2.1.0 fine
       end
     end
     resources :digital_objects, :except => [:show, :destroy]
@@ -62,8 +76,10 @@ Rails.application.routes.draw do
       get   :preferred_event
       get   :textfield_form
       put   :update_event
-      get   :edit_iccd
-      get   :show_iccd
+# Upgrade 2.1.0 inizio
+#      get   :edit_iccd
+#      get   :show_iccd
+# Upgrade 2.1.0 fine
       get   :move
       post  :move_down
       post  :move_up
@@ -74,13 +90,18 @@ Rails.application.routes.draw do
       get :list_bdm_ogtd
       get :list_bdm_mtcm
       get :list_bdm_mtct
+# Upgrade 2.1.0 inizio
+      get :sc2_voc_list
+# Upgrade 2.1.0 fine
       put :classify
     end
 
     # OPTIMIZE: rinominare in subunits ?
     resources :children, :controller => 'units', :only => 'new' do
       collection do
-        get :new_iccd
+# Upgrade 2.1.0 inizio
+#        get :new_iccd
+# Upgrade 2.1.0 fine
       end
     end
     resources :digital_objects, :except => [:show, :destroy]

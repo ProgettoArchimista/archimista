@@ -1,0 +1,46 @@
+<%# Upgrade 2.1.0 inizio %>
+
+<div class="fields sc2_voc_ref_container">
+	<div class="row">
+		<div class="span3">
+			<div class="sc2_openedvoc_link_wrapper">
+				<label for="unit_sc2_attributes_autr" class="sc2_openedvoc_label"><%= t('sc2_author_autr')%></label>
+				<a href="javascript:void(0)" class="sc2_openedvoc_link sc2_voc_add_empty sc2_all" data_voc_name="sc2_authors.autr" data_voc_caption="<%= t('sc2_author_autr')%>" data-toggle="modal"><%= t('sc2_openedvoc') %></a>
+			</div>
+			<%= f.text_field :autr, :class => "span3 sc2_field sc2_voc" %>
+		</div>
+		<div class="span3">
+			<%= f.label :autn, t('sc2_author_autn') %>
+			<%= f.text_field :autn, :class =>"span3 sc2_field" %>
+		</div>
+		<div class="span2">
+			<%= f.label :auta, t('sc2_author_auta') %>
+			<%= f.text_field :auta, :class =>"span2 sc2_field" %>
+		</div>
+		<div class="span1">
+			<label>&nbsp;</label>
+			<div class="destroy"><%= f.check_box :_destroy %> <%= f.label :_destroy, t('destroy') %></div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="span1">&nbsp;</div>
+		<div class="span8">
+			<div id="unit_sc2_attribution_reasons_<%=author_index.to_s%>" class="row sc2_container sc2_multi_instance sc2_all" >
+				<% @sc2_attribution_reasons = build_or_retrieve(f.object.sc2_attribution_reasons) %>
+				<div class="span8">
+					<h3 class="row-header"><%= t('sc2_attribution_reasons') %></h3>
+					<%= f.fields_for :sc2_attribution_reasons do |id_form| %>
+						<%= render :partial => "sc2_attribution_reason", :locals => { :f => id_form } %>
+					<% end %>
+					<p><%= add_child_link t('new_sc2_attribution_reasons'), "unit_sc2_attribution_reasons_" + author_index.to_s, "sc2_attribution_reasons_attributes" %></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span9 sc2_instance_highlighter"></div>
+	</div>
+</div>
+<%# Upgrade 2.1.0 fine %>

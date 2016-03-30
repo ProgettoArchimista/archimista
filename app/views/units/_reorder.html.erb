@@ -10,7 +10,15 @@
       <p>Seleziona uno o più campi per il riordino.<br />
         Il riordino si applicherà a tutte le unità del complesso archivistico <strong><%= @fond.name %></strong></p>
   <%#= @fond.unit_ids.sort.inspect # Solo per debug %>
-      <div><%= hidden_field_tag "filter_ids", @fond.unit_ids.sort.join(",") %></div>
+
+<%# Upgrade 2.1.0 inizio %>
+      <div style="line-height: 1;">
+        <%= check_box_tag "include_subtree", "include_subtree", false, { id: "chkIncludeSubTree" } %>
+        <%= label_tag "chkIncludeSubTree", raw("Ordina anche tutte le unità dei complessi archivistici discendenti dal complesso archivistico <strong>" + @fond.name + "</strong>"), :style => "display: inline-block;" %>
+      </div>
+<%# Upgrade 2.1.0 fine %>
+      
+			<div><%= hidden_field_tag "filter_ids", @fond.unit_ids.sort.join(",") %></div>
       <div class="reorder-attributes available">
         <div class="reorder-attribute">
           <div class="reorder-label">

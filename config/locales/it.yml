@@ -95,6 +95,14 @@ it:
           not_allowed_ancestry_depth: "Non &egrave; possibile creare sottounit&agrave; a questo livello"
         fond:
           at_most_one_custodian: "Un complesso può avere un solo soggetto conservatore"
+# Upgrade 2.1.0 inizio
+        group:
+          attributes:
+            short_name:
+              illegal_format: "Valore non valido. I caratteri validi sono: lettere (maiuscole o minuscole), numeri, \"-\", \"_\". Non è possibile inserire spazi e lettere accentate. Il primo carattere deve essere una lettera."
+              not_unique_value: "Il valore impostato non è univoco."
+              too_long_value: "Il numero di caratteri inserito supera il massimo consentito (30)."
+# Upgrade 2.0.0 fine
     models:
       fond:
         one: "Complesso archivistico"
@@ -218,6 +226,24 @@ it:
         fond_name: "Classificazione"
         fond: "Classificazione"
         preferred_event: "Estremi cronologici"
+        # Upgrade 2.1.0 inizio
+        sc2_tsk: "Scheda speciale"
+        sc2_sgti: "Soggetto"
+        sc2_author_autr: "Ruolo"
+        sc2_author_autn: "Nome"
+        sc2_author_auta: "Dati anagrafici"
+        sc2_cmmc: "Note"
+        sc2_cmmr: "Numero di commessa"
+        sc2_lrc: "Luogo della ripresa"
+        sc2_lrd: "Data della ripresa"
+        sc2_mtce: "Esecuzione"
+        sc2_sdtt: "Tipo di rappresentazione"
+        sc2_sdts: "Rappresentazione tematica"
+        sc2_dpgf: "Numero tavola"
+        sc2_misa: "Altezza"
+        sc2_misl: "Larghezza"
+        sc2_ort: "Orientamento"
+        # Upgrade 2.1.0 dine
       project:
         description: "Descrizione"
         project_type: "Tipologia d'intervento"

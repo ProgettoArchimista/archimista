@@ -1,0 +1,9 @@
+<%# Upgrade 2.1.0 inizio %>
+
+<div class="fields row sc2_voc_ref_container">
+  <div class="span7"><%= f.text_field :mtct, :class => "span7 sc2_field sc2_voc" %></div>
+  <div class="span1 sc2_openedvoc_link_right_side"><a href="javascript:void(0)" class="sc2_openedvoc_link sc2_voc_add_empty sc2_cars sc2_d sc2_dt sc2_s" data_voc_name="sc2_techniques.mtct" data_voc_caption="<%= t('sc2_techniques')%>" data-toggle="modal"><%= t('sc2_openedvoc') %></a></div>
+
+  <div class="span1 destroy"><%= f.check_box :_destroy %> <%= f.label :_destroy, t('destroy') %></div>
+</div>
+<%# Upgrade 2.1.0 fine %>

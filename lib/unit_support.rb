@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'unit_support/class_methods'
 
 module UnitSupport

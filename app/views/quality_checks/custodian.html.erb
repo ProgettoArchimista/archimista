@@ -5,5 +5,8 @@
   </div>
 <% end %>
 <div class="span12">
-  <%= render :partial => "custodian" %>
+<%# Upgrade 2.0.0 inizio %>
+  <%#= render :partial => "custodian" %>
+  <%= render :partial => "custodian", :object => @custodian, as: "custodian" %>
+<%# Upgrade 2.0.0 fine %>
 </div>

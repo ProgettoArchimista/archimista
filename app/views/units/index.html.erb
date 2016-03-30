@@ -90,12 +90,14 @@
         <td>
 <%# TAI aggiunto raw() %>
           <%= raw("&mdash;" * unit.ancestry_depth) %>
-          <% if unit.is_iccd? %>
+<%# Upgrade 2.1.0 inizio %>
+          <%# if unit.is_iccd? %>
+          <% if false %>
+<%# Upgrade 2.1.0 fine %>
             <%= link_to unit.title, edit_iccd_unit_path(unit, :t => unit.tsk) %>
             <span class="light">[<%= unit.tsk %>]</span>
           <% else %>
             <%= link_to unit.formatted_title, edit_unit_path(unit) %>
-            <%#= link_to "Ciao", edit_unit_path(unit) %>
           <% end %>
           <%# riga di contesto solo se in ricerca o in fond root %>
           <% if @fond.blank? || @fond.is_root? %>

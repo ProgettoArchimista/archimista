@@ -1,5 +1,3 @@
-# coding: utf-8
-
 # Upgrade 2.0.0 inizio
 #require 'faster_csv'
 require 'csv'

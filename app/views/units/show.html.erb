@@ -24,6 +24,14 @@
       <th><%= t('unit_type') %></th>
       <td><%= show_value(@unit.unit_type) %></td>
     </tr>
+<%# Upgrade 2.1.0 inizio %>
+    <% if @unit.sc2_tsk.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_tsk') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2_tsk, "t") %></td>
+      </tr>
+    <% end %>
+<%# Upgrade 2.1.0 fine %>
     <tr>
       <th><%= t('title') %></th>
       <td><%= @unit.formatted_title %></td>
@@ -57,6 +65,123 @@
       <th><%= t('content') %></th>
       <td id="unit_content"><%= show_value(textilize(@unit.content)) %></td>
     </tr>
+<%# Upgrade 2.1.0 inizio %>
+    <% if @unit.sc2_textual_elements.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_textual_elements') %></th>
+        <td class="sc2_show_field_value">
+          <ul>
+            <% @unit.sc2_textual_elements.each do |item| %>
+              <% if item.isri.present? %>
+              <li><%= show_item(item.isri) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2_visual_elements.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_visual_elements') %></th>
+        <td class="sc2_show_field_value">
+          <ul>
+            <% @unit.sc2_visual_elements.each do |item| %>
+              <% if item.stmd.present? %>
+              <li><%= show_item(item.stmd) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+
+    <% if @unit.sc2.present? && @unit.sc2.sgti.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_sgti') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.sgti) %></td>
+      </tr>
+    <% end %>
+
+    <% if @unit.sc2_authors.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_authors') %></th>
+        <td class="sc2_show_field_value">
+          <ul>
+            <% @unit.sc2_authors.each do |item| %>
+              <%
+                s = ""
+                if item.autn.present? then s = item.autn end
+                if item.auta.present? then s = s + " " + item.auta end
+                if item.autr.present? then s = s + " (" + item.autr + ")" end
+
+                if item.sc2_attribution_reasons.present?
+                  s = s + "<div>" + t("sc2_attribution_reasons") + "<ul>"
+                  item.sc2_attribution_reasons.each do |m|
+                    if m.autm.present?
+                      s = s + "<li>" + m.autm.to_s + "</li>"
+                    end
+                  end
+                  s = s + "</ul></div>"
+                end
+              %>
+              <% if s != "" %>
+              <li><%= show_item(s) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+
+    <% if @unit.sc2_commissions.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_commissions') %></th>
+        <td class="sc2_show_field_value">
+          <ul>
+            <% @unit.sc2_commissions.each do |item| %>
+              <%
+                s = ""
+                if item.sc2_commission_names.present?
+                  s = s + "<div>" + t("sc2_commission_names") + "<ul>"
+                  item.sc2_commission_names.each do |m|
+                    if m.cmmn.present?
+                      s = s + "<li>" + m.cmmn.to_s + "</li>"
+                    end
+                  end
+                  s = s + "</ul></div>"
+                end
+                if item.cmmc.present? then s = s + "<div>" + item.cmmc + "</div>" end
+              %>
+              <% if s != "" %>
+              <li><%= show_item(s) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+
+    <% if @unit.sc2.present? && @unit.sc2.cmmr.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_cmmr') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.cmmr) %></td>
+      </tr>
+    <% end %>
+
+    <% if @unit.sc2.present? && @unit.sc2.lrc.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_lrc') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.lrc) %></td>
+      </tr>
+    <% end %>
+
+    <% if @unit.sc2.present? && @unit.sc2.lrd.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_lrd') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.lrd) %></td>
+      </tr>
+    <% end %>
+<%# Upgrade 2.1.0 fine %>
     <tr>
       <th><%= t('arrangement_note') %></th>
       <td><%= show_value(textilize(@unit.arrangement_note)) %></td>
@@ -73,6 +198,79 @@
       <th><%= t('medium') %></th>
       <td><%= show_value(@unit.medium) %></td>
     </tr>
+<%# Upgrade 2.1.0 inizio %>
+    <% if @unit.sc2_techniques.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_techniques') %></th>
+        <td class="sc2_show_field_value">
+          <ul>
+            <% @unit.sc2_techniques.each do |item| %>
+              <% if item.mtct.present? %>
+              <li><%= show_item(item.mtct) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2.present? && @unit.sc2.mtce.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_mtce') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.mtce) %></td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2_scales.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_scales') %></th>
+        <td class="sc2_show_field_value">
+          <ul>
+            <% @unit.sc2_scales.each do |item| %>
+              <% if item.sca.present? %>
+              <li><%= show_item(item.sca) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2.present? && @unit.sc2.sdtt.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_sdtt') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.sdtt) %></td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2.present? && @unit.sc2.sdts.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_sdts') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.sdts) %></td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2.present? && @unit.sc2.dpgf.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_dpgf') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.dpgf) %></td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2.present? && @unit.sc2.misa.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_misa') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.misa) %></td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2.present? && @unit.sc2.misl.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_misl') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.misl) %></td>
+      </tr>
+    <% end %>
+    <% if @unit.sc2.present? && @unit.sc2.ort.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('sc2_ort') %></th>
+        <td class="sc2_show_field_value"><%= show_value(@unit.sc2.ort) %></td>
+      </tr>
+    <% end %>
+
+<%# Upgrade 2.1.0 fine %>
     <tr>
       <th><%= t('related_materials') %></th>
       <td><%= show_value(textilize(@unit.related_materials)) %></td>
@@ -123,7 +321,11 @@
         <% if @unit.unit_damages.present? %>
           <ul>
             <% @unit.unit_damages.each do |damage| %>
-              <li><%= show_item(t(damage.code)) %></li>
+<%# Upgrade 2.1.0 inizio %>
+              <% if damage.code.present? %>
+              <li><%= show_item(damage.code) %></li>
+              <% end %>
+<%# Upgrade 2.1.0 fine %>
             <% end %>
           </ul>
         <% else %>

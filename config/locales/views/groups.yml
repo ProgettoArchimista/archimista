@@ -7,6 +7,19 @@ en:
   users_count: "Users count (active/total)"
 # Upgrade 2.0.0 fine
   create_group: "Create group"
+# Upgrade 2.1.0 inizio
+  group_name: "Denominazione"
+  group_short_name: "Nome abbreviato"
+  group_site_caption: "Nome del sito"
+  group_description: "Descrizione"
+  group_credits_link_caption: "Etichetta per il link ai credits"
+  group_credits: "Credits"
+  group_carousel_images: "Immagini rappresentative del gruppo"
+  group_logo_images: "Loghi associati al gruppo"
+  # nomi dei campi
+  short_name: "Nome abbreviato"
+# Upgrade 2.1.0 fine
+
 it:
   groups: "Gruppi"
   group: "Gruppo"
@@ -16,4 +29,16 @@ it:
   users_count: "Numero utenti (attivi/totali)"
 # Upgrade 2.0.0 fine
   create_group: "Crea gruppo"
+# Upgrade 2.1.0 inizio
+  group_name: "Denominazione"
+  group_short_name: "Nome abbreviato"
+  group_site_caption: "Nome del sito"
+  group_description: "Descrizione"
+  group_credits_link_caption: "Etichetta per il link ai credits"
+  group_credits: "Credits"
+  group_carousel_images: "Immagini rappresentative del gruppo"
+  group_logo_images: "Loghi associati al gruppo"
+  # nomi dei campi
+  short_name: "Nome abbreviato"
+# Upgrade 2.1.0 fine
 

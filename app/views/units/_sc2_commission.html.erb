@@ -1,0 +1,30 @@
+<%# Upgrade 2.1.0 inizio %>
+
+<div class="fields">
+	<div class="row">
+		<div class="span1">&nbsp;</div>
+		<div class="span8">
+			<div id="unit_sc2_commission_names_<%=commission_index.to_s%>" class="row sc2_container sc2_multi_instance sc2_all" >
+				<% @sc2_commission_names = build_or_retrieve(f.object.sc2_commission_names) %>
+				<div class="span8">
+					<h3 class="row-header"><%= t('sc2_commission_names') %></h3>
+					<%= f.fields_for :sc2_commission_names do |id_form| %>
+						<%= render :partial => "sc2_commission_name", :locals => { :f => id_form } %>
+					<% end %>
+					<p><%= add_child_link t('new_sc2_commission_names'), "unit_sc2_commission_names_" + commission_index.to_s, "sc2_commission_names_attributes" %></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span8"><%= f.label :cmmc, t('sc2_cmmc') %></div>
+		<div class="span8"><%= f.text_field :cmmc, :class =>"span8 sc2_field" %></div>
+		<div class="span1 destroy"><%= f.check_box :_destroy %> <%= f.label :_destroy, t('destroy') %></div>
+	</div>
+
+	<div class="row">
+		<div class="span9 sc2_instance_highlighter"></div>
+	</div>
+</div>
+<%# Upgrade 2.1.0 fine %>

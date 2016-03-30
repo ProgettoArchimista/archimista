@@ -5,13 +5,18 @@ class Import < ActiveRecord::Base
   require 'zip'
 # Upgrade 2.0.0 fine
 
+# Upgrade 2.1.0 inizio
+  extend Sc2Restore
+# Upgrade 2.1.0 fine
+
+  attr_accessor :imported_file_version
+
   TMP_IMPORTS = "#{Rails.root}/tmp/imports"
 
   belongs_to :user
   belongs_to :importable, :polymorphic => true
 
-  has_attached_file :data,
-    :path => ":rails_root/public/imports/:id/:basename.:extension"
+  has_attached_file :data, :path => ":rails_root/public/imports/:id/:basename.:extension"
 
   before_create :sanitize_file_name
   validates_attachment_presence :data
@@ -93,9 +98,20 @@ class Import < ActiveRecord::Base
 					next if line.blank?
 					data = ActiveSupport::JSON.decode(line.strip)
 					key = data.keys.first
+# Upgrade 2.1.0 inizio
+          ipdata = data[key]
+          if imported_file_version < "2.1.0"
+            key = prv_adjust_ante_210_project(key, ipdata)
+            key = prv_adjust_ante_210_project_credits(key, ipdata)
+          end
+# Upgrade 2.1.0 fine
 					model = key.camelize.constantize
-					data[key].delete_if{|k, v| not model.column_names.include? k}
-					object = model.new(data[key])
+# Upgrade 2.1.0 inizio
+#					data[key].delete_if{|k, v| not model.column_names.include? k}
+#					object = model.new(data[key])
+					ipdata.delete_if{|k, v| not model.column_names.include? k}
+					object = model.new(ipdata)
+# Upgrade 2.1.0 fine
 					object.db_source = self.identifier
 					object.group_id = user.group_id if object.has_attribute? 'group_id'
 					object.created_by = user.id if object.has_attribute? 'created_by'
@@ -116,8 +132,9 @@ class Import < ActiveRecord::Base
 			end
 			update_statements
 			return true
-    rescue
-			return false
+    rescue Exception => e
+      Rails.logger.info "import_aef_file Errore=" + e.message.to_s
+      return false
 		ensure
 		end
   end
@@ -131,6 +148,14 @@ class Import < ActiveRecord::Base
         update_one_to_many_relations
         update_many_to_many_relations
         update_digital_objects if db_has_digital_objects?
+
+# Upgrade 2.1.0 inizio
+        if imported_file_version < "2.1.0"
+          Import.restore_d_f_s(self.identifier)
+          Import.restore_bdm_oa(self.identifier)
+        end
+# Upgrade 2.1.0 fine
+
         if self.importable_type == 'Fond'
           self.importable_id = Fond.find_by_db_source_and_ancestry("#{self.identifier}", nil).id
         else
@@ -276,7 +301,10 @@ class Import < ActiveRecord::Base
       :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors","iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects"],
       :creators => ["creator_events", "creator_identifiers", "creator_legal_statuses", "creator_names", "creator_urls", "creator_activities", "creator_editors"],
       :custodians => ["custodian_buildings", "custodian_contacts", "custodian_identifiers", "custodian_names", "custodian_owners", "custodian_urls", "custodian_editors"],
-      :projects => ["project_credits", "project_urls"],
+# Upgrade 2.0.0 inizio
+#      :projects => ["project_credits", "project_urls"],
+      :projects => ["project_managers", "project_stakeholders", "project_urls"],
+# Upgrade 2.0.0 fine
       :sources => ["source_urls"],
       :institutions => ["institution_editors"],
       :document_forms => ["document_form_editors"]
@@ -500,6 +528,8 @@ class Import < ActiveRecord::Base
             Il file <code>aef</code> è stato prodotto con la versione #{aef_version}."
           end
           self.importable_type = data['attached_entity']
+
+          self.imported_file_version = data['version'].to_s.scan(%r([0-9])).join(".")
         end
       rescue Exception => e
         raise e.message
@@ -533,5 +563,86 @@ class Import < ActiveRecord::Base
     extension = File.extname(data_file_name).downcase
     filename = "#{Time.now.strftime("%Y%m%d%H%M%S")}"
     self.data.instance_write(:file_name, "#{filename}#{extension}")
+  end
+
+  def prv_adjust_ante_210_project(key, ipdata)
+    begin
+      if key == "project"
+        case ipdata["project_type"]
+          when "riordino e schedatura"
+            ipdata["project_type"] = "riordino"
+          when "schedatura"
+            ipdata["project_type"] = "recupero"
+        end
+      end
+    rescue Exception => e
+    end
+    return key
+  end
+
+  def prv_adjust_ante_210_project_credits(key, ipdata)
+    begin
+      if key == "project_credit"
+        if ipdata.has_key?("credit_name")
+          ipdata["name"] = ipdata.delete("credit_name")
+        end
+
+        if ipdata.has_key?("credit_type")
+          if ipdata["credit_type"] == "PS"
+            if ipdata.has_key?("qualifier")
+              case ipdata["qualifier"]
+                when "coordinatore"
+                  key = "project_stakeholder"
+                  ipdata["qualifier"] = "coordinamento operativo"
+                when "finanziatore"
+                  key = "project_stakeholder"
+                  ipdata["qualifier"] = "finanziamento"
+                when "promotore"
+                  key = "project_stakeholder"
+                  ipdata["qualifier"] = "promozione"
+                when "realizzatore"
+                  key = "project_stakeholder"
+                  ipdata["qualifier"] = "realizzazione"
+                when "schedatore"
+                  key = "project_manager"
+                when "responsabile scientifico"
+                  key = "project_manager"
+# Upgrade 2.1.0 inizio
+                else
+                  key = "project_stakeholder"
+# Upgrade 2.1.0 fine
+              end
+            end
+          else
+            # caso ipdata["credit_type"] == "PM" o ipdata["credit_type"] == qualsiasi altro valore
+            if ipdata.has_key?("qualifier")
+              case ipdata["qualifier"]
+                when "coordinatore"
+                  key = "project_manager"
+                when "finanziatore"
+                  key = "project_stakeholder"
+                  ipdata["qualifier"] = "finanziamento"
+                when "promotore"
+                  key = "project_stakeholder"
+                  ipdata["qualifier"] = "promozione"
+                when "realizzatore"
+                  key = "project_stakeholder"
+                  ipdata["qualifier"] = "realizzazione"
+                when "schedatore"
+                  key = "project_manager"
+                when "responsabile scientifico"
+                  key = "project_manager"
+# Upgrade 2.1.0 inizio
+                else
+                  key = "project_manager"
+# Upgrade 2.1.0 fine
+              end
+            end
+          end
+        end
+      end
+    rescue
+    end
+    return key
   end
 end

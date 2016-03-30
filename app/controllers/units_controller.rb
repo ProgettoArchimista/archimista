@@ -74,6 +74,8 @@ class UnitsController < ApplicationController
     redirect_to request.referrer
   end
 
+# Upgrade 2.1.0 inizio
+=begin
   def reorder_rows
     @root_fond = Fond.find(params[:fond_id]).root
     options = Unit.build_order_options(params['reorder_attributes'])
@@ -95,6 +97,49 @@ class UnitsController < ApplicationController
 
     redirect_to request.referrer
   end
+=end
+  def reorder_rows
+    @root_fond = Fond.find(params[:fond_id]).root
+    options = Unit.build_order_options(params['reorder_attributes'])
+    filter = params['filter_ids']
+    if params['include_subtree'] == "include_subtree"
+      is_include_subtree = true
+    else
+      is_include_subtree = false
+    end
+
+    valid_and_saved = true
+
+    if is_include_subtree == true
+      fonds = Fond.subtree_of(params[:fond_id])
+      fonds.each do |f|
+        filter = f.unit_ids.sort.join(",")
+        valid_and_saved = reorder_fond_rows(@root_fond, options, filter)
+        if valid_and_saved == false
+          break
+        end
+      end
+    else
+      valid_and_saved = reorder_fond_rows(@root_fond, options, filter)
+    end
+
+    if valid_and_saved
+      flash[:notice] = "Ordine delle unità aggiornato"
+    else
+      flash[:alert] = "Errore durante l'aggiornamento dell'ordine delle unità"
+    end
+
+    redirect_to request.referrer
+  end
+
+  def reorder_fond_rows(root_fond, options, filter)
+    valid_and_saved = false
+    if options
+      valid_and_saved = root_fond.rebuild_external_sequence_by(options[:order], { :joins => options[:joins], :conditions => options[:conditions] }, filter)
+    end
+    return valid_and_saved
+  end
+# Upgrade 2.1.0 fine
 
   def classify
     if Unit.classify(params[:record_ids], params[:new_fond_id])
@@ -315,6 +360,7 @@ class UnitsController < ApplicationController
   end
 
   def list_oa_ogtd
+puts "###################### list_oa_ogtd inizio"
     term = params[:term] || ""
 # Upgrade 2.0.0 inizio
 =begin
@@ -412,6 +458,9 @@ class UnitsController < ApplicationController
   def new
     terms
     iccd_terms
+# Upgrade 2.1.0 inizio
+    sc2_terms
+# Upgrade 2.1.0 fine
     langs
     fond
     parent
@@ -487,6 +536,9 @@ class UnitsController < ApplicationController
   def edit
     terms
     iccd_terms
+# Upgrade 2.1.0 inizio
+    sc2_terms
+# Upgrade 2.1.0 fine
     langs
     @unit = Unit.find(params[:id])
 
@@ -537,6 +589,9 @@ class UnitsController < ApplicationController
     else
       terms
       iccd_terms
+# Upgrade 2.1.0 inizio
+      sc2_terms
+# Upgrade 2.1.0 fine
       langs
       @events = @unit.events_for_view if @events.empty?
       render :action => "new"
@@ -594,6 +649,9 @@ class UnitsController < ApplicationController
       else
         terms
         iccd_terms
+# Upgrade 2.1.0 inizio
+        sc2_terms
+# Upgrade 2.1.0 fine
         langs
         # OPTIMIZE: dry!!!
         @full_path = @unit.full_path
@@ -625,6 +683,42 @@ class UnitsController < ApplicationController
     # OPTIMIZE: rivedere redirect
     redirect_to fond_units_url(@unit.root_fond_id), :notice => "Scheda eliminata"
   end
+
+# Upgrade 2.1.0 inizio
+	def sc2_voc_list
+		voc_name = params["voc"]
+		voc_scope = params["scope"]
+		is_voc_add_empty = params["add_empty"] == "1" ? true : false
+
+		if voc_name != ""
+      if voc_scope != ""
+        sc2_terms = Sc2Term.joins(:sc2_vocabulary).
+          select("term_key, term_value").
+          where({ "sc2_vocabularies.name" => "#{voc_name}", :term_scope => "#{voc_scope}"}).
+          order("position")
+      else
+        sc2_terms = Sc2Term.joins(:sc2_vocabulary).
+          select("distinct term_key, term_value").
+          where({ "sc2_vocabularies.name" => "#{voc_name}" }).
+          order("term_key")
+      end
+			
+			voc_terms = []
+			if is_voc_add_empty
+				voc_terms = [{ :term_key => "", :term_value => "" }]
+			end
+			voc_terms = voc_terms + sc2_terms.map {|a| { :term_key => a.term_key, :term_value => a.term_value } }
+
+			respond_to do |format|
+				format.json { render :json => { :status => "success", :values => voc_terms } }
+			end
+		else
+			respond_to do |format|
+				format.json { render :json => { :status => "error" } }
+			end
+		end
+	end
+# Upgrade 2.1.0 fine
 
   private
 
