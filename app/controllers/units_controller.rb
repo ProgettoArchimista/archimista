@@ -684,6 +684,15 @@ puts "###################### list_oa_ogtd inizio"
     redirect_to fond_units_url(@unit.root_fond_id), :notice => "Scheda eliminata"
   end
 
+  def duplicate
+    @unit = Unit.find(params[:id])
+    copy = @unit.amoeba_dup
+    copy.save
+
+    # OPTIMIZE: rivedere redirect
+    redirect_to request.referrer, :notice => 'Scheda duplicata'
+  end
+
 # Upgrade 2.1.0 inizio
 	def sc2_voc_list
 		voc_name = params["voc"]
@@ -702,7 +711,7 @@ puts "###################### list_oa_ogtd inizio"
           where({ "sc2_vocabularies.name" => "#{voc_name}" }).
           order("term_key")
       end
-			
+
 			voc_terms = []
 			if is_voc_add_empty
 				voc_terms = [{ :term_key => "", :term_value => "" }]
@@ -762,4 +771,3 @@ puts "###################### list_oa_ogtd inizio"
 # Upgrade 2.0.0 fine
 
 end
-

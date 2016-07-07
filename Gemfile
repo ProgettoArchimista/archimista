@@ -61,3 +61,5 @@ gem 'rails-footnotes', '>=4.1.7'
 gem 'sneaky-save',  '>=0.1.0'
 
 gem 'thin'
+
+gem 'amoeba'
