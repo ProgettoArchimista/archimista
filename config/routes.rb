@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     resources :digital_objects, :except => [:show, :destroy]
   end
 
-  resources :units, :except => [:new] do
+  resources :units, :except => [:new] do :dupli
     member do
       put   :ajax_update
       patch :ajax_update
@@ -83,6 +83,7 @@ Rails.application.routes.draw do
       get   :move
       post  :move_down
       post  :move_up
+      get   :duplicate
     end
     collection do
       get :list_oa_mtc
@@ -108,7 +109,7 @@ Rails.application.routes.draw do
   end
 
   resources :creators do
-    collection do 
+    collection do
       get :list
     end
     resources :digital_objects, :except => [:show, :destroy]

@@ -111,6 +111,7 @@
           <% end %>
           <div class="unit-actions">
             <%= link_to t('show'), unit %> |
+            <%= link_to "Duplica", duplicate_unit_path(unit) %> |
 <%# Upgrade 2.0.0 inizio %>
             <%#= link_to t('destroy'), unit, :confirm => t('are_you_sure'), :method => :delete %>
             <%= link_to t('destroy'), unit, data: {:confirm => t('are_you_sure')}, :method => :delete %> |
@@ -147,4 +148,3 @@
 
 <%# OPTIMIZE: forse meglio edit-level-container, anche in considerazione di prossima probabile funzionalità "Sposta..." (prima di | dopo di) %>
 <div id="move-container"></div>
-

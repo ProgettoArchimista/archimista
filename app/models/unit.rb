@@ -92,6 +92,16 @@ class Unit < ActiveRecord::Base
 	accepts_nested_attributes_for :sc2_techniques, :allow_destroy => true, :reject_if => proc { |a| a['mtct'].blank? }
   accepts_nested_attributes_for :sc2_scales, :allow_destroy => true, :reject_if => proc { |a| a['sca'].blank? }
 
+  amoeba do
+    enable
+    exclude_association :events # necessario altrimenti duplica le date
+    customize([
+      lambda do |orig, copy|
+        copy.position = orig.position + 1
+      end
+      ])
+  end
+
   def sc2_authors_reject_if(attributes)
     exists = attributes[:id].present?
     empty = attributes[:autr].blank? && attributes[:autn].blank? && attributes[:auta].blank?
@@ -233,7 +243,7 @@ class Unit < ActiveRecord::Base
     errors.add_to_base :not_allowed_ancestry_depth if ancestry_depth > MAX_LEVEL_OF_NODES
   end
 
-  # Scopes  
+  # Scopes
 # Upgrade 2.0.0 inizio
 =begin
   named_scope :list, :select => "units.id, units.sequence_number, units.reference_number,
