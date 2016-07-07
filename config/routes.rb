@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     resources :digital_objects, :except => [:show, :destroy]
   end
 
-  resources :units, :except => [:new] do :dupli
+  resources :units, :except => [:new] do
     member do
       put   :ajax_update
       patch :ajax_update
