@@ -6,6 +6,10 @@ class Sc2Author < ActiveRecord::Base
 
 	accepts_nested_attributes_for :sc2_attribution_reasons, :allow_destroy => true, :reject_if => :sc2_attribution_reasons_reject_if
 
+  amoeba do
+    enable
+  end
+  
   def sc2_attribution_reasons_reject_if(attributes)
     exists = attributes[:id].present?
     empty = attributes[:autm].blank?
