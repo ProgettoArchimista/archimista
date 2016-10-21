@@ -6,6 +6,8 @@
 
 <% content_for :javascripts do %>
   <%= javascript_include_tag "jsTree/jquery.jstree.min" %>
+<%# Upgrade 2.2.0 inizio %>
+<%# Aggiunto units-exports %>
   <%= javascript_include_tag "units",
     "units-add_rows",
     "units-jump_to",
@@ -13,7 +15,9 @@
     "units-move.js",
     "units-reorder",
     "units-remove_rows",
+    "units-exports",
     :cache => "/assets/units" %>
+<%# Upgrade 2.2.0 fine %>
 <% end %>
 
 <%# Status bar %>
@@ -37,11 +41,20 @@
 
     <button id="mass-remove" data-target="#mass-remove-modal" data-toggle="modal" class="btn btn-small disabled">
       <i class="icon-trash"></i>&nbsp;&nbsp;<%= t('destroy') %>
-    </button> |
-
+    </button>
+    |
     <button id="mass-reorder" data-target="#mass-reorder-modal" data-toggle="modal" class="btn btn-small<%= " disabled" if @units.size == 0 %>">
       <i class="icon-resize-vertical"></i>&nbsp;<%= t('reorder') %>
     </button>
+    |
+<%# Upgrade 2.2.0 inizio %>
+    <button id="mass-export" data-target="#mass-export-modal" data-toggle="modal" class="btn btn-small disabled" ref_fond_id="<%=@fond.id %>">
+      <%= t('unit_export') %>
+    </button>
+    <button id="mass-import" data-target="#mass-import-modal" data-toggle="modal" class="btn btn-small">
+      <%= t('unit_import') %>
+    </button>
+<%# Upgrade 2.2.0 fine %>
   </div>
 </div>
 
@@ -49,14 +62,34 @@
 <%= render :partial => 'units/add_rows', :locals => {:fond => @fond, :vocabularies => @vocabularies } %>
 <%= render :partial => 'units/classify', :locals => {:fond => @fond, :root_fond => @root_fond} %>
 <%= render :partial => 'units/remove_rows' %>
+<%# Upgrade 2.2.0 inizio %>
+<%= render :partial => 'units/export_units' %>
+<%= render :partial => 'units/import_units' %>
+<%# Upgrade 2.2.0 fine %>
 <%= render :partial => 'units/reorder' %>
 
 <div id="more-units-controls" class="clearfix">
-  <%= display_page_entries_info @units %>
+<%= display_page_entries_info @units %>
 
-  <% if @units.total_entries > 20 || params[:q].present? %>
+<%# Upgrade 2.2.0 inizio %>
+  <%# if @units.total_entries > 20 || params[:q].present? %>
+  <% if true %>
+<%# Upgrade 2.2.0 fine %>
 <%# TAI aggiunto = prima di form_tag %>
-    <%= form_tag("/fonds/#{@fond.id}/units", :method => :get, :class => "skip-prompt form-search pull-right") do %>
+    <%= form_tag("/fonds/#{@fond.id}/units", :method => :get, :class => "skip-prompt form-search pull-right", :id => "form-units-filter") do %>
+
+<%# Upgrade 2.2.0 inizio %>
+      <div id="div-do-not-paginate-units">
+        <%= check_box_tag :do_not_paginate, "1", params[:do_not_paginate], :id => "chk-do-not-paginate-units" %>
+        <%= label_tag "", "Non suddividere in pagine", :id => "lbl_top_level_only" %>
+      </div>
+      <% if @fond.is_root? %>
+        <div id="div-select-top-level-units">
+          <%= check_box_tag :top_level_only, "1", params[:top_level_only], :id => "chk-select-top-level-units" %>
+          <%= label_tag "", "Mostra solo le unità del complesso di primo livello", :id => "lbl_top_level_only" %>
+        </div>
+      <% end %>
+<%# Upgrade 2.2.0 fine %>
       <%= text_field_tag :q, params[:q], :size => "60", :class => "search-query", :placeholder => "Titolo" %>
       <%= submit_tag "cerca", :name => "", :class => "btn btn-small" %>
     <% end %>
@@ -82,7 +115,12 @@
     <tbody>
     <% @units.each do |unit| %>
       <tr class="<%= cycle("odd", "even") %>">
-        <td><%= check_box_tag 'record_ids[]', unit.id, false, :class => 'selected-record-id' %></td>
+        <td>
+<%# Upgrade 2.2.0 inizio %>
+          <%#= check_box_tag 'record_ids[]', unit.id, false, :class => 'selected-record-id' %>
+          <%= check_box_tag 'record_ids[]', unit.id, false, :class => 'selected-record-id', :pid => unit.is_root? ? '' : unit.parent_id.to_s, :fid => unit.fond_id.to_s %>
+<%# Upgrade 2.2.0 fine %>
+        </td>
         <%# OPTIMIZE: togliere stile in linea e fare classe %>
         <td class="muted" style="text-align: right; padding-right: 20px;">
           <%= unit.display_sequence_number_from_hash(@display_sequence_numbers) %>
@@ -132,7 +170,12 @@
 <%# Upgrade 2.0.0 inizio %>
   <%#= will_paginate @units, :previous_label => t("previous"), :next_label => t("next") %>
   <div class="digg_pagination">
-    <%= will_paginate @units, :previous_label => t("previous"), :next_label => t("next"), :container => false %>
+<%# Upgrade 2.2.0 inizio %>
+    <%#= will_paginate @units, :previous_label => t("previous"), :next_label => t("next"), :container => false %>
+    <% if !params[:do_not_paginate].present? %>
+      <%= will_paginate @units, :previous_label => t("previous"), :next_label => t("next"), :container => false %>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
   </div>
 <%# Upgrade 2.0.0 fine %>
 

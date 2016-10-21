@@ -57,6 +57,10 @@ class Fond < ActiveRecord::Base
   has_many :descendant_units, -> {readonly}, :class_name => "Unit", :foreign_key => :root_fond_id
 # Upgrade 2.0.0 fine
 
+# Upgrade 2.2.0 inizio
+  belongs_to :group
+# Upgrade 2.2.0 fine
+
   def active_descendant_units_count
 # Upgrade 2.0.0 inizio
 #    Unit.count("id", :joins => :fond, :conditions => {:fond_id => subtree_ids, :fonds => {:trashed => false}})
@@ -192,7 +196,10 @@ class Fond < ActiveRecord::Base
       :conditions => conditions }
   }
 =end
-  scope :list, -> {select("id, name, units_count, fond_type, updated_at, db_source").includes(:preferred_event)}
+# Upgrade 2.2.0 inizio
+#  scope :list, -> {select("id, name, units_count, fond_type, updated_at, db_source").includes(:preferred_event)}
+  scope :list, -> {select("fonds.id, fonds.name, units_count, fond_type, fonds.updated_at, db_source, group_id, groups.short_name").joins(:group).includes(:preferred_event)}
+# Upgrade 2.2.0 fine
 
   scope :default_order, -> {order("fonds.name")}
 

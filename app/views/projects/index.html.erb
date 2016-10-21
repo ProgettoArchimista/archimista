@@ -4,17 +4,50 @@
 
 <div class="span12">
   <div id="index-controls">
-    <%= link_to t('new'), new_project_path, {:class => "btn btn-small new"} %>
+<%# Upgrade 2.2.0 inizio %>
+ <%
+  project_type_voc_terms = Term.select("terms.*").joins(:vocabulary).where("vocabularies.name = 'projects.project_type'").order("terms.position")
+  project_status_voc_terms = Term.select("terms.*").joins(:vocabulary).where("vocabularies.name = 'projects.status'").order("terms.position")
+ %>
+ <% puts "Project.per_page=" + Project.per_page.to_s %>
+    <% if params[:q].present? then q_value = params[:q] else q_value = nil end %>
+    <% if params[:qpt].present? then qpt_value = params[:qpt] else qpt_value = nil end %>
+    <% if params[:qps].present? then qps_value = params[:qps] else qps_value = nil end %>
+    <% filter_used = (!q_value.nil? || !qpt_value.nil? || !qps_value.nil?) %>
+    <%= form_tag('/projects', :method => :get, :class => "skip-prompt form-search pull-right", :style => "margin-bottom: 0") do %>
+      <%= text_field_tag :q, q_value, :class => "search-query", :placeholder => "Denominazione" %>
+      <%= select_tag :qpt, options_for_select(project_type_voc_terms.map {|a| [ t(a.term_key), a.term_value ]},:selected=>qpt_value), { :class=>"span4", :prompt=>"--" + t('project_type') + "--"} %>
+      <%= select_tag :qps, options_for_select(project_status_voc_terms.map {|a| [ t(a.term_key), a.term_value ]},:selected=>qps_value), { :class=>"span2", :prompt=>"--" + t('status') + "--" } %>
+      <%= submit_tag "Cerca", :name => "", :class => "btn btn-small" %>
+    <% end %>
+
+    <div>
+      <% if current_user.is_multi_group_user?() %>
+        <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#select_project_group_modal", { :"data-toggle" => "modal", :class => "btn btn-mini new" } %>
+      <% else %>
+        <%= link_to t('new'), new_project_path, {:class => "btn btn-small new"} %>
+      <% end %>
+    </div>
+<%# Upgrade 2.2.0 fine %>
   </div>
 
 <% if @projects.size > 0 %>
 <%= display_page_entries_info @projects %>
 
+<%# Upgrade 2.2.0 inizio %>
+    <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span4" else "span6" end %>
+<%# Upgrade 2.2.0 fine %>
+
 <table class="table table-sortable">
   <thead>
   <tr>
-    <th class="span6"><%= t('name') %></th>
+    <th class="<%= class_name %>"><%= t('name') %></th>
     <th class="span2"><%= t('duration') %></th>
+<%# Upgrade 2.2.0 inizio %>
+    <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+      <th class="span2"><%= t('list_group_short_name') %></th>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
     <th class="span2"><%= t('updated_at') %></th>
     <th class="span1">&nbsp;</th>
     <th class="span1">&nbsp;</th>
@@ -24,8 +57,55 @@
  <tbody>
  <% @projects.each do |project| %>
   <tr class="<%= cycle("odd", "even") %>">
-    <td><%= link_to "#{project.name}", edit_project_path(project) %></td>
+    <td>
+      <%= link_to "#{project.name}", edit_project_path(project) %>
+<%# Upgrade 2.2.0 inizio %>
+      <% project_type = list_db_value_to_view_value(project_type_voc_terms, "projects.project_type", project.project_type) %>
+      <% if !project_type.nil? && project_type != "" %>
+        <div class="index-item-info">
+          <%= t('project_type') + ": " + project_type %>
+        </div>
+      <% end %>
+      <% if project.project_managers.present? %>
+      <div class="index-item-info">
+        <%= t('project_managers')%>
+        <ul class="index-item-list">
+        <% project.project_managers.each do |project_manager| %>
+          <li>
+            <%= show_item(project_manager.name) %> 
+            <%= show_item(project_manager.qualifier, ["[", "]"]) %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+      <% end %>
+      <% if project.project_stakeholders.present? %>
+      <div class="index-item-info">
+        <%= t('project_stakeholders')%>
+        <ul class="index-item-list">
+        <% project.project_stakeholders.each do |project_stakeholder| %>
+          <li>
+            <%= show_item(project_stakeholder.name) %> 
+            <%= show_item(project_stakeholder.qualifier, ["[", "]"]) %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+      <% end %>
+      <div class="index-item-info">
+        <% project_status = list_db_value_to_view_value(project_status_voc_terms, "projects.status", project.status) %>
+        <% if !project_status.nil? && project_status != "" %>
+          <%= t('status') + ": " + project_status %>
+        <% end %>
+      </div>
+<%# Upgrade 2.2.0 fine %>
+    </td>
     <td><%= project.display_date %></td>
+<%# Upgrade 2.2.0 inizio %>
+    <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+      <td style="font-size: 11px;"><%= project.group.short_name %></td>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
     <td><%= l project.updated_at, :format => :long %></td>
     <td class="action"><%= link_to t('show'), project %></td>
     <td class="action">
@@ -48,6 +128,19 @@
 <%# Upgrade 2.0.0 fine %>
 
 <% else %>
-  <p>Non sono presenti schede progetto.</p>
+<%# Upgrade 2.2.0 inizio %>
+<%# aggiunto filter_used %>
+  <% if filter_used %>
+    <p>Non sono presenti schede progetto con le caratteristiche specificate.</p>
+  <% else %>
+    <p>Non sono presenti schede progetto.</p>
+  <% end %>
+<%# Upgrade 2.2.0 fine %>
 <% end %>
 </div>
+
+<%# Upgrade 2.2.0 inizio %>
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "projects/project_group" %>
+<% end %>
+<%# Upgrade 2.2.0 fine %>

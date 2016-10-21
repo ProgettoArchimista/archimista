@@ -21,7 +21,10 @@
       <%= label_tag 'heading[qualifier]', t('heading_qualifier') %>
       <%= text_field_tag 'heading[qualifier]', '', :class => "span4" %>
 
-      <%= hidden_field_tag 'heading[group_id]', current_user.group_id %>
+<%# Upgrade 2.2.0 inizio %>
+      <%#= hidden_field_tag 'heading[group_id]', current_user.group_id %>
+      <%= hidden_field_tag 'heading[group_id]', current_ability.target_group_id %>
+<%# Upgrade 2.2.0 fine %>
       <%= hidden_field_tag 'related_entity_id', params['related_id'] %>
       <%= hidden_field_tag 'related_entity', params['related_controller'] %>
     <% end %>

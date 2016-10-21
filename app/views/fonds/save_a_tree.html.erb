@@ -8,11 +8,28 @@
 <% end %>
 
 <div class="span8">
-  <p style="margin-bottom: 2em;">Scrivi la struttura del complesso archivistico nel campo di testo, un livello per riga, oppure scegli un modello predefinito liberamente modificabile.</p>
-
 <%# TAI aggiunto = prima di form_tag %>
   <%= form_tag({:action => 'saving_the_tree'}, {:method => 'post', :class => "skip-prompt"}) do %>
-  <p>
+  
+<%# Upgrade 2.2.0 inizio %>
+	<% if current_user.is_multi_group_user?() %>
+		<div style="margin-bottom: 10px;">
+			<div style="text-align: justify;">
+				Per eseguire l'operazione è necessario selezionare il gruppo cui associare il nuovo complesso archivistico scegliendolo tra i gruppi associati all'utente corrente.
+			</div>
+			<div style="margin-top: 10px;">
+				<%= label_tag :group_id, raw(t('devise.attributes.group_id') + required_marker + '<span class="inline-msg hide">obbligatorio</span>'), :class => "control-label" %>            
+				<%= select :tree, :group_id, rel_user_groups_select(current_user.rel_user_groups), {:prompt => t('devise.attributes.group_id_prompt'), :selected => current_user.rel_user_groups[0].group_id} %>
+			</div>
+		</div>
+	<% else %>
+		<%= hidden_field_tag 'tree[group_id]', current_ability.target_group_id %>
+	<% end %>
+<%# Upgrade 2.2.0 fine %>
+	
+  <p style="margin-bottom: 2em;">Scrivi la struttura del complesso archivistico nel campo di testo, un livello per riga, oppure scegli un modello predefinito liberamente modificabile.</p>
+
+	<p>
     <%= select(:tree, :predefined_templates, options_from_collection_for_select(@select_options, 'first', 'last'), {:prompt => "--- Scegli modello predefinito ---"}, { :id => 'template-selector', :class => "span5" }) %>
   </p>
   <p>

@@ -4,6 +4,33 @@ class GroupImagesController < ApplicationController
   helper_method :group_image_type_is_carousel?
   before_filter :prv_require_image_magick, :except => [:disabled]
 
+# Upgrade 2.2.0 inizio
+  load_and_authorize_resource
+  skip_load_and_authorize_resource :only => [ :create ]
+
+  def current_ability
+    if @current_ability.nil?
+      if (current_user.is_multi_group_user?())
+        if (["edit","update","destroy"].include?(params[:action]))
+          gi = GroupImage.select("group_id").find(params[:id])
+          @current_ability ||= Ability.new(current_user, gi.group_id)
+        elsif (["all"].include?(params[:action]))
+          @current_ability ||= Ability.new(current_user, -1)
+        elsif (["new","create","index"].include?(params[:action]))
+          if params[:group_id].present?
+            group_id = str2int(params[:group_id])
+            @current_ability ||= Ability.new(current_user, group_id)
+          end
+        end
+      end
+    end
+    if @current_ability.nil?
+      @current_ability = super
+    end
+    return @current_ability
+  end
+# Upgrade 2.2.0 fine
+
   def all
     @group_images = GroupImage.accessible_by(current_ability, :read).includes(:group).order(sort_column + ' ' + prv_sort_direction).page(params[:page])
   end
@@ -34,7 +61,14 @@ class GroupImagesController < ApplicationController
       group_image.related_group_id = params[:group_id]
       group_image.created_by = current_user.id
       group_image.updated_by = current_user.id
-      group_image.group_id = current_user.group_id
+# Upgrade 2.2.0 inizio
+#      group_image.group_id = current_user.group_id
+        if current_user.is_multi_group_user?()
+          group_image.group_id = current_ability.target_group_id
+        else
+          group_image.group_id = current_user.rel_user_groups[0].group_id
+        end
+# Upgrade 2.2.0 fine
     end
 
     respond_to do |format|

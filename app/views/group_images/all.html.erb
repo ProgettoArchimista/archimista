@@ -7,12 +7,21 @@
 <div class="span12">
   <% if @group_images.size > 0 %>
     <%= display_page_entries_info @group_images %>
+    
+<%# Upgrade 2.2.0 inizio %>
+    <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span4" else "span6" end %>
+<%# Upgrade 2.2.0 fine %>
 
     <table class="table table-sortable">
       <thead>
         <tr>
           <th class="span2">&nbsp;</th>
-          <th class="span6"><%= sortable("asset_file_name", "Nome file") %></th>
+          <th class="<%= class_name %>"><%= sortable("asset_file_name", "Nome file") %></th>
+<%# Upgrade 2.2.0 inizio %>
+          <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+            <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
+          <% end %>
+<%# Upgrade 2.2.0 fine %>
           <th class="span3"><%= sortable("updated_at", t('updated_at')) %></th>
           <th class="span1">&nbsp;</th>
         </tr>
@@ -67,6 +76,12 @@
                 </span>
               </p>
             </td>
+<%# Upgrade 2.2.0 inizio %>
+            <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+              <td style="font-size: 11px;"><%= group_image.group.short_name %></td>
+            <% end %>
+<%# Upgrade 2.2.0 fine %>
+
             <td><%= l group_image.updated_at, :format => :long %></td>
             <td>
               <%= link_to t('destroy'), group_image_path(group_image), data: {:confirm => t('are_you_sure')}, :method => :delete %>

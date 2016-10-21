@@ -13,7 +13,10 @@ module ReportSupport
       { :name => "other_names.group", :name_tag => "other_names", :callback => proc { |report_settings, entity_sym, entity_obj, ai| if entity_obj.other_names.present? then prv_html_rtf_other_names_callback(report_settings, entity_sym, ai.name_caption, entity_obj.other_names) else "" end } },
       { :name => "events.group", :name_tag => "date_event", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_events_callback(report_settings, entity_sym, entity_obj, ai) }, :is_default => true },
       { :name => "length", :is_default => true },
-      { :name => "extent", :is_default => true },
+# Upgrade 2.2.0 inizio
+# aggiunto name_tag
+      { :name => "extent", :name_tag => "fond_extent", :is_default => true },
+# Upgrade 2.2.0 fine
       { :name => "abstract", :is_default => true },
       { :name => "description", :is_default => true, :name_tag => "fond_description" },
       { :name => "history", :is_default => true },
@@ -126,9 +129,15 @@ module ReportSupport
     attributes_template = [
       # descrizione
       { :name => "unit_type" },
-      { :name => "title.group", :name_tag => "title", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_unit_title_callback(report_settings, entity_sym, entity_obj, ai) }	, :is_default => true },
+# Upgrade 2.2.0 inizio
+#      { :name => "title.group", :name_tag => "title", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_unit_title_callback(report_settings, entity_sym, entity_obj, ai) }	, :is_default => true },
+      { :name => "title.group", :name_tag => "title", :name_caption_list_note => " (N.B.: viene inserito sempre come identificativo dell'unità)", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_unit_title_callback(report_settings, entity_sym, entity_obj, ai) } },
+# Upgrade 2.2.0 fine
       { :name => "events.group", :name_tag => "date_event", :callback => proc { |report_settings, entity_sym, entity_obj, ai| prv_html_rtf_events_callback(report_settings, entity_sym, entity_obj, ai) }, :is_default => true },
       { :name => "content", :is_default => true },
+# Upgrade 2.2.0 inizio
+      { :name => "extent", :name_tag => "unit_extent" },
+# Upgrade 2.2.0 fine
       { :name => "tmp_reference_number", :is_default => true },
       { :name => "tmp_reference_string", :is_default => true },
       { :name => "folder_number" },
@@ -439,6 +448,9 @@ private
     attributes_template.each do |attr_info|
       name = attr_info[:name]
       name_caption = attr_info[:name_caption]
+# Upgrade 2.2.0 inizio
+      name_caption_list_note = attr_info[:name_caption_list_note]
+# Upgrade 2.2.0 fine
       group_tag = attr_info[:group_tag]
       group_caption = attr_info[:group_caption]
       name_tag = attr_info[:name_tag]
@@ -463,7 +475,10 @@ private
       if is_default.nil? then is_default = false end
       if is_multi_instance.nil? then is_multi_instance = false end
 
-      ai = AttributeInfo.new(name, group_tag, name_caption, group_caption, is_value_translation, is_default, is_multi_instance, callback)
+# Upgrade 2.2.0 inizio
+#      ai = AttributeInfo.new(name, group_tag, name_caption, group_caption, is_value_translation, is_default, is_multi_instance, callback)
+      ai = AttributeInfo.new(name, group_tag, name_caption, group_caption, name_caption_list_note, is_value_translation, is_default, is_multi_instance, callback)
+# Upgrade 2.2.0 fine
       available_attributes_info[name] = ai
     end
     return available_attributes_info
@@ -636,6 +651,8 @@ private
   end
 
 # -------------------------------
+# Upgrade 2.2.0 inizio
+=begin
   def prv_html_rtf_items_concat(report_settings, ers, caption, rtf_stylesheet_key, items, fld_names, separator, fld_prefixes, fld_postfixes, fld_value_transformations)
     op_html = ""
     if !items.nil?
@@ -710,6 +727,163 @@ private
       return ""
     end
   end
+=end
+  def prv_html_rtf_items_concat(report_settings, ers, caption, rtf_stylesheet_key, items, fld_names, separator, fld_prefixes, fld_postfixes, fld_value_transformations)
+    settings =
+    {
+      :l1_fld_names => fld_names,
+      :l1_fld_separator => separator,
+      :l1_fld_prefixes => fld_prefixes,
+      :l1_fld_postfixes => fld_postfixes,
+      :l1_fld_value_transformations => fld_value_transformations,
+      :l1_item_key_fldname => "id",
+    
+      :l2_caption => "",
+      :l2_fld_names => [],
+      :l2_fld_separator => [],
+      :l2_fld_prefixes => [],
+      :l2_fld_postfixes => [],
+      :l2_fld_value_transformations => [],
+      :l2_foreign_key_fldname => "",
+      :l2_inst_separator => "",
+      
+      :l1vsl2_separator => "",
+      :l2_position => ""
+    }     
+    op_html = prv_html_rtf_items_concat_with_subtable(report_settings, ers, caption, rtf_stylesheet_key, items, nil, settings)
+    return op_html
+  end
+
+  def prv_html_rtf_items_concat_with_subtable(report_settings, ers, caption, rtf_stylesheet_key, l1_items, l2_items, settings)
+    l1_fld_names = settings[:l1_fld_names]; if l1_fld_names.nil? then l1_fld_names = [] end
+    l1_fld_separator = settings[:l1_fld_separator]; if l1_fld_separator.nil? then l1_fld_separator = "" end
+    l1_fld_prefixes = settings[:l1_fld_prefixes]; if l1_fld_prefixes.nil? then l1_fld_prefixes = [] end
+    l1_fld_postfixes = settings[:l1_fld_postfixes]; if l1_fld_postfixes.nil? then l1_fld_postfixes = [] end
+    l1_fld_value_transformations = settings[:l1_fld_value_transformations]; if l1_fld_value_transformations.nil? then l1_fld_value_transformations = [] end
+    l1_item_key_fldname = settings[:l1_item_key_fldname]; if l1_item_key_fldname.nil? then l1_item_key_fldname = "" end
+  
+    l2_caption = settings[:l2_caption]; if l2_caption.nil? then l2_caption = "" end
+    l2_fld_names = settings[:l2_fld_names]; if l2_fld_names.nil? then l2_fld_names = [] end
+    l2_fld_separator = settings[:l2_fld_separator]; if l2_fld_separator.nil? then l2_fld_separator = "" end
+    l2_fld_prefixes = settings[:l2_fld_prefixes]; if l2_fld_prefixes.nil? then l2_fld_prefixes = [] end
+    l2_fld_postfixes = settings[:l2_fld_postfixes]; if l2_fld_postfixes.nil? then l2_fld_postfixes = [] end
+    l2_fld_value_transformations = settings[:l2_fld_value_transformations]; if l2_fld_value_transformations.nil? then l2_fld_value_transformations = [] end
+    l2_foreign_key_fldname = settings[:l2_foreign_key_fldname]; if l2_foreign_key_fldname.nil? then l2_foreign_key_fldname = "" end
+    l2_inst_separator = settings[:l2_inst_separator]; if l2_inst_separator.nil? then l2_inst_separator = "" end
+    
+    l1vsl2_separator = settings[:l1vsl2_separator]; if l1vsl2_separator.nil? then l1vsl2_separator = "" end
+    l2_position = settings[:l2_position]; if l2_position.nil? then l2_position = "" end
+
+    op_html = ""
+    if !l1_items.nil?
+      is_html = report_settings.rtf_rw.nil?
+
+      if !ers.dont_use_fld_captions
+        if !caption.nil?
+          if is_html
+            op_html = op_html + "<p class=\"fldcaption\">"
+            op_html = op_html + "<strong class=\"field-header\">" + caption + "</strong>"
+            op_html = op_html + "</p>"
+          else
+            rtf_print_field_caption(report_settings.rtf_rw, report_settings.rtf_stylesheet_code_archimista_label, caption)
+          end
+        end
+      end
+
+      if is_html
+        op_html = op_html + prv_html_get_list_open_tag
+      end
+
+      l1_items.each do |l1_item|
+        if !l1_item.send(l1_fld_names[0].to_sym).nil?      
+          l1_item_value = prv_html_rtf_fld_values_concat(is_html, l1_item, l1_fld_names, l1_fld_separator, l1_fld_prefixes, l1_fld_postfixes, l1_fld_value_transformations)
+
+          l2_items_value = ""
+          if !l2_items.nil? then
+            l1_id = l1_item.send(l1_item_key_fldname.to_sym)
+
+            l2_items.each do |l2_item|
+              l2_id = l2_item.send(l2_foreign_key_fldname.to_sym)
+              if (l2_id == l1_id)
+                l2_item_value = prv_html_rtf_fld_values_concat(is_html, l2_item, l2_fld_names, l2_fld_separator, l2_fld_prefixes, l2_fld_postfixes, l2_fld_value_transformations)
+                if (l2_item_value != "")
+                  if !l2_inst_separator.nil? && l2_items_value != "" then l2_items_value = l2_items_value + l2_inst_separator end
+                  l2_items_value = l2_items_value + l2_item_value
+                end
+              end
+            end
+            if (l2_items_value != "" && l2_caption != "")
+              l2_items_value = l2_caption + l2_items_value
+            end
+          end
+          if (l2_items_value != "")
+            if (l1_item_value != "")
+              case l2_position
+                when "before"
+                  l1_item_value = l2_items_value + l1vsl2_separator + l1_item_value
+                when "after"
+                  l1_item_value = l1_item_value + l1vsl2_separator + l2_items_value
+              end
+            else
+              l1_item_value = l2_items_value
+            end
+          end
+          
+          if is_html
+            op_html = op_html + prv_html_get_list_item_open_tag + l1_item_value + prv_html_get_list_item_close_tag
+          else
+            rtf_stylesheet_index = report_settings.get_attribute_rtf_stylesheet_code(rtf_stylesheet_key)
+            rtf_print_field_value(report_settings.rtf_rw, rtf_stylesheet_index, RTFListItemTag + l1_item_value)
+          end
+        end
+      end
+      if is_html
+        op_html = op_html + prv_html_get_list_close_tag        
+      else
+        report_settings.rtf_rw.writeNewLine(nil, nil, 8)
+      end
+
+      if is_html
+        return op_html
+      else
+        return ""
+      end
+    else
+      return ""
+    end
+  end
+  
+  def prv_html_rtf_fld_values_concat(is_html, item, fld_names, fld_separator, fld_prefixes, fld_postfixes, fld_value_transformations)
+    item_value = ""
+    for i in 0 .. fld_names.length - 1
+      if item.respond_to?(fld_names[i].to_sym)
+        value = item.send(fld_names[i].to_sym)
+        if !value.nil? && value != ""
+          if !fld_separator.nil? && item_value != "" then item_value = item_value + fld_separator end         
+          if fld_value_transformations[i] != ""
+            transform_info = fld_value_transformations[i].split("/")
+            case transform_info[0]
+              when "translate"
+                value = prv_translate(value)
+              when "dateLongFormat"
+                value = prv_localize(value, :format => :long)
+              when "vocRemap"
+                value = prv_vocabulary_remap(is_html, transform_info[1], value, false)
+              when "vocRemapAndTranslate"
+                value = prv_vocabulary_remap(is_html, transform_info[1], value, true)
+              when "langRemap"
+                value = prv_lang_remap(is_html, value, "#{I18n.locale}_name".to_sym, false)
+              when "langRemapAndTranslate"
+                value = prv_lang_remap(is_html, value, "#{I18n.locale}_name".to_sym, true)
+            end
+          end
+          item_value = item_value + fld_prefixes[i] + value.to_s + fld_postfixes[i]
+        end
+      end
+    end
+    return item_value
+  end
+# Upgrade 2.2.0 fine
 
 # -------------------------------
   def prv_html_rtf_other_names_callback(report_settings, entity_sym, caption, other_names)
@@ -1363,11 +1537,35 @@ private
 
 # -------------------------------
   def prv_html_rtf_sc2_authors_callback(report_settings, entity_sym, entity_obj, ai)
-    if entity_obj.sc2_authors.present? then
+    if entity_obj.sc2_authors.present?
       ers = report_settings.entity_search_by_name(entity_sym)
       rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "sc2_authors")
-
-      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_authors, ["autn", "auta", "autr"], " ", ["", "", " ("], ["", "", ")"], ["", "", ""])
+      
+# Upgrade 2.2.0 inizio
+#      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_authors, ["autn", "auta", "autr"], " ", ["", "", " ("], ["", "", ")"], ["", "", ""])
+      settings =
+      {
+        :l1_fld_names => ["autn", "auta", "autr"],
+        :l1_fld_separator => " ",
+        :l1_fld_prefixes => ["", "", " ("],
+        :l1_fld_postfixes => ["", "", ")"],
+        :l1_fld_value_transformations => ["", "", ""],
+        :l1_item_key_fldname => "id",
+      
+        :l2_caption => prv_translate("sc2_attribution_reasons") + ": ",
+        :l2_fld_names => ["autm"],
+        :l2_fld_separator => " ",
+        :l2_fld_prefixes => [""],
+        :l2_fld_postfixes => [""],
+        :l2_fld_value_transformations => [""],
+        :l2_foreign_key_fldname => "sc2_author_id",
+        :l2_inst_separator => ", ",
+        
+        :l1vsl2_separator => " - ",
+        :l2_position => "after"
+      }     
+      op_html = prv_html_rtf_items_concat_with_subtable(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_authors, entity_obj.sc2_attribution_reasons, settings)
+# Upgrade 2.2.0 fine
     else
       op_html = ""
     end
@@ -1378,7 +1576,31 @@ private
     if entity_obj.sc2_commissions.present?
       ers = report_settings.entity_search_by_name(entity_sym)
       rtf_stylesheet_key = report_settings.make_attribute_rtf_stylesheet_codes_key(entity_sym.to_s, "sc2_commissions")
-      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_commissions, ["cmmc"], " ", [""], [""], [""])
+# Upgrade 2.2.0 inizio
+#      op_html = prv_html_rtf_items_concat(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_commissions, ["cmmc"], " ", [""], [""], [""])
+      settings =
+      {
+        :l1_fld_names => ["cmmc"],
+        :l1_fld_separator => " ",
+        :l1_fld_prefixes => [""],
+        :l1_fld_postfixes => [""],
+        :l1_fld_value_transformations => [""],
+        :l1_item_key_fldname => "id",
+      
+        :l2_caption => prv_translate("sc2_commission_names") + ": ",
+        :l2_fld_names => ["cmmn"],
+        :l2_fld_separator => " ",
+        :l2_fld_prefixes => [""],
+        :l2_fld_postfixes => [""],
+        :l2_fld_value_transformations => [""],
+        :l2_foreign_key_fldname => "sc2_commission_id",
+        :l2_inst_separator => ", ",
+        
+        :l1vsl2_separator => " - ",
+        :l2_position => "before"
+      }     
+      op_html = prv_html_rtf_items_concat_with_subtable(report_settings, ers, ai.name_caption, rtf_stylesheet_key, entity_obj.sc2_commissions, entity_obj.sc2_commission_names, settings)
+# Upgrade 2.2.0 fine
     else
       op_html = ""
     end

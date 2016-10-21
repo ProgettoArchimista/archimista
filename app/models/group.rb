@@ -3,7 +3,11 @@ class Group < ActiveRecord::Base
   extend Cleaner
 
   before_destroy :is_empty?
-  has_many :users
+# Upgrade 2.2.0 inizio
+#  has_many :users
+  has_many :rel_user_groups, dependent: :destroy
+  has_many :users, :through => :rel_user_groups
+# Upgrade 2.2.0 fine
 
 # Upgrade 2.0.0 inizio
   has_many :carousel_images, :dependent => :destroy, :class_name => 'GroupCarouselImage', :foreign_key => "related_group_id"
@@ -22,7 +26,10 @@ class Group < ActiveRecord::Base
 # Upgrade 2.1.0 fine
 
   def is_empty?
-    users.empty?
+# Upgrade 2.2.0 inizio
+#    users.empty?
+    rel_user_groups.empty?
+# Upgrade 2.2.0 fine
   end
 
   def self.filter(group=1)

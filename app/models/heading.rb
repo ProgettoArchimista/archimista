@@ -15,6 +15,10 @@ class Heading < ActiveRecord::Base
   has_many :rel_fond_headings, :autosave => true, :dependent => :destroy
   has_many :fonds, :through => :rel_fond_headings
 
+# Upgrade 2.2.0 inizio
+  belongs_to :group
+# Upgrade 2.2.0 fine
+
   # Validations
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:heading_type, :dates, :qualifier, :db_source, :group_id], :case_sensitive => false
@@ -78,6 +82,10 @@ class Heading < ActiveRecord::Base
     limit(limit)
   }
 # Upgrade 2.0.0 fine
+
+# Upgrade 2.2.0 inizio
+  scope :list, -> { select("headings.id, headings.heading_type, headings.name, headings.dates, headings.qualifier, group_id, groups.short_name").joins(:group) }
+# Upgrade 2.2.0 fine
 
   def self.find_or_initialize(params)
 # Upgrade 2.0.0 inizio

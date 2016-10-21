@@ -8,9 +8,35 @@
 <%# TAI aggiunto = prima di form_tag %>
     <%= form_tag({:controller => 'fonds', :action => 'ajax_create'}, {:method => :post, :id => "new-fond-form", :class => "skip-prompt"}) do %>
 <%# TAI aggiunto raw() %>
-      <%= label_tag 'fond[name]', raw(t('name') + required_marker + '<span class="inline-msg hide">obbligatorio</span>') %>
-      <%= text_field_tag 'fond[name]', '', :autocomplete => "off", :style => "width: 98%" %>
-      <%= hidden_field_tag 'fond[group_id]', current_user.group_id %>
+
+<%# Upgrade 2.2.0 inizio %>
+      <div>
+        <% if current_user.is_multi_group_user?() %>
+          <div style="text-align: justify;">
+            Per eseguire l'operazione è necessario selezionare il gruppo cui associare il nuovo complesso archivistico scegliendolo tra i gruppi associati all'utente corrente.
+          </div>
+          <div style="margin-top: 10px;">
+            <%= label_tag :group_id, raw(t('devise.attributes.group_id') + required_marker + '<span class="inline-msg hide">obbligatorio</span>'), :class => "control-label" %>            
+            <%= select :fond, :group_id, rel_user_groups_select(current_user.rel_user_groups), {:prompt => t('devise.attributes.group_id_prompt'), :selected => current_user.rel_user_groups[0].group_id} %>
+          </div>
+        <% else %>
+          <%= hidden_field_tag 'fond[group_id]', current_ability.target_group_id %>
+        <% end %>
+      </div>
+      <div style="margin-top: 20px;">
+        <div style="text-align: justify;">
+          Selezionare la denominazione del complesso archivistico
+        </div>
+        <div style="margin-top: 10px;">
+          <%= label_tag 'fond[name]', raw(t('name') + required_marker + '<span class="inline-msg hide">obbligatorio</span>') %>
+          <%= text_field_tag 'fond[name]', '', :autocomplete => "off", :style => "width: 98%" %>
+        </div>
+      </div>
+
+      <%#= hidden_field_tag 'fond[group_id]', current_user.group_id %>
+      <%#= label_tag 'fond[name]', raw(t('name') + required_marker + '<span class="inline-msg hide">obbligatorio</span>') %>
+      <%#= text_field_tag 'fond[name]', '', :autocomplete => "off", :style => "width: 98%" %>
+<%# Upgrade 2.2.0 fine %>
       <%= hidden_field_tag 'fond[sequence_number]', "1" %>
     <% end %>
   </div>

@@ -152,14 +152,22 @@ en:
   numbered_from: "Numbered from"
   alt_title: "Alternative title"
 # Upgrade 2.1.0 inizio
-  CARS: "CARS - Cartografia storica"
-  D: "D - Disegno artistico"
-  DT: "DT - Disegno Tecnico"
-  F: "F - Fotografia"
-  S: "S - Stampa"
+# Upgrade 2.2.0 inizio
+  unit_export: "Export"
+  unit_import: "Import"
+  confirm_export: "Are you sure to export the selected units?"
+  unit_extent: "Extent"
+  units_sc2_tsk:
+    CARS: "CARS - Cartografia storica"
+    D: "D - Disegno artistico"
+    DT: "DT - Disegno Tecnico"
+    F: "F - Fotografia"
+    S: "S - Stampa"
+# Upgrade 2.2.0 fine
   sc2_openedvoc: "[Lista >>]"
   sc2_tsk: "Scheda speciale"
   sc2_textual_elements: "Elementi testuali"
+  new_sc2_textual_elements: "Aggiungi elemento testuale"
   new_sc2_textual_elements: "Aggiungi elemento testuale"
   sc2_visual_elements: "Elementi figurati"
   new_sc2_visual_elements: "Aggiungi elemento figurato"
@@ -353,11 +361,18 @@ it:
   formatted_title: "Titolo"
   root_fond_id: "Complesso"
 # Upgrade 2.1.0 inizio
-  CARS: "CARS - Cartografia storica"
-  D: "D - Disegno artistico"
-  DT: "DT - Disegno Tecnico"
-  F: "F - Fotografia"
-  S: "S - Stampa"
+# Upgrade 2.2.0 inizio
+  unit_export: "Esporta"
+  unit_import: "Importa"
+  confirm_export: "Sei sicuro di voler esportare le unità selezionate?"
+  unit_extent: "Consistenza"
+  units_sc2_tsk:
+    CARS: "CARS - Cartografia storica"
+    D: "D - Disegno artistico"
+    DT: "DT - Disegno Tecnico"
+    F: "F - Fotografia"
+    S: "S - Stampa"
+# Upgrade 2.2.0 fine
   sc2_openedvoc: "[Lista >>]"
   sc2_tsk: "Scheda speciale"
   sc2_textual_elements: "Elementi testuali"

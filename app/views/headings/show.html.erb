@@ -34,7 +34,9 @@
           <%= unit.display_sequence_number_from_hash(@display_sequence_numbers) %>
         </td>
         <td>
-          <%= "&mdash;" * unit.ancestry_depth %>
+<%# Upgrade 2.2.0 inizio %>
+          <%= raw("&mdash;" * unit.ancestry_depth) %>
+<%# Upgrade 2.2.0 fine %>
 <%# Upgrade 2.1.0 inizio %>
           <%# if unit.is_iccd? %>
           <% if false %>

@@ -1,11 +1,44 @@
 class ProjectsController < ApplicationController
 
   load_and_authorize_resource
+# Upgrade 2.2.0 inizio
+  skip_load_and_authorize_resource :only => [ :list ]
+# Upgrade 2.2.0 fine
+
+# Upgrade 2.2.0 inizio
+  def current_ability
+    if @current_ability.nil?
+      if (current_user.is_multi_group_user?())
+        if (["show","edit","update","destroy"].include?(params[:action]))
+          p = Project.find(params[:id])
+          @current_ability ||= Ability.new(current_user, p.group_id)
+        elsif (["list"].include?(params[:action]))
+          group_id = str2int(params[:group_id])
+          @current_ability ||= Ability.new(current_user, group_id)
+        elsif (["index"].include?(params[:action]))
+          @current_ability ||= Ability.new(current_user, -1)
+        elsif (["new","create"].include?(params[:action]))
+          if params[:group_id].present?
+            group_id = str2int(params[:group_id])
+            @current_ability ||= Ability.new(current_user, group_id)
+          end
+        end
+      end
+    end
+    if @current_ability.nil?
+      @current_ability = super
+    end
+    return @current_ability
+  end
+# Upgrade 2.2.0 fine
 
   def index
 # Upgrade 2.0.0 inizio
 #    @projects = Project.accessible_by(current_ability, :read).paginate :page => params[:page], :order => "name"
-    @projects = Project.accessible_by(current_ability, :read).order("name").page(params[:page])
+# Upgrade 2.2.0 inizio
+#    @projects = Project.accessible_by(current_ability, :read).order("name").page(params[:page])
+    @projects = Project.search(params[:q],params[:qpt],params[:qps]).accessible_by(current_ability, :read).order("name").page(params[:page])
+# Upgrade 2.2.0 fine
 # Upgrade 2.0.0 fine
   end
 
@@ -41,7 +74,14 @@ class ProjectsController < ApplicationController
 # Upgrade 2.0.0 fine
       project.created_by = current_user.id
       project.updated_by = current_user.id
-      project.group_id = current_user.group_id
+# Upgrade 2.2.0 inizio
+#      project.group_id = current_user.group_id
+        if current_user.is_multi_group_user?()
+          project.group_id = current_ability.target_group_id
+        else
+          project.group_id = current_user.rel_user_groups[0].group_id
+        end
+# Upgrade 2.2.0 fine
     end
     @project.save
     setup_relation_collections

@@ -43,7 +43,7 @@
     <div class="tab-content">
     <%# FIXME: posizione errors e/o notice %>
 <%# Upgrade 2.0.0 inizio %>
-<%# OCIO f.error_messages deprecato %>
+<%# f.error_messages deprecato %>
 <%# Per visualizzare correttamente i nomi dei campi con errori nelle date è stata aggiunta una nuova sezione "events" in archidate.it.yml perché i nomi dei campi in @fond.errors.full_messages sono del tipo events.NomeCampo %>
       <%#= f.error_messages %>
       <% if @fond.errors.any? %>
@@ -101,7 +101,10 @@
         <%= f.label :length, t('length') %>
         <%= f.text_field :length, :id => 'fond_length', :class => "input-mini" %>
 
-        <%= f.label :extent, t('archival_extent') %>
+<%# Upgrade 2.2.0 inizio %>
+        <%#= f.label :extent, t('archival_extent') %>
+        <%= f.label :extent, t('fond_extent') %>
+<%# Upgrade 2.2.0 fine %>
         <%= f.text_area :extent, :class=> "x-short-content" %>
 
         <% if @fond.is_root? %>

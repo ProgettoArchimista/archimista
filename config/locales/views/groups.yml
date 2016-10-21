@@ -19,6 +19,9 @@ en:
   # nomi dei campi
   short_name: "Nome abbreviato"
 # Upgrade 2.1.0 fine
+# Upgrade 2.2.0 inizio
+  list_group_short_name: "Nome gruppo"
+# Upgrade 2.2.0 fine
 
 it:
   groups: "Gruppi"
@@ -41,4 +44,6 @@ it:
   # nomi dei campi
   short_name: "Nome abbreviato"
 # Upgrade 2.1.0 fine
-
+# Upgrade 2.2.0 inizio
+  list_group_short_name: "Nome gruppo"
+# Upgrade 2.2.0 fine

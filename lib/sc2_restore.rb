@@ -317,13 +317,19 @@ module Sc2Restore
 
       # iccd_tech_specs.misa accodato in units.physical_description
       if !u.iccd_tech_spec.misa.blank?
-        u.physical_description = prv_append(u.physical_description, "\n", "MISA=" + u.iccd_tech_spec.misa)
+# Upgrade 2.2.0 inizio
+#        u.physical_description = prv_append(u.physical_description, "\n", "MISA=" + u.iccd_tech_spec.misa)
+        u.physical_description = prv_append(u.physical_description, "\n", "MISA=" + u.iccd_tech_spec.misa.to_s)
+# Upgrade 2.2.0 fine
         do_save = true
       end
 
       # iccd_tech_specs.misa accodato in units.physical_description
       if !u.iccd_tech_spec.misl.blank?
-        u.physical_description = prv_append(u.physical_description, "\n", "MISL=" + u.iccd_tech_spec.misl)
+# Upgrade 2.2.0 inizio
+#        u.physical_description = prv_append(u.physical_description, "\n", "MISL=" + u.iccd_tech_spec.misl)
+        u.physical_description = prv_append(u.physical_description, "\n", "MISL=" + u.iccd_tech_spec.misl.to_s)
+# Upgrade 2.2.0 fine
         do_save = true
       end
 

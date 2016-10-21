@@ -30,7 +30,10 @@
 $(document).ready(function(){
   // Fix per presunto bug di Bootstrap / button.
   // Problema: al click su icona contenuta in button.disabled si innesca ugualmente l'azione del button.
-   $("#mass-remove i, #mass-classify i, #mass-reorder i").click(function(event) {
+  /* Upgrade 2.2.0 inizio */
+  /* aggiunto #mass-export i */
+  /* Upgrade 2.2.0 fine */
+   $("#mass-remove i, #mass-classify i, #mass-reorder i, #mass-export i").click(function(event) {
      if ($(this).parent().hasClass("disabled")) {
        event.stopPropagation;
        return false;
@@ -57,9 +60,15 @@ $(document).ready(function(){
      if ( $checkboxes.filter(":checked").length > 0 ) {
        $("#mass-classify").removeClass("disabled").prop("disabled", false);
        $("#mass-remove").removeClass("disabled").prop("disabled", false);
+/* Upgrade 2.2.0 inizio */
+       $("#mass-export").removeClass("disabled").prop("disabled", false);
+/* Upgrade 2.2.0 fine */       
      } else {
        $("#mass-classify").addClass("disabled").prop("disabled", true);
        $("#mass-remove").addClass("disabled").prop("disabled", true);
+/* Upgrade 2.2.0 inizio */
+       $("#mass-export").addClass("disabled").prop("disabled", true);
+/* Upgrade 2.2.0 fine */       
      }
    }
 });

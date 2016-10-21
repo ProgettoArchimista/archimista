@@ -118,10 +118,167 @@ $(document).ready(function() {
     $(".alert").replaceWith("<div id=\"fond_form_error\"></div>");
   });
 
+
+/* Upgrade 2.2.0 inizio */
+  $("#user-form").submit(function (e) { return user_form_submit(); } );
+  function user_form_submit()
+  {
+    try
+    {
+      if (!user_form_check_group_relation())
+      {
+        alert("Deve esistere almeno un gruppo per il quale è impostato un ruolo non vuoto");
+        return false;
+      }
+      user_form_manage_destroy_attribute();
+    }
+    catch (e)
+    {
+    }
+    return true;
+  }
+  function user_form_check_group_relation()
+  {
+    var jqWs;
+    var status;
+    try
+    {
+      jqWs = $(".user_group_role");
+      if (jqWs.length > 0)
+      {
+        status = false;
+        jqWs.each(
+          function()
+          {
+            if (!status && $(this).val() != "")
+              status = true;
+          }
+        );
+      }
+      else
+        status = true;
+    }
+    catch(e)
+    {
+      status = false;
+    }
+    return status;
+  }
+  function user_form_manage_destroy_attribute()
+  {
+    var jqWs;
+    try
+    {
+      jqWs = $(".user_group_role");
+      jqWs.each(
+        function()
+        {
+          if ($(this).val() == "")
+          {
+            var jqCtlDestroy;
+            var refId;
+
+            refId = $(this).attr("id").split("_role").join("_destroy");
+            jqCtlDestroy = $("#" + refId);
+            jqCtlDestroy.val("1");
+          }
+        }
+      );
+    }
+    catch(e)
+    {
+    }
+  }
+
+
+  $("#create_creator").click(
+    function()
+    {
+      var group_id = $("#creator_group_id").val();
+      var creator_creator_type = $("#creator_creator_type").val();
+
+      window.location = "/creators/new?type=" + creator_creator_type + "&group_id=" + group_id;
+      $('#add_creator_modal').modal('hide');
+    }
+  );
+  $("#create_custodian").click(
+    function()
+    {
+      var group_id = $("#custodian_group_id").val();
+
+      window.location = "/custodians/new?group_id=" + group_id;
+      $('#select_custodian_group_modal').modal('hide');
+    }
+  );
+  $("#create_editor").click(
+    function()
+    {
+      var group_id = $("#editor_group_id").val();
+
+      window.location = "/editors/new?group_id=" + group_id;
+      $('#select_editor_group_modal').modal('hide');
+    }
+  );
+  $("#create_source").click(
+    function()
+    {
+      var group_id = $("#source_group_id").val();
+      var source_source_type = $("#source_new_source_type_code").val();
+
+      window.location = "/sources/new?type=" + source_source_type + "&group_id=" + group_id;
+      $('#add_source_modal').modal('hide');
+    }
+  );
+  $("#create_project").click(
+    function()
+    {
+      var group_id = $("#project_group_id").val();
+
+      window.location = "/projects/new?group_id=" + group_id;
+      $('#select_project_group_modal').modal('hide');
+    }
+  );
+  $("#create_institution").click(
+    function()
+    {
+      var group_id = $("#institution_group_id").val();
+
+      window.location = "/institutions/new?group_id=" + group_id;
+      $('#select_institution_group_modal').modal('hide');
+    }
+  );
+  $("#create_document_form").click(
+    function()
+    {
+      var group_id = $("#document_form_group_id").val();
+
+      window.location = "/document_forms/new?group_id=" + group_id;
+      $('#select_document_form_group_modal').modal('hide');
+    }
+  );
+  $("#create_heading").click(
+    function()
+    {
+      var group_id = $("#heading_group_id").val();
+
+      window.location = "/headings/new?group_id=" + group_id;
+      $('#select_heading_group_modal').modal('hide');
+    }
+  );
+/* Upgrade 2.2.0 fine */
+
   // EDITORS
 
   $("#add-editor-modal").click(function(){
-    $.get('/editors/modal_new').success(function(data){
+/* Upgrade 2.2.0 inizio */
+    var group_id = $("#group_id").val();
+    var url;
+    if (group_id != null)
+      url = "/editors/modal_new?group_id=" + group_id;
+    else
+      url = "/editors/modal_new";
+/* Upgrade 2.2.0 fine */
+    $.get(url).success(function(data){
       $('#add-editor-container').html(data);
       $('#add-editor-container #add-editor-dialog').modal("show");
     });
@@ -160,7 +317,14 @@ $(document).ready(function() {
       alert("I campi Busta e Fascicolo non devono essere vuoti");
       return false;
     }
-    $("#unit_reference_number").attr("value","b. " + $('#unit_folder_number').val() + ", fasc. " +$('#unit_file_number').val());
+/* Upgrade 2.2.0 inizio */
+    //$("#unit_reference_number").attr("value","b. " + $('#unit_folder_number').val() + ", fasc. " +$('#unit_file_number').val());
+    var folder_number_prefix;
+    var file_number_prefix;
+    folder_number_prefix = gvCreateUnitReferenceNumberSettings.folder_number_prefix_get();
+    file_number_prefix = gvCreateUnitReferenceNumberSettings.file_number_prefix_get();
+    $("#unit_reference_number").attr("value",folder_number_prefix + $('#unit_folder_number').val() + ", " + file_number_prefix +$('#unit_file_number').val());
+/* Upgrade 2.2.0 fine */
     return false;
   });
 

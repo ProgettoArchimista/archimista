@@ -184,16 +184,25 @@ class AttributeInfo
   attr_accessor :group_tag
   attr_accessor :name_caption
   attr_accessor :group_caption
+# Upgrade 2.2.0 inizio
+  attr_accessor :name_caption_list_note
+# Upgrade 2.2.0 fine
   attr_accessor :is_value_translation
   attr_accessor :is_default
   attr_accessor :is_multi_instance
   attr_accessor :callback
 
-  def initialize(name, group_tag, name_caption, group_caption, is_value_translation, is_default, is_multi_instance, callback)
+# Upgrade 2.2.0 inizio
+#  def initialize(name, group_tag, name_caption, group_caption, is_value_translation, is_default, is_multi_instance, callback)
+  def initialize(name, group_tag, name_caption, group_caption, name_caption_list_note, is_value_translation, is_default, is_multi_instance, callback)
+# Upgrade 2.2.0 fine
     @name = name
     @group_tag = group_tag
     @name_caption = name_caption
     @group_caption = group_caption
+# Upgrade 2.2.0 inizio
+    @name_caption_list_note = name_caption_list_note
+# Upgrade 2.2.0 fine
     @is_value_translation = is_value_translation
     @is_default = is_default
     @is_multi_instance = is_multi_instance
@@ -201,11 +210,23 @@ class AttributeInfo
   end
 
   def composed_caption
+# Upgrade 2.2.0 inizio
+=begin
     if group_tag.nil?
       composed_caption = name_caption
     else
       composed_caption = group_caption + "/" + name_caption
     end
+=end		
+		wrk_name_caption = name_caption
+		if !name_caption_list_note.nil? then wrk_name_caption = wrk_name_caption + name_caption_list_note end
+    if group_tag.nil?
+      composed_caption = wrk_name_caption
+    else
+      composed_caption = group_caption + "/" + wrk_name_caption
+    end
+# Upgrade 2.2.0 fine
+		
     return composed_caption
   end
 end

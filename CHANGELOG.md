@@ -1,3 +1,31 @@
+## Archimista 2.2.0 (22 settembre 2016)
+
+Correzione errori:
+- corretto errore che si manifestava nel form indice dei soggetti produttori. Il comando "Nuova scheda" presentava la lista con l'opzione "F - Fotografia" invece che "Famiglia". Sono state aggiornate le traduzioni dei termini nel file "config\locales\views\units.yml" aggiungendo il livello "units_sc2_tsk" per fare in modo che le traduzioni dei valori del campo units.sc2_tsk non interferiscano con il resto. Cambiati coerentemente i form di visualizzazione delle unità (app\views\units\_form.html.erb, app\views\units\show.html.erb)
+- è stata aggiunta una migrazione del database per correggere la gestione dei valori del vocabolario di units.sc2_tsk
+- nella pagina che mostra le unità collegate ad un indice corretto errore che in presenta di unità di livelli maggiori del primo le mostrava con una caption non corretta (la caption era preceduta da "&mdash;" invece che dal corrispondente carattere)
+- corretto errore nella procedura di recupero dei dati delle unità speciali (vedi lib\sc2_restore.rb) che non recuperava correttamente i dati di MISA e MISL delle schede OA, BDM
+- corretta funzione di export e import da aef (app\models\export.rb, app\models\import.rb): i campi delle schede speciali non venivano esportati ed importati
+- per questa correzione è stata creata una migrazione (20160401000000_sc2_add_legacy_current_id_field.rb) che aggiunge un nuovo campo (legacy_current_id) alle tabelle sc2_authors e sc2_commissions
+- rigenerati i file db\seeds\*.json utilizzati per creare un database nuovo con la procedura "rake db:setup". Oltre ad aggiungere i file .json corrispondenti alle modifiche alla struttura di database introdotte dalla versione 2.1.0 in avanti, sono stati corretti alcuni errori nei contenuti dei file già esistenti, che non corrispondevano più alla struttura del database. In particolare tra questi è stata attuata la segnalazione evidenziata in https://github.com/ProgettoArchimista/archimista/pull/2 e relativa alla tabella groups.
+- sono state aggiornate anche le procedure rake lib\tasks\db.rake che oltre a non prevedere i dati di seeding per i modelli introdotti dalla 2.1.0 in avanti, avevano qualche errore nel codice legato all'utilizzo delle nuove versioni ruby/rail introdotte con la versione 2.0.0
+
+Nuove funzionalità
+- gestione di profili utente associati a più di un gruppo con possibilità per questi utenti di visionare/modificare i dati appartenenti a più gruppi
+- nel report inventario aggiunta la gestione dei campi con ripetitività doppia (es. schede speciali CARS: "Motivo dell'attribuzione" dell'autore e "Nome" nella committenza). In precedenza non erano gestiti. (lib\report_support.rb)
+- In Bacheca>ComplessiArchivistici>Elenco visualizzato anche l'elenco dei progetti collegati
+- In Bacheca>SoggettiProduttori>Elenco visualizzato anche l'elenco dei progetti collegati
+- In Bacheca>Progetti>Elenco visualizzato anche Tipologia dell'intervento, Responsabili (tutti e anche i soggetti coinvolti), Status
+- In Bacheca>Progetti>Elenco possibilità di ricerca per Denominazione, Tipologia dell'intervento, Status
+- Aggiunto campo consistenza nelle unità (extent) dopo Descrizione>Contenuto. Aggiornati report, anteprima unità, editing in formato tabella
+- modificata la gestione dei report per correggere una segnalazione del 22/06/2016: "nei report il titolo viene sempre scritto, quindi selezionandolo come campo da scrivere viene scritto due volte". La soluzione adottata è stata di togliere il campo titolo dai campi di default delle unità, e di aggiungere nell'elenco dei campi una indicazione del fatto che il titolo delle unità compare sempre anche se non è selezionato.
+- aggiunto pannello di opzioni nel form di editing delle unità per permettere di impostare etichette alternative per i prefissi utilizzati per comporre il valore del campo "Segnatura definitiva" come concatenazione dei campi "Busta", "Fascicolo".
+- esportazione/importazione unità in formato .aef.
+- nella visualizzazione delle unità di un complesso aggiunta la possibilità di selezionare solo le unità del complesso di primo livello e la possibilità di non effettuare la paginazione dei risultati per poter selezionare tutte le unità di un complesso.
+- nella visualizzazione elenco di produttori, conservatori, complessi, indici, progetti, fonti e unità il filtro è stato reso sempre visibile indipendentemente dal numero di risultati
+- modificato il nome del file prodotto con l'esportazione in formato aef in modo che contenga l'indicazione dell'entità di riferimento che è stata esportata (Es.: archimista-export_complesso-20160921182205.aef)
+
+
 ## Archimista 2.1.0 (25 marzo 2016)
 
 - Scheda progetto

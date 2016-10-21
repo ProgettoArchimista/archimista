@@ -276,6 +276,23 @@ select {
   background-position: 100% -56px;
 }
 /* specific tables */
+/* Upgrade 2.2.0 inizio */
+.index-item-info {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  color: #999;
+}
+.index-item-list
+{
+  margin-bottom: 0px;
+  color: #999;
+}
+.index-item-list a
+{
+  color: #999;
+}
+/* Upgrade 2.2.0 fine */
 .fond-units {
   margin: 4px 0;
   color: #999;
@@ -393,12 +410,25 @@ label.inline {
   display: inline;
   font-weight: normal;
 }
-#user-form input[type="text"], #user-form input[type="password"] {
+/* Upgrade 2.2.0 inizio */
+#user-form .user_groups_column
+{
+  width: 140px;
+}
+/* aggiunto .control-group */
+/* aggiunto table */
+#user-form .control-group input[type="text"], #user-form .control-group input[type="password"],
+#user-form table input[type="text"]
+{
   width: 380px;
 }
-#user-form select {
-  width: 220px;
+/* cambiato 220 in 380 */
+#user-form .control-group select,
+#user-form table select
+{
+  width: 380px;
 }
+/* Upgrade 2.2.0 fine */
 #user-form {
   padding-bottom: 0;
 }
@@ -578,6 +608,20 @@ h3 {
 #more-units-controls #quick-search {
   float: right;
 }
+
+/* Upgrade 2.2.0 inizio */
+#div-do-not-paginate-units,
+#div-select-top-level-units
+{
+  display: inline-block;
+  margin-right: 30px;
+}
+#div-do-not-paginate-units input[type="checkbox"],
+#div-select-top-level-units input[type="checkbox"]
+{
+  margin-top: 0px;
+}
+/* Upgrade 2.2.0 fine */
 
 /* Misc */
 /* Come vengono presentati errori su altri tipi input ?*/

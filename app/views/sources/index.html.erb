@@ -5,7 +5,10 @@
 <%# FIXME: i18n ==> testo di ul.dropdown %>
 <div class="span12">
   <div id="index-controls" class="clearfix">
-    <% if @sources.total_entries > Source.per_page || params[:q].present? %>
+<%# Upgrade 2.2.0 inizio %>
+    <%# if @sources.total_entries > Source.per_page || params[:q].present? %>
+    <% if true %>
+<%# Upgrade 2.2.0 fine %>
 <%# TAI aggiunto = prima di form_tag %>
       <%= form_tag('/sources', :method => :get, :class => "skip-prompt form-search pull-right", :style => "margin-bottom: 0") do %>
         <%= text_field_tag :q, params[:q], :class => "search-query", :placeholder => "Titolo" %>
@@ -13,27 +16,42 @@
       <% end %>
     <% end %>
     <div class="btn-group pull-left">
+<%# Upgrade 2.2.0 inizio %>
+      <% if current_user.is_multi_group_user?() %>
+        <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#add_source_modal", { :"data-toggle" => "modal", :class => "btn btn-mini new" } %>
+      <% else %>
 <%# Upgrade 2.0.0 inizio %>
-      <%#= link_to t('new') + '<span class="caret"></span>', "#", { :class => "btn btn-small dropdown-toggle new", :'data-toggle' => "dropdown" } %>
-      <%= link_to raw(t('new') + '<span class="caret"></span>'), "#", { :class => "btn btn-small dropdown-toggle new", :'data-toggle' => "dropdown" } %>
+        <%#= link_to t('new') + '<span class="caret"></span>', "#", { :class => "btn btn-small dropdown-toggle new", :'data-toggle' => "dropdown" } %>
+        <%= link_to raw(t('new') + '<span class="caret"></span>'), "#", { :class => "btn btn-small dropdown-toggle new", :'data-toggle' => "dropdown" } %>
 <%# Upgrade 2.0.0 fine %>
-      <ul class="dropdown-menu">
-        <li><%= link_to "Bibliografia", new_source_path(:type => 1) %></li>
-        <li><%= link_to "Strumento di corredo", new_source_path(:type => 2) %></li>
-        <li><%= link_to "Fonte archivistica", new_source_path(:type => 3) %></li>
-        <li><%= link_to "Fonte normativa", new_source_path(:type => 4) %></li>
-      </ul>
+        <ul class="dropdown-menu">
+          <li><%= link_to "Bibliografia", new_source_path(:type => 1) %></li>
+          <li><%= link_to "Strumento di corredo", new_source_path(:type => 2) %></li>
+          <li><%= link_to "Fonte archivistica", new_source_path(:type => 3) %></li>
+          <li><%= link_to "Fonte normativa", new_source_path(:type => 4) %></li>
+        </ul>
+      <% end %>
+<%# Upgrade 2.2.0 fine %>
     </div>
   </div>
 
   <% if @sources.size > 0 %>
   <%= display_page_entries_info @sources %>
 
+<%# Upgrade 2.2.0 inizio %>
+  <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span4" else "span5" end %>
+<%# Upgrade 2.2.0 fine %>
+
   <table class="table table-sortable">
     <thead>
     <tr>
       <th class="span2"><%= t('short_title') %></th>
-      <th class="span5"><%= t('full_title') %></th>
+      <th class="<%= class_name %>"><%= t('full_title') %></th>
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <th class="span1"><%= t('list_group_short_name') %></th>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
       <th class="span2"><%= t('updated_at') %></th>
       <th class="span1">&nbsp;</th>
       <th class="span1">&nbsp;</th>
@@ -58,6 +76,13 @@
 <%# Upgrade 2.0.0 fine %>
           <%#= @source_types.select {|x| x.code == source.source_subtype_code }.map(&:source_type) %>
         </td>
+
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <td style="font-size: 11px;"><%= source.group.short_name %></td>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
+
         <td><%= l source.updated_at, :format => :long %></td>
         <td>
 <%# aggiunto raw() %>
@@ -84,4 +109,10 @@
 <% else %>
   <p>Non sono presenti schede fonte.</p>
 <% end %>
-</div>  
+</div>
+
+<%# Upgrade 2.2.0 inizio %>
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "sources/new_source" %>
+<% end %>
+<%# Upgrade 2.2.0 fine %>

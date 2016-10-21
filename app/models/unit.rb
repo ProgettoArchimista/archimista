@@ -311,7 +311,7 @@ class Unit < ActiveRecord::Base
 
   def formatted_title
 # Upgrade 2.0.0 inizio
-# OCIO : non si capisce perche' su given_title? si verifica ActionView::Template::Error (missing attribute: given_title)
+# non si capisce perche' su given_title? si verifica ActionView::Template::Error (missing attribute: given_title)
 #   given_title? ? "[#{title}]" : title
     title
 # Upgrade 2.0.0 fine

@@ -15,7 +15,11 @@ class Source < ActiveRecord::Base
 
   has_many :source_urls, :dependent => :destroy
   has_many :digital_objects, :as => :attachable, :dependent => :destroy
-
+  
+# Upgrade 2.2.0 inizio
+  has_one :first_digital_object, -> { where({:position => 1}) }, :as => :attachable, :class_name => DigitalObject
+# Upgrade 2.2.0 fine
+    
   # Many-to-many associations (rel)
   # OPTIMIZE: valutare uso di Polymorphic Association. Quali pro/contro ?
   has_many :rel_creator_sources, :dependent => :destroy, :autosave => true
@@ -28,6 +32,10 @@ class Source < ActiveRecord::Base
   has_many :custodians, :through => :rel_custodian_sources
   has_many :fonds, -> {order("fonds.name").includes(:preferred_event)}, :through => :rel_fond_sources
 # Upgrade 2.0.0 fine
+
+# Upgrade 2.2.0 inizio
+  belongs_to :group
+# Upgrade 2.2.0 fine
 
   # Nested attributes
 

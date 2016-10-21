@@ -2,11 +2,22 @@ namespace :db do
 
   # NOTE: nella versione 1.0 NON si carica Activity (activities.json), in quanto i termini sono in inglese.
   def models
+# Upgrade 2.2.0 inizio
+=begin
     [ Group, User,
       Vocabulary, Term, IccdVocabulary, IccdTerm,
       CreatorAssociationType, CreatorCorporateType, CustodianType, SourceType,
       Place, Lang,
       IccdTermsOaMtc, IccdTermsOaOgtd, IccdTermsBdmOgtd, IccdTermsBdmMtct, IccdTermsBdmMtcm ]
+=end
+    [ Group, User,
+      Vocabulary, Term, IccdVocabulary, IccdTerm,
+      CreatorAssociationType, CreatorCorporateType, CustodianType, SourceType,
+      Place, Lang,
+      IccdTermsOaMtc, IccdTermsOaOgtd, IccdTermsBdmOgtd, IccdTermsBdmMtct, IccdTermsBdmMtcm,
+      RelUserGroup, Sc2Vocabulary, Sc2Term
+    ]
+# Upgrade 2.2.0 fine
   end
 
   def truncate_table(table)
@@ -67,13 +78,19 @@ namespace :db do
         path = File.join(Rails.root, "/db/seeds/#{table}.json")
         puts "- #{table}"
 
-        objects = model.find(:all, :order => "id")
+# Upgrade 2.2.0 inizio
+#        objects = model.find(:all, :order => "id")
+        objects = model.order("id")
+# Upgrade 2.2.0 fine
         ActiveRecord::Base.include_root_in_json = false
         File.delete(path) if File.exist?(path)
         File.open(path, "w") do |f|
           objects.each do |object|
             f.write(object.to_json(:except => [ :id, :created_at, :updated_at]))
-            f.write("\r\n")
+# Upgrade 2.2.0 inizio
+#            f.write("\r\n")
+            f.write("\n")
+# Upgrade 2.2.0 fine
           end
         end
       end

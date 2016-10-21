@@ -6,11 +6,14 @@
       <%= status_bar_context %>
     <% end %>
   </h2>
-  <% if current_user.is_at_least_admin? %>
+<%# Upgrade 2.2.0 inizio %>
+  <%# if current_user.is_at_least_admin? %>
+  <% if current_user.is_superadmin? || current_user.is_admin_for_some_group? %>
     <div id="links">
       <%= link_to_index t('index_users'), users_path %>
     </div>
   <% end %>
+<%# Upgrade 2.2.0 fine %>
 <% end %>
 
 <%= render :partial => "form" %>

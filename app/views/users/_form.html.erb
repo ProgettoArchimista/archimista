@@ -1,13 +1,8 @@
-<%# Upgrade 2.0.0 inizio %>
-<%#= render :partial => "shared/generic_error_message", :object => @user %>
 <%= render :partial => "shared/generic_error_message", object: @user, as: "object"  %>
-<%# Upgrade 2.0.0 fine %>
 
 <div class="span8">
-<%# TAI aggiunto = prima di form_for %>
 <%= form_for @user, :html => { :id => "user-form", :class => "form-horizontal well" } do |f| %>
   <div class="control-group">
-<%# TAI aggiunto raw() %>
     <%= f.label :username, raw(required_marker + t('devise.attributes.username')), :class => "control-label" %>
     <div class="controls">
       <%= f.text_field :username %>
@@ -15,14 +10,12 @@
     </div>
   </div>
   <div class="control-group">
-<%# TAI aggiunto raw() %>
     <%= f.label :first_name, raw(required_marker + t('first_name')), :class => "control-label" %>
     <div class="controls">
       <%= f.text_field :first_name %>
     </div>
   </div>
   <div class="control-group">
-<%# TAI aggiunto raw() %>
     <%= f.label :last_name, raw(required_marker + t('last_name')), :class => "control-label" %>
     <div class="controls">
       <%= f.text_field :last_name %>
@@ -35,14 +28,12 @@
     </div>
   </div>
   <div class="control-group">
-<%# TAI aggiunto raw() %>
     <%= f.label :email, raw(required_marker + t('email')), :class => "control-label" %>
     <div class="controls">
       <%= f.text_field :email %>
     </div>
   </div>
   <div class="control-group">
-<%# TAI aggiunto raw() %>
     <%= f.label :password, raw(required_marker + t('devise.attributes.password')), :class => "control-label" %>
     <div class="controls">
       <%= f.password_field :password %>
@@ -52,40 +43,102 @@
     </div>
   </div>
   <div class="control-group">
-<%# TAI aggiunto raw() %>
     <%= f.label :password_confirmation, raw(required_marker + t('devise.attributes.password_confirmation')), :class => "control-label" %>
     <div class="controls">
       <%= f.password_field :password_confirmation %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :role, t('devise.attributes.role'), :class => "control-label" %>
-    <div class="controls">
-      <% if current_user.is_at_least_admin? && @user != current_user %>
-        <%= select :user, :role, User.filter_roles_for(current_user.role), {:prompt => t('devise.attributes.role_prompt')}  %>
-      <% else  %>
-        <%= f.text_field :role, :value => current_user.role, :class => "disabled" %>
-      <% end %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :group_id, t('devise.attributes.group_id'), :class => "control-label" %>
-    <div class="controls">
-      <% if current_user.is_superadmin? %>
-        <%= select :user, :group_id, Group.filter(current_user.group_id), {:prompt => t('devise.attributes.group_id_prompt')} %>
-      <% else %>
-        <% if action_name != 'edit' %>
-          <%= select :user, :group_id, Group.filter(current_user.group_id) %>
-        <% else %>
-          <%= f.text_field :group_id, :value => current_user.group.name, :class => "disabled" %>
+
+<%# Upgrade 2.2.0 inizio %>
+  <div class="row" style="margin-left: 10px;">
+    <h3 class="row-header">Gruppi associati all'utente</h3>
+    <div>
+      <%
+        if current_user.is_superadmin?
+          groups = Group.order(:id)
+        else
+          groups = current_user.groups
+        end
+      %>
+      <table class="table table-sortable">
+        <tr>
+          <th class="user_groups_column"><%= t('devise.attributes.group_id') %></th>
+          <th><%= t('devise.attributes.role') %></th>
+        </tr>
+        <% groups.each_with_index do |group, index| %>
+          <%
+            rug = @user.rel_user_groups_search_by_group_id(group.id)
+            target_user_role = if rug.nil? then "" else rug.role end
+            rug_id = if rug.nil? then (Time.now.to_i + index).to_s else rug.id end
+            target_inst_id = if rug.nil? then rug_id else index end
+          %>
+          <tr>
+            <td class="user_groups_column"><%= group.name %></td>
+            <td>
+              <% if @user != current_user %>
+                <% if current_user.is_superadmin? || current_user.is_at_least_admin?(group.id) %>
+                  <%
+                    if current_user.is_superadmin?
+                      usable_roles = User.known_roles(true)
+                    else
+                      current_user_role = current_user.role(group.id)
+                      if current_user_role == "" then current_user_role = "admin" end
+                      usable_roles = User.filter_roles_for(current_user_role, true)
+                    end
+                  %>
+                  <% if !rug.nil? %>
+                    <input type="hidden" id="user_rel_user_groups_attributes_<%= target_inst_id%>_id" name="user[rel_user_groups_attributes][<%= target_inst_id%>][id]" value ="<%= rug_id %>"/>
+                  <% end %>
+
+                  <select id="user_rel_user_groups_attributes_<%= target_inst_id%>_role" name="user[rel_user_groups_attributes][<%= target_inst_id%>][role]" class="user_group_role">
+                    <% usable_roles.each_with_index do |r, role_index| %>
+                      <%
+                        if target_user_role == ""
+                          if role_index == 0
+                            html_selected_clause = "selected=selected"
+                          else
+                            html_selected_clause = ""
+                          end
+                        else
+                          if r == target_user_role
+                            html_selected_clause = "selected=selected"
+                          else
+                            html_selected_clause = ""
+                          end
+                        end
+                      %>
+                      <option value="<%= r %>" <%= html_selected_clause %>><%= r %></option>
+                    <% end %>
+                  </select>
+
+                  <input type="hidden" id="user_rel_user_groups_attributes_<%= target_inst_id%>_group_id" name="user[rel_user_groups_attributes][<%= target_inst_id%>][group_id]" value ="<%= group.id %>"/>
+
+                  <% if current_user.is_superadmin? || current_user.is_at_least_admin?(group.id) %>
+                    <input type="hidden" id="user_rel_user_groups_attributes_<%= target_inst_id%>_destroy" name="user[rel_user_groups_attributes][<%= target_inst_id%>][_destroy]" value =""/>
+                  <% end %>
+                <% else %>
+                  <%#= f.text_field :role, :value => @user.role(group.id), :class => "disabled" %>
+                  <input type="text" class="disabled" value="<%= @user.role(group.id) %>" disabled="disabled" />
+                <% end %>
+              <% else %>
+                <%#= f.text_field :role, :value => @user.role(group.id), :class => "disabled" %>
+                <input type="text" class="disabled" value="<%= @user.role(group.id) %>" disabled="disabled" />
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-      <% end %>
+      </table>
     </div>
   </div>
+
   <div class="form-actions">
     <%= f.submit @user.new_record? ? t('create_user') : t('save'), :class => "btn btn-primary" %>
-    oppure <%= link_to t('cancel'), current_user.is_at_least_admin? ? users_path : root_path %>
+    oppure <%= link_to t('cancel'), current_user.is_at_least_admin?(current_user.rel_user_groups[0].group_id) ? users_path : root_path %>
   </div>
+
+<%# Upgrade 2.2.0 fine %>
+
+
 <% end %>
 
 </div>

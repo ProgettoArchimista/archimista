@@ -1,0 +1,27 @@
+<%# Upgrade 2.2.0 inizio %>
+<div class="modal hide fade" id="mass-import-modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Importa unità</h3>
+  </div>
+  <div class="modal-body">
+    <p>Puoi importare i dati da un file in formato <code>aef</code> che contenga i dati prodotti mediante esportazione di unità.</p>
+    <p>Le unità importate si accoderanno a quelle del complesso corrente.</p>
+    <% import_wrk = Import.new %>
+    <%= form_for import_wrk, :html => { :id => 'import-wait', :multipart => true } do |f| %>
+      <%= hidden_field_tag 'context', "units_import" %>
+      <%= hidden_field_tag 'ref_fond_id', @fond.id %>
+      <%= hidden_field_tag 'ref_root_fond_id', @fond.root_id %>
+      <%= hidden_field_tag 'import[group_id]', current_ability.target_group_id %>
+      
+      <p style="margin: 1.5em 0 1em 0;">
+        <%= f.file_field :data %>
+      </p>
+      <p><%= f.submit t('import_file'), :name => "save", :class => "btn btn-primary" %></p>
+    <% end %>  
+  </div>
+  <div class="modal-footer">
+    <button id="close-mass-export" class="btn" data-dismiss="modal"><%= t('cancel') %></button>
+  </div>
+</div>
+<%# Upgrade 2.2.0 fine %>

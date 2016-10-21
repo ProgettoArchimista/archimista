@@ -377,7 +377,7 @@
 {"mtc":"argento filato"}
 {"mtc":"argento filato/ arazzo"}
 {"mtc":"argento filato/ attorcigliamento"}
-{"mtc":"argento filato/ boucl\u00e9"}
+{"mtc":"argento filato/ bouclé"}
 {"mtc":"argento filato/ merletto"}
 {"mtc":"argento filato/ merletto a fuselli o tombolo"}
 {"mtc":"argento filato/ ricamo"}
@@ -446,7 +446,7 @@
 {"mtc":"argento/ doratura a mecca"}
 {"mtc":"argento/ doratura a mercurio"}
 {"mtc":"argento/ filigrana"}
-{"mtc":"argento/ filigrana a pi\u00f9 capi"}
+{"mtc":"argento/ filigrana a più capi"}
 {"mtc":"argento/ filigrana ad un capo"}
 {"mtc":"argento/ foratura"}
 {"mtc":"argento/ fusione"}
@@ -602,14 +602,14 @@
 {"mtc":"bachelite/ traforo"}
 {"mtc":"bachelite/ verniciatura"}
 {"mtc":"bambagia"}
-{"mtc":"bamb\u00f9"}
-{"mtc":"bamb\u00f9/ incisione"}
-{"mtc":"bamb\u00f9/ intaglio"}
-{"mtc":"bamb\u00f9/ intreccio"}
-{"mtc":"bamb\u00f9/ laccatura"}
-{"mtc":"bamb\u00f9/ pittura"}
-{"mtc":"bamb\u00f9/ scultura"}
-{"mtc":"bamb\u00f9/ verniciatura"}
+{"mtc":"bambù"}
+{"mtc":"bambù/ incisione"}
+{"mtc":"bambù/ intaglio"}
+{"mtc":"bambù/ intreccio"}
+{"mtc":"bambù/ laccatura"}
+{"mtc":"bambù/ pittura"}
+{"mtc":"bambù/ scultura"}
+{"mtc":"bambù/ verniciatura"}
 {"mtc":"basalto"}
 {"mtc":"basalto/ incisione"}
 {"mtc":"basalto/ pittura"}
@@ -856,7 +856,7 @@
 {"mtc":"calcedonio/ pittura"}
 {"mtc":"calcedonio/ scultura"}
 {"mtc":"calcedonio/ sfaccettatura"}
-{"mtc":"calic\u00f2"}
+{"mtc":"calicò"}
 {"mtc":"canapa"}
 {"mtc":"canapa e lana"}
 {"mtc":"canapa e lana/ arazzo"}
@@ -872,7 +872,7 @@
 {"mtc":"canapa/ pittura a tempera"}
 {"mtc":"canapa/ pittura ad acquerello"}
 {"mtc":"canapa/ pittura ad acrilico"}
-{"mtc":"canapa/ p\u00e9kin"}
+{"mtc":"canapa/ pékin"}
 {"mtc":"canapa/ quadrettatura"}
 {"mtc":"canapa/ ricamo"}
 {"mtc":"canapa/ ricamo ad applicazione"}
@@ -1091,7 +1091,7 @@
 {"mtc":"cascame di seta e canapa/ barratura"}
 {"mtc":"cascame di seta e canapa/ broccatura"}
 {"mtc":"cascame di seta e canapa/ diagonale o saia"}
-{"mtc":"cascame di seta e canapa/ p\u00e9kin"}
+{"mtc":"cascame di seta e canapa/ pékin"}
 {"mtc":"cascame di seta e canapa/ quadrettatura"}
 {"mtc":"cascame di seta e canapa/ rigatura"}
 {"mtc":"cascame di seta e canapa/ tela"}
@@ -1103,7 +1103,7 @@
 {"mtc":"cascame di seta e lino/ broccatura"}
 {"mtc":"cascame di seta e lino/ diagonale o saia"}
 {"mtc":"cascame di seta e lino/ impressione"}
-{"mtc":"cascame di seta e lino/ p\u00e9kin"}
+{"mtc":"cascame di seta e lino/ pékin"}
 {"mtc":"cascame di seta e lino/ quadrettatura"}
 {"mtc":"cascame di seta e lino/ rigatura"}
 {"mtc":"cascame di seta e lino/ tela"}
@@ -1473,7 +1473,7 @@
 {"mtc":"cotone/ laminatura"}
 {"mtc":"cotone/ lampassetto"}
 {"mtc":"cotone/ lampasso"}
-{"mtc":"cotone/ liser\u00e9"}
+{"mtc":"cotone/ liseré"}
 {"mtc":"cotone/ marezzatura"}
 {"mtc":"cotone/ mussola"}
 {"mtc":"cotone/ opera"}
@@ -1484,7 +1484,7 @@
 {"mtc":"cotone/ pittura ad acquerello"}
 {"mtc":"cotone/ pittura ad acrilico"}
 {"mtc":"cotone/ plissettatura"}
-{"mtc":"cotone/ p\u00e9kin"}
+{"mtc":"cotone/ pékin"}
 {"mtc":"cotone/ quadrettatura"}
 {"mtc":"cotone/ raso"}
 {"mtc":"cotone/ ricamo"}
@@ -1911,9 +1911,9 @@
 {"mtc":"fibra artificiale-sintetica/ cannellato alternativo"}
 {"mtc":"fibra artificiale-sintetica/ cannellato delle Indie"}
 {"mtc":"fibra artificiale-sintetica/ cannellato semplice"}
-{"mtc":"fibra artificiale-sintetica/ cannetill\u00e9"}
+{"mtc":"fibra artificiale-sintetica/ cannetillé"}
 {"mtc":"fibra artificiale-sintetica/ cannettato"}
-{"mtc":"fibra artificiale-sintetica/ chin\u00e9"}
+{"mtc":"fibra artificiale-sintetica/ chiné"}
 {"mtc":"fibra artificiale-sintetica/ damasco"}
 {"mtc":"fibra artificiale-sintetica/ damasco bicolore"}
 {"mtc":"fibra artificiale-sintetica/ damasco di Lione"}
@@ -1924,12 +1924,12 @@
 {"mtc":"fibra artificiale-sintetica/ faglia"}
 {"mtc":"fibra artificiale-sintetica/ garza"}
 {"mtc":"fibra artificiale-sintetica/ gros de Tours"}
-{"mtc":"fibra artificiale-sintetica/ gros de Tours natt\u00e9"}
+{"mtc":"fibra artificiale-sintetica/ gros de Tours natté"}
 {"mtc":"fibra artificiale-sintetica/ impressione"}
 {"mtc":"fibra artificiale-sintetica/ laminatura"}
 {"mtc":"fibra artificiale-sintetica/ lampasso"}
 {"mtc":"fibra artificiale-sintetica/ lampasso damascato"}
-{"mtc":"fibra artificiale-sintetica/ liser\u00e9"}
+{"mtc":"fibra artificiale-sintetica/ liseré"}
 {"mtc":"fibra artificiale-sintetica/ louisine"}
 {"mtc":"fibra artificiale-sintetica/ marezzatura"}
 {"mtc":"fibra artificiale-sintetica/ messicana"}
@@ -1942,7 +1942,7 @@
 {"mtc":"fibra artificiale-sintetica/ pittura a tempera"}
 {"mtc":"fibra artificiale-sintetica/ pittura ad acquerello"}
 {"mtc":"fibra artificiale-sintetica/ pittura ad acrilico"}
-{"mtc":"fibra artificiale-sintetica/ p\u00e9kin"}
+{"mtc":"fibra artificiale-sintetica/ pékin"}
 {"mtc":"fibra artificiale-sintetica/ quadrettatura"}
 {"mtc":"fibra artificiale-sintetica/ raso"}
 {"mtc":"fibra artificiale-sintetica/ ricamo"}
@@ -1953,7 +1953,7 @@
 {"mtc":"fibra artificiale-sintetica/ screziatura"}
 {"mtc":"fibra artificiale-sintetica/ stampa"}
 {"mtc":"fibra artificiale-sintetica/ taffetas"}
-{"mtc":"fibra artificiale-sintetica/ taffetas doubl\u00e9"}
+{"mtc":"fibra artificiale-sintetica/ taffetas doublé"}
 {"mtc":"fibra artificiale-sintetica/ tessitura a telaio"}
 {"mtc":"fibra artificiale-sintetica/ tessuto"}
 {"mtc":"fibra artificiale-sintetica/ tessuto ad arazzo"}
@@ -2022,7 +2022,7 @@
 {"mtc":"filo d'argento"}
 {"mtc":"filo d'argento/ arazzo"}
 {"mtc":"filo d'argento/ attorcigliamento"}
-{"mtc":"filo d'argento/ boucl\u00e9"}
+{"mtc":"filo d'argento/ bouclé"}
 {"mtc":"filo d'argento/ merletto"}
 {"mtc":"filo d'argento/ merletto a filet"}
 {"mtc":"filo d'argento/ merletto a fuselli o tombolo"}
@@ -2061,7 +2061,7 @@
 {"mtc":"filo d'oro"}
 {"mtc":"filo d'oro/ arazzo"}
 {"mtc":"filo d'oro/ attorcigliamento"}
-{"mtc":"filo d'oro/ boucl\u00e9"}
+{"mtc":"filo d'oro/ bouclé"}
 {"mtc":"filo d'oro/ merletto"}
 {"mtc":"filo d'oro/ merletto a filet"}
 {"mtc":"filo d'oro/ merletto a fuselli o tombolo"}
@@ -2119,7 +2119,7 @@
 {"mtc":"filo di cotone/ merletto a uncinetto"}
 {"mtc":"filo di cotone/ merletto ad ago"}
 {"mtc":"filo di cotone/ merletto ai ferri"}
-{"mtc":"filo di cotone/ merletto macram\u00e8"}
+{"mtc":"filo di cotone/ merletto macramè"}
 {"mtc":"filo di cotone/ merletto meccanico"}
 {"mtc":"filo di cotone/ merletto meccanico Sangallo"}
 {"mtc":"filo di cotone/ merletto modano"}
@@ -2157,13 +2157,13 @@
 {"mtc":"filo di lana"}
 {"mtc":"filo di lana/ annodatura"}
 {"mtc":"filo di lana/ attorcigliamento"}
-{"mtc":"filo di lana/ boucl\u00e9"}
+{"mtc":"filo di lana/ bouclé"}
 {"mtc":"filo di lana/ lavorazione a maglia"}
 {"mtc":"filo di lana/ merletto"}
 {"mtc":"filo di lana/ merletto a navetta"}
 {"mtc":"filo di lana/ merletto a uncinetto"}
 {"mtc":"filo di lana/ merletto ai ferri"}
-{"mtc":"filo di lana/ merletto macram\u00e8"}
+{"mtc":"filo di lana/ merletto macramè"}
 {"mtc":"filo di lana/ merletto meccanico"}
 {"mtc":"filo di lana/ ricamo"}
 {"mtc":"filo di lana/ ricamo a mezzo punto"}
@@ -2217,7 +2217,7 @@
 {"mtc":"rose"}
 {"mtc":"filo di lino/ merletto ai ferri"}
 {"mtc":"filo di lino/ merletto buratto"}
-{"mtc":"filo di lino/ merletto macram\u00e8"}
+{"mtc":"filo di lino/ merletto macramè"}
 {"mtc":"filo di lino/ merletto meccanico"}
 {"mtc":"filo di lino/ merletto modano"}
 {"mtc":"filo di lino/ merletto tecnica mista"}
@@ -2305,7 +2305,7 @@
 {"mtc":"filo metallico canutiglia/ ricamo"}
 {"mtc":"filo metallico/ arazzo"}
 {"mtc":"filo metallico/ attorcigliamento"}
-{"mtc":"filo metallico/ boucl\u00e9"}
+{"mtc":"filo metallico/ bouclé"}
 {"mtc":"filo metallico/ intreccio"}
 {"mtc":"filo metallico/ lavorazione a maglia"}
 {"mtc":"filo metallico/ merletto"}
@@ -2871,7 +2871,7 @@
 {"mtc":"lega metallica/ doratura a vernice"}
 {"mtc":"lega metallica/ doratura galvanica"}
 {"mtc":"lega metallica/ filigrana"}
-{"mtc":"lega metallica/ filigrana a pi\u00f9 capi"}
+{"mtc":"lega metallica/ filigrana a più capi"}
 {"mtc":"lega metallica/ filigrana ad un capo"}
 {"mtc":"lega metallica/ forgiatura"}
 {"mtc":"lega metallica/ fusione"}
@@ -7869,7 +7869,7 @@
 {"mtc":"lino/ gessatura"}
 {"mtc":"lino/ goffratura"}
 {"mtc":"lino/ impressione"}
-{"mtc":"lino/ liser\u00e9"}
+{"mtc":"lino/ liseré"}
 {"mtc":"lino/ marezzatura"}
 {"mtc":"lino/ opera"}
 {"mtc":"lino/ pittura"}
@@ -7878,7 +7878,7 @@
 {"mtc":"lino/ pittura a tempera"}
 {"mtc":"lino/ pittura ad acquerello"}
 {"mtc":"lino/ plissettatura"}
-{"mtc":"lino/ p\u00e9kin"}
+{"mtc":"lino/ pékin"}
 {"mtc":"lino/ quadrettatura"}
 {"mtc":"lino/ ricamo"}
 {"mtc":"lino/ ricamo a intaglio"}
@@ -13564,9 +13564,9 @@
 {"mtc":"nylon/ cannellato alternativo"}
 {"mtc":"nylon/ cannellato delle Indie"}
 {"mtc":"nylon/ cannellato semplice"}
-{"mtc":"nylon/ cannetill\u00e9"}
+{"mtc":"nylon/ cannetillé"}
 {"mtc":"nylon/ cannettato"}
-{"mtc":"nylon/ chin\u00e9"}
+{"mtc":"nylon/ chiné"}
 {"mtc":"nylon/ damasco"}
 {"mtc":"nylon/ damasco bicolore"}
 {"mtc":"nylon/ damasco di Lione"}
@@ -13576,12 +13576,12 @@
 {"mtc":"nylon/ faglia"}
 {"mtc":"nylon/ garza"}
 {"mtc":"nylon/ gros de Tours"}
-{"mtc":"nylon/ gros de Tours natt\u00e9"}
+{"mtc":"nylon/ gros de Tours natté"}
 {"mtc":"nylon/ impressione"}
 {"mtc":"nylon/ laminatura"}
 {"mtc":"nylon/ lampasso"}
 {"mtc":"nylon/ lampasso damascato"}
-{"mtc":"nylon/ liser\u00e9"}
+{"mtc":"nylon/ liseré"}
 {"mtc":"nylon/ louisine"}
 {"mtc":"nylon/ marezzatura"}
 {"mtc":"nylon/ messicana"}
@@ -13594,7 +13594,7 @@
 {"mtc":"nylon/ pittura a tempera"}
 {"mtc":"nylon/ pittura ad acquerello"}
 {"mtc":"nylon/ pittura ad acrilico"}
-{"mtc":"nylon/ p\u00e9kin"}
+{"mtc":"nylon/ pékin"}
 {"mtc":"nylon/ quadrettatura"}
 {"mtc":"nylon/ raso"}
 {"mtc":"nylon/ ricamo"}
@@ -13604,7 +13604,7 @@
 {"mtc":"nylon/ screziatura"}
 {"mtc":"nylon/ stampa"}
 {"mtc":"nylon/ taffetas"}
-{"mtc":"nylon/ taffetas doubl\u00e9"}
+{"mtc":"nylon/ taffetas doublé"}
 {"mtc":"nylon/ tessitura a telaio"}
 {"mtc":"nylon/ tessuto"}
 {"mtc":"nylon/ tessuto ad arazzo"}
@@ -13781,7 +13781,7 @@
 {"mtc":"oro filato"}
 {"mtc":"oro filato/ arazzo"}
 {"mtc":"oro filato/ attorcigliamento"}
-{"mtc":"oro filato/ boucl\u00e9"}
+{"mtc":"oro filato/ bouclé"}
 {"mtc":"oro filato/ merletto"}
 {"mtc":"oro filato/ merletto a fuselli o tombolo"}
 {"mtc":"oro filato/ ricamo"}
@@ -13843,7 +13843,7 @@
 {"mtc":"oro/ falsa agemina"}
 {"mtc":"oro/ filatura"}
 {"mtc":"oro/ filigrana"}
-{"mtc":"oro/ filigrana a pi\u00f9 capi"}
+{"mtc":"oro/ filigrana a più capi"}
 {"mtc":"oro/ filigrana a un capo"}
 {"mtc":"oro/ fusione"}
 {"mtc":"oro/ fusione a cera persa"}
@@ -13960,9 +13960,9 @@
 {"mtc":"pannello"}
 {"mtc":"pannello/ collage"}
 {"mtc":"pannello/ fotocolor"}
-{"mtc":"papier coll\u00e9"}
-{"mtc":"papier coll\u00e9/ pittura a olio"}
-{"mtc":"papier mach\u00e9"}
+{"mtc":"papier collé"}
+{"mtc":"papier collé/ pittura a olio"}
+{"mtc":"papier maché"}
 {"mtc":"pasta di corallo"}
 {"mtc":"pasta di lapislazzulo"}
 {"mtc":"pasta vitrea"}
@@ -15888,36 +15888,36 @@
 {"mtc":"pietra di Vicenza/ traforo"}
 {"mtc":"pietra di Vicenza/ trapanatura"}
 {"mtc":"pietra di Vicenza/ verniciatura"}
-{"mtc":"pietra di Viggi\u00f9"}
-{"mtc":"pietra di Viggi\u00f9/ argentatura"}
-{"mtc":"pietra di Viggi\u00f9/ bocciardatura"}
-{"mtc":"pietra di Viggi\u00f9/ doratura"}
-{"mtc":"pietra di Viggi\u00f9/ incastonatura"}
-{"mtc":"pietra di Viggi\u00f9/ incisione"}
-{"mtc":"pietra di Viggi\u00f9/ incrostatura"}
-{"mtc":"pietra di Viggi\u00f9/ intaglio"}
-{"mtc":"pietra di Viggi\u00f9/ intarsio"}
-{"mtc":"pietra di Viggi\u00f9/ intonacatura"}
-{"mtc":"pietra di Viggi\u00f9/ lavorazione a gradina"}
-{"mtc":"pietra di Viggi\u00f9/ levigatura"}
-{"mtc":"pietra di Viggi\u00f9/ listratura in marmo di Siena"}
-{"mtc":"pietra di Viggi\u00f9/ marmorizzazione"}
-{"mtc":"pietra di Viggi\u00f9/ martellatura"}
-{"mtc":"pietra di Viggi\u00f9/ mosaico"}
-{"mtc":"pietra di Viggi\u00f9/ mosaico minuto"}
-{"mtc":"pietra di Viggi\u00f9/ pittura"}
-{"mtc":"pietra di Viggi\u00f9/ pittura a finto marmo"}
-{"mtc":"pietra di Viggi\u00f9/ pittura a olio"}
-{"mtc":"pietra di Viggi\u00f9/ pittura a tempera"}
-{"mtc":"pietra di Viggi\u00f9/ sagomatura"}
-{"mtc":"pietra di Viggi\u00f9/ sbozzatura"}
-{"mtc":"pietra di Viggi\u00f9/ scialbatura"}
-{"mtc":"pietra di Viggi\u00f9/ scultura"}
-{"mtc":"pietra di Viggi\u00f9/ sgraffio"}
-{"mtc":"pietra di Viggi\u00f9/ stuccatura"}
-{"mtc":"pietra di Viggi\u00f9/ traforo"}
-{"mtc":"pietra di Viggi\u00f9/ trapanatura"}
-{"mtc":"pietra di Viggi\u00f9/ verniciatura"}
+{"mtc":"pietra di Viggiù"}
+{"mtc":"pietra di Viggiù/ argentatura"}
+{"mtc":"pietra di Viggiù/ bocciardatura"}
+{"mtc":"pietra di Viggiù/ doratura"}
+{"mtc":"pietra di Viggiù/ incastonatura"}
+{"mtc":"pietra di Viggiù/ incisione"}
+{"mtc":"pietra di Viggiù/ incrostatura"}
+{"mtc":"pietra di Viggiù/ intaglio"}
+{"mtc":"pietra di Viggiù/ intarsio"}
+{"mtc":"pietra di Viggiù/ intonacatura"}
+{"mtc":"pietra di Viggiù/ lavorazione a gradina"}
+{"mtc":"pietra di Viggiù/ levigatura"}
+{"mtc":"pietra di Viggiù/ listratura in marmo di Siena"}
+{"mtc":"pietra di Viggiù/ marmorizzazione"}
+{"mtc":"pietra di Viggiù/ martellatura"}
+{"mtc":"pietra di Viggiù/ mosaico"}
+{"mtc":"pietra di Viggiù/ mosaico minuto"}
+{"mtc":"pietra di Viggiù/ pittura"}
+{"mtc":"pietra di Viggiù/ pittura a finto marmo"}
+{"mtc":"pietra di Viggiù/ pittura a olio"}
+{"mtc":"pietra di Viggiù/ pittura a tempera"}
+{"mtc":"pietra di Viggiù/ sagomatura"}
+{"mtc":"pietra di Viggiù/ sbozzatura"}
+{"mtc":"pietra di Viggiù/ scialbatura"}
+{"mtc":"pietra di Viggiù/ scultura"}
+{"mtc":"pietra di Viggiù/ sgraffio"}
+{"mtc":"pietra di Viggiù/ stuccatura"}
+{"mtc":"pietra di Viggiù/ traforo"}
+{"mtc":"pietra di Viggiù/ trapanatura"}
+{"mtc":"pietra di Viggiù/ verniciatura"}
 {"mtc":"pietra di paragone"}
 {"mtc":"pietra di paragone/ foratura"}
 {"mtc":"pietra di paragone/ incastonatura"}
@@ -16800,7 +16800,7 @@
 {"mtc":"platino/ falsa agemina"}
 {"mtc":"platino/ filatura"}
 {"mtc":"platino/ filigrana"}
-{"mtc":"platino/ filigrana a pi\u00f9 capi"}
+{"mtc":"platino/ filigrana a più capi"}
 {"mtc":"platino/ filigrana a un capo"}
 {"mtc":"platino/ foratura"}
 {"mtc":"platino/ fusione"}
@@ -16846,9 +16846,9 @@
 {"mtc":"poliestere/ cannellato alternativo"}
 {"mtc":"poliestere/ cannellato delle Indie"}
 {"mtc":"poliestere/ cannellato semplice"}
-{"mtc":"poliestere/ cannetill\u00e9"}
+{"mtc":"poliestere/ cannetillé"}
 {"mtc":"poliestere/ cannettato"}
-{"mtc":"poliestere/ chin\u00e9"}
+{"mtc":"poliestere/ chiné"}
 {"mtc":"poliestere/ damasco"}
 {"mtc":"poliestere/ damasco bicolore"}
 {"mtc":"poliestere/ damasco di Lione"}
@@ -16858,12 +16858,12 @@
 {"mtc":"poliestere/ faglia"}
 {"mtc":"poliestere/ garza"}
 {"mtc":"poliestere/ gros de Tours"}
-{"mtc":"poliestere/ gros de Tours natt\u00e9"}
+{"mtc":"poliestere/ gros de Tours natté"}
 {"mtc":"poliestere/ impressione"}
 {"mtc":"poliestere/ laminatura"}
 {"mtc":"poliestere/ lampasso"}
 {"mtc":"poliestere/ lampasso damascato"}
-{"mtc":"poliestere/ liser\u00e9"}
+{"mtc":"poliestere/ liseré"}
 {"mtc":"poliestere/ louisine"}
 {"mtc":"poliestere/ marezzatura"}
 {"mtc":"poliestere/ messicana"}
@@ -16876,7 +16876,7 @@
 {"mtc":"poliestere/ pittura a tempera"}
 {"mtc":"poliestere/ pittura ad acquerello"}
 {"mtc":"poliestere/ pittura ad acrilico"}
-{"mtc":"poliestere/ p\u00e9kin"}
+{"mtc":"poliestere/ pékin"}
 {"mtc":"poliestere/ quadrettatura"}
 {"mtc":"poliestere/ raso"}
 {"mtc":"poliestere/ ricamo"}
@@ -16886,7 +16886,7 @@
 {"mtc":"poliestere/ screziatura"}
 {"mtc":"poliestere/ stampa"}
 {"mtc":"poliestere/ taffetas"}
-{"mtc":"poliestere/ taffetas doubl\u00e9"}
+{"mtc":"poliestere/ taffetas doublé"}
 {"mtc":"poliestere/ tessitura a telaio"}
 {"mtc":"poliestere/ tessuto"}
 {"mtc":"poliestere/ tessuto ad arazzo"}
@@ -17227,9 +17227,9 @@
 {"mtc":"rayon/ cannellato alternativo"}
 {"mtc":"rayon/ cannellato delle Indie"}
 {"mtc":"rayon/ cannellato semplice"}
-{"mtc":"rayon/ cannetill\u00e9"}
+{"mtc":"rayon/ cannetillé"}
 {"mtc":"rayon/ cannettato"}
-{"mtc":"rayon/ chin\u00e9"}
+{"mtc":"rayon/ chiné"}
 {"mtc":"rayon/ damasco"}
 {"mtc":"rayon/ damasco bicolore"}
 {"mtc":"rayon/ damasco di Lione"}
@@ -17239,12 +17239,12 @@
 {"mtc":"rayon/ faglia"}
 {"mtc":"rayon/ garza"}
 {"mtc":"rayon/ gros de Tours"}
-{"mtc":"rayon/ gros de Tours natt\u00e9"}
+{"mtc":"rayon/ gros de Tours natté"}
 {"mtc":"rayon/ impressione"}
 {"mtc":"rayon/ laminatura"}
 {"mtc":"rayon/ lampasso"}
 {"mtc":"rayon/ lampasso damascato"}
-{"mtc":"rayon/ liser\u00e9"}
+{"mtc":"rayon/ liseré"}
 {"mtc":"rayon/ louisine"}
 {"mtc":"rayon/ marezzatura"}
 {"mtc":"rayon/ messicana"}
@@ -17257,7 +17257,7 @@
 {"mtc":"rayon/ pittura a tempera"}
 {"mtc":"rayon/ pittura ad acquerello"}
 {"mtc":"rayon/ pittura ad acrilico"}
-{"mtc":"rayon/ p\u00e9kin"}
+{"mtc":"rayon/ pékin"}
 {"mtc":"rayon/ quadrettatura"}
 {"mtc":"rayon/ raso"}
 {"mtc":"rayon/ ricamo"}
@@ -17267,7 +17267,7 @@
 {"mtc":"rayon/ screziatura"}
 {"mtc":"rayon/ stampa"}
 {"mtc":"rayon/ taffetas"}
-{"mtc":"rayon/ taffetas doubl\u00e9"}
+{"mtc":"rayon/ taffetas doublé"}
 {"mtc":"rayon/ tessitura a telaio"}
 {"mtc":"rayon/ tessuto"}
 {"mtc":"rayon/ tessuto ad arazzo"}
@@ -17334,7 +17334,7 @@
 {"mtc":"seta e canapa/ marezzatura"}
 {"mtc":"seta e canapa/ opera"}
 {"mtc":"seta e canapa/ peluche"}
-{"mtc":"seta e canapa/ p\u00e9kin"}
+{"mtc":"seta e canapa/ pékin"}
 {"mtc":"seta e canapa/ quadrettatura"}
 {"mtc":"seta e canapa/ raso"}
 {"mtc":"seta e canapa/ ricamo"}
@@ -17361,7 +17361,7 @@
 {"mtc":"seta e cascame di seta/ lampasso"}
 {"mtc":"seta e cascame di seta/ marezzatura"}
 {"mtc":"seta e cascame di seta/ opera"}
-{"mtc":"seta e cascame di seta/ p\u00e9kin"}
+{"mtc":"seta e cascame di seta/ pékin"}
 {"mtc":"seta e cascame di seta/ quadrettatura"}
 {"mtc":"seta e cascame di seta/ raso"}
 {"mtc":"seta e cascame di seta/ ricamo"}
@@ -17387,7 +17387,7 @@
 {"mtc":"seta e cotone/ marezzatura"}
 {"mtc":"seta e cotone/ opera"}
 {"mtc":"seta e cotone/ peluche"}
-{"mtc":"seta e cotone/ p\u00e9kin"}
+{"mtc":"seta e cotone/ pékin"}
 {"mtc":"seta e cotone/ quadrettatura"}
 {"mtc":"seta e cotone/ raso"}
 {"mtc":"seta e cotone/ ricamo"}
@@ -17411,7 +17411,7 @@
 {"mtc":"seta e lino/ marezzatura"}
 {"mtc":"seta e lino/ opera"}
 {"mtc":"seta e lino/ peluche"}
-{"mtc":"seta e lino/ p\u00e9kin"}
+{"mtc":"seta e lino/ pékin"}
 {"mtc":"seta e lino/ quadrettatura"}
 {"mtc":"seta e lino/ raso"}
 {"mtc":"seta e lino/ ricamo"}
@@ -17433,11 +17433,11 @@
 {"mtc":"seta/ cannellato alternativo"}
 {"mtc":"seta/ cannellato delle Indie"}
 {"mtc":"seta/ cannellato semplice"}
-{"mtc":"seta/ cannetill\u00e9"}
+{"mtc":"seta/ cannetillé"}
 {"mtc":"seta/ cannettato"}
-{"mtc":"seta/ chin\u00e9"}
-{"mtc":"seta/ chin\u00e9 \u00e0 la branche"}
-{"mtc":"seta/ cr\u00eape de Chine"}
+{"mtc":"seta/ chiné"}
+{"mtc":"seta/ chiné à la branche"}
+{"mtc":"seta/ crêpe de Chine"}
 {"mtc":"seta/ damasco"}
 {"mtc":"seta/ damasco bicolore"}
 {"mtc":"seta/ damasco di Lione"}
@@ -17447,13 +17447,13 @@
 {"mtc":"seta/ faglia"}
 {"mtc":"seta/ garza"}
 {"mtc":"seta/ gros de Tours"}
-{"mtc":"seta/ gros de Tours natt\u00e9"}
+{"mtc":"seta/ gros de Tours natté"}
 {"mtc":"seta/ impressione"}
 {"mtc":"seta/ laminatura"}
 {"mtc":"seta/ lampassetto"}
 {"mtc":"seta/ lampasso"}
 {"mtc":"seta/ lampasso damascato"}
-{"mtc":"seta/ liser\u00e9"}
+{"mtc":"seta/ liseré"}
 {"mtc":"seta/ louisine"}
 {"mtc":"seta/ marezzatura"}
 {"mtc":"seta/ messicana"}
@@ -17466,7 +17466,7 @@
 {"mtc":"seta/ pittura a tempera"}
 {"mtc":"seta/ pittura ad acquerello"}
 {"mtc":"seta/ pittura ad acrilico"}
-{"mtc":"seta/ p\u00e9kin"}
+{"mtc":"seta/ pékin"}
 {"mtc":"seta/ quadrettatura"}
 {"mtc":"seta/ raso"}
 {"mtc":"seta/ ricamo"}
@@ -17476,7 +17476,7 @@
 {"mtc":"seta/ screziatura"}
 {"mtc":"seta/ stampa"}
 {"mtc":"seta/ taffetas"}
-{"mtc":"seta/ taffetas doubl\u00e9"}
+{"mtc":"seta/ taffetas doublé"}
 {"mtc":"seta/ tessitura a telaio"}
 {"mtc":"seta/ tessuto"}
 {"mtc":"seta/ tessuto a cartoni"}
@@ -17486,7 +17486,7 @@
 {"mtc":"seta/ velluto"}
 {"mtc":"seta/ velluto a spada"}
 {"mtc":"seta/ velluto ad inferriata"}
-{"mtc":"seta/ velluto allucciolato o boucl\u00e9"}
+{"mtc":"seta/ velluto allucciolato o bouclé"}
 {"mtc":"seta/ velluto cesellato"}
 {"mtc":"seta/ velluto controtagliato o alto-basso"}
 {"mtc":"seta/ velluto liscio o tagliato"}
@@ -17503,9 +17503,9 @@
 {"mtc":"sisal/ cannellato alternativo"}
 {"mtc":"sisal/ cannellato delle Indie"}
 {"mtc":"sisal/ cannellato semplice"}
-{"mtc":"sisal/ cannetill\u00e9"}
+{"mtc":"sisal/ cannetillé"}
 {"mtc":"sisal/ cannettato"}
-{"mtc":"sisal/ chin\u00e9"}
+{"mtc":"sisal/ chiné"}
 {"mtc":"sisal/ damasco"}
 {"mtc":"sisal/ damasco bicolore"}
 {"mtc":"sisal/ damasco di Lione"}
@@ -17515,12 +17515,12 @@
 {"mtc":"sisal/ faglia"}
 {"mtc":"sisal/ garza"}
 {"mtc":"sisal/ gros de Tours"}
-{"mtc":"sisal/ gros de Tours natt\u00e9"}
+{"mtc":"sisal/ gros de Tours natté"}
 {"mtc":"sisal/ impressione"}
 {"mtc":"sisal/ laminatura"}
 {"mtc":"sisal/ lampasso"}
 {"mtc":"sisal/ lampasso damascato"}
-{"mtc":"sisal/ liser\u00e9"}
+{"mtc":"sisal/ liseré"}
 {"mtc":"sisal/ louisine"}
 {"mtc":"sisal/ marezzatura"}
 {"mtc":"sisal/ messicana"}
@@ -17533,7 +17533,7 @@
 {"mtc":"sisal/ pittura a tempera"}
 {"mtc":"sisal/ pittura ad acquerello"}
 {"mtc":"sisal/ pittura ad acrilico"}
-{"mtc":"sisal/ p\u00e9kin"}
+{"mtc":"sisal/ pékin"}
 {"mtc":"sisal/ quadrettatura"}
 {"mtc":"sisal/ raso"}
 {"mtc":"sisal/ ricamo"}
@@ -17543,7 +17543,7 @@
 {"mtc":"sisal/ screziatura"}
 {"mtc":"sisal/ stampa"}
 {"mtc":"sisal/ taffetas"}
-{"mtc":"sisal/ taffetas doubl\u00e9"}
+{"mtc":"sisal/ taffetas doublé"}
 {"mtc":"sisal/ tessitura a telaio"}
 {"mtc":"sisal/ tessuto"}
 {"mtc":"sisal/ tessuto ad arazzo"}
@@ -17556,9 +17556,9 @@
 {"mtc":"smalto traslucido"}
 {"mtc":"smalto/ applicazione"}
 {"mtc":"smalto/ incisione"}
-{"mtc":"smalto/ lavorazione a champlev\u00e9"}
-{"mtc":"smalto/ lavorazione a cloisonn\u00e9"}
-{"mtc":"smalto/ lavorazione a plique \u00e0 jour"}
+{"mtc":"smalto/ lavorazione a champlevé"}
+{"mtc":"smalto/ lavorazione a cloisonné"}
+{"mtc":"smalto/ lavorazione a plique à jour"}
 {"mtc":"smalto/ lavorazione en ronde bosse"}
 {"mtc":"smeraldo"}
 {"mtc":"smeraldo/ cabochon"}
@@ -17689,7 +17689,7 @@
 {"mtc":"tela/ inchiostro di china"}
 {"mtc":"tela/ incollaggio"}
 {"mtc":"tela/ matita"}
-{"mtc":"tela/ matita cont\u00e9"}
+{"mtc":"tela/ matita conté"}
 {"mtc":"tela/ pastello"}
 {"mtc":"tela/ penna"}
 {"mtc":"tela/ pittura"}
@@ -17714,9 +17714,9 @@
 {"mtc":"terital/ cannellato alternativo"}
 {"mtc":"terital/ cannellato delle Indie"}
 {"mtc":"terital/ cannellato semplice"}
-{"mtc":"terital/ cannetill\u00e9"}
+{"mtc":"terital/ cannetillé"}
 {"mtc":"terital/ cannettato"}
-{"mtc":"terital/ chin\u00e9"}
+{"mtc":"terital/ chiné"}
 {"mtc":"terital/ damasco"}
 {"mtc":"terital/ damasco bicolore"}
 {"mtc":"terital/ damasco di Lione"}
@@ -17726,12 +17726,12 @@
 {"mtc":"terital/ faglia"}
 {"mtc":"terital/ garza"}
 {"mtc":"terital/ gros de Tours"}
-{"mtc":"terital/ gros de Tours natt\u00e9"}
+{"mtc":"terital/ gros de Tours natté"}
 {"mtc":"terital/ impressione"}
 {"mtc":"terital/ laminatura"}
 {"mtc":"terital/ lampasso"}
 {"mtc":"terital/ lampasso damascato"}
-{"mtc":"terital/ liser\u00e9"}
+{"mtc":"terital/ liseré"}
 {"mtc":"terital/ louisine"}
 {"mtc":"terital/ marezzatura"}
 {"mtc":"terital/ messicana"}
@@ -17744,7 +17744,7 @@
 {"mtc":"terital/ pittura a tempera"}
 {"mtc":"terital/ pittura ad acquerello"}
 {"mtc":"terital/ pittura ad acrilico"}
-{"mtc":"terital/ p\u00e9kin"}
+{"mtc":"terital/ pékin"}
 {"mtc":"terital/ quadrettatura"}
 {"mtc":"terital/ raso"}
 {"mtc":"terital/ ricamo"}
@@ -17754,7 +17754,7 @@
 {"mtc":"terital/ screziatura"}
 {"mtc":"terital/ stampa"}
 {"mtc":"terital/ taffetas"}
-{"mtc":"terital/ taffetas doubl\u00e9"}
+{"mtc":"terital/ taffetas doublé"}
 {"mtc":"terital/ tessitura a telaio"}
 {"mtc":"terital/ tessuto"}
 {"mtc":"terital/ tessuto ad arazzo"}
@@ -18040,9 +18040,9 @@
 {"mtc":"viscosa/ cannellato alternativo"}
 {"mtc":"viscosa/ cannellato delle Indie"}
 {"mtc":"viscosa/ cannellato semplice"}
-{"mtc":"viscosa/ cannetill\u00e9"}
+{"mtc":"viscosa/ cannetillé"}
 {"mtc":"viscosa/ cannettato"}
-{"mtc":"viscosa/ chin\u00e9"}
+{"mtc":"viscosa/ chiné"}
 {"mtc":"viscosa/ damasco"}
 {"mtc":"viscosa/ damasco bicolore"}
 {"mtc":"viscosa/ damasco di Lione"}
@@ -18052,12 +18052,12 @@
 {"mtc":"viscosa/ faglia"}
 {"mtc":"viscosa/ garza"}
 {"mtc":"viscosa/ gros de Tours"}
-{"mtc":"viscosa/ gros de Tours natt\u00e9"}
+{"mtc":"viscosa/ gros de Tours natté"}
 {"mtc":"viscosa/ impressione"}
 {"mtc":"viscosa/ laminatura"}
 {"mtc":"viscosa/ lampasso"}
 {"mtc":"viscosa/ lampasso damascato"}
-{"mtc":"viscosa/ liser\u00e9"}
+{"mtc":"viscosa/ liseré"}
 {"mtc":"viscosa/ louisine"}
 {"mtc":"viscosa/ marezzatura"}
 {"mtc":"viscosa/ messicana"}
@@ -18070,7 +18070,7 @@
 {"mtc":"viscosa/ pittura a tempera"}
 {"mtc":"viscosa/ pittura ad acquerello"}
 {"mtc":"viscosa/ pittura ad acrilico"}
-{"mtc":"viscosa/ p\u00e9kin"}
+{"mtc":"viscosa/ pékin"}
 {"mtc":"viscosa/ qudrettatura"}
 {"mtc":"viscosa/ raso"}
 {"mtc":"viscosa/ ricamo"}
@@ -18080,7 +18080,7 @@
 {"mtc":"viscosa/ screziatura"}
 {"mtc":"viscosa/ stampa"}
 {"mtc":"viscosa/ taffetas"}
-{"mtc":"viscosa/ taffetas doubl\u00e9"}
+{"mtc":"viscosa/ taffetas doublé"}
 {"mtc":"viscosa/ tessitura a telaio"}
 {"mtc":"viscosa/ tessuto"}
 {"mtc":"viscosa/ tessuto ad arazzo"}

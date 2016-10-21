@@ -4,6 +4,9 @@
     $('#term').liveUpdate('#fonds-list', {
       url: '/fonds/list.json',
       field: 'new_root_id',
+// Upgrade 2.2.0 inizio
+      group_id: {group_id: '<%= current_ability.target_group_id %>'},
+// Upgrade 2.2.0 fine
       exclude : {exclude: [<%= object.id %>]}
     });
   });

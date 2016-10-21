@@ -1,10 +1,13 @@
 <% content_for :status_bar do %>
   <h2><%= status_bar_context %></h2>
-  <% if current_user.is_at_least_admin? %>
+<%# Upgrade 2.2.0 inizio %>
+  <%# if current_user.is_at_least_admin? %>
+  <% if current_user.is_superadmin? || current_user.is_admin_for_some_group? %>
     <div id="links">
       <%= link_to "Vai alla lista utenti", users_path %>
     </div>
   <% end %>
+<%# Upgrade 2.2.0 fine %>
 <% end %>
 
 <div class="span12">
@@ -36,7 +39,9 @@
           <%= link_to group.name, edit_group_path(group) %>
 <%# Upgrade 2.1.0 fine %>
         </td>
-        <td class="center"><%= group.users.select {|u| u.active == true }.size %> / <%= group.users.size %></td>
+        <td class="center">
+          <%= group.users.select {|u| u.active == true }.size %> / <%= group.users.size %>
+        </td>
 <%# TAI aggiunto raw() %>
         <td class="center"><%= number_to_human_size(@assets[group.id]) || raw("&mdash;") %></td>
         <td><%= l group.created_at, :format => :long %></td>

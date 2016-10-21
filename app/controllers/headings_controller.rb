@@ -5,7 +5,63 @@ require 'csv'
 class HeadingsController < ApplicationController
   helper_method :sort_column
 
-  load_and_authorize_resource :except => [:ajax_list, :modal_new, :modal_link]
+# Upgrade 2.2.0 inizio
+#  load_and_authorize_resource :except => [:ajax_list, :modal_new, :modal_link]
+  load_and_authorize_resource :except => [:ajax_list, :modal_new, :modal_link, :import_csv]
+# Upgrade 2.2.0 fine
+
+# Upgrade 2.2.0 inizio
+  def current_ability
+    if @current_ability.nil?
+      if (current_user.is_multi_group_user?())
+        # import_csv,modal_new,ajax_list non hanno bisogno di una gestione in current_ability
+        if (["show","edit","update","destroy"].include?(params[:action]))
+          h = Heading.find(params[:id])
+          @current_ability ||= Ability.new(current_user, h.group_id)
+        elsif (["list"].include?(params[:action]))
+          group_id = str2int(params[:group_id])
+          @current_ability ||= Ability.new(current_user, group_id)
+        elsif (["index"].include?(params[:action]))
+          @current_ability ||= Ability.new(current_user, -1)
+        elsif (["new","create"].include?(params[:action]))
+          if params[:group_id].present?
+            group_id = str2int(params[:group_id])
+            @current_ability ||= Ability.new(current_user, group_id)
+          end
+        elsif (["preview_csv","save_csv"].include?(params[:action]))
+          if params[:heading][:group_id].present?
+            group_id = str2int(params[:heading][:group_id])
+            @current_ability ||= Ability.new(current_user, group_id)
+          end
+        elsif (["modal_link","modal_create"].include?(params[:action]))
+          related_entity_controller = if params["related_entity"].present? then params["related_entity"] else nil end
+          related_entity_id = if params["related_entity_id"].present? then params["related_entity_id"] else nil end
+          if !related_entity_controller.nil? && !related_entity_id.nil?
+            if related_entity_controller == "units"
+              group_id = str2int(Fond.find(Unit.find(related_entity_id).fond_id).group_id)
+            elsif related_entity_controller == "fonds"
+              group_id = str2int(Fond.find(related_entity_id).group_id)
+            else
+              group_id = nil
+            end
+            if !group_id.nil?
+              @current_ability ||= Ability.new(current_user, group_id)
+            end
+          end
+        elsif (["ajax_link","ajax_remove"].include?(params[:action]))
+          if params[:heading_id].present?
+            group_id = str2int(Heading.find(params[:heading_id]).group_id)
+            @current_ability ||= Ability.new(current_user, group_id)
+          end
+				end
+      end
+    end
+    if @current_ability.nil?
+      @current_ability = super
+    end
+    return @current_ability
+  end
+# Upgrade 2.2.0 fine
 
   def index
     terms
@@ -22,7 +78,10 @@ class HeadingsController < ApplicationController
 
     @units_counts = RelUnitHeading.count("id", :conditions => {:heading_id => @headings.map(&:id)}, :group => :heading_id)
 =end
-    @headings = Heading.accessible_by(current_ability, :read).where(conditions).order(sort_column + ' ' + sort_direction).page(params[:page])
+# Upgrade 2.2.0 inizio
+#    @headings = Heading.accessible_by(current_ability, :read).where(conditions).order(sort_column + ' ' + sort_direction).page(params[:page])
+    @headings = Heading.list.accessible_by(current_ability, :read).where(conditions).order(sort_column + ' ' + sort_direction).page(params[:page])
+# Upgrade 2.2.0 fine
 
     @counts_by_type = Heading.accessible_by(current_ability, :read).group(:heading_type).count("id")
 
@@ -97,7 +156,14 @@ class HeadingsController < ApplicationController
     end
 =end
     @heading = Heading.new(heading_params).tap do |heading|
-      heading.group_id = current_user.group_id
+# Upgrade 2.2.0 inizio
+#      heading.group_id = current_user.group_id
+      if current_user.is_multi_group_user?()
+        heading.group_id = current_ability.target_group_id
+      else
+        heading.group_id = current_user.rel_user_groups[0].group_id
+      end
+# Upgrade 2.2.0 fine
     end
 # Upgrade 2.0.0 fine
 
@@ -247,7 +313,10 @@ class HeadingsController < ApplicationController
           :name => row[1],
           :dates => row[2],
           :qualifier => row[3],
-          :group_id => current_user.group_id
+# Upgrade 2.2.0 inizio
+#          :group_id => current_user.group_id
+          :group_id => if current_user.is_multi_group_user?() then current_ability.target_group_id else current_user.rel_user_groups[0].group_id end
+# Upgrade 2.2.0 fine
         )
         @record.save
       end
@@ -260,12 +329,27 @@ class HeadingsController < ApplicationController
   private
 
   def sort_column
-     params[:sort] || "name"
+# Upgrade 2.2.0 inizio
+#    params[:sort] || "name"
+    params[:sort] || "headings.name"
+# Upgrade 2.2.0 fine
   end
 
 # Upgrade 2.0.0 inizio Strong parameters
   def heading_params
-    params.require(:heading).permit!
+# Upgrade 2.2.0 inizio
+#    params.require(:heading).permit!
+    if !params[:group_id].present?
+      if current_user.is_multi_group_user?()
+        group_id = current_ability.target_group_id
+      else
+        group_id = current_user.rel_user_groups[0].group_id
+      end
+      params.require(:heading).merge(group_id: group_id).permit!
+    else
+      params.require(:heading).permit!
+    end
+# Upgrade 2.2.0 fine
   end
 # Upgrade 2.0.0 fine
 

@@ -1,6 +1,36 @@
 class EditorsController < ApplicationController
   load_and_authorize_resource
 
+# Upgrade 2.2.0 inizio
+  def current_ability
+    if @current_ability.nil?
+      if (current_user.is_multi_group_user?())
+        if (["show","edit","update","destroy"].include?(params[:action]))
+          e = Editor.find(params[:id])
+          @current_ability ||= Ability.new(current_user, e.group_id)
+        elsif (["list"].include?(params[:action]))
+          group_id = str2int(params[:group_id])
+          @current_ability ||= Ability.new(current_user, group_id)
+        elsif (["index"].include?(params[:action]))
+          @current_ability ||= Ability.new(current_user, -1)
+        elsif (["new","create"].include?(params[:action]))
+          if params[:group_id].present?
+            group_id = str2int(params[:group_id])
+            @current_ability ||= Ability.new(current_user, group_id)
+          end
+        elsif (["modal_new","modal_create"].include?(params[:action]))
+          group_id = str2int(params[:group_id])
+          @current_ability ||= Ability.new(current_user, group_id)
+        end
+      end
+    end
+    if @current_ability.nil?
+      @current_ability = super
+    end
+    return @current_ability
+  end
+# Upgrade 2.2.0 fine
+
   def index
 # Upgrade 2.0.0 inizio
 =begin
@@ -29,7 +59,14 @@ class EditorsController < ApplicationController
 # Upgrade 2.0.0 fine
       editor.created_by = current_user.id
       editor.updated_by = current_user.id
-      editor.group_id = current_user.group_id
+# Upgrade 2.2.0 inizio
+#      editor.group_id = current_user.group_id
+        if current_user.is_multi_group_user?()
+          editor.group_id = current_ability.target_group_id
+        else
+          editor.group_id = current_user.rel_user_groups[0].group_id
+        end
+# Upgrade 2.2.0 fine
     end
 
     if @editor.save
@@ -75,7 +112,15 @@ class EditorsController < ApplicationController
 # Upgrade 2.0.0 fine
       editor.created_by = current_user.id
       editor.updated_by = current_user.id
-      editor.group_id = current_user.group_id
+# Upgrade 2.2.0 inizio
+#      editor.group_id = current_user.group_id
+        if current_user.is_multi_group_user?()
+          editor.group_id = current_ability.target_group_id
+        else
+          editor.group_id = current_user.rel_user_groups[0].group_id
+        end
+# Upgrade 2.2.0 fine
+
     end
     respond_to do |format|
       if @editor.save

@@ -31,7 +31,10 @@ class Export < ActiveRecord::Base
   def tables
     {
       :fonds => ["fond_events", "fond_identifiers", "fond_langs", "fond_names", "fond_owners", "fond_urls", "fond_editors"],
-      :units => ["unit_events", "unit_identifiers","unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects"],
+# Upgrade 2.2.0 inizio
+#      :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects"],
+      :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects", "sc2s", "sc2_textual_elements", "sc2_visual_elements", "sc2_authors", "sc2_commissions", "sc2_techniques", "sc2_scales"],
+# Upgrade 2.2.0 fine
       :creators => ["creator_events", "creator_identifiers","creator_legal_statuses", "creator_names", "creator_urls", "creator_activities", "creator_editors"],
       :custodians => ["custodian_buildings", "custodian_contacts","custodian_identifiers", "custodian_names", "custodian_owners", "custodian_urls", "custodian_editors"],
 # Upgrade 2.0.0 inizio
@@ -92,6 +95,8 @@ class Export < ActiveRecord::Base
         end
       end
 
+# Upgrade 2.2.0 inizio
+=begin
       #TODO considerare each_slice su unit_ids per grandi quantitativi di unità (+query ma meno memoria).
       unless self.unit_ids.empty?
         self.tables[:units].each do |table|
@@ -107,6 +112,9 @@ class Export < ActiveRecord::Base
           end
         end
       end
+=end
+      export_units_related_entities(file, self.unit_ids, self.tables[:units])
+# Upgrade 2.2.0 fine
     end
   end
 
@@ -383,6 +391,8 @@ class Export < ActiveRecord::Base
     }
     File.open(self.data_file, "a") do |file|
       entities.each do |type, ids|
+# Upgrade 2.2.0 inizio
+=begin
         unless ids.blank?
           ids = ids.join(',') unless type == 'Fond'
 # Upgrade 2.0.0 inizio
@@ -395,6 +405,9 @@ class Export < ActiveRecord::Base
             file.write("\r\n")
           end
         end
+=end
+        export_entity_related_digital_objects(file, type, ids)
+# Upgrade 2.2.0 fine
       end
     end
   end
@@ -402,6 +415,34 @@ class Export < ActiveRecord::Base
   def create_export_file
     create_data_file
     create_metadata_file
+# Upgrade 2.2.0 inizio
+=begin
+    files = {"metadata.json" => self.metadata_file, "data.json" => self.data_file}
+# Upgrade 2.0.0 inizio
+#    Zip::ZipFile.open(self.dest_file, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(self.dest_file, Zip::File::CREATE) do |zipfile|
+# Upgrade 2.0.0 fine
+      files.each do |dst, src|
+        zipfile.add(dst, src)
+      end
+    end
+=end
+    create_aef_file
+# Upgrade 2.2.0 fine
+  end
+
+# Upgrade 2.2.0 inizio
+  def create_units_export_file(unit_ids)
+    create_units_data_file(unit_ids)
+    create_metadata_file
+    create_aef_file
+  end
+# Upgrade 2.2.0 fine
+
+  private
+  
+# Upgrade 2.2.0 inizio
+  def create_aef_file
     files = {"metadata.json" => self.metadata_file, "data.json" => self.data_file}
 # Upgrade 2.0.0 inizio
 #    Zip::ZipFile.open(self.dest_file, Zip::ZipFile::CREATE) do |zipfile|
@@ -413,7 +454,85 @@ class Export < ActiveRecord::Base
     end
   end
 
-  private
+  def create_units_data_file(unit_ids)
+    ActiveRecord::Base.include_root_in_json = true
+    units = Unit.order("sequence_number").find(unit_ids)
+    File.open(self.data_file, "a") do |file|
+      unit_sequence_number_index = 1
+      units.each do |unit|
+        # le relazioni con i fondi (legacy_root_fond_id, legacy_parent_fond_id) non vengono esportate perché il fondo in cui si effettuerà l'importazione dei dati avrà in generale una struttura diversa da quella di origine (e comunque è prevista l'esportazione di unità appartenenti ad un unico livello (fondo)). Per lo stesso motivo non si esportano i campi fond_id, root_fond_id
+        #
+        # ancestry non viene esportato perché lo si ricostruisce in import
+        #
+        # si forza sequence_number in modo che sia un progressivo da 1 a N unità esportate
+        
+        unit.legacy_id = unit.id
+        unit.legacy_parent_unit_id = unit.is_root? ? nil : unit.parent_id.to_s
+
+        unit.sequence_number = unit_sequence_number_index
+        
+        file.write(unit.to_json(:except => [:id, :fond_id, :root_fond_id, :position, :ancestry, :db_source, :created_by, :updated_by, :legacy_sequence_number, :legacy_parent_fond_id, :legacy_root_fond_id, :created_at, :updated_at]).gsub("\\r",""))
+        file.write("\r\n")
+        unit_sequence_number_index += 1
+      end
+      export_units_related_entities(file, unit_ids, self.tables[:units])
+      export_entity_related_digital_objects(file, "Unit", unit_ids)
+    end
+  end
+  
+  def export_units_related_entities(file, unit_ids, unit_related_tables)
+    #TODO considerare each_slice su unit_ids per grandi quantitativi di unità (+query ma meno memoria).
+    sc2_attribution_reasons_ids = Array.new
+    sc2_commission_names_ids = Array.new
+    
+    unless unit_ids.empty?
+      unit_related_tables.each do |table|
+        model = table.singularize.camelize.constantize
+        set = model.where("unit_id IN (#{unit_ids.join(',')})")
+        set.each do |e|
+          e.legacy_id = e.unit_id
+          if (["sc2_authors","sc2_commissions"].include?(table)) then
+            e.legacy_current_id = e.id
+            if (table == "sc2_authors") then sc2_attribution_reasons_ids.push(e.id) end
+            if (table == "sc2_commissions") then sc2_commission_names_ids.push(e.id) end
+          end
+          file.write(e.to_json(:except => [:id, :db_source, :created_at, :updated_at]))
+          file.write("\r\n")
+        end
+      end
+    end
+    unless sc2_attribution_reasons_ids.empty?
+      set = Sc2AttributionReason.where("sc2_author_id IN (#{sc2_attribution_reasons_ids.join(',')})")
+      set.each do |e|
+        e.legacy_id = e.sc2_author_id
+        file.write(e.to_json(:except => [:id, :db_source, :created_at, :updated_at]))
+        file.write("\r\n")
+      end
+    end
+    unless sc2_commission_names_ids.empty?
+      set = Sc2CommissionName.where("sc2_commission_id IN (#{sc2_commission_names_ids.join(',')})")
+      set.each do |e|
+        e.legacy_id = e.sc2_commission_id
+        file.write(e.to_json(:except => [:id, :db_source, :created_at, :updated_at]))
+        file.write("\r\n")
+      end
+    end
+  end
+
+  def export_entity_related_digital_objects(file, type, entity_ids)
+    unless entity_ids.blank?
+      entity_ids = entity_ids.join(',') unless type == 'Fond'
+# Upgrade 2.0.0 inizio
+#          set = DigitalObject.all(:conditions => "attachable_id IN (#{entity_ids}) AND attachable_type = '#{type}'")
+      set = DigitalObject.where("attachable_id IN (#{entity_ids}) AND attachable_type = '#{type}'")
+# Upgrade 2.0.0 fine
+      set.each do |digital_object|
+        digital_object.legacy_id = digital_object.attachable_id
+        file.write(digital_object.to_json(:except => [:id, :group_id, :db_source, :created_by, :updated_by, :created_at, :updated_at]))
+        file.write("\r\n")
+      end
+    end
+  end
 
   def create_metadata_file
     metadata = Hash.new

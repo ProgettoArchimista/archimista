@@ -5,6 +5,11 @@
 <div class="span9">
 <%# TAI aggiunto = prima di form_for %>
   <%= form_for @editor do |f| %>
+
+<%# Upgrade 2.2.0 inizio %>
+  <%= hidden_field_tag 'group_id', current_ability.target_group_id %>
+<%# Upgrade 2.2.0 fine %>
+
 <%# TAI aggiunto parametro per specificare nome e caption, aggiunto raw() %>
     <%= f.label 'editors_first_name', raw(t('editors_first_name') + required_marker) %>
     <%= f.text_field :first_name, :class => "span3" %>

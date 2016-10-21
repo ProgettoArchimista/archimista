@@ -3,8 +3,14 @@ en:
   user: "User"
   index_users: "Users list"
   create_user: "Create user"
+# Upgrade 2.2.0 inizio
+  add_user_group: "Aggiungi gruppo"
+# Upgrade 2.2.0 fine
 it:
   users: "Utenti"
   user: "Utente"
   index_users: "Lista utenti"
   create_user: "Crea utente"
+# Upgrade 2.2.0 inizio
+  add_user_group: "Aggiungi gruppo"
+# Upgrade 2.2.0 fine

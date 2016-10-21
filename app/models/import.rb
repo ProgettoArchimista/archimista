@@ -10,6 +10,9 @@ class Import < ActiveRecord::Base
 # Upgrade 2.1.0 fine
 
   attr_accessor :imported_file_version
+# Upgrade 2.2.0 inizio
+  attr_accessor :ref_fond_id, :ref_root_fond_id
+# Upgrade 2.2.0 fine
 
   TMP_IMPORTS = "#{Rails.root}/tmp/imports"
 
@@ -56,7 +59,18 @@ class Import < ActiveRecord::Base
     DigitalObject.exists?(["db_source = ?", self.identifier])
   end
 
-  def import_aef_file(user)
+# Upgrade 2.2.0 inizio
+  def is_unit_importable_type?
+    return (importable_type == "Unit")
+  end
+
+  def is_unit_aef_file?
+    return is_unit_importable_type?
+  end
+
+#  def import_aef_file(user)
+  def import_aef_file(user, ability)
+# Upgrade 2.2.0 fine
 =begin
     File.open(data_file) do |file|
       begin
@@ -88,6 +102,9 @@ class Import < ActiveRecord::Base
 
 		begin
 			lines = File.readlines(data_file)
+# Upgrade 2.2.0 inizio
+      unit_aef_import_units_count = 0
+# Upgrade 2.2.0 fine
 			ActiveRecord::Base.transaction do
 # Upgrade 2.0.0 inizio
         model = nil
@@ -113,7 +130,19 @@ class Import < ActiveRecord::Base
 					object = model.new(ipdata)
 # Upgrade 2.1.0 fine
 					object.db_source = self.identifier
-					object.group_id = user.group_id if object.has_attribute? 'group_id'
+# Upgrade 2.2.0 inizio
+#					object.group_id = user.group_id if object.has_attribute? 'group_id'
+          if object.has_attribute? 'group_id'
+            object.group_id = if user.is_multi_group_user?() then ability.target_group_id else user.rel_user_groups[0].group_id end
+          end
+          if (self.is_unit_aef_file?)
+            if (model.to_s == "Unit")
+              object.fond_id = self.ref_fond_id
+              object.root_fond_id = prv_get_ref_root_fond_id
+              unit_aef_import_units_count += 1
+            end
+          end
+# Upgrade 2.2.0 fine
 					object.created_by = user.id if object.has_attribute? 'created_by'
 					object.updated_by = user.id if object.has_attribute? 'updated_by'
 # Upgrade 2.0.0 inizio
@@ -130,7 +159,10 @@ class Import < ActiveRecord::Base
         end
 # Upgrade 2.0.0 fine
 			end
-			update_statements
+# Upgrade 2.2.0 inizio
+#      update_statements
+      update_statements(unit_aef_import_units_count)
+# Upgrade 2.2.0 fine
 			return true
     rescue Exception => e
       Rails.logger.info "import_aef_file Errore=" + e.message.to_s
@@ -139,15 +171,33 @@ class Import < ActiveRecord::Base
 		end
   end
 
-  def update_statements
+# Upgrade 2.2.0 inizio
+#  def update_statements
+  def update_statements(unit_aef_import_units_count)
+# Upgrade 2.2.0 fine
     begin
       ActiveRecord::Base.transaction do
+# Upgrade 2.2.0 inizio
+=begin
         update_fonds_ancestry
         update_units_fond_id
         update_subunits_ancestry if db_has_subunits?
         update_one_to_many_relations
         update_many_to_many_relations
         update_digital_objects if db_has_digital_objects?
+=end
+        if (self.is_unit_aef_file?)
+          units_aef_file_update_tables(unit_aef_import_units_count)
+        else
+          update_fonds_ancestry
+          update_units_fond_id
+          update_subunits_ancestry if db_has_subunits?
+          update_one_to_many_relations
+          update_many_to_many_relations
+          update_digital_objects if db_has_digital_objects?
+        end
+        update_sc2_second_level_relations
+# Upgrade 2.2.0 fine
 
 # Upgrade 2.1.0 inizio
         if imported_file_version < "2.1.0"
@@ -202,6 +252,60 @@ class Import < ActiveRecord::Base
     end
   end
 
+# Upgrade 2.2.0 inizio
+  def units_aef_file_update_tables(unit_aef_import_units_count)
+    # maxsn = max sequence_number di tutte le unità del fondo considerato per l'importazione
+    sqlWhereClause = "(fond_id=#{self.ref_fond_id}) AND (root_fond_id=#{prv_get_ref_root_fond_id}) AND (db_source IS NULL OR db_source <> '#{self.identifier}')"
+    maxsn = Unit.where(sqlWhereClause).maximum("sequence_number")
+    if (maxsn.nil?) then maxsn = 0 end
+    
+    # maxpos = max position di tutte le unità non sotto-unità o sotto-sotto-unità del fondo considerato per l'importazione
+    sqlWhereClause = "(fond_id=#{self.ref_fond_id}) AND (ancestry IS NULL) AND (db_source IS NULL OR db_source <> '#{self.identifier}')"
+    maxpos = Unit.where(sqlWhereClause).maximum("position")
+    if (maxpos.nil?) then maxpos = 0 end
+
+    # incrementa sequence_number delle unità del fondo radice considerato che avevano sequence_number > maxsn di un numero pari al numero di nuove unità importate (unit_aef_import_units_count) in modo da "fare spazio" nella sequenza alle nuove arrivate
+    sqlWhereClause = "(root_fond_id=#{prv_get_ref_root_fond_id}) AND (db_source IS NULL OR db_source <> '#{self.identifier}') AND (sequence_number > #{maxsn})"
+    sqlStmt = "UPDATE units SET sequence_number=sequence_number+#{unit_aef_import_units_count} WHERE #{sqlWhereClause}"
+    ar_connection.execute(sqlStmt)
+    
+    # alle nuove unità importate si eseguono i seguenti aggiornamenti:
+    # setta sequence_number in modo che si incastrino nella posizione prevista (in coda a quelle del fondo considerato)
+    sqlWhereClause = "db_source = '#{self.identifier}'"
+    sqlStmt = "UPDATE units SET sequence_number=sequence_number+#{maxsn} WHERE #{sqlWhereClause}"
+    ar_connection.execute(sqlStmt)
+
+    update_subunits_ancestry if db_has_subunits?
+    
+    posindex = maxpos + 1
+    prev_ancestry = ""
+    prev_ancestry_depth = 0
+    sqlWhereClause = "db_source = '#{self.identifier}'"
+
+    Unit.where(sqlWhereClause).order("ancestry_depth, sequence_number").each do |unit|
+      ancestry = unit.ancestry
+      if (ancestry.nil?) then ancestry = "" end
+      ancestry_depth = unit.ancestry_depth
+      if (ancestry != prev_ancestry || ancestry_depth != prev_ancestry_depth)
+        posindex = 1
+      end
+      unit.update_column("position", posindex)
+    
+      posindex += 1
+      prev_ancestry = ancestry
+      prev_ancestry_depth = ancestry_depth
+    end
+    
+    update_one_to_many_relations
+    
+    update_digital_objects if db_has_digital_objects?
+
+    # aggiorna l'informazione sul numero di unità collegate al fondo di riferimento
+    sqlStmt = "UPDATE fonds SET units_count=units_count+#{unit_aef_import_units_count} WHERE id=#{self.ref_fond_id}"
+    ar_connection.execute(sqlStmt)
+  end
+# Upgrade 2.2.0 fine
+  
   def update_units_fond_id
     case adapter
     when 'sqlite'
@@ -298,7 +402,10 @@ class Import < ActiveRecord::Base
   def update_one_to_many_relations
     entities = {
       :fonds => ["fond_events", "fond_identifiers", "fond_langs", "fond_names", "fond_owners", "fond_urls", "fond_editors"],
-      :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors","iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects"],
+# Upgrade 2.2.0 inizio
+#      :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects"],
+      :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects", "sc2s", "sc2_textual_elements", "sc2_visual_elements", "sc2_authors", "sc2_commissions",	"sc2_techniques", "sc2_scales"],
+# Upgrade 2.2.0 fine
       :creators => ["creator_events", "creator_identifiers", "creator_legal_statuses", "creator_names", "creator_urls", "creator_activities", "creator_editors"],
       :custodians => ["custodian_buildings", "custodian_contacts", "custodian_identifiers", "custodian_names", "custodian_owners", "custodian_urls", "custodian_editors"],
 # Upgrade 2.0.0 inizio
@@ -484,6 +591,53 @@ class Import < ActiveRecord::Base
     end
   end
 
+# Upgrade 2.2.0 inizio
+  def update_sc2_second_level_relations
+    tables =
+    [
+      {:table => "sc2_attribution_reasons", :parent_table => "sc2_authors", :foreign_key => "sc2_author_id" },
+      {:table => "sc2_commission_names", :parent_table => "sc2_commissions", :foreign_key => "sc2_commission_id" }
+    ]
+    
+    tables.each do |settings|
+      table = settings[:table]
+      parent_table = settings[:parent_table]
+      if ((!table.nil? || table != "") && (!parent_table.nil? || parent_table != ""))
+        foreign_key = settings[:foreign_key]
+        if (foreign_key.nil? || foreign_key == "") then foreign_key = "#{parent_table}".singularize + "_id" end
+        case adapter
+        when 'sqlite'
+          sql_stmt = "UPDATE #{table} SET #{foreign_key} = (SELECT id
+                                 FROM #{parent_table}
+                                 WHERE #{table}.legacy_id = #{parent_table}.legacy_current_id
+                                 AND #{table}.db_source = #{parent_table}.db_source
+                                 AND #{parent_table}.db_source = '#{self.identifier}')
+                                 WHERE EXISTS (
+                                  SELECT * FROM #{parent_table}
+                                  WHERE #{table}.legacy_id = #{parent_table}.legacy_current_id
+                                  AND #{table}.db_source = #{parent_table}.db_source
+                                  AND #{parent_table}.db_source = '#{self.identifier}')"
+        when 'mysql', 'mysql2'
+          sql_stmt = "UPDATE #{table} r, #{parent_table} c SET r.#{foreign_key} = c.id
+                                 WHERE r.legacy_id = c.legacy_current_id
+                                 AND r.db_source = c.db_source
+                                 AND c.db_source = '#{self.identifier}'"
+        when 'postgresql'
+          sql_stmt = "UPDATE #{table} SET #{foreign_key} = c.id FROM #{parent_table} c
+                                 WHERE #{table}.legacy_id = c.legacy_current_id
+                                 AND #{table}.db_source = c.db_source
+                                 AND c.db_source = '#{self.identifier}'"
+        else
+          sql_stmt = ""
+        end
+        if (sql_stmt != "")
+          ar_connection.execute(sql_stmt)
+        end
+      end
+    end
+  end
+# Upgrade 2.2.0 fine
+
   def is_valid_file?
     begin
       extension = File.extname(data_file_name).downcase.gsub('.', '')
@@ -543,6 +697,21 @@ class Import < ActiveRecord::Base
     tables = ar_connection.tables - ["schema_migrations"]
     begin
       ActiveRecord::Base.transaction do
+# Upgrade 2.2.0 inizio
+        importable_type = Import.where("identifier = '#{self.identifier}'").first.importable_type
+        if (importable_type == "Unit")
+          # l'idea è decrementare il campo units_count dei fondi che contengono le unità importate che si stanno cancellando.
+          # i fondi di interesse potrebbero essere più di uno poiché le unità importate potrebbero essere state ricollocate sotto altri fondi dopo la loro importazione. Si selezionano i fond_id dei fondi coinvolti e per ciascuno il numero di unità di interesse che contiene. tale numero deve essere utilizzato per riassegnare correttamente il campo units_count dei fondi
+          sql_stmt = "select fond_id, count(*) as n_units from units where db_source='#{self.identifier}' group by fond_id"
+          result = ar_connection.execute(sql_stmt)
+          result.each do |r|
+            fond_id = r["fond_id"].to_s
+            n_units = r["n_units"].to_s
+            sql_stmt = "update fonds set units_count=units_count-#{n_units} where id=#{fond_id}"
+            ar_connection.execute(sql_stmt)
+          end
+        end      
+# Upgrade 2.2.0 fine
         tables.each do |table|
           model = table.classify.constantize
           object = model.new
@@ -552,12 +721,25 @@ class Import < ActiveRecord::Base
         end
       end
       return true
-    rescue
+    rescue Exception => e
+Rails.logger.info "################ Errore=" + e.message
       return false
     end
   end
 
   private
+
+  # Upgrade 2.2.0 inizio
+  def prv_get_ref_root_fond_id
+    if self.ref_root_fond_id.nil?
+      ref_root_fond_id = self.ref_fond_id
+    else
+      ref_root_fond_id = self.ref_root_fond_id
+    end
+    return ref_root_fond_id
+  end
+# Upgrade 2.2.0 fine
+  
 
   def sanitize_file_name
     extension = File.extname(data_file_name).downcase

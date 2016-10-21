@@ -45,7 +45,10 @@
         <li><%= link_to "Gestione utenti", users_path %></li>
         <li><%= link_to "Gestione gruppi", groups_path %></li>
       <% end %>
-      <% if current_user.is_admin? %>
+<%# Upgrade 2.2.0 inizio %>
+      <%# if current_user.is_admin? %>
+      <% if current_user.is_admin_for_some_group? %>
+<%# Upgrade 2.2.0 fine %>
         <li class="divider"></li>
         <li><%= link_to "Gestione utenti", users_path %></li>
 <%# Upgrade 2.1.0 inizio %>

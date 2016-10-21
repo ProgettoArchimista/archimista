@@ -155,8 +155,11 @@ it:
         position: "Posizione"
         fond_type: "Tipologia del livello di descrizione"
         name: "Denominazione"
-        extent: "Consistenza"
-        archival_extent: "Consistenza archivistica"
+        # Upgrade 2.2.0 inizio
+        # extent: "Consistenza"
+        # archival_extent: "Consistenza archivistica"
+        extent: "Consistenza archivistica"
+        # Upgrade 2.2.0 fine
         length: "Metri lineari"
         units_count: "Unità archivistiche"
         arrangement_note: "Nota dell'archivista"
@@ -226,6 +229,9 @@ it:
         fond_name: "Classificazione"
         fond: "Classificazione"
         preferred_event: "Estremi cronologici"
+        # Upgrade 2.2.0 inizio
+        extent: "Consistenza"
+        # Upgrade 2.2.0 fine
         # Upgrade 2.1.0 inizio
         sc2_tsk: "Scheda speciale"
         sc2_sgti: "Soggetto"

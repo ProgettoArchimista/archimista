@@ -50,6 +50,11 @@
     <%= javascript_include_tag "fonds-treeview" %>
     <%= javascript_include_tag "fonds-merge" %>
   <% end %>
+<%# Upgrade 2.2.0 inizio %>
+  <% if controller_name == "units" %>
+    <%= javascript_include_tag "create_unit_reference_number_options" %>
+  <% end %>
+<%# Upgrade 2.2.0 fine %>
   <% if controller_name == "reports" %>
     <%= javascript_include_tag "reports" %>
 <%# Upgrade 2.0.0 inizio %>

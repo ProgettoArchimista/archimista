@@ -10,8 +10,9 @@ module WillPaginate
 
   module ViewHelpers
 
-# Upgrade 2.0.0 inizio
+# Upgrade 2.2.0 inizio
 =begin
+# Upgrade 2.0.0 inizio
     def page_entries_info(collection, options = {})
       # TODO: i18n -> entry_name = "Scheda" o qualcosa di più raffinato. Vedremo
 
@@ -29,7 +30,6 @@ module WillPaginate
         ]
       end
     end
-=end
     def page_entries_info(collection, options = {})
       # TODO: i18n -> entry_name = "Scheda" o qualcosa di più raffinato. Vedremo
 
@@ -49,6 +49,31 @@ module WillPaginate
       raw(s)
     end
 # Upgrade 2.0.0 fine
+=end
+    def page_entries_info(collection, options = {})
+      # TODO: i18n -> entry_name = "Scheda" o qualcosa di più raffinato. Vedremo
+
+      total_pages = -1
+      begin
+        total_pages = collection.total_pages
+      rescue
+      end
+      if total_pages < 2
+        case collection.size
+          when 0; s = ""
+          when 1; s = ""
+          else;   s = "<strong>#{collection.size}</strong> schede"
+        end
+      else
+        s = %{Schede <strong>%s - %s</strong> di <strong>%s</strong> totali} % [
+        number_with_delimiter(collection.offset + 1),
+        number_with_delimiter(collection.offset + collection.length),
+        number_with_delimiter(collection.total_entries)
+        ]
+      end
+      raw(s)
+    end
+# Upgrade 2.2.0 fine
 
     def display_page_entries_info(collection, options = {})
       if collection.size > 1

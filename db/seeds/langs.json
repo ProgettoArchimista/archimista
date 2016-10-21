@@ -1,486 +1,486 @@
-{"position":null,"it_name":"Arabo","code":"ara","en_name":"Arabic","code3t":"","code2":"ar","fr_name":"arabe","active":true}
-{"position":null,"it_name":"Ebraico","code":"heb","en_name":"Hebrew","code3t":"","code2":"he","fr_name":"h\u00e9breu","active":true}
-{"position":null,"it_name":"Francese","code":"fre","en_name":"French","code3t":"fra","code2":"fr","fr_name":"fran\u00e7ais","active":true}
-{"position":null,"it_name":"Italiano","code":"ita","en_name":"Italian","code3t":"","code2":"it","fr_name":"italien","active":true}
-{"position":null,"it_name":"Latino","code":"lat","en_name":"Latin","code3t":"","code2":"la","fr_name":"latin","active":true}
-{"position":null,"it_name":"Tedesco","code":"ger","en_name":"German","code3t":"deu","code2":"de","fr_name":"allemand","active":true}
-{"position":null,"it_name":"Piemontese","code":"pms","en_name":"Piedmontese","code3t":"","code2":"","fr_name":"pi\u00e9montais","active":true}
-{"position":null,"it_name":"","code":"aar","en_name":"Afar","code3t":"","code2":"aa","fr_name":"afar","active":false}
-{"position":null,"it_name":"","code":"abk","en_name":"Abkhazian","code3t":"","code2":"ab","fr_name":"abkhaze","active":false}
-{"position":null,"it_name":"","code":"ace","en_name":"Achinese","code3t":"","code2":"","fr_name":"aceh","active":false}
-{"position":null,"it_name":"","code":"ach","en_name":"Acoli","code3t":"","code2":"","fr_name":"acoli","active":false}
-{"position":null,"it_name":"","code":"ada","en_name":"Adangme","code3t":"","code2":"","fr_name":"adangme","active":false}
-{"position":null,"it_name":"","code":"ady","en_name":"\"Adyghe;   Adygei\"","code3t":"","code2":"","fr_name":"adygh\u00e9","active":false}
-{"position":null,"it_name":"","code":"afa","en_name":"Afro-Asiatic languages","code3t":"","code2":"","fr_name":"afro-asiatiques, langues","active":false}
-{"position":null,"it_name":"","code":"afh","en_name":"Afrihili","code3t":"","code2":"","fr_name":"afrihili","active":false}
-{"position":null,"it_name":"","code":"afr","en_name":"Afrikaans","code3t":"","code2":"af","fr_name":"afrikaans","active":false}
-{"position":null,"it_name":"","code":"ain","en_name":"Ainu","code3t":"","code2":"","fr_name":"a\u00efnou","active":false}
-{"position":null,"it_name":"","code":"aka","en_name":"Akan","code3t":"","code2":"ak","fr_name":"akan","active":false}
-{"position":null,"it_name":"","code":"akk","en_name":"Akkadian","code3t":"","code2":"","fr_name":"akkadien","active":false}
-{"position":null,"it_name":"","code":"alb","en_name":"Albanian","code3t":"sqi","code2":"sq","fr_name":"albanais","active":false}
-{"position":null,"it_name":"","code":"ale","en_name":"Aleut","code3t":"","code2":"","fr_name":"al\u00e9oute","active":false}
-{"position":null,"it_name":"","code":"alg","en_name":"Algonquian languages","code3t":"","code2":"","fr_name":"algonquines, langues","active":false}
-{"position":null,"it_name":"","code":"alt","en_name":"Southern Altai","code3t":"","code2":"","fr_name":"altai du Sud","active":false}
-{"position":null,"it_name":"","code":"amh","en_name":"Amharic","code3t":"","code2":"am","fr_name":"amharique","active":false}
-{"position":null,"it_name":"","code":"ang","en_name":"English, Old (ca.450-1100)","code3t":"","code2":"","fr_name":"anglo-saxon (ca.450-1100)","active":false}
-{"position":null,"it_name":"","code":"anp","en_name":"Angika","code3t":"","code2":"","fr_name":"angika","active":false}
-{"position":null,"it_name":"","code":"apa","en_name":"Apache languages","code3t":"","code2":"","fr_name":"apaches, langues","active":false}
-{"position":null,"it_name":"","code":"arc","en_name":"\"Official Aramaic (700-300 BCE);   Imperial Aramaic (700-300 BCE)\"","code3t":"","code2":"","fr_name":"aram\u00e9en d'empire (700-300 BCE)","active":false}
-{"position":null,"it_name":"","code":"arg","en_name":"Aragonese","code3t":"","code2":"an","fr_name":"aragonais","active":false}
-{"position":null,"it_name":"","code":"arm","en_name":"Armenian","code3t":"hye","code2":"hy","fr_name":"arm\u00e9nien","active":false}
-{"position":null,"it_name":"","code":"arn","en_name":"\"Mapudungun;   Mapuche\"","code3t":"","code2":"","fr_name":"\"mapudungun;   mapuche;   mapuce\"","active":false}
-{"position":null,"it_name":"","code":"arp","en_name":"Arapaho","code3t":"","code2":"","fr_name":"arapaho","active":false}
-{"position":null,"it_name":"","code":"art","en_name":"Artificial languages","code3t":"","code2":"","fr_name":"artificielles, langues","active":false}
-{"position":null,"it_name":"","code":"arw","en_name":"Arawak","code3t":"","code2":"","fr_name":"arawak","active":false}
-{"position":null,"it_name":"","code":"asm","en_name":"Assamese","code3t":"","code2":"as","fr_name":"assamais","active":false}
-{"position":null,"it_name":"","code":"ast","en_name":"\"Asturian;   Bable;   Leonese;   Asturleonese\"","code3t":"","code2":"","fr_name":"\"asturien;   bable;   l\u00e9onais;   asturol\u00e9onais\"","active":false}
-{"position":null,"it_name":"","code":"ath","en_name":"Athapascan languages","code3t":"","code2":"","fr_name":"athapascanes, langues","active":false}
-{"position":null,"it_name":"","code":"aus","en_name":"Australian languages","code3t":"","code2":"","fr_name":"australiennes, langues","active":false}
-{"position":null,"it_name":"","code":"ava","en_name":"Avaric","code3t":"","code2":"av","fr_name":"avar","active":false}
-{"position":null,"it_name":"","code":"ave","en_name":"Avestan","code3t":"","code2":"ae","fr_name":"avestique","active":false}
-{"position":null,"it_name":"","code":"awa","en_name":"Awadhi","code3t":"","code2":"","fr_name":"awadhi","active":false}
-{"position":null,"it_name":"","code":"aym","en_name":"Aymara","code3t":"","code2":"ay","fr_name":"aymara","active":false}
-{"position":null,"it_name":"","code":"aze","en_name":"Azerbaijani","code3t":"","code2":"az","fr_name":"az\u00e9ri","active":false}
-{"position":null,"it_name":"","code":"bad","en_name":"Banda languages","code3t":"","code2":"","fr_name":"banda, langues","active":false}
-{"position":null,"it_name":"","code":"bai","en_name":"Bamileke languages","code3t":"","code2":"","fr_name":"bamil\u00e9k\u00e9, langues","active":false}
-{"position":null,"it_name":"","code":"bak","en_name":"Bashkir","code3t":"","code2":"ba","fr_name":"bachkir","active":false}
-{"position":null,"it_name":"","code":"bal","en_name":"Baluchi","code3t":"","code2":"","fr_name":"baloutchi","active":false}
-{"position":null,"it_name":"","code":"bam","en_name":"Bambara","code3t":"","code2":"bm","fr_name":"bambara","active":false}
-{"position":null,"it_name":"","code":"ban","en_name":"Balinese","code3t":"","code2":"","fr_name":"balinais","active":false}
-{"position":null,"it_name":"","code":"baq","en_name":"Basque","code3t":"eus","code2":"eu","fr_name":"basque","active":false}
-{"position":null,"it_name":"","code":"bas","en_name":"Basa","code3t":"","code2":"","fr_name":"basa","active":false}
-{"position":null,"it_name":"","code":"bat","en_name":"Baltic languages","code3t":"","code2":"","fr_name":"baltes, langues","active":false}
-{"position":null,"it_name":"","code":"bej","en_name":"\"Beja;   Bedawiyet\"","code3t":"","code2":"","fr_name":"bedja","active":false}
-{"position":null,"it_name":"","code":"bel","en_name":"Belarusian","code3t":"","code2":"be","fr_name":"bi\u00e9lorusse","active":false}
-{"position":null,"it_name":"","code":"bem","en_name":"Bemba","code3t":"","code2":"","fr_name":"bemba","active":false}
-{"position":null,"it_name":"","code":"ben","en_name":"Bengali","code3t":"","code2":"bn","fr_name":"bengali","active":false}
-{"position":null,"it_name":"","code":"ber","en_name":"Berber languages","code3t":"","code2":"","fr_name":"berb\u00e8res, langues","active":false}
-{"position":null,"it_name":"","code":"bho","en_name":"Bhojpuri","code3t":"","code2":"","fr_name":"bhojpuri","active":false}
-{"position":null,"it_name":"","code":"bih","en_name":"Bihari languages","code3t":"","code2":"bh","fr_name":"langues biharis","active":false}
-{"position":null,"it_name":"","code":"bik","en_name":"Bikol","code3t":"","code2":"","fr_name":"bikol","active":false}
-{"position":null,"it_name":"","code":"bin","en_name":"\"Bini;   Edo\"","code3t":"","code2":"","fr_name":"\"bini;   edo\"","active":false}
-{"position":null,"it_name":"","code":"bis","en_name":"Bislama","code3t":"","code2":"bi","fr_name":"bichlamar","active":false}
-{"position":null,"it_name":"","code":"bla","en_name":"Siksika","code3t":"","code2":"","fr_name":"blackfoot","active":false}
-{"position":null,"it_name":"","code":"bnt","en_name":"Bantu (Other)","code3t":"","code2":"","fr_name":"bantoues, autres langues","active":false}
-{"position":null,"it_name":"","code":"bos","en_name":"Bosnian","code3t":"","code2":"bs","fr_name":"bosniaque","active":false}
-{"position":null,"it_name":"","code":"bra","en_name":"Braj","code3t":"","code2":"","fr_name":"braj","active":false}
-{"position":null,"it_name":"","code":"bre","en_name":"Breton","code3t":"","code2":"br","fr_name":"breton","active":false}
-{"position":null,"it_name":"","code":"btk","en_name":"Batak languages","code3t":"","code2":"","fr_name":"batak, langues","active":false}
-{"position":null,"it_name":"","code":"bua","en_name":"Buriat","code3t":"","code2":"","fr_name":"bouriate","active":false}
-{"position":null,"it_name":"","code":"bug","en_name":"Buginese","code3t":"","code2":"","fr_name":"bugi","active":false}
-{"position":null,"it_name":"","code":"bul","en_name":"Bulgarian","code3t":"","code2":"bg","fr_name":"bulgare","active":false}
-{"position":null,"it_name":"","code":"bur","en_name":"Burmese","code3t":"mya","code2":"my","fr_name":"birman","active":false}
-{"position":null,"it_name":"","code":"byn","en_name":"\"Blin;   Bilin\"","code3t":"","code2":"","fr_name":"\"blin;   bilen\"","active":false}
-{"position":null,"it_name":"","code":"cad","en_name":"Caddo","code3t":"","code2":"","fr_name":"caddo","active":false}
-{"position":null,"it_name":"","code":"cai","en_name":"Central American Indian languages","code3t":"","code2":"","fr_name":"am\u00e9rindiennes de L'Am\u00e9rique centrale, langues","active":false}
-{"position":null,"it_name":"","code":"car","en_name":"Galibi Carib","code3t":"","code2":"","fr_name":"\"karib;   galibi;   carib\"","active":false}
-{"position":null,"it_name":"","code":"cat","en_name":"\"Catalan;   Valencian\"","code3t":"","code2":"ca","fr_name":"\"catalan;   valencien\"","active":false}
-{"position":null,"it_name":"","code":"cau","en_name":"Caucasian languages","code3t":"","code2":"","fr_name":"caucasiennes, langues","active":false}
-{"position":null,"it_name":"","code":"ceb","en_name":"Cebuano","code3t":"","code2":"","fr_name":"cebuano","active":false}
-{"position":null,"it_name":"","code":"cel","en_name":"Celtic languages","code3t":"","code2":"","fr_name":"\"celtiques, langues;   celtes, langues\"","active":false}
-{"position":null,"it_name":"","code":"cha","en_name":"Chamorro","code3t":"","code2":"ch","fr_name":"chamorro","active":false}
-{"position":null,"it_name":"","code":"chb","en_name":"Chibcha","code3t":"","code2":"","fr_name":"chibcha","active":false}
-{"position":null,"it_name":"","code":"che","en_name":"Chechen","code3t":"","code2":"ce","fr_name":"tch\u00e9tch\u00e8ne","active":false}
-{"position":null,"it_name":"","code":"chg","en_name":"Chagatai","code3t":"","code2":"","fr_name":"djaghata\u00ef","active":false}
-{"position":null,"it_name":"","code":"chi","en_name":"Chinese","code3t":"zho","code2":"zh","fr_name":"chinois","active":false}
-{"position":null,"it_name":"","code":"chk","en_name":"Chuukese","code3t":"","code2":"","fr_name":"chuuk","active":false}
-{"position":null,"it_name":"","code":"chm","en_name":"Mari","code3t":"","code2":"","fr_name":"mari","active":false}
-{"position":null,"it_name":"","code":"chn","en_name":"Chinook jargon","code3t":"","code2":"","fr_name":"chinook, jargon","active":false}
-{"position":null,"it_name":"","code":"cho","en_name":"Choctaw","code3t":"","code2":"","fr_name":"choctaw","active":false}
-{"position":null,"it_name":"","code":"chp","en_name":"\"Chipewyan;   Dene Suline\"","code3t":"","code2":"","fr_name":"chipewyan","active":false}
-{"position":null,"it_name":"","code":"chr","en_name":"Cherokee","code3t":"","code2":"","fr_name":"cherokee","active":false}
-{"position":null,"it_name":"","code":"chu","en_name":"\"Church Slavic;   Old Slavonic;   Church Slavonic;   Old Bulgarian;   Old Church Slavonic\"","code3t":"","code2":"cu","fr_name":"\"slavon d'\u00e9glise;   vieux slave;   slavon liturgique;   vieux bulgare\"","active":false}
-{"position":null,"it_name":"","code":"chv","en_name":"Chuvash","code3t":"","code2":"cv","fr_name":"tchouvache","active":false}
-{"position":null,"it_name":"","code":"chy","en_name":"Cheyenne","code3t":"","code2":"","fr_name":"cheyenne","active":false}
-{"position":null,"it_name":"","code":"cmc","en_name":"Chamic languages","code3t":"","code2":"","fr_name":"chames, langues","active":false}
-{"position":null,"it_name":"","code":"cop","en_name":"Coptic","code3t":"","code2":"","fr_name":"copte","active":false}
-{"position":null,"it_name":"","code":"cor","en_name":"Cornish","code3t":"","code2":"kw","fr_name":"cornique","active":false}
-{"position":null,"it_name":"","code":"cos","en_name":"Corsican","code3t":"","code2":"co","fr_name":"corse","active":false}
-{"position":null,"it_name":"","code":"cpe","en_name":"Creoles and pidgins, English based","code3t":"","code2":"","fr_name":"cr\u00e9oles et pidgins bas\u00e9s sur l'anglais","active":false}
-{"position":null,"it_name":"","code":"cpf","en_name":"Creoles and pidgins, French-based ","code3t":"","code2":"","fr_name":"cr\u00e9oles et pidgins bas\u00e9s sur le fran\u00e7ais","active":false}
-{"position":null,"it_name":"","code":"cpp","en_name":"Creoles and pidgins, Portuguese-based ","code3t":"","code2":"","fr_name":"cr\u00e9oles et pidgins bas\u00e9s sur le portugais","active":false}
-{"position":null,"it_name":"","code":"cre","en_name":"Cree","code3t":"","code2":"cr","fr_name":"cree","active":false}
-{"position":null,"it_name":"","code":"crh","en_name":"\"Crimean Tatar;   Crimean Turkish\"","code3t":"","code2":"","fr_name":"tatar de Crim\u00e9","active":false}
-{"position":null,"it_name":"","code":"crp","en_name":"Creoles and pidgins ","code3t":"","code2":"","fr_name":"cr\u00e9oles et pidgins","active":false}
-{"position":null,"it_name":"","code":"csb","en_name":"Kashubian","code3t":"","code2":"","fr_name":"kachoube","active":false}
-{"position":null,"it_name":"","code":"cus","en_name":"Cushitic languages","code3t":"","code2":"","fr_name":"couchitiques, langues","active":false}
-{"position":null,"it_name":"","code":"cze","en_name":"Czech","code3t":"ces","code2":"cs","fr_name":"tch\u00e8que","active":false}
-{"position":null,"it_name":"","code":"dak","en_name":"Dakota","code3t":"","code2":"","fr_name":"dakota","active":false}
-{"position":null,"it_name":"","code":"dan","en_name":"Danish","code3t":"","code2":"da","fr_name":"danois","active":false}
-{"position":null,"it_name":"","code":"dar","en_name":"Dargwa","code3t":"","code2":"","fr_name":"dargwa","active":false}
-{"position":null,"it_name":"","code":"day","en_name":"Land Dayak languages","code3t":"","code2":"","fr_name":"dayak, langues","active":false}
-{"position":null,"it_name":"","code":"del","en_name":"Delaware","code3t":"","code2":"","fr_name":"delaware","active":false}
-{"position":null,"it_name":"","code":"den","en_name":"Slave (Athapascan)","code3t":"","code2":"","fr_name":"esclave (athapascan)","active":false}
-{"position":null,"it_name":"","code":"dgr","en_name":"Dogrib","code3t":"","code2":"","fr_name":"dogrib","active":false}
-{"position":null,"it_name":"","code":"din","en_name":"Dinka","code3t":"","code2":"","fr_name":"dinka","active":false}
-{"position":null,"it_name":"","code":"div","en_name":"\"Divehi;   Dhivehi;   Maldivian\"","code3t":"","code2":"dv","fr_name":"maldivien","active":false}
-{"position":null,"it_name":"","code":"doi","en_name":"Dogri","code3t":"","code2":"","fr_name":"dogri","active":false}
-{"position":null,"it_name":"","code":"dra","en_name":"Dravidian languages","code3t":"","code2":"","fr_name":"dravidiennes, langues","active":false}
-{"position":null,"it_name":"","code":"dsb","en_name":"Lower Sorbian","code3t":"","code2":"","fr_name":"bas-sorabe","active":false}
-{"position":null,"it_name":"","code":"dua","en_name":"Duala","code3t":"","code2":"","fr_name":"douala","active":false}
-{"position":null,"it_name":"","code":"dum","en_name":"Dutch, Middle (ca.1050-1350)","code3t":"","code2":"","fr_name":"n\u00e9erlandais moyen (ca. 1050-1350)","active":false}
-{"position":null,"it_name":"","code":"dut","en_name":"\"Dutch;   Flemish\"","code3t":"nld","code2":"nl","fr_name":"\"n\u00e9erlandais;   flamand\"","active":false}
-{"position":null,"it_name":"","code":"dyu","en_name":"Dyula","code3t":"","code2":"","fr_name":"dioula","active":false}
-{"position":null,"it_name":"","code":"dzo","en_name":"Dzongkha","code3t":"","code2":"dz","fr_name":"dzongkha","active":false}
-{"position":null,"it_name":"","code":"efi","en_name":"Efik","code3t":"","code2":"","fr_name":"efik","active":false}
-{"position":null,"it_name":"","code":"egy","en_name":"Egyptian (Ancient)","code3t":"","code2":"","fr_name":"\u00e9gyptien","active":false}
-{"position":null,"it_name":"","code":"eka","en_name":"Ekajuk","code3t":"","code2":"","fr_name":"ekajuk","active":false}
-{"position":null,"it_name":"","code":"elx","en_name":"Elamite","code3t":"","code2":"","fr_name":"\u00e9lamite","active":false}
-{"position":null,"it_name":"Inglese","code":"eng","en_name":"English","code3t":"","code2":"en","fr_name":"anglais","active":true}
-{"position":null,"it_name":"","code":"enm","en_name":"English, Middle (1100-1500)","code3t":"","code2":"","fr_name":"anglais moyen (1100-1500)","active":false}
-{"position":null,"it_name":"","code":"epo","en_name":"Esperanto","code3t":"","code2":"eo","fr_name":"esp\u00e9ranto","active":false}
-{"position":null,"it_name":"","code":"est","en_name":"Estonian","code3t":"","code2":"et","fr_name":"estonien","active":false}
-{"position":null,"it_name":"","code":"ewe","en_name":"Ewe","code3t":"","code2":"ee","fr_name":"\u00e9w\u00e9","active":false}
-{"position":null,"it_name":"","code":"ewo","en_name":"Ewondo","code3t":"","code2":"","fr_name":"\u00e9wondo","active":false}
-{"position":null,"it_name":"","code":"fan","en_name":"Fang","code3t":"","code2":"","fr_name":"fang","active":false}
-{"position":null,"it_name":"","code":"fao","en_name":"Faroese","code3t":"","code2":"fo","fr_name":"f\u00e9ro\u00efen","active":false}
-{"position":null,"it_name":"","code":"fat","en_name":"Fanti","code3t":"","code2":"","fr_name":"fanti","active":false}
-{"position":null,"it_name":"","code":"fij","en_name":"Fijian","code3t":"","code2":"fj","fr_name":"fidjien","active":false}
-{"position":null,"it_name":"","code":"fil","en_name":"\"Filipino;   Pilipino\"","code3t":"","code2":"","fr_name":"\"filipino;   pilipino\"","active":false}
-{"position":null,"it_name":"","code":"fin","en_name":"Finnish","code3t":"","code2":"fi","fr_name":"finnois","active":false}
-{"position":null,"it_name":"","code":"fiu","en_name":"Finno-Ugrian languages","code3t":"","code2":"","fr_name":"finno-ougriennes, langues","active":false}
-{"position":null,"it_name":"","code":"fon","en_name":"Fon","code3t":"","code2":"","fr_name":"fon","active":false}
-{"position":null,"it_name":"","code":"frm","en_name":"French, Middle (ca.1400-1600)","code3t":"","code2":"","fr_name":"fran\u00e7ais moyen (1400-1600)","active":false}
-{"position":null,"it_name":"","code":"fro","en_name":"French, Old (842-ca.1400)","code3t":"","code2":"","fr_name":"fran\u00e7ais ancien (842-ca.1400)","active":false}
-{"position":null,"it_name":"","code":"frr","en_name":"Northern Frisian","code3t":"","code2":"","fr_name":"frison septentrional","active":false}
-{"position":null,"it_name":"","code":"frs","en_name":"Eastern Frisian","code3t":"","code2":"","fr_name":"frison oriental","active":false}
-{"position":null,"it_name":"","code":"fry","en_name":"Western Frisian","code3t":"","code2":"fy","fr_name":"frison occidental","active":false}
-{"position":null,"it_name":"","code":"ful","en_name":"Fulah","code3t":"","code2":"ff","fr_name":"peul","active":false}
-{"position":null,"it_name":"","code":"fur","en_name":"Friulian","code3t":"","code2":"","fr_name":"frioulan","active":false}
-{"position":null,"it_name":"","code":"gaa","en_name":"Ga","code3t":"","code2":"","fr_name":"ga","active":false}
-{"position":null,"it_name":"","code":"gay","en_name":"Gayo","code3t":"","code2":"","fr_name":"gayo","active":false}
-{"position":null,"it_name":"","code":"gba","en_name":"Gbaya","code3t":"","code2":"","fr_name":"gbaya","active":false}
-{"position":null,"it_name":"Lingue germaniche","code":"gem","en_name":"Germanic languages","code3t":"","code2":"","fr_name":"germaniques, langues","active":true}
-{"position":null,"it_name":"","code":"geo","en_name":"Georgian","code3t":"kat","code2":"ka","fr_name":"g\u00e9orgien","active":false}
-{"position":null,"it_name":"","code":"gez","en_name":"Geez","code3t":"","code2":"","fr_name":"gu\u00e8ze","active":false}
-{"position":null,"it_name":"","code":"gil","en_name":"Gilbertese","code3t":"","code2":"","fr_name":"kiribati","active":false}
-{"position":null,"it_name":"","code":"gla","en_name":"\"Gaelic;   Scottish Gaelic\"","code3t":"","code2":"gd","fr_name":"\"ga\u00e9lique;   ga\u00e9lique \u00e9cossais\"","active":false}
-{"position":null,"it_name":"","code":"gle","en_name":"Irish","code3t":"","code2":"ga","fr_name":"irlandais","active":false}
-{"position":null,"it_name":"","code":"glg","en_name":"Galician","code3t":"","code2":"gl","fr_name":"galicien","active":false}
-{"position":null,"it_name":"","code":"glv","en_name":"Manx","code3t":"","code2":"gv","fr_name":"\"manx;   mannois\"","active":false}
-{"position":null,"it_name":"","code":"gmh","en_name":"German, Middle High (ca.1050-1500)","code3t":"","code2":"","fr_name":"allemand, moyen haut (ca. 1050-1500)","active":false}
-{"position":null,"it_name":"","code":"goh","en_name":"German, Old High (ca.750-1050)","code3t":"","code2":"","fr_name":"allemand, vieux haut (ca. 750-1050)","active":false}
-{"position":null,"it_name":"","code":"gon","en_name":"Gondi","code3t":"","code2":"","fr_name":"gond","active":false}
-{"position":null,"it_name":"","code":"gor","en_name":"Gorontalo","code3t":"","code2":"","fr_name":"gorontalo","active":false}
-{"position":null,"it_name":"","code":"got","en_name":"Gothic","code3t":"","code2":"","fr_name":"gothique","active":false}
-{"position":null,"it_name":"","code":"grb","en_name":"Grebo","code3t":"","code2":"","fr_name":"grebo","active":false}
-{"position":null,"it_name":"","code":"grc","en_name":"Greek, Ancient (to 1453)","code3t":"","code2":"","fr_name":"grec ancien (jusqu'\u00e0 1453)","active":false}
-{"position":null,"it_name":"Greco Moderno (1453-)","code":"gre","en_name":"Greek, Modern (1453-)","code3t":"ell","code2":"el","fr_name":"grec moderne (apr\u00e8s 1453)","active":true}
-{"position":null,"it_name":"","code":"grn","en_name":"Guarani","code3t":"","code2":"gn","fr_name":"guarani","active":false}
-{"position":null,"it_name":"","code":"gsw","en_name":"\"Swiss German;   Alemannic;   Alsatian\"","code3t":"","code2":"","fr_name":"\"suisse al\u00e9manique;   al\u00e9manique;   alsacien\"","active":false}
-{"position":null,"it_name":"","code":"guj","en_name":"Gujarati","code3t":"","code2":"gu","fr_name":"goudjrati","active":false}
-{"position":null,"it_name":"","code":"gwi","en_name":"Gwich'in","code3t":"","code2":"","fr_name":"gwich'in","active":false}
-{"position":null,"it_name":"","code":"hai","en_name":"Haida","code3t":"","code2":"","fr_name":"haida","active":false}
-{"position":null,"it_name":"","code":"hat","en_name":"\"Haitian;   Haitian Creole\"","code3t":"","code2":"ht","fr_name":"\"ha\u00eftien;   cr\u00e9ole ha\u00eftien\"","active":false}
-{"position":null,"it_name":"","code":"hau","en_name":"Hausa","code3t":"","code2":"ha","fr_name":"haoussa","active":false}
-{"position":null,"it_name":"","code":"haw","en_name":"Hawaiian","code3t":"","code2":"","fr_name":"hawa\u00efen","active":false}
-{"position":null,"it_name":"","code":"her","en_name":"Herero","code3t":"","code2":"hz","fr_name":"herero","active":false}
-{"position":null,"it_name":"","code":"hil","en_name":"Hiligaynon","code3t":"","code2":"","fr_name":"hiligaynon","active":false}
-{"position":null,"it_name":"","code":"him","en_name":"\"Himachali languages;   Western Pahari languages\"","code3t":"","code2":"","fr_name":"\"langues himachalis;   langues paharis occidentales\"","active":false}
-{"position":null,"it_name":"","code":"hin","en_name":"Hindi","code3t":"","code2":"hi","fr_name":"hindi","active":false}
-{"position":null,"it_name":"","code":"hit","en_name":"Hittite","code3t":"","code2":"","fr_name":"hittite","active":false}
-{"position":null,"it_name":"","code":"hmn","en_name":"\"Hmong;   Mong\"","code3t":"","code2":"","fr_name":"hmong","active":false}
-{"position":null,"it_name":"","code":"hmo","en_name":"Hiri Motu","code3t":"","code2":"ho","fr_name":"hiri motu","active":false}
-{"position":null,"it_name":"","code":"hrv","en_name":"Croatian","code3t":"","code2":"hr","fr_name":"croate","active":false}
-{"position":null,"it_name":"","code":"hsb","en_name":"Upper Sorbian","code3t":"","code2":"","fr_name":"haut-sorabe","active":false}
-{"position":null,"it_name":"Ungherese","code":"hun","en_name":"Hungarian","code3t":"","code2":"hu","fr_name":"hongrois","active":true}
-{"position":null,"it_name":"","code":"hup","en_name":"Hupa","code3t":"","code2":"","fr_name":"hupa","active":false}
-{"position":null,"it_name":"","code":"iba","en_name":"Iban","code3t":"","code2":"","fr_name":"iban","active":false}
-{"position":null,"it_name":"","code":"ibo","en_name":"Igbo","code3t":"","code2":"ig","fr_name":"igbo","active":false}
-{"position":null,"it_name":"","code":"ice","en_name":"Icelandic","code3t":"isl","code2":"is","fr_name":"islandais","active":false}
-{"position":null,"it_name":"","code":"ido","en_name":"Ido","code3t":"","code2":"io","fr_name":"ido","active":false}
-{"position":null,"it_name":"","code":"iii","en_name":"\"Sichuan Yi;   Nuosu\"","code3t":"","code2":"ii","fr_name":"yi de Sichuan","active":false}
-{"position":null,"it_name":"","code":"ijo","en_name":"Ijo languages","code3t":"","code2":"","fr_name":"ijo, langues","active":false}
-{"position":null,"it_name":"","code":"iku","en_name":"Inuktitut","code3t":"","code2":"iu","fr_name":"inuktitut","active":false}
-{"position":null,"it_name":"","code":"ile","en_name":"\"Interlingue;   Occidental\"","code3t":"","code2":"ie","fr_name":"interlingue","active":false}
-{"position":null,"it_name":"","code":"ilo","en_name":"Iloko","code3t":"","code2":"","fr_name":"ilocano","active":false}
-{"position":null,"it_name":"","code":"ina","en_name":"Interlingua (International Auxiliary Language Association)","code3t":"","code2":"ia","fr_name":"interlingua (langue auxiliaire internationale)","active":false}
-{"position":null,"it_name":"","code":"inc","en_name":"Indic languages","code3t":"","code2":"","fr_name":"indo-aryennes, langues","active":false}
-{"position":null,"it_name":"","code":"ind","en_name":"Indonesian","code3t":"","code2":"id","fr_name":"indon\u00e9sien","active":false}
-{"position":null,"it_name":"","code":"ine","en_name":"Indo-European languages","code3t":"","code2":"","fr_name":"indo-europ\u00e9ennes, langues","active":false}
-{"position":null,"it_name":"","code":"inh","en_name":"Ingush","code3t":"","code2":"","fr_name":"ingouche","active":false}
-{"position":null,"it_name":"","code":"ipk","en_name":"Inupiaq","code3t":"","code2":"ik","fr_name":"inupiaq","active":false}
-{"position":null,"it_name":"","code":"ira","en_name":"Iranian languages","code3t":"","code2":"","fr_name":"iraniennes, langues","active":false}
-{"position":null,"it_name":"","code":"iro","en_name":"Iroquoian languages","code3t":"","code2":"","fr_name":"iroquoises, langues","active":false}
-{"position":null,"it_name":"","code":"jav","en_name":"Javanese","code3t":"","code2":"jv","fr_name":"javanais","active":false}
-{"position":null,"it_name":"","code":"jbo","en_name":"Lojban","code3t":"","code2":"","fr_name":"lojban","active":false}
-{"position":null,"it_name":"","code":"jpn","en_name":"Japanese","code3t":"","code2":"ja","fr_name":"japonais","active":false}
-{"position":null,"it_name":"","code":"jpr","en_name":"Judeo-Persian","code3t":"","code2":"","fr_name":"jud\u00e9o-persan","active":false}
-{"position":null,"it_name":"","code":"jrb","en_name":"Judeo-Arabic","code3t":"","code2":"","fr_name":"jud\u00e9o-arabe","active":false}
-{"position":null,"it_name":"","code":"kaa","en_name":"Kara-Kalpak","code3t":"","code2":"","fr_name":"karakalpak","active":false}
-{"position":null,"it_name":"","code":"kab","en_name":"Kabyle","code3t":"","code2":"","fr_name":"kabyle","active":false}
-{"position":null,"it_name":"","code":"kac","en_name":"\"Kachin;   Jingpho\"","code3t":"","code2":"","fr_name":"\"kachin;   jingpho\"","active":false}
-{"position":null,"it_name":"","code":"kal","en_name":"\"Kalaallisut;   Greenlandic\"","code3t":"","code2":"kl","fr_name":"groenlandais","active":false}
-{"position":null,"it_name":"","code":"kam","en_name":"Kamba","code3t":"","code2":"","fr_name":"kamba","active":false}
-{"position":null,"it_name":"","code":"kan","en_name":"Kannada","code3t":"","code2":"kn","fr_name":"kannada","active":false}
-{"position":null,"it_name":"","code":"kar","en_name":"Karen languages","code3t":"","code2":"","fr_name":"karen, langues","active":false}
-{"position":null,"it_name":"","code":"kas","en_name":"Kashmiri","code3t":"","code2":"ks","fr_name":"kashmiri","active":false}
-{"position":null,"it_name":"","code":"kau","en_name":"Kanuri","code3t":"","code2":"kr","fr_name":"kanouri","active":false}
-{"position":null,"it_name":"","code":"kaw","en_name":"Kawi","code3t":"","code2":"","fr_name":"kawi","active":false}
-{"position":null,"it_name":"","code":"kaz","en_name":"Kazakh","code3t":"","code2":"kk","fr_name":"kazakh","active":false}
-{"position":null,"it_name":"","code":"kbd","en_name":"Kabardian","code3t":"","code2":"","fr_name":"kabardien","active":false}
-{"position":null,"it_name":"","code":"kha","en_name":"Khasi","code3t":"","code2":"","fr_name":"khasi","active":false}
-{"position":null,"it_name":"","code":"khi","en_name":"Khoisan languages","code3t":"","code2":"","fr_name":"kho\u00efsan, langues","active":false}
-{"position":null,"it_name":"","code":"khm","en_name":"Central Khmer","code3t":"","code2":"km","fr_name":"khmer central","active":false}
-{"position":null,"it_name":"","code":"kho","en_name":"\"Khotanese;   Sakan\"","code3t":"","code2":"","fr_name":"\"khotanais;   sakan\"","active":false}
-{"position":null,"it_name":"","code":"kik","en_name":"\"Kikuyu;   Gikuyu\"","code3t":"","code2":"ki","fr_name":"kikuyu","active":false}
-{"position":null,"it_name":"","code":"kin","en_name":"Kinyarwanda","code3t":"","code2":"rw","fr_name":"rwanda","active":false}
-{"position":null,"it_name":"","code":"kir","en_name":"\"Kirghiz;   Kyrgyz\"","code3t":"","code2":"ky","fr_name":"kirghiz","active":false}
-{"position":null,"it_name":"","code":"kmb","en_name":"Kimbundu","code3t":"","code2":"","fr_name":"kimbundu","active":false}
-{"position":null,"it_name":"","code":"kok","en_name":"Konkani","code3t":"","code2":"","fr_name":"konkani","active":false}
-{"position":null,"it_name":"","code":"kom","en_name":"Komi","code3t":"","code2":"kv","fr_name":"kom","active":false}
-{"position":null,"it_name":"","code":"kon","en_name":"Kongo","code3t":"","code2":"kg","fr_name":"kongo","active":false}
-{"position":null,"it_name":"","code":"kor","en_name":"Korean","code3t":"","code2":"ko","fr_name":"cor\u00e9en","active":false}
-{"position":null,"it_name":"","code":"kos","en_name":"Kosraean","code3t":"","code2":"","fr_name":"kosrae","active":false}
-{"position":null,"it_name":"","code":"kpe","en_name":"Kpelle","code3t":"","code2":"","fr_name":"kpell\u00e9","active":false}
-{"position":null,"it_name":"","code":"krc","en_name":"Karachay-Balkar","code3t":"","code2":"","fr_name":"karatchai balkar","active":false}
-{"position":null,"it_name":"","code":"krl","en_name":"Karelian","code3t":"","code2":"","fr_name":"car\u00e9lien","active":false}
-{"position":null,"it_name":"","code":"kro","en_name":"Kru languages","code3t":"","code2":"","fr_name":"krou, langues","active":false}
-{"position":null,"it_name":"","code":"kru","en_name":"Kurukh","code3t":"","code2":"","fr_name":"kurukh","active":false}
-{"position":null,"it_name":"","code":"kua","en_name":"\"Kuanyama;   Kwanyama\"","code3t":"","code2":"kj","fr_name":"\"kuanyama;   kwanyama\"","active":false}
-{"position":null,"it_name":"","code":"kum","en_name":"Kumyk","code3t":"","code2":"","fr_name":"koumyk","active":false}
-{"position":null,"it_name":"","code":"kur","en_name":"Kurdish","code3t":"","code2":"ku","fr_name":"kurde","active":false}
-{"position":null,"it_name":"","code":"kut","en_name":"Kutenai","code3t":"","code2":"","fr_name":"kutenai","active":false}
-{"position":null,"it_name":"","code":"lad","en_name":"Ladino","code3t":"","code2":"","fr_name":"jud\u00e9o-espagnol","active":false}
-{"position":null,"it_name":"","code":"lah","en_name":"Lahnda","code3t":"","code2":"","fr_name":"lahnda","active":false}
-{"position":null,"it_name":"","code":"lam","en_name":"Lamba","code3t":"","code2":"","fr_name":"lamba","active":false}
-{"position":null,"it_name":"","code":"lao","en_name":"Lao","code3t":"","code2":"lo","fr_name":"lao","active":false}
-{"position":null,"it_name":"","code":"lav","en_name":"Latvian","code3t":"","code2":"lv","fr_name":"letton","active":false}
-{"position":null,"it_name":"","code":"lez","en_name":"Lezghian","code3t":"","code2":"","fr_name":"lezghien","active":false}
-{"position":null,"it_name":"","code":"lim","en_name":"\"Limburgan;   Limburger;   Limburgish\"","code3t":"","code2":"li","fr_name":"limbourgeois","active":false}
-{"position":null,"it_name":"","code":"lin","en_name":"Lingala","code3t":"","code2":"ln","fr_name":"lingala","active":false}
-{"position":null,"it_name":"","code":"lit","en_name":"Lithuanian","code3t":"","code2":"lt","fr_name":"lituanien","active":false}
-{"position":null,"it_name":"","code":"lol","en_name":"Mongo","code3t":"","code2":"","fr_name":"mongo","active":false}
-{"position":null,"it_name":"","code":"loz","en_name":"Lozi","code3t":"","code2":"","fr_name":"lozi","active":false}
-{"position":null,"it_name":"","code":"ltz","en_name":"\"Luxembourgish;   Letzeburgesch\"","code3t":"","code2":"lb","fr_name":"luxembourgeois","active":false}
-{"position":null,"it_name":"","code":"lua","en_name":"Luba-Lulua","code3t":"","code2":"","fr_name":"luba-lulua","active":false}
-{"position":null,"it_name":"","code":"lub","en_name":"Luba-Katanga","code3t":"","code2":"lu","fr_name":"luba-katanga","active":false}
-{"position":null,"it_name":"","code":"lug","en_name":"Ganda","code3t":"","code2":"lg","fr_name":"ganda","active":false}
-{"position":null,"it_name":"","code":"lui","en_name":"Luiseno","code3t":"","code2":"","fr_name":"luiseno","active":false}
-{"position":null,"it_name":"","code":"lun","en_name":"Lunda","code3t":"","code2":"","fr_name":"lunda","active":false}
-{"position":null,"it_name":"","code":"luo","en_name":"Luo (Kenya and Tanzania)","code3t":"","code2":"","fr_name":"luo (Kenya et Tanzanie)","active":false}
-{"position":null,"it_name":"","code":"lus","en_name":"Lushai","code3t":"","code2":"","fr_name":"lushai","active":false}
-{"position":null,"it_name":"","code":"mac","en_name":"Macedonian","code3t":"mkd","code2":"mk","fr_name":"mac\u00e9donien","active":false}
-{"position":null,"it_name":"","code":"mad","en_name":"Madurese","code3t":"","code2":"","fr_name":"madourais","active":false}
-{"position":null,"it_name":"","code":"mag","en_name":"Magahi","code3t":"","code2":"","fr_name":"magahi","active":false}
-{"position":null,"it_name":"","code":"mah","en_name":"Marshallese","code3t":"","code2":"mh","fr_name":"marshall","active":false}
-{"position":null,"it_name":"","code":"mai","en_name":"Maithili","code3t":"","code2":"","fr_name":"maithili","active":false}
-{"position":null,"it_name":"","code":"mak","en_name":"Makasar","code3t":"","code2":"","fr_name":"makassar","active":false}
-{"position":null,"it_name":"","code":"mal","en_name":"Malayalam","code3t":"","code2":"ml","fr_name":"malayalam","active":false}
-{"position":null,"it_name":"","code":"man","en_name":"Mandingo","code3t":"","code2":"","fr_name":"mandingue","active":false}
-{"position":null,"it_name":"","code":"mao","en_name":"Maori","code3t":"mri","code2":"mi","fr_name":"maori","active":false}
-{"position":null,"it_name":"","code":"map","en_name":"Austronesian languages","code3t":"","code2":"","fr_name":"austron\u00e9siennes, langues","active":false}
-{"position":null,"it_name":"","code":"mar","en_name":"Marathi","code3t":"","code2":"mr","fr_name":"marathe","active":false}
-{"position":null,"it_name":"","code":"mas","en_name":"Masai","code3t":"","code2":"","fr_name":"massa\u00ef","active":false}
-{"position":null,"it_name":"","code":"may","en_name":"Malay","code3t":"msa","code2":"ms","fr_name":"malais","active":false}
-{"position":null,"it_name":"","code":"mdf","en_name":"Moksha","code3t":"","code2":"","fr_name":"moksa","active":false}
-{"position":null,"it_name":"","code":"mdr","en_name":"Mandar","code3t":"","code2":"","fr_name":"mandar","active":false}
-{"position":null,"it_name":"","code":"men","en_name":"Mende","code3t":"","code2":"","fr_name":"mend\u00e9","active":false}
-{"position":null,"it_name":"","code":"mga","en_name":"Irish, Middle (900-1200)","code3t":"","code2":"","fr_name":"irlandais moyen (900-1200)","active":false}
-{"position":null,"it_name":"","code":"mic","en_name":"\"Mi'kmaq;   Micmac\"","code3t":"","code2":"","fr_name":"\"mi'kmaq;   micmac\"","active":false}
-{"position":null,"it_name":"","code":"min","en_name":"Minangkabau","code3t":"","code2":"","fr_name":"minangkabau","active":false}
-{"position":null,"it_name":"","code":"mis","en_name":"Uncoded languages","code3t":"","code2":"","fr_name":"langues non cod\u00e9es","active":false}
-{"position":null,"it_name":"","code":"mkh","en_name":"Mon-Khmer languages","code3t":"","code2":"","fr_name":"m\u00f4n-khmer, langues","active":false}
-{"position":null,"it_name":"","code":"mlg","en_name":"Malagasy","code3t":"","code2":"mg","fr_name":"malgache","active":false}
-{"position":null,"it_name":"","code":"mlt","en_name":"Maltese","code3t":"","code2":"mt","fr_name":"maltais","active":false}
-{"position":null,"it_name":"","code":"mnc","en_name":"Manchu","code3t":"","code2":"","fr_name":"mandchou","active":false}
-{"position":null,"it_name":"","code":"mni","en_name":"Manipuri","code3t":"","code2":"","fr_name":"manipuri","active":false}
-{"position":null,"it_name":"","code":"mno","en_name":"Manobo languages","code3t":"","code2":"","fr_name":"manobo, langues","active":false}
-{"position":null,"it_name":"","code":"moh","en_name":"Mohawk","code3t":"","code2":"","fr_name":"mohawk","active":false}
-{"position":null,"it_name":"","code":"mon","en_name":"Mongolian","code3t":"","code2":"mn","fr_name":"mongol","active":false}
-{"position":null,"it_name":"","code":"mos","en_name":"Mossi","code3t":"","code2":"","fr_name":"mor\u00e9","active":false}
-{"position":null,"it_name":"","code":"mul","en_name":"Multiple languages","code3t":"","code2":"","fr_name":"multilingue","active":false}
-{"position":null,"it_name":"","code":"mun","en_name":"Munda languages","code3t":"","code2":"","fr_name":"mounda, langues","active":false}
-{"position":null,"it_name":"","code":"mus","en_name":"Creek","code3t":"","code2":"","fr_name":"muskogee","active":false}
-{"position":null,"it_name":"","code":"mwl","en_name":"Mirandese","code3t":"","code2":"","fr_name":"mirandais","active":false}
-{"position":null,"it_name":"","code":"mwr","en_name":"Marwari","code3t":"","code2":"","fr_name":"marvari","active":false}
-{"position":null,"it_name":"","code":"myn","en_name":"Mayan languages","code3t":"","code2":"","fr_name":"maya, langues","active":false}
-{"position":null,"it_name":"","code":"myv","en_name":"Erzya","code3t":"","code2":"","fr_name":"erza","active":false}
-{"position":null,"it_name":"","code":"nah","en_name":"Nahuatl languages","code3t":"","code2":"","fr_name":"nahuatl, langues","active":false}
-{"position":null,"it_name":"","code":"nai","en_name":"North American Indian languages","code3t":"","code2":"","fr_name":"nord-am\u00e9rindiennes, langues","active":false}
-{"position":null,"it_name":"","code":"nap","en_name":"Neapolitan","code3t":"","code2":"","fr_name":"napolitain","active":false}
-{"position":null,"it_name":"","code":"nau","en_name":"Nauru","code3t":"","code2":"na","fr_name":"nauruan","active":false}
-{"position":null,"it_name":"","code":"nav","en_name":"\"Navajo;   Navaho\"","code3t":"","code2":"nv","fr_name":"navaho","active":false}
-{"position":null,"it_name":"","code":"nbl","en_name":"\"Ndebele, South;   South Ndebele\"","code3t":"","code2":"nr","fr_name":"nd\u00e9b\u00e9l\u00e9 du Sud","active":false}
-{"position":null,"it_name":"","code":"nde","en_name":"\"Ndebele, North;   North Ndebele\"","code3t":"","code2":"nd","fr_name":"nd\u00e9b\u00e9l\u00e9 du Nord","active":false}
-{"position":null,"it_name":"","code":"ndo","en_name":"Ndonga","code3t":"","code2":"ng","fr_name":"ndonga","active":false}
-{"position":null,"it_name":"","code":"nds","en_name":"\"Low German;   Low Saxon;   German, Low;   Saxon, Low\"","code3t":"","code2":"","fr_name":"\"bas allemand;   bas saxon;   allemand, bas;   saxon, bas\"","active":false}
-{"position":null,"it_name":"","code":"nep","en_name":"Nepali","code3t":"","code2":"ne","fr_name":"n\u00e9palais","active":false}
-{"position":null,"it_name":"","code":"new","en_name":"\"Nepal Bhasa;   Newari\"","code3t":"","code2":"","fr_name":"\"nepal bhasa;   newari\"","active":false}
-{"position":null,"it_name":"","code":"nia","en_name":"Nias","code3t":"","code2":"","fr_name":"nias","active":false}
-{"position":null,"it_name":"","code":"nic","en_name":"Niger-Kordofanian languages","code3t":"","code2":"","fr_name":"nig\u00e9ro-kordofaniennes, langues","active":false}
-{"position":null,"it_name":"","code":"niu","en_name":"Niuean","code3t":"","code2":"","fr_name":"niu\u00e9","active":false}
-{"position":null,"it_name":"","code":"nno","en_name":"\"Norwegian Nynorsk;   Nynorsk, Norwegian\"","code3t":"","code2":"nn","fr_name":"\"norv\u00e9gien nynorsk;   nynorsk, norv\u00e9gien\"","active":false}
-{"position":null,"it_name":"","code":"nob","en_name":"\"Bokm\u00e5l, Norwegian;   Norwegian Bokm\u00e5l\"","code3t":"","code2":"nb","fr_name":"norv\u00e9gien bokm\u00e5l","active":false}
-{"position":null,"it_name":"","code":"nog","en_name":"Nogai","code3t":"","code2":"","fr_name":"\"noga\u00ef;   nogay\"","active":false}
-{"position":null,"it_name":"","code":"non","en_name":"Norse, Old","code3t":"","code2":"","fr_name":"norrois, vieux","active":false}
-{"position":null,"it_name":"","code":"nor","en_name":"Norwegian","code3t":"","code2":"no","fr_name":"norv\u00e9gien","active":false}
-{"position":null,"it_name":"","code":"nqo","en_name":"N'Ko","code3t":"","code2":"","fr_name":"n'ko","active":false}
-{"position":null,"it_name":"","code":"nso","en_name":"\"Pedi;   Sepedi;   Northern Sotho\"","code3t":"","code2":"","fr_name":"\"pedi;   sepedi;   sotho du Nord\"","active":false}
-{"position":null,"it_name":"","code":"nub","en_name":"Nubian languages","code3t":"","code2":"","fr_name":"nubiennes, langues","active":false}
-{"position":null,"it_name":"","code":"nwc","en_name":"\"Classical Newari;   Old Newari;   Classical Nepal Bhasa\"","code3t":"","code2":"","fr_name":"newari classique","active":false}
-{"position":null,"it_name":"","code":"nya","en_name":"\"Chichewa;   Chewa;   Nyanja\"","code3t":"","code2":"ny","fr_name":"\"chichewa;   chewa;   nyanja\"","active":false}
-{"position":null,"it_name":"","code":"nym","en_name":"Nyamwezi","code3t":"","code2":"","fr_name":"nyamwezi","active":false}
-{"position":null,"it_name":"","code":"nyn","en_name":"Nyankole","code3t":"","code2":"","fr_name":"nyankol\u00e9","active":false}
-{"position":null,"it_name":"","code":"nyo","en_name":"Nyoro","code3t":"","code2":"","fr_name":"nyoro","active":false}
-{"position":null,"it_name":"","code":"nzi","en_name":"Nzima","code3t":"","code2":"","fr_name":"nzema","active":false}
-{"position":null,"it_name":"","code":"oci","en_name":"\"Occitan (post 1500);   Proven\u00e7al\"","code3t":"","code2":"oc","fr_name":"\"occitan (apr\u00e8s 1500);   proven\u00e7al\"","active":false}
-{"position":null,"it_name":"","code":"oji","en_name":"Ojibwa","code3t":"","code2":"oj","fr_name":"ojibwa","active":false}
-{"position":null,"it_name":"","code":"ori","en_name":"Oriya","code3t":"","code2":"or","fr_name":"oriya","active":false}
-{"position":null,"it_name":"","code":"orm","en_name":"Oromo","code3t":"","code2":"om","fr_name":"galla","active":false}
-{"position":null,"it_name":"","code":"osa","en_name":"Osage","code3t":"","code2":"","fr_name":"osage","active":false}
-{"position":null,"it_name":"","code":"oss","en_name":"\"Ossetian;   Ossetic\"","code3t":"","code2":"os","fr_name":"oss\u00e8te","active":false}
-{"position":null,"it_name":"","code":"ota","en_name":"Turkish, Ottoman (1500-1928)","code3t":"","code2":"","fr_name":"turc ottoman (1500-1928)","active":false}
-{"position":null,"it_name":"","code":"oto","en_name":"Otomian languages","code3t":"","code2":"","fr_name":"otomi, langues","active":false}
-{"position":null,"it_name":"","code":"paa","en_name":"Papuan languages","code3t":"","code2":"","fr_name":"papoues, langues","active":false}
-{"position":null,"it_name":"","code":"pag","en_name":"Pangasinan","code3t":"","code2":"","fr_name":"pangasinan","active":false}
-{"position":null,"it_name":"","code":"pal","en_name":"Pahlavi","code3t":"","code2":"","fr_name":"pahlavi","active":false}
-{"position":null,"it_name":"","code":"pam","en_name":"\"Pampanga;   Kapampangan\"","code3t":"","code2":"","fr_name":"pampangan","active":false}
-{"position":null,"it_name":"","code":"pan","en_name":"\"Panjabi;   Punjabi\"","code3t":"","code2":"pa","fr_name":"pendjabi","active":false}
-{"position":null,"it_name":"","code":"pap","en_name":"Papiamento","code3t":"","code2":"","fr_name":"papiamento","active":false}
-{"position":null,"it_name":"","code":"pau","en_name":"Palauan","code3t":"","code2":"","fr_name":"palau","active":false}
-{"position":null,"it_name":"","code":"peo","en_name":"Persian, Old (ca.600-400 B.C.)","code3t":"","code2":"","fr_name":"perse, vieux (ca. 600-400 av. J.-C.)","active":false}
-{"position":null,"it_name":"","code":"per","en_name":"Persian","code3t":"fas","code2":"fa","fr_name":"persan","active":false}
-{"position":null,"it_name":"","code":"phi","en_name":"Philippine languages","code3t":"","code2":"","fr_name":"philippines, langues","active":false}
-{"position":null,"it_name":"","code":"phn","en_name":"Phoenician","code3t":"","code2":"","fr_name":"ph\u00e9nicien","active":false}
-{"position":null,"it_name":"","code":"pli","en_name":"Pali","code3t":"","code2":"pi","fr_name":"pali","active":false}
-{"position":null,"it_name":"Polacco","code":"pol","en_name":"Polish","code3t":"","code2":"pl","fr_name":"polonais","active":true}
-{"position":null,"it_name":"","code":"pon","en_name":"Pohnpeian","code3t":"","code2":"","fr_name":"pohnpei","active":false}
-{"position":null,"it_name":"Portoghese","code":"por","en_name":"Portuguese","code3t":"","code2":"pt","fr_name":"portugais","active":true}
-{"position":null,"it_name":"","code":"pra","en_name":"Prakrit languages","code3t":"","code2":"","fr_name":"pr\u00e2krit, langues","active":false}
-{"position":null,"it_name":"","code":"pro","en_name":"Proven\u00e7al, Old (to 1500)","code3t":"","code2":"","fr_name":"proven\u00e7al ancien (jusqu'\u00e0 1500)","active":false}
-{"position":null,"it_name":"","code":"pus","en_name":"\"Pushto;   Pashto\"","code3t":"","code2":"ps","fr_name":"pachto","active":false}
-{"position":null,"it_name":"","code":"qaa","en_name":"Reserved for local use","code3t":"","code2":"","fr_name":"r\u00e9serv\u00e9e \u00e0 l'usage local","active":false}
-{"position":null,"it_name":"","code":"que","en_name":"Quechua","code3t":"","code2":"qu","fr_name":"quechua","active":false}
-{"position":null,"it_name":"","code":"raj","en_name":"Rajasthani","code3t":"","code2":"","fr_name":"rajasthani","active":false}
-{"position":null,"it_name":"","code":"rap","en_name":"Rapanui","code3t":"","code2":"","fr_name":"rapanui","active":false}
-{"position":null,"it_name":"","code":"rar","en_name":"\"Rarotongan;   Cook Islands Maori\"","code3t":"","code2":"","fr_name":"\"rarotonga;   maori des \u00eeles Cook\"","active":false}
-{"position":null,"it_name":"","code":"roa","en_name":"Romance languages","code3t":"","code2":"","fr_name":"romanes, langues","active":false}
-{"position":null,"it_name":"","code":"roh","en_name":"Romansh","code3t":"","code2":"rm","fr_name":"romanche","active":false}
-{"position":null,"it_name":"","code":"rom","en_name":"Romany","code3t":"","code2":"","fr_name":"tsigane","active":false}
-{"position":null,"it_name":"\"Romeno;   Moldavo\"","code":"rum","en_name":"\"Romanian;   Moldavian;   Moldovan\"","code3t":"ron","code2":"ro","fr_name":"\"roumain;   moldave\"","active":true}
-{"position":null,"it_name":"","code":"run","en_name":"Rundi","code3t":"","code2":"rn","fr_name":"rundi","active":false}
-{"position":null,"it_name":"","code":"rup","en_name":"\"Aromanian;   Arumanian;   Macedo-Romanian\"","code3t":"","code2":"","fr_name":"\"aroumain;   mac\u00e9do-roumain\"","active":false}
-{"position":null,"it_name":"Russo","code":"rus","en_name":"Russian","code3t":"","code2":"ru","fr_name":"russe","active":true}
-{"position":null,"it_name":"","code":"sad","en_name":"Sandawe","code3t":"","code2":"","fr_name":"sandawe","active":false}
-{"position":null,"it_name":"","code":"sag","en_name":"Sango","code3t":"","code2":"sg","fr_name":"sango","active":false}
-{"position":null,"it_name":"","code":"sah","en_name":"Yakut","code3t":"","code2":"","fr_name":"iakoute","active":false}
-{"position":null,"it_name":"","code":"sai","en_name":"South American Indian (Other)","code3t":"","code2":"","fr_name":"indiennes d'Am\u00e9rique du Sud, autres langues","active":false}
-{"position":null,"it_name":"","code":"sal","en_name":"Salishan languages","code3t":"","code2":"","fr_name":"salishennes, langues","active":false}
-{"position":null,"it_name":"","code":"sam","en_name":"Samaritan Aramaic","code3t":"","code2":"","fr_name":"samaritain","active":false}
-{"position":null,"it_name":"","code":"san","en_name":"Sanskrit","code3t":"","code2":"sa","fr_name":"sanskrit","active":false}
-{"position":null,"it_name":"","code":"sas","en_name":"Sasak","code3t":"","code2":"","fr_name":"sasak","active":false}
-{"position":null,"it_name":"","code":"sat","en_name":"Santali","code3t":"","code2":"","fr_name":"santal","active":false}
-{"position":null,"it_name":"","code":"scn","en_name":"Sicilian","code3t":"","code2":"","fr_name":"sicilien","active":false}
-{"position":null,"it_name":"","code":"sco","en_name":"Scots","code3t":"","code2":"","fr_name":"\u00e9cossais","active":false}
-{"position":null,"it_name":"","code":"sel","en_name":"Selkup","code3t":"","code2":"","fr_name":"selkoupe","active":false}
-{"position":null,"it_name":"","code":"sem","en_name":"Semitic languages","code3t":"","code2":"","fr_name":"s\u00e9mitiques, langues","active":false}
-{"position":null,"it_name":"","code":"sga","en_name":"Irish, Old (to 900)","code3t":"","code2":"","fr_name":"irlandais ancien (jusqu'\u00e0 900)","active":false}
-{"position":null,"it_name":"","code":"sgn","en_name":"Sign Languages","code3t":"","code2":"","fr_name":"langues des signes","active":false}
-{"position":null,"it_name":"","code":"shn","en_name":"Shan","code3t":"","code2":"","fr_name":"chan","active":false}
-{"position":null,"it_name":"","code":"sid","en_name":"Sidamo","code3t":"","code2":"","fr_name":"sidamo","active":false}
-{"position":null,"it_name":"","code":"sin","en_name":"\"Sinhala;   Sinhalese\"","code3t":"","code2":"si","fr_name":"singhalais","active":false}
-{"position":null,"it_name":"","code":"sio","en_name":"Siouan languages","code3t":"","code2":"","fr_name":"sioux, langues","active":false}
-{"position":null,"it_name":"","code":"sit","en_name":"Sino-Tibetan languages","code3t":"","code2":"","fr_name":"sino-tib\u00e9taines, langues","active":false}
-{"position":null,"it_name":"","code":"sla","en_name":"Slavic languages","code3t":"","code2":"","fr_name":"slaves, langues","active":false}
-{"position":null,"it_name":"","code":"slo","en_name":"Slovak","code3t":"slk","code2":"sk","fr_name":"slovaque","active":false}
-{"position":null,"it_name":"","code":"slv","en_name":"Slovenian","code3t":"","code2":"sl","fr_name":"slov\u00e8ne","active":false}
-{"position":null,"it_name":"","code":"sma","en_name":"Southern Sami","code3t":"","code2":"","fr_name":"sami du Sud","active":false}
-{"position":null,"it_name":"","code":"sme","en_name":"Northern Sami","code3t":"","code2":"se","fr_name":"sami du Nord","active":false}
-{"position":null,"it_name":"","code":"smi","en_name":"Sami languages","code3t":"","code2":"","fr_name":"sames, langues","active":false}
-{"position":null,"it_name":"","code":"smj","en_name":"Lule Sami","code3t":"","code2":"","fr_name":"sami de Lule","active":false}
-{"position":null,"it_name":"","code":"smn","en_name":"Inari Sami","code3t":"","code2":"","fr_name":"sami d'Inari","active":false}
-{"position":null,"it_name":"","code":"smo","en_name":"Samoan","code3t":"","code2":"sm","fr_name":"samoan","active":false}
-{"position":null,"it_name":"","code":"sms","en_name":"Skolt Sami","code3t":"","code2":"","fr_name":"sami skolt","active":false}
-{"position":null,"it_name":"","code":"sna","en_name":"Shona","code3t":"","code2":"sn","fr_name":"shona","active":false}
-{"position":null,"it_name":"","code":"snd","en_name":"Sindhi","code3t":"","code2":"sd","fr_name":"sindhi","active":false}
-{"position":null,"it_name":"","code":"snk","en_name":"Soninke","code3t":"","code2":"","fr_name":"sonink\u00e9","active":false}
-{"position":null,"it_name":"","code":"sog","en_name":"Sogdian","code3t":"","code2":"","fr_name":"sogdien","active":false}
-{"position":null,"it_name":"","code":"som","en_name":"Somali","code3t":"","code2":"so","fr_name":"somali","active":false}
-{"position":null,"it_name":"","code":"son","en_name":"Songhai languages","code3t":"","code2":"","fr_name":"songhai, langues","active":false}
-{"position":null,"it_name":"","code":"sot","en_name":"Sotho, Southern","code3t":"","code2":"st","fr_name":"sotho du Sud","active":false}
-{"position":null,"it_name":"\"Spagnolo;   Castigliano\"","code":"spa","en_name":"\"Spanish;   Castilian\"","code3t":"","code2":"es","fr_name":"\"espagnol;   castillan\"","active":false}
-{"position":null,"it_name":"","code":"srd","en_name":"Sardinian","code3t":"","code2":"sc","fr_name":"sarde","active":false}
-{"position":null,"it_name":"","code":"srn","en_name":"Sranan Tongo","code3t":"","code2":"","fr_name":"sranan tongo","active":false}
-{"position":null,"it_name":"","code":"srp","en_name":"Serbian","code3t":"","code2":"sr","fr_name":"serbe","active":false}
-{"position":null,"it_name":"","code":"srr","en_name":"Serer","code3t":"","code2":"","fr_name":"s\u00e9r\u00e8re","active":false}
-{"position":null,"it_name":"","code":"ssa","en_name":"Nilo-Saharan languages","code3t":"","code2":"","fr_name":"nilo-sahariennes, langues","active":false}
-{"position":null,"it_name":"","code":"ssw","en_name":"Swati","code3t":"","code2":"ss","fr_name":"swati","active":false}
-{"position":null,"it_name":"","code":"suk","en_name":"Sukuma","code3t":"","code2":"","fr_name":"sukuma","active":false}
-{"position":null,"it_name":"","code":"sun","en_name":"Sundanese","code3t":"","code2":"su","fr_name":"soundanais","active":false}
-{"position":null,"it_name":"","code":"sus","en_name":"Susu","code3t":"","code2":"","fr_name":"soussou","active":false}
-{"position":null,"it_name":"","code":"sux","en_name":"Sumerian","code3t":"","code2":"","fr_name":"sum\u00e9rien","active":false}
-{"position":null,"it_name":"","code":"swa","en_name":"Swahili","code3t":"","code2":"sw","fr_name":"swahili","active":false}
-{"position":null,"it_name":"","code":"swe","en_name":"Swedish","code3t":"","code2":"sv","fr_name":"su\u00e9dois","active":false}
-{"position":null,"it_name":"","code":"syc","en_name":"Classical Syriac","code3t":"","code2":"","fr_name":"syriaque classique","active":false}
-{"position":null,"it_name":"","code":"syr","en_name":"Syriac","code3t":"","code2":"","fr_name":"syriaque","active":false}
-{"position":null,"it_name":"","code":"tah","en_name":"Tahitian","code3t":"","code2":"ty","fr_name":"tahitien","active":false}
-{"position":null,"it_name":"","code":"tai","en_name":"Tai languages","code3t":"","code2":"","fr_name":"tai, langues","active":false}
-{"position":null,"it_name":"","code":"tam","en_name":"Tamil","code3t":"","code2":"ta","fr_name":"tamoul","active":false}
-{"position":null,"it_name":"","code":"tat","en_name":"Tatar","code3t":"","code2":"tt","fr_name":"tatar","active":false}
-{"position":null,"it_name":"","code":"tel","en_name":"Telugu","code3t":"","code2":"te","fr_name":"t\u00e9lougou","active":false}
-{"position":null,"it_name":"","code":"tem","en_name":"Timne","code3t":"","code2":"","fr_name":"temne","active":false}
-{"position":null,"it_name":"","code":"ter","en_name":"Tereno","code3t":"","code2":"","fr_name":"tereno","active":false}
-{"position":null,"it_name":"","code":"tet","en_name":"Tetum","code3t":"","code2":"","fr_name":"tetum","active":false}
-{"position":null,"it_name":"","code":"tgk","en_name":"Tajik","code3t":"","code2":"tg","fr_name":"tadjik","active":false}
-{"position":null,"it_name":"","code":"tgl","en_name":"Tagalog","code3t":"","code2":"tl","fr_name":"tagalog","active":false}
-{"position":null,"it_name":"","code":"tha","en_name":"Thai","code3t":"","code2":"th","fr_name":"tha\u00ef","active":false}
-{"position":null,"it_name":"","code":"tib","en_name":"Tibetan","code3t":"bod","code2":"bo","fr_name":"tib\u00e9tain","active":false}
-{"position":null,"it_name":"","code":"tig","en_name":"Tigre","code3t":"","code2":"","fr_name":"tigr\u00e9","active":false}
-{"position":null,"it_name":"","code":"tir","en_name":"Tigrinya","code3t":"","code2":"ti","fr_name":"tigrigna","active":false}
-{"position":null,"it_name":"","code":"tiv","en_name":"Tiv","code3t":"","code2":"","fr_name":"tiv","active":false}
-{"position":null,"it_name":"","code":"tkl","en_name":"Tokelau","code3t":"","code2":"","fr_name":"tokelau","active":false}
-{"position":null,"it_name":"","code":"tlh","en_name":"\"Klingon;   tlhIngan-Hol\"","code3t":"","code2":"","fr_name":"klingon","active":false}
-{"position":null,"it_name":"","code":"tli","en_name":"Tlingit","code3t":"","code2":"","fr_name":"tlingit","active":false}
-{"position":null,"it_name":"","code":"tmh","en_name":"Tamashek","code3t":"","code2":"","fr_name":"tamacheq","active":false}
-{"position":null,"it_name":"","code":"tog","en_name":"Tonga (Nyasa)","code3t":"","code2":"","fr_name":"tonga (Nyasa)","active":false}
-{"position":null,"it_name":"","code":"ton","en_name":"Tonga (Tonga Islands)","code3t":"","code2":"to","fr_name":"tongan (\u00celes Tonga)","active":false}
-{"position":null,"it_name":"","code":"tpi","en_name":"Tok Pisin","code3t":"","code2":"","fr_name":"tok pisin","active":false}
-{"position":null,"it_name":"","code":"tsi","en_name":"Tsimshian","code3t":"","code2":"","fr_name":"tsimshian","active":false}
-{"position":null,"it_name":"","code":"tsn","en_name":"Tswana","code3t":"","code2":"tn","fr_name":"tswana","active":false}
-{"position":null,"it_name":"","code":"tso","en_name":"Tsonga","code3t":"","code2":"ts","fr_name":"tsonga","active":false}
-{"position":null,"it_name":"","code":"tuk","en_name":"Turkmen","code3t":"","code2":"tk","fr_name":"turkm\u00e8ne","active":false}
-{"position":null,"it_name":"","code":"tum","en_name":"Tumbuka","code3t":"","code2":"","fr_name":"tumbuka","active":false}
-{"position":null,"it_name":"","code":"tup","en_name":"Tupi languages","code3t":"","code2":"","fr_name":"tupi, langues","active":false}
-{"position":null,"it_name":"Turco","code":"tur","en_name":"Turkish","code3t":"","code2":"tr","fr_name":"turc","active":true}
-{"position":null,"it_name":"","code":"tut","en_name":"Altaic languages","code3t":"","code2":"","fr_name":"alta\u00efques, langues","active":false}
-{"position":null,"it_name":"","code":"tvl","en_name":"Tuvalu","code3t":"","code2":"","fr_name":"tuvalu","active":false}
-{"position":null,"it_name":"","code":"twi","en_name":"Twi","code3t":"","code2":"tw","fr_name":"twi","active":false}
-{"position":null,"it_name":"","code":"tyv","en_name":"Tuvinian","code3t":"","code2":"","fr_name":"touva","active":false}
-{"position":null,"it_name":"","code":"udm","en_name":"Udmurt","code3t":"","code2":"","fr_name":"oudmourte","active":false}
-{"position":null,"it_name":"","code":"uga","en_name":"Ugaritic","code3t":"","code2":"","fr_name":"ougaritique","active":false}
-{"position":null,"it_name":"","code":"uig","en_name":"\"Uighur;   Uyghur\"","code3t":"","code2":"ug","fr_name":"ou\u00efgour","active":false}
-{"position":null,"it_name":"","code":"ukr","en_name":"Ukrainian","code3t":"","code2":"uk","fr_name":"ukrainien","active":false}
-{"position":null,"it_name":"","code":"umb","en_name":"Umbundu","code3t":"","code2":"","fr_name":"umbundu","active":false}
-{"position":null,"it_name":"","code":"und","en_name":"Undetermined","code3t":"","code2":"","fr_name":"ind\u00e9termin\u00e9e","active":false}
-{"position":null,"it_name":"","code":"urd","en_name":"Urdu","code3t":"","code2":"ur","fr_name":"ourdou","active":false}
-{"position":null,"it_name":"","code":"uzb","en_name":"Uzbek","code3t":"","code2":"uz","fr_name":"ouszbek","active":false}
-{"position":null,"it_name":"","code":"vai","en_name":"Vai","code3t":"","code2":"","fr_name":"va\u00ef","active":false}
-{"position":null,"it_name":"","code":"ven","en_name":"Venda","code3t":"","code2":"ve","fr_name":"venda","active":false}
-{"position":null,"it_name":"","code":"vie","en_name":"Vietnamese","code3t":"","code2":"vi","fr_name":"vietnamien","active":false}
-{"position":null,"it_name":"","code":"vol","en_name":"Volap\u00fck","code3t":"","code2":"vo","fr_name":"volap\u00fck","active":false}
-{"position":null,"it_name":"","code":"vot","en_name":"Votic","code3t":"","code2":"","fr_name":"vote","active":false}
-{"position":null,"it_name":"","code":"wak","en_name":"Wakashan languages","code3t":"","code2":"","fr_name":"wakashanes, langues","active":false}
-{"position":null,"it_name":"","code":"wal","en_name":"Walamo","code3t":"","code2":"","fr_name":"walamo","active":false}
-{"position":null,"it_name":"","code":"war","en_name":"Waray","code3t":"","code2":"","fr_name":"waray","active":false}
-{"position":null,"it_name":"","code":"was","en_name":"Washo","code3t":"","code2":"","fr_name":"washo","active":false}
-{"position":null,"it_name":"","code":"wel","en_name":"Welsh","code3t":"cym","code2":"cy","fr_name":"gallois","active":false}
-{"position":null,"it_name":"","code":"wen","en_name":"Sorbian languages","code3t":"","code2":"","fr_name":"sorabes, langues","active":false}
-{"position":null,"it_name":"","code":"wln","en_name":"Walloon","code3t":"","code2":"wa","fr_name":"wallon","active":false}
-{"position":null,"it_name":"","code":"wol","en_name":"Wolof","code3t":"","code2":"wo","fr_name":"wolof","active":false}
-{"position":null,"it_name":"","code":"xal","en_name":"\"Kalmyk;   Oirat\"","code3t":"","code2":"","fr_name":"\"kalmouk;   o\u00efrat\"","active":false}
-{"position":null,"it_name":"","code":"xho","en_name":"Xhosa","code3t":"","code2":"xh","fr_name":"xhosa","active":false}
-{"position":null,"it_name":"","code":"yao","en_name":"Yao","code3t":"","code2":"","fr_name":"yao","active":false}
-{"position":null,"it_name":"","code":"yap","en_name":"Yapese","code3t":"","code2":"","fr_name":"yapois","active":false}
-{"position":null,"it_name":"","code":"yid","en_name":"Yiddish","code3t":"","code2":"yi","fr_name":"yiddish","active":false}
-{"position":null,"it_name":"","code":"yor","en_name":"Yoruba","code3t":"","code2":"yo","fr_name":"yoruba","active":false}
-{"position":null,"it_name":"","code":"ypk","en_name":"Yupik languages","code3t":"","code2":"","fr_name":"yupik, langues","active":false}
-{"position":null,"it_name":"","code":"zap","en_name":"Zapotec","code3t":"","code2":"","fr_name":"zapot\u00e8que","active":false}
-{"position":null,"it_name":"","code":"zbl","en_name":"\"Blissymbols;   Blissymbolics;   Bliss\"","code3t":"","code2":"","fr_name":"\"symboles Bliss;   Bliss\"","active":false}
-{"position":null,"it_name":"","code":"zen","en_name":"Zenaga","code3t":"","code2":"","fr_name":"zenaga","active":false}
-{"position":null,"it_name":"","code":"zha","en_name":"\"Zhuang;   Chuang\"","code3t":"","code2":"za","fr_name":"\"zhuang;   chuang\"","active":false}
-{"position":null,"it_name":"","code":"znd","en_name":"Zande languages","code3t":"","code2":"","fr_name":"zand\u00e9, langues","active":false}
-{"position":null,"it_name":"","code":"zul","en_name":"Zulu","code3t":"","code2":"zu","fr_name":"zoulou","active":false}
-{"position":null,"it_name":"","code":"zun","en_name":"Zuni","code3t":"","code2":"","fr_name":"zuni","active":false}
-{"position":null,"it_name":"","code":"zxx","en_name":"\"No linguistic content;   Not applicable\"","code3t":"","code2":"","fr_name":"\"pas de contenu linguistique;   non applicable\"","active":false}
-{"position":null,"it_name":"","code":"zza","en_name":"\"Zaza;   Dimili;   Dimli;   Kirdki;   Kirmanjki;   Zazaki\"","code3t":"","code2":"","fr_name":"\"zaza;   dimili;   dimli;   kirdki;   kirmanjki;   zazaki\"","active":false}
+{"code":"ara","code3t":"","code2":"ar","en_name":"Arabic","fr_name":"arabe","it_name":"Arabo","active":true,"position":null}
+{"code":"heb","code3t":"","code2":"he","en_name":"Hebrew","fr_name":"hébreu","it_name":"Ebraico","active":true,"position":null}
+{"code":"fre","code3t":"fra","code2":"fr","en_name":"French","fr_name":"français","it_name":"Francese","active":true,"position":null}
+{"code":"ita","code3t":"","code2":"it","en_name":"Italian","fr_name":"italien","it_name":"Italiano","active":true,"position":null}
+{"code":"lat","code3t":"","code2":"la","en_name":"Latin","fr_name":"latin","it_name":"Latino","active":true,"position":null}
+{"code":"ger","code3t":"deu","code2":"de","en_name":"German","fr_name":"allemand","it_name":"Tedesco","active":true,"position":null}
+{"code":"pms","code3t":"","code2":"","en_name":"Piedmontese","fr_name":"piémontais","it_name":"Piemontese","active":true,"position":null}
+{"code":"aar","code3t":"","code2":"aa","en_name":"Afar","fr_name":"afar","it_name":"","active":false,"position":null}
+{"code":"abk","code3t":"","code2":"ab","en_name":"Abkhazian","fr_name":"abkhaze","it_name":"","active":false,"position":null}
+{"code":"ace","code3t":"","code2":"","en_name":"Achinese","fr_name":"aceh","it_name":"","active":false,"position":null}
+{"code":"ach","code3t":"","code2":"","en_name":"Acoli","fr_name":"acoli","it_name":"","active":false,"position":null}
+{"code":"ada","code3t":"","code2":"","en_name":"Adangme","fr_name":"adangme","it_name":"","active":false,"position":null}
+{"code":"ady","code3t":"","code2":"","en_name":"\"Adyghe;   Adygei\"","fr_name":"adyghé","it_name":"","active":false,"position":null}
+{"code":"afa","code3t":"","code2":"","en_name":"Afro-Asiatic languages","fr_name":"afro-asiatiques, langues","it_name":"","active":false,"position":null}
+{"code":"afh","code3t":"","code2":"","en_name":"Afrihili","fr_name":"afrihili","it_name":"","active":false,"position":null}
+{"code":"afr","code3t":"","code2":"af","en_name":"Afrikaans","fr_name":"afrikaans","it_name":"","active":false,"position":null}
+{"code":"ain","code3t":"","code2":"","en_name":"Ainu","fr_name":"aïnou","it_name":"","active":false,"position":null}
+{"code":"aka","code3t":"","code2":"ak","en_name":"Akan","fr_name":"akan","it_name":"","active":false,"position":null}
+{"code":"akk","code3t":"","code2":"","en_name":"Akkadian","fr_name":"akkadien","it_name":"","active":false,"position":null}
+{"code":"alb","code3t":"sqi","code2":"sq","en_name":"Albanian","fr_name":"albanais","it_name":"","active":false,"position":null}
+{"code":"ale","code3t":"","code2":"","en_name":"Aleut","fr_name":"aléoute","it_name":"","active":false,"position":null}
+{"code":"alg","code3t":"","code2":"","en_name":"Algonquian languages","fr_name":"algonquines, langues","it_name":"","active":false,"position":null}
+{"code":"alt","code3t":"","code2":"","en_name":"Southern Altai","fr_name":"altai du Sud","it_name":"","active":false,"position":null}
+{"code":"amh","code3t":"","code2":"am","en_name":"Amharic","fr_name":"amharique","it_name":"","active":false,"position":null}
+{"code":"ang","code3t":"","code2":"","en_name":"English, Old (ca.450-1100)","fr_name":"anglo-saxon (ca.450-1100)","it_name":"","active":false,"position":null}
+{"code":"anp","code3t":"","code2":"","en_name":"Angika","fr_name":"angika","it_name":"","active":false,"position":null}
+{"code":"apa","code3t":"","code2":"","en_name":"Apache languages","fr_name":"apaches, langues","it_name":"","active":false,"position":null}
+{"code":"arc","code3t":"","code2":"","en_name":"\"Official Aramaic (700-300 BCE);   Imperial Aramaic (700-300 BCE)\"","fr_name":"araméen d'empire (700-300 BCE)","it_name":"","active":false,"position":null}
+{"code":"arg","code3t":"","code2":"an","en_name":"Aragonese","fr_name":"aragonais","it_name":"","active":false,"position":null}
+{"code":"arm","code3t":"hye","code2":"hy","en_name":"Armenian","fr_name":"arménien","it_name":"","active":false,"position":null}
+{"code":"arn","code3t":"","code2":"","en_name":"\"Mapudungun;   Mapuche\"","fr_name":"\"mapudungun;   mapuche;   mapuce\"","it_name":"","active":false,"position":null}
+{"code":"arp","code3t":"","code2":"","en_name":"Arapaho","fr_name":"arapaho","it_name":"","active":false,"position":null}
+{"code":"art","code3t":"","code2":"","en_name":"Artificial languages","fr_name":"artificielles, langues","it_name":"","active":false,"position":null}
+{"code":"arw","code3t":"","code2":"","en_name":"Arawak","fr_name":"arawak","it_name":"","active":false,"position":null}
+{"code":"asm","code3t":"","code2":"as","en_name":"Assamese","fr_name":"assamais","it_name":"","active":false,"position":null}
+{"code":"ast","code3t":"","code2":"","en_name":"\"Asturian;   Bable;   Leonese;   Asturleonese\"","fr_name":"\"asturien;   bable;   léonais;   asturoléonais\"","it_name":"","active":false,"position":null}
+{"code":"ath","code3t":"","code2":"","en_name":"Athapascan languages","fr_name":"athapascanes, langues","it_name":"","active":false,"position":null}
+{"code":"aus","code3t":"","code2":"","en_name":"Australian languages","fr_name":"australiennes, langues","it_name":"","active":false,"position":null}
+{"code":"ava","code3t":"","code2":"av","en_name":"Avaric","fr_name":"avar","it_name":"","active":false,"position":null}
+{"code":"ave","code3t":"","code2":"ae","en_name":"Avestan","fr_name":"avestique","it_name":"","active":false,"position":null}
+{"code":"awa","code3t":"","code2":"","en_name":"Awadhi","fr_name":"awadhi","it_name":"","active":false,"position":null}
+{"code":"aym","code3t":"","code2":"ay","en_name":"Aymara","fr_name":"aymara","it_name":"","active":false,"position":null}
+{"code":"aze","code3t":"","code2":"az","en_name":"Azerbaijani","fr_name":"azéri","it_name":"","active":false,"position":null}
+{"code":"bad","code3t":"","code2":"","en_name":"Banda languages","fr_name":"banda, langues","it_name":"","active":false,"position":null}
+{"code":"bai","code3t":"","code2":"","en_name":"Bamileke languages","fr_name":"bamiléké, langues","it_name":"","active":false,"position":null}
+{"code":"bak","code3t":"","code2":"ba","en_name":"Bashkir","fr_name":"bachkir","it_name":"","active":false,"position":null}
+{"code":"bal","code3t":"","code2":"","en_name":"Baluchi","fr_name":"baloutchi","it_name":"","active":false,"position":null}
+{"code":"bam","code3t":"","code2":"bm","en_name":"Bambara","fr_name":"bambara","it_name":"","active":false,"position":null}
+{"code":"ban","code3t":"","code2":"","en_name":"Balinese","fr_name":"balinais","it_name":"","active":false,"position":null}
+{"code":"baq","code3t":"eus","code2":"eu","en_name":"Basque","fr_name":"basque","it_name":"","active":false,"position":null}
+{"code":"bas","code3t":"","code2":"","en_name":"Basa","fr_name":"basa","it_name":"","active":false,"position":null}
+{"code":"bat","code3t":"","code2":"","en_name":"Baltic languages","fr_name":"baltes, langues","it_name":"","active":false,"position":null}
+{"code":"bej","code3t":"","code2":"","en_name":"\"Beja;   Bedawiyet\"","fr_name":"bedja","it_name":"","active":false,"position":null}
+{"code":"bel","code3t":"","code2":"be","en_name":"Belarusian","fr_name":"biélorusse","it_name":"","active":false,"position":null}
+{"code":"bem","code3t":"","code2":"","en_name":"Bemba","fr_name":"bemba","it_name":"","active":false,"position":null}
+{"code":"ben","code3t":"","code2":"bn","en_name":"Bengali","fr_name":"bengali","it_name":"","active":false,"position":null}
+{"code":"ber","code3t":"","code2":"","en_name":"Berber languages","fr_name":"berbères, langues","it_name":"","active":false,"position":null}
+{"code":"bho","code3t":"","code2":"","en_name":"Bhojpuri","fr_name":"bhojpuri","it_name":"","active":false,"position":null}
+{"code":"bih","code3t":"","code2":"bh","en_name":"Bihari languages","fr_name":"langues biharis","it_name":"","active":false,"position":null}
+{"code":"bik","code3t":"","code2":"","en_name":"Bikol","fr_name":"bikol","it_name":"","active":false,"position":null}
+{"code":"bin","code3t":"","code2":"","en_name":"\"Bini;   Edo\"","fr_name":"\"bini;   edo\"","it_name":"","active":false,"position":null}
+{"code":"bis","code3t":"","code2":"bi","en_name":"Bislama","fr_name":"bichlamar","it_name":"","active":false,"position":null}
+{"code":"bla","code3t":"","code2":"","en_name":"Siksika","fr_name":"blackfoot","it_name":"","active":false,"position":null}
+{"code":"bnt","code3t":"","code2":"","en_name":"Bantu (Other)","fr_name":"bantoues, autres langues","it_name":"","active":false,"position":null}
+{"code":"bos","code3t":"","code2":"bs","en_name":"Bosnian","fr_name":"bosniaque","it_name":"","active":false,"position":null}
+{"code":"bra","code3t":"","code2":"","en_name":"Braj","fr_name":"braj","it_name":"","active":false,"position":null}
+{"code":"bre","code3t":"","code2":"br","en_name":"Breton","fr_name":"breton","it_name":"","active":false,"position":null}
+{"code":"btk","code3t":"","code2":"","en_name":"Batak languages","fr_name":"batak, langues","it_name":"","active":false,"position":null}
+{"code":"bua","code3t":"","code2":"","en_name":"Buriat","fr_name":"bouriate","it_name":"","active":false,"position":null}
+{"code":"bug","code3t":"","code2":"","en_name":"Buginese","fr_name":"bugi","it_name":"","active":false,"position":null}
+{"code":"bul","code3t":"","code2":"bg","en_name":"Bulgarian","fr_name":"bulgare","it_name":"","active":false,"position":null}
+{"code":"bur","code3t":"mya","code2":"my","en_name":"Burmese","fr_name":"birman","it_name":"","active":false,"position":null}
+{"code":"byn","code3t":"","code2":"","en_name":"\"Blin;   Bilin\"","fr_name":"\"blin;   bilen\"","it_name":"","active":false,"position":null}
+{"code":"cad","code3t":"","code2":"","en_name":"Caddo","fr_name":"caddo","it_name":"","active":false,"position":null}
+{"code":"cai","code3t":"","code2":"","en_name":"Central American Indian languages","fr_name":"amérindiennes de L'Amérique centrale, langues","it_name":"","active":false,"position":null}
+{"code":"car","code3t":"","code2":"","en_name":"Galibi Carib","fr_name":"\"karib;   galibi;   carib\"","it_name":"","active":false,"position":null}
+{"code":"cat","code3t":"","code2":"ca","en_name":"\"Catalan;   Valencian\"","fr_name":"\"catalan;   valencien\"","it_name":"","active":false,"position":null}
+{"code":"cau","code3t":"","code2":"","en_name":"Caucasian languages","fr_name":"caucasiennes, langues","it_name":"","active":false,"position":null}
+{"code":"ceb","code3t":"","code2":"","en_name":"Cebuano","fr_name":"cebuano","it_name":"","active":false,"position":null}
+{"code":"cel","code3t":"","code2":"","en_name":"Celtic languages","fr_name":"\"celtiques, langues;   celtes, langues\"","it_name":"","active":false,"position":null}
+{"code":"cha","code3t":"","code2":"ch","en_name":"Chamorro","fr_name":"chamorro","it_name":"","active":false,"position":null}
+{"code":"chb","code3t":"","code2":"","en_name":"Chibcha","fr_name":"chibcha","it_name":"","active":false,"position":null}
+{"code":"che","code3t":"","code2":"ce","en_name":"Chechen","fr_name":"tchétchène","it_name":"","active":false,"position":null}
+{"code":"chg","code3t":"","code2":"","en_name":"Chagatai","fr_name":"djaghataï","it_name":"","active":false,"position":null}
+{"code":"chi","code3t":"zho","code2":"zh","en_name":"Chinese","fr_name":"chinois","it_name":"","active":false,"position":null}
+{"code":"chk","code3t":"","code2":"","en_name":"Chuukese","fr_name":"chuuk","it_name":"","active":false,"position":null}
+{"code":"chm","code3t":"","code2":"","en_name":"Mari","fr_name":"mari","it_name":"","active":false,"position":null}
+{"code":"chn","code3t":"","code2":"","en_name":"Chinook jargon","fr_name":"chinook, jargon","it_name":"","active":false,"position":null}
+{"code":"cho","code3t":"","code2":"","en_name":"Choctaw","fr_name":"choctaw","it_name":"","active":false,"position":null}
+{"code":"chp","code3t":"","code2":"","en_name":"\"Chipewyan;   Dene Suline\"","fr_name":"chipewyan","it_name":"","active":false,"position":null}
+{"code":"chr","code3t":"","code2":"","en_name":"Cherokee","fr_name":"cherokee","it_name":"","active":false,"position":null}
+{"code":"chu","code3t":"","code2":"cu","en_name":"\"Church Slavic;   Old Slavonic;   Church Slavonic;   Old Bulgarian;   Old Church Slavonic\"","fr_name":"\"slavon d'église;   vieux slave;   slavon liturgique;   vieux bulgare\"","it_name":"","active":false,"position":null}
+{"code":"chv","code3t":"","code2":"cv","en_name":"Chuvash","fr_name":"tchouvache","it_name":"","active":false,"position":null}
+{"code":"chy","code3t":"","code2":"","en_name":"Cheyenne","fr_name":"cheyenne","it_name":"","active":false,"position":null}
+{"code":"cmc","code3t":"","code2":"","en_name":"Chamic languages","fr_name":"chames, langues","it_name":"","active":false,"position":null}
+{"code":"cop","code3t":"","code2":"","en_name":"Coptic","fr_name":"copte","it_name":"","active":false,"position":null}
+{"code":"cor","code3t":"","code2":"kw","en_name":"Cornish","fr_name":"cornique","it_name":"","active":false,"position":null}
+{"code":"cos","code3t":"","code2":"co","en_name":"Corsican","fr_name":"corse","it_name":"","active":false,"position":null}
+{"code":"cpe","code3t":"","code2":"","en_name":"Creoles and pidgins, English based","fr_name":"créoles et pidgins basés sur l'anglais","it_name":"","active":false,"position":null}
+{"code":"cpf","code3t":"","code2":"","en_name":"Creoles and pidgins, French-based ","fr_name":"créoles et pidgins basés sur le français","it_name":"","active":false,"position":null}
+{"code":"cpp","code3t":"","code2":"","en_name":"Creoles and pidgins, Portuguese-based ","fr_name":"créoles et pidgins basés sur le portugais","it_name":"","active":false,"position":null}
+{"code":"cre","code3t":"","code2":"cr","en_name":"Cree","fr_name":"cree","it_name":"","active":false,"position":null}
+{"code":"crh","code3t":"","code2":"","en_name":"\"Crimean Tatar;   Crimean Turkish\"","fr_name":"tatar de Crimé","it_name":"","active":false,"position":null}
+{"code":"crp","code3t":"","code2":"","en_name":"Creoles and pidgins ","fr_name":"créoles et pidgins","it_name":"","active":false,"position":null}
+{"code":"csb","code3t":"","code2":"","en_name":"Kashubian","fr_name":"kachoube","it_name":"","active":false,"position":null}
+{"code":"cus","code3t":"","code2":"","en_name":"Cushitic languages","fr_name":"couchitiques, langues","it_name":"","active":false,"position":null}
+{"code":"cze","code3t":"ces","code2":"cs","en_name":"Czech","fr_name":"tchèque","it_name":"","active":false,"position":null}
+{"code":"dak","code3t":"","code2":"","en_name":"Dakota","fr_name":"dakota","it_name":"","active":false,"position":null}
+{"code":"dan","code3t":"","code2":"da","en_name":"Danish","fr_name":"danois","it_name":"","active":false,"position":null}
+{"code":"dar","code3t":"","code2":"","en_name":"Dargwa","fr_name":"dargwa","it_name":"","active":false,"position":null}
+{"code":"day","code3t":"","code2":"","en_name":"Land Dayak languages","fr_name":"dayak, langues","it_name":"","active":false,"position":null}
+{"code":"del","code3t":"","code2":"","en_name":"Delaware","fr_name":"delaware","it_name":"","active":false,"position":null}
+{"code":"den","code3t":"","code2":"","en_name":"Slave (Athapascan)","fr_name":"esclave (athapascan)","it_name":"","active":false,"position":null}
+{"code":"dgr","code3t":"","code2":"","en_name":"Dogrib","fr_name":"dogrib","it_name":"","active":false,"position":null}
+{"code":"din","code3t":"","code2":"","en_name":"Dinka","fr_name":"dinka","it_name":"","active":false,"position":null}
+{"code":"div","code3t":"","code2":"dv","en_name":"\"Divehi;   Dhivehi;   Maldivian\"","fr_name":"maldivien","it_name":"","active":false,"position":null}
+{"code":"doi","code3t":"","code2":"","en_name":"Dogri","fr_name":"dogri","it_name":"","active":false,"position":null}
+{"code":"dra","code3t":"","code2":"","en_name":"Dravidian languages","fr_name":"dravidiennes, langues","it_name":"","active":false,"position":null}
+{"code":"dsb","code3t":"","code2":"","en_name":"Lower Sorbian","fr_name":"bas-sorabe","it_name":"","active":false,"position":null}
+{"code":"dua","code3t":"","code2":"","en_name":"Duala","fr_name":"douala","it_name":"","active":false,"position":null}
+{"code":"dum","code3t":"","code2":"","en_name":"Dutch, Middle (ca.1050-1350)","fr_name":"néerlandais moyen (ca. 1050-1350)","it_name":"","active":false,"position":null}
+{"code":"dut","code3t":"nld","code2":"nl","en_name":"\"Dutch;   Flemish\"","fr_name":"\"néerlandais;   flamand\"","it_name":"","active":false,"position":null}
+{"code":"dyu","code3t":"","code2":"","en_name":"Dyula","fr_name":"dioula","it_name":"","active":false,"position":null}
+{"code":"dzo","code3t":"","code2":"dz","en_name":"Dzongkha","fr_name":"dzongkha","it_name":"","active":false,"position":null}
+{"code":"efi","code3t":"","code2":"","en_name":"Efik","fr_name":"efik","it_name":"","active":false,"position":null}
+{"code":"egy","code3t":"","code2":"","en_name":"Egyptian (Ancient)","fr_name":"égyptien","it_name":"","active":false,"position":null}
+{"code":"eka","code3t":"","code2":"","en_name":"Ekajuk","fr_name":"ekajuk","it_name":"","active":false,"position":null}
+{"code":"elx","code3t":"","code2":"","en_name":"Elamite","fr_name":"élamite","it_name":"","active":false,"position":null}
+{"code":"eng","code3t":"","code2":"en","en_name":"English","fr_name":"anglais","it_name":"Inglese","active":true,"position":null}
+{"code":"enm","code3t":"","code2":"","en_name":"English, Middle (1100-1500)","fr_name":"anglais moyen (1100-1500)","it_name":"","active":false,"position":null}
+{"code":"epo","code3t":"","code2":"eo","en_name":"Esperanto","fr_name":"espéranto","it_name":"","active":false,"position":null}
+{"code":"est","code3t":"","code2":"et","en_name":"Estonian","fr_name":"estonien","it_name":"","active":false,"position":null}
+{"code":"ewe","code3t":"","code2":"ee","en_name":"Ewe","fr_name":"éwé","it_name":"","active":false,"position":null}
+{"code":"ewo","code3t":"","code2":"","en_name":"Ewondo","fr_name":"éwondo","it_name":"","active":false,"position":null}
+{"code":"fan","code3t":"","code2":"","en_name":"Fang","fr_name":"fang","it_name":"","active":false,"position":null}
+{"code":"fao","code3t":"","code2":"fo","en_name":"Faroese","fr_name":"féroïen","it_name":"","active":false,"position":null}
+{"code":"fat","code3t":"","code2":"","en_name":"Fanti","fr_name":"fanti","it_name":"","active":false,"position":null}
+{"code":"fij","code3t":"","code2":"fj","en_name":"Fijian","fr_name":"fidjien","it_name":"","active":false,"position":null}
+{"code":"fil","code3t":"","code2":"","en_name":"\"Filipino;   Pilipino\"","fr_name":"\"filipino;   pilipino\"","it_name":"","active":false,"position":null}
+{"code":"fin","code3t":"","code2":"fi","en_name":"Finnish","fr_name":"finnois","it_name":"","active":false,"position":null}
+{"code":"fiu","code3t":"","code2":"","en_name":"Finno-Ugrian languages","fr_name":"finno-ougriennes, langues","it_name":"","active":false,"position":null}
+{"code":"fon","code3t":"","code2":"","en_name":"Fon","fr_name":"fon","it_name":"","active":false,"position":null}
+{"code":"frm","code3t":"","code2":"","en_name":"French, Middle (ca.1400-1600)","fr_name":"français moyen (1400-1600)","it_name":"","active":false,"position":null}
+{"code":"fro","code3t":"","code2":"","en_name":"French, Old (842-ca.1400)","fr_name":"français ancien (842-ca.1400)","it_name":"","active":false,"position":null}
+{"code":"frr","code3t":"","code2":"","en_name":"Northern Frisian","fr_name":"frison septentrional","it_name":"","active":false,"position":null}
+{"code":"frs","code3t":"","code2":"","en_name":"Eastern Frisian","fr_name":"frison oriental","it_name":"","active":false,"position":null}
+{"code":"fry","code3t":"","code2":"fy","en_name":"Western Frisian","fr_name":"frison occidental","it_name":"","active":false,"position":null}
+{"code":"ful","code3t":"","code2":"ff","en_name":"Fulah","fr_name":"peul","it_name":"","active":false,"position":null}
+{"code":"fur","code3t":"","code2":"","en_name":"Friulian","fr_name":"frioulan","it_name":"","active":false,"position":null}
+{"code":"gaa","code3t":"","code2":"","en_name":"Ga","fr_name":"ga","it_name":"","active":false,"position":null}
+{"code":"gay","code3t":"","code2":"","en_name":"Gayo","fr_name":"gayo","it_name":"","active":false,"position":null}
+{"code":"gba","code3t":"","code2":"","en_name":"Gbaya","fr_name":"gbaya","it_name":"","active":false,"position":null}
+{"code":"gem","code3t":"","code2":"","en_name":"Germanic languages","fr_name":"germaniques, langues","it_name":"Lingue germaniche","active":true,"position":null}
+{"code":"geo","code3t":"kat","code2":"ka","en_name":"Georgian","fr_name":"géorgien","it_name":"","active":false,"position":null}
+{"code":"gez","code3t":"","code2":"","en_name":"Geez","fr_name":"guèze","it_name":"","active":false,"position":null}
+{"code":"gil","code3t":"","code2":"","en_name":"Gilbertese","fr_name":"kiribati","it_name":"","active":false,"position":null}
+{"code":"gla","code3t":"","code2":"gd","en_name":"\"Gaelic;   Scottish Gaelic\"","fr_name":"\"gaélique;   gaélique écossais\"","it_name":"","active":false,"position":null}
+{"code":"gle","code3t":"","code2":"ga","en_name":"Irish","fr_name":"irlandais","it_name":"","active":false,"position":null}
+{"code":"glg","code3t":"","code2":"gl","en_name":"Galician","fr_name":"galicien","it_name":"","active":false,"position":null}
+{"code":"glv","code3t":"","code2":"gv","en_name":"Manx","fr_name":"\"manx;   mannois\"","it_name":"","active":false,"position":null}
+{"code":"gmh","code3t":"","code2":"","en_name":"German, Middle High (ca.1050-1500)","fr_name":"allemand, moyen haut (ca. 1050-1500)","it_name":"","active":false,"position":null}
+{"code":"goh","code3t":"","code2":"","en_name":"German, Old High (ca.750-1050)","fr_name":"allemand, vieux haut (ca. 750-1050)","it_name":"","active":false,"position":null}
+{"code":"gon","code3t":"","code2":"","en_name":"Gondi","fr_name":"gond","it_name":"","active":false,"position":null}
+{"code":"gor","code3t":"","code2":"","en_name":"Gorontalo","fr_name":"gorontalo","it_name":"","active":false,"position":null}
+{"code":"got","code3t":"","code2":"","en_name":"Gothic","fr_name":"gothique","it_name":"","active":false,"position":null}
+{"code":"grb","code3t":"","code2":"","en_name":"Grebo","fr_name":"grebo","it_name":"","active":false,"position":null}
+{"code":"grc","code3t":"","code2":"","en_name":"Greek, Ancient (to 1453)","fr_name":"grec ancien (jusqu'à 1453)","it_name":"","active":false,"position":null}
+{"code":"gre","code3t":"ell","code2":"el","en_name":"Greek, Modern (1453-)","fr_name":"grec moderne (après 1453)","it_name":"Greco Moderno (1453-)","active":true,"position":null}
+{"code":"grn","code3t":"","code2":"gn","en_name":"Guarani","fr_name":"guarani","it_name":"","active":false,"position":null}
+{"code":"gsw","code3t":"","code2":"","en_name":"\"Swiss German;   Alemannic;   Alsatian\"","fr_name":"\"suisse alémanique;   alémanique;   alsacien\"","it_name":"","active":false,"position":null}
+{"code":"guj","code3t":"","code2":"gu","en_name":"Gujarati","fr_name":"goudjrati","it_name":"","active":false,"position":null}
+{"code":"gwi","code3t":"","code2":"","en_name":"Gwich'in","fr_name":"gwich'in","it_name":"","active":false,"position":null}
+{"code":"hai","code3t":"","code2":"","en_name":"Haida","fr_name":"haida","it_name":"","active":false,"position":null}
+{"code":"hat","code3t":"","code2":"ht","en_name":"\"Haitian;   Haitian Creole\"","fr_name":"\"haïtien;   créole haïtien\"","it_name":"","active":false,"position":null}
+{"code":"hau","code3t":"","code2":"ha","en_name":"Hausa","fr_name":"haoussa","it_name":"","active":false,"position":null}
+{"code":"haw","code3t":"","code2":"","en_name":"Hawaiian","fr_name":"hawaïen","it_name":"","active":false,"position":null}
+{"code":"her","code3t":"","code2":"hz","en_name":"Herero","fr_name":"herero","it_name":"","active":false,"position":null}
+{"code":"hil","code3t":"","code2":"","en_name":"Hiligaynon","fr_name":"hiligaynon","it_name":"","active":false,"position":null}
+{"code":"him","code3t":"","code2":"","en_name":"\"Himachali languages;   Western Pahari languages\"","fr_name":"\"langues himachalis;   langues paharis occidentales\"","it_name":"","active":false,"position":null}
+{"code":"hin","code3t":"","code2":"hi","en_name":"Hindi","fr_name":"hindi","it_name":"","active":false,"position":null}
+{"code":"hit","code3t":"","code2":"","en_name":"Hittite","fr_name":"hittite","it_name":"","active":false,"position":null}
+{"code":"hmn","code3t":"","code2":"","en_name":"\"Hmong;   Mong\"","fr_name":"hmong","it_name":"","active":false,"position":null}
+{"code":"hmo","code3t":"","code2":"ho","en_name":"Hiri Motu","fr_name":"hiri motu","it_name":"","active":false,"position":null}
+{"code":"hrv","code3t":"","code2":"hr","en_name":"Croatian","fr_name":"croate","it_name":"","active":false,"position":null}
+{"code":"hsb","code3t":"","code2":"","en_name":"Upper Sorbian","fr_name":"haut-sorabe","it_name":"","active":false,"position":null}
+{"code":"hun","code3t":"","code2":"hu","en_name":"Hungarian","fr_name":"hongrois","it_name":"Ungherese","active":true,"position":null}
+{"code":"hup","code3t":"","code2":"","en_name":"Hupa","fr_name":"hupa","it_name":"","active":false,"position":null}
+{"code":"iba","code3t":"","code2":"","en_name":"Iban","fr_name":"iban","it_name":"","active":false,"position":null}
+{"code":"ibo","code3t":"","code2":"ig","en_name":"Igbo","fr_name":"igbo","it_name":"","active":false,"position":null}
+{"code":"ice","code3t":"isl","code2":"is","en_name":"Icelandic","fr_name":"islandais","it_name":"","active":false,"position":null}
+{"code":"ido","code3t":"","code2":"io","en_name":"Ido","fr_name":"ido","it_name":"","active":false,"position":null}
+{"code":"iii","code3t":"","code2":"ii","en_name":"\"Sichuan Yi;   Nuosu\"","fr_name":"yi de Sichuan","it_name":"","active":false,"position":null}
+{"code":"ijo","code3t":"","code2":"","en_name":"Ijo languages","fr_name":"ijo, langues","it_name":"","active":false,"position":null}
+{"code":"iku","code3t":"","code2":"iu","en_name":"Inuktitut","fr_name":"inuktitut","it_name":"","active":false,"position":null}
+{"code":"ile","code3t":"","code2":"ie","en_name":"\"Interlingue;   Occidental\"","fr_name":"interlingue","it_name":"","active":false,"position":null}
+{"code":"ilo","code3t":"","code2":"","en_name":"Iloko","fr_name":"ilocano","it_name":"","active":false,"position":null}
+{"code":"ina","code3t":"","code2":"ia","en_name":"Interlingua (International Auxiliary Language Association)","fr_name":"interlingua (langue auxiliaire internationale)","it_name":"","active":false,"position":null}
+{"code":"inc","code3t":"","code2":"","en_name":"Indic languages","fr_name":"indo-aryennes, langues","it_name":"","active":false,"position":null}
+{"code":"ind","code3t":"","code2":"id","en_name":"Indonesian","fr_name":"indonésien","it_name":"","active":false,"position":null}
+{"code":"ine","code3t":"","code2":"","en_name":"Indo-European languages","fr_name":"indo-européennes, langues","it_name":"","active":false,"position":null}
+{"code":"inh","code3t":"","code2":"","en_name":"Ingush","fr_name":"ingouche","it_name":"","active":false,"position":null}
+{"code":"ipk","code3t":"","code2":"ik","en_name":"Inupiaq","fr_name":"inupiaq","it_name":"","active":false,"position":null}
+{"code":"ira","code3t":"","code2":"","en_name":"Iranian languages","fr_name":"iraniennes, langues","it_name":"","active":false,"position":null}
+{"code":"iro","code3t":"","code2":"","en_name":"Iroquoian languages","fr_name":"iroquoises, langues","it_name":"","active":false,"position":null}
+{"code":"jav","code3t":"","code2":"jv","en_name":"Javanese","fr_name":"javanais","it_name":"","active":false,"position":null}
+{"code":"jbo","code3t":"","code2":"","en_name":"Lojban","fr_name":"lojban","it_name":"","active":false,"position":null}
+{"code":"jpn","code3t":"","code2":"ja","en_name":"Japanese","fr_name":"japonais","it_name":"","active":false,"position":null}
+{"code":"jpr","code3t":"","code2":"","en_name":"Judeo-Persian","fr_name":"judéo-persan","it_name":"","active":false,"position":null}
+{"code":"jrb","code3t":"","code2":"","en_name":"Judeo-Arabic","fr_name":"judéo-arabe","it_name":"","active":false,"position":null}
+{"code":"kaa","code3t":"","code2":"","en_name":"Kara-Kalpak","fr_name":"karakalpak","it_name":"","active":false,"position":null}
+{"code":"kab","code3t":"","code2":"","en_name":"Kabyle","fr_name":"kabyle","it_name":"","active":false,"position":null}
+{"code":"kac","code3t":"","code2":"","en_name":"\"Kachin;   Jingpho\"","fr_name":"\"kachin;   jingpho\"","it_name":"","active":false,"position":null}
+{"code":"kal","code3t":"","code2":"kl","en_name":"\"Kalaallisut;   Greenlandic\"","fr_name":"groenlandais","it_name":"","active":false,"position":null}
+{"code":"kam","code3t":"","code2":"","en_name":"Kamba","fr_name":"kamba","it_name":"","active":false,"position":null}
+{"code":"kan","code3t":"","code2":"kn","en_name":"Kannada","fr_name":"kannada","it_name":"","active":false,"position":null}
+{"code":"kar","code3t":"","code2":"","en_name":"Karen languages","fr_name":"karen, langues","it_name":"","active":false,"position":null}
+{"code":"kas","code3t":"","code2":"ks","en_name":"Kashmiri","fr_name":"kashmiri","it_name":"","active":false,"position":null}
+{"code":"kau","code3t":"","code2":"kr","en_name":"Kanuri","fr_name":"kanouri","it_name":"","active":false,"position":null}
+{"code":"kaw","code3t":"","code2":"","en_name":"Kawi","fr_name":"kawi","it_name":"","active":false,"position":null}
+{"code":"kaz","code3t":"","code2":"kk","en_name":"Kazakh","fr_name":"kazakh","it_name":"","active":false,"position":null}
+{"code":"kbd","code3t":"","code2":"","en_name":"Kabardian","fr_name":"kabardien","it_name":"","active":false,"position":null}
+{"code":"kha","code3t":"","code2":"","en_name":"Khasi","fr_name":"khasi","it_name":"","active":false,"position":null}
+{"code":"khi","code3t":"","code2":"","en_name":"Khoisan languages","fr_name":"khoïsan, langues","it_name":"","active":false,"position":null}
+{"code":"khm","code3t":"","code2":"km","en_name":"Central Khmer","fr_name":"khmer central","it_name":"","active":false,"position":null}
+{"code":"kho","code3t":"","code2":"","en_name":"\"Khotanese;   Sakan\"","fr_name":"\"khotanais;   sakan\"","it_name":"","active":false,"position":null}
+{"code":"kik","code3t":"","code2":"ki","en_name":"\"Kikuyu;   Gikuyu\"","fr_name":"kikuyu","it_name":"","active":false,"position":null}
+{"code":"kin","code3t":"","code2":"rw","en_name":"Kinyarwanda","fr_name":"rwanda","it_name":"","active":false,"position":null}
+{"code":"kir","code3t":"","code2":"ky","en_name":"\"Kirghiz;   Kyrgyz\"","fr_name":"kirghiz","it_name":"","active":false,"position":null}
+{"code":"kmb","code3t":"","code2":"","en_name":"Kimbundu","fr_name":"kimbundu","it_name":"","active":false,"position":null}
+{"code":"kok","code3t":"","code2":"","en_name":"Konkani","fr_name":"konkani","it_name":"","active":false,"position":null}
+{"code":"kom","code3t":"","code2":"kv","en_name":"Komi","fr_name":"kom","it_name":"","active":false,"position":null}
+{"code":"kon","code3t":"","code2":"kg","en_name":"Kongo","fr_name":"kongo","it_name":"","active":false,"position":null}
+{"code":"kor","code3t":"","code2":"ko","en_name":"Korean","fr_name":"coréen","it_name":"","active":false,"position":null}
+{"code":"kos","code3t":"","code2":"","en_name":"Kosraean","fr_name":"kosrae","it_name":"","active":false,"position":null}
+{"code":"kpe","code3t":"","code2":"","en_name":"Kpelle","fr_name":"kpellé","it_name":"","active":false,"position":null}
+{"code":"krc","code3t":"","code2":"","en_name":"Karachay-Balkar","fr_name":"karatchai balkar","it_name":"","active":false,"position":null}
+{"code":"krl","code3t":"","code2":"","en_name":"Karelian","fr_name":"carélien","it_name":"","active":false,"position":null}
+{"code":"kro","code3t":"","code2":"","en_name":"Kru languages","fr_name":"krou, langues","it_name":"","active":false,"position":null}
+{"code":"kru","code3t":"","code2":"","en_name":"Kurukh","fr_name":"kurukh","it_name":"","active":false,"position":null}
+{"code":"kua","code3t":"","code2":"kj","en_name":"\"Kuanyama;   Kwanyama\"","fr_name":"\"kuanyama;   kwanyama\"","it_name":"","active":false,"position":null}
+{"code":"kum","code3t":"","code2":"","en_name":"Kumyk","fr_name":"koumyk","it_name":"","active":false,"position":null}
+{"code":"kur","code3t":"","code2":"ku","en_name":"Kurdish","fr_name":"kurde","it_name":"","active":false,"position":null}
+{"code":"kut","code3t":"","code2":"","en_name":"Kutenai","fr_name":"kutenai","it_name":"","active":false,"position":null}
+{"code":"lad","code3t":"","code2":"","en_name":"Ladino","fr_name":"judéo-espagnol","it_name":"","active":false,"position":null}
+{"code":"lah","code3t":"","code2":"","en_name":"Lahnda","fr_name":"lahnda","it_name":"","active":false,"position":null}
+{"code":"lam","code3t":"","code2":"","en_name":"Lamba","fr_name":"lamba","it_name":"","active":false,"position":null}
+{"code":"lao","code3t":"","code2":"lo","en_name":"Lao","fr_name":"lao","it_name":"","active":false,"position":null}
+{"code":"lav","code3t":"","code2":"lv","en_name":"Latvian","fr_name":"letton","it_name":"","active":false,"position":null}
+{"code":"lez","code3t":"","code2":"","en_name":"Lezghian","fr_name":"lezghien","it_name":"","active":false,"position":null}
+{"code":"lim","code3t":"","code2":"li","en_name":"\"Limburgan;   Limburger;   Limburgish\"","fr_name":"limbourgeois","it_name":"","active":false,"position":null}
+{"code":"lin","code3t":"","code2":"ln","en_name":"Lingala","fr_name":"lingala","it_name":"","active":false,"position":null}
+{"code":"lit","code3t":"","code2":"lt","en_name":"Lithuanian","fr_name":"lituanien","it_name":"","active":false,"position":null}
+{"code":"lol","code3t":"","code2":"","en_name":"Mongo","fr_name":"mongo","it_name":"","active":false,"position":null}
+{"code":"loz","code3t":"","code2":"","en_name":"Lozi","fr_name":"lozi","it_name":"","active":false,"position":null}
+{"code":"ltz","code3t":"","code2":"lb","en_name":"\"Luxembourgish;   Letzeburgesch\"","fr_name":"luxembourgeois","it_name":"","active":false,"position":null}
+{"code":"lua","code3t":"","code2":"","en_name":"Luba-Lulua","fr_name":"luba-lulua","it_name":"","active":false,"position":null}
+{"code":"lub","code3t":"","code2":"lu","en_name":"Luba-Katanga","fr_name":"luba-katanga","it_name":"","active":false,"position":null}
+{"code":"lug","code3t":"","code2":"lg","en_name":"Ganda","fr_name":"ganda","it_name":"","active":false,"position":null}
+{"code":"lui","code3t":"","code2":"","en_name":"Luiseno","fr_name":"luiseno","it_name":"","active":false,"position":null}
+{"code":"lun","code3t":"","code2":"","en_name":"Lunda","fr_name":"lunda","it_name":"","active":false,"position":null}
+{"code":"luo","code3t":"","code2":"","en_name":"Luo (Kenya and Tanzania)","fr_name":"luo (Kenya et Tanzanie)","it_name":"","active":false,"position":null}
+{"code":"lus","code3t":"","code2":"","en_name":"Lushai","fr_name":"lushai","it_name":"","active":false,"position":null}
+{"code":"mac","code3t":"mkd","code2":"mk","en_name":"Macedonian","fr_name":"macédonien","it_name":"","active":false,"position":null}
+{"code":"mad","code3t":"","code2":"","en_name":"Madurese","fr_name":"madourais","it_name":"","active":false,"position":null}
+{"code":"mag","code3t":"","code2":"","en_name":"Magahi","fr_name":"magahi","it_name":"","active":false,"position":null}
+{"code":"mah","code3t":"","code2":"mh","en_name":"Marshallese","fr_name":"marshall","it_name":"","active":false,"position":null}
+{"code":"mai","code3t":"","code2":"","en_name":"Maithili","fr_name":"maithili","it_name":"","active":false,"position":null}
+{"code":"mak","code3t":"","code2":"","en_name":"Makasar","fr_name":"makassar","it_name":"","active":false,"position":null}
+{"code":"mal","code3t":"","code2":"ml","en_name":"Malayalam","fr_name":"malayalam","it_name":"","active":false,"position":null}
+{"code":"man","code3t":"","code2":"","en_name":"Mandingo","fr_name":"mandingue","it_name":"","active":false,"position":null}
+{"code":"mao","code3t":"mri","code2":"mi","en_name":"Maori","fr_name":"maori","it_name":"","active":false,"position":null}
+{"code":"map","code3t":"","code2":"","en_name":"Austronesian languages","fr_name":"austronésiennes, langues","it_name":"","active":false,"position":null}
+{"code":"mar","code3t":"","code2":"mr","en_name":"Marathi","fr_name":"marathe","it_name":"","active":false,"position":null}
+{"code":"mas","code3t":"","code2":"","en_name":"Masai","fr_name":"massaï","it_name":"","active":false,"position":null}
+{"code":"may","code3t":"msa","code2":"ms","en_name":"Malay","fr_name":"malais","it_name":"","active":false,"position":null}
+{"code":"mdf","code3t":"","code2":"","en_name":"Moksha","fr_name":"moksa","it_name":"","active":false,"position":null}
+{"code":"mdr","code3t":"","code2":"","en_name":"Mandar","fr_name":"mandar","it_name":"","active":false,"position":null}
+{"code":"men","code3t":"","code2":"","en_name":"Mende","fr_name":"mendé","it_name":"","active":false,"position":null}
+{"code":"mga","code3t":"","code2":"","en_name":"Irish, Middle (900-1200)","fr_name":"irlandais moyen (900-1200)","it_name":"","active":false,"position":null}
+{"code":"mic","code3t":"","code2":"","en_name":"\"Mi'kmaq;   Micmac\"","fr_name":"\"mi'kmaq;   micmac\"","it_name":"","active":false,"position":null}
+{"code":"min","code3t":"","code2":"","en_name":"Minangkabau","fr_name":"minangkabau","it_name":"","active":false,"position":null}
+{"code":"mis","code3t":"","code2":"","en_name":"Uncoded languages","fr_name":"langues non codées","it_name":"","active":false,"position":null}
+{"code":"mkh","code3t":"","code2":"","en_name":"Mon-Khmer languages","fr_name":"môn-khmer, langues","it_name":"","active":false,"position":null}
+{"code":"mlg","code3t":"","code2":"mg","en_name":"Malagasy","fr_name":"malgache","it_name":"","active":false,"position":null}
+{"code":"mlt","code3t":"","code2":"mt","en_name":"Maltese","fr_name":"maltais","it_name":"","active":false,"position":null}
+{"code":"mnc","code3t":"","code2":"","en_name":"Manchu","fr_name":"mandchou","it_name":"","active":false,"position":null}
+{"code":"mni","code3t":"","code2":"","en_name":"Manipuri","fr_name":"manipuri","it_name":"","active":false,"position":null}
+{"code":"mno","code3t":"","code2":"","en_name":"Manobo languages","fr_name":"manobo, langues","it_name":"","active":false,"position":null}
+{"code":"moh","code3t":"","code2":"","en_name":"Mohawk","fr_name":"mohawk","it_name":"","active":false,"position":null}
+{"code":"mon","code3t":"","code2":"mn","en_name":"Mongolian","fr_name":"mongol","it_name":"","active":false,"position":null}
+{"code":"mos","code3t":"","code2":"","en_name":"Mossi","fr_name":"moré","it_name":"","active":false,"position":null}
+{"code":"mul","code3t":"","code2":"","en_name":"Multiple languages","fr_name":"multilingue","it_name":"","active":false,"position":null}
+{"code":"mun","code3t":"","code2":"","en_name":"Munda languages","fr_name":"mounda, langues","it_name":"","active":false,"position":null}
+{"code":"mus","code3t":"","code2":"","en_name":"Creek","fr_name":"muskogee","it_name":"","active":false,"position":null}
+{"code":"mwl","code3t":"","code2":"","en_name":"Mirandese","fr_name":"mirandais","it_name":"","active":false,"position":null}
+{"code":"mwr","code3t":"","code2":"","en_name":"Marwari","fr_name":"marvari","it_name":"","active":false,"position":null}
+{"code":"myn","code3t":"","code2":"","en_name":"Mayan languages","fr_name":"maya, langues","it_name":"","active":false,"position":null}
+{"code":"myv","code3t":"","code2":"","en_name":"Erzya","fr_name":"erza","it_name":"","active":false,"position":null}
+{"code":"nah","code3t":"","code2":"","en_name":"Nahuatl languages","fr_name":"nahuatl, langues","it_name":"","active":false,"position":null}
+{"code":"nai","code3t":"","code2":"","en_name":"North American Indian languages","fr_name":"nord-amérindiennes, langues","it_name":"","active":false,"position":null}
+{"code":"nap","code3t":"","code2":"","en_name":"Neapolitan","fr_name":"napolitain","it_name":"","active":false,"position":null}
+{"code":"nau","code3t":"","code2":"na","en_name":"Nauru","fr_name":"nauruan","it_name":"","active":false,"position":null}
+{"code":"nav","code3t":"","code2":"nv","en_name":"\"Navajo;   Navaho\"","fr_name":"navaho","it_name":"","active":false,"position":null}
+{"code":"nbl","code3t":"","code2":"nr","en_name":"\"Ndebele, South;   South Ndebele\"","fr_name":"ndébélé du Sud","it_name":"","active":false,"position":null}
+{"code":"nde","code3t":"","code2":"nd","en_name":"\"Ndebele, North;   North Ndebele\"","fr_name":"ndébélé du Nord","it_name":"","active":false,"position":null}
+{"code":"ndo","code3t":"","code2":"ng","en_name":"Ndonga","fr_name":"ndonga","it_name":"","active":false,"position":null}
+{"code":"nds","code3t":"","code2":"","en_name":"\"Low German;   Low Saxon;   German, Low;   Saxon, Low\"","fr_name":"\"bas allemand;   bas saxon;   allemand, bas;   saxon, bas\"","it_name":"","active":false,"position":null}
+{"code":"nep","code3t":"","code2":"ne","en_name":"Nepali","fr_name":"népalais","it_name":"","active":false,"position":null}
+{"code":"new","code3t":"","code2":"","en_name":"\"Nepal Bhasa;   Newari\"","fr_name":"\"nepal bhasa;   newari\"","it_name":"","active":false,"position":null}
+{"code":"nia","code3t":"","code2":"","en_name":"Nias","fr_name":"nias","it_name":"","active":false,"position":null}
+{"code":"nic","code3t":"","code2":"","en_name":"Niger-Kordofanian languages","fr_name":"nigéro-kordofaniennes, langues","it_name":"","active":false,"position":null}
+{"code":"niu","code3t":"","code2":"","en_name":"Niuean","fr_name":"niué","it_name":"","active":false,"position":null}
+{"code":"nno","code3t":"","code2":"nn","en_name":"\"Norwegian Nynorsk;   Nynorsk, Norwegian\"","fr_name":"\"norvégien nynorsk;   nynorsk, norvégien\"","it_name":"","active":false,"position":null}
+{"code":"nob","code3t":"","code2":"nb","en_name":"\"Bokmål, Norwegian;   Norwegian Bokmål\"","fr_name":"norvégien bokmål","it_name":"","active":false,"position":null}
+{"code":"nog","code3t":"","code2":"","en_name":"Nogai","fr_name":"\"nogaï;   nogay\"","it_name":"","active":false,"position":null}
+{"code":"non","code3t":"","code2":"","en_name":"Norse, Old","fr_name":"norrois, vieux","it_name":"","active":false,"position":null}
+{"code":"nor","code3t":"","code2":"no","en_name":"Norwegian","fr_name":"norvégien","it_name":"","active":false,"position":null}
+{"code":"nqo","code3t":"","code2":"","en_name":"N'Ko","fr_name":"n'ko","it_name":"","active":false,"position":null}
+{"code":"nso","code3t":"","code2":"","en_name":"\"Pedi;   Sepedi;   Northern Sotho\"","fr_name":"\"pedi;   sepedi;   sotho du Nord\"","it_name":"","active":false,"position":null}
+{"code":"nub","code3t":"","code2":"","en_name":"Nubian languages","fr_name":"nubiennes, langues","it_name":"","active":false,"position":null}
+{"code":"nwc","code3t":"","code2":"","en_name":"\"Classical Newari;   Old Newari;   Classical Nepal Bhasa\"","fr_name":"newari classique","it_name":"","active":false,"position":null}
+{"code":"nya","code3t":"","code2":"ny","en_name":"\"Chichewa;   Chewa;   Nyanja\"","fr_name":"\"chichewa;   chewa;   nyanja\"","it_name":"","active":false,"position":null}
+{"code":"nym","code3t":"","code2":"","en_name":"Nyamwezi","fr_name":"nyamwezi","it_name":"","active":false,"position":null}
+{"code":"nyn","code3t":"","code2":"","en_name":"Nyankole","fr_name":"nyankolé","it_name":"","active":false,"position":null}
+{"code":"nyo","code3t":"","code2":"","en_name":"Nyoro","fr_name":"nyoro","it_name":"","active":false,"position":null}
+{"code":"nzi","code3t":"","code2":"","en_name":"Nzima","fr_name":"nzema","it_name":"","active":false,"position":null}
+{"code":"oci","code3t":"","code2":"oc","en_name":"\"Occitan (post 1500);   Provençal\"","fr_name":"\"occitan (après 1500);   provençal\"","it_name":"","active":false,"position":null}
+{"code":"oji","code3t":"","code2":"oj","en_name":"Ojibwa","fr_name":"ojibwa","it_name":"","active":false,"position":null}
+{"code":"ori","code3t":"","code2":"or","en_name":"Oriya","fr_name":"oriya","it_name":"","active":false,"position":null}
+{"code":"orm","code3t":"","code2":"om","en_name":"Oromo","fr_name":"galla","it_name":"","active":false,"position":null}
+{"code":"osa","code3t":"","code2":"","en_name":"Osage","fr_name":"osage","it_name":"","active":false,"position":null}
+{"code":"oss","code3t":"","code2":"os","en_name":"\"Ossetian;   Ossetic\"","fr_name":"ossète","it_name":"","active":false,"position":null}
+{"code":"ota","code3t":"","code2":"","en_name":"Turkish, Ottoman (1500-1928)","fr_name":"turc ottoman (1500-1928)","it_name":"","active":false,"position":null}
+{"code":"oto","code3t":"","code2":"","en_name":"Otomian languages","fr_name":"otomi, langues","it_name":"","active":false,"position":null}
+{"code":"paa","code3t":"","code2":"","en_name":"Papuan languages","fr_name":"papoues, langues","it_name":"","active":false,"position":null}
+{"code":"pag","code3t":"","code2":"","en_name":"Pangasinan","fr_name":"pangasinan","it_name":"","active":false,"position":null}
+{"code":"pal","code3t":"","code2":"","en_name":"Pahlavi","fr_name":"pahlavi","it_name":"","active":false,"position":null}
+{"code":"pam","code3t":"","code2":"","en_name":"\"Pampanga;   Kapampangan\"","fr_name":"pampangan","it_name":"","active":false,"position":null}
+{"code":"pan","code3t":"","code2":"pa","en_name":"\"Panjabi;   Punjabi\"","fr_name":"pendjabi","it_name":"","active":false,"position":null}
+{"code":"pap","code3t":"","code2":"","en_name":"Papiamento","fr_name":"papiamento","it_name":"","active":false,"position":null}
+{"code":"pau","code3t":"","code2":"","en_name":"Palauan","fr_name":"palau","it_name":"","active":false,"position":null}
+{"code":"peo","code3t":"","code2":"","en_name":"Persian, Old (ca.600-400 B.C.)","fr_name":"perse, vieux (ca. 600-400 av. J.-C.)","it_name":"","active":false,"position":null}
+{"code":"per","code3t":"fas","code2":"fa","en_name":"Persian","fr_name":"persan","it_name":"","active":false,"position":null}
+{"code":"phi","code3t":"","code2":"","en_name":"Philippine languages","fr_name":"philippines, langues","it_name":"","active":false,"position":null}
+{"code":"phn","code3t":"","code2":"","en_name":"Phoenician","fr_name":"phénicien","it_name":"","active":false,"position":null}
+{"code":"pli","code3t":"","code2":"pi","en_name":"Pali","fr_name":"pali","it_name":"","active":false,"position":null}
+{"code":"pol","code3t":"","code2":"pl","en_name":"Polish","fr_name":"polonais","it_name":"Polacco","active":true,"position":null}
+{"code":"pon","code3t":"","code2":"","en_name":"Pohnpeian","fr_name":"pohnpei","it_name":"","active":false,"position":null}
+{"code":"por","code3t":"","code2":"pt","en_name":"Portuguese","fr_name":"portugais","it_name":"Portoghese","active":true,"position":null}
+{"code":"pra","code3t":"","code2":"","en_name":"Prakrit languages","fr_name":"prâkrit, langues","it_name":"","active":false,"position":null}
+{"code":"pro","code3t":"","code2":"","en_name":"Provençal, Old (to 1500)","fr_name":"provençal ancien (jusqu'à 1500)","it_name":"","active":false,"position":null}
+{"code":"pus","code3t":"","code2":"ps","en_name":"\"Pushto;   Pashto\"","fr_name":"pachto","it_name":"","active":false,"position":null}
+{"code":"qaa","code3t":"","code2":"","en_name":"Reserved for local use","fr_name":"réservée à l'usage local","it_name":"","active":false,"position":null}
+{"code":"que","code3t":"","code2":"qu","en_name":"Quechua","fr_name":"quechua","it_name":"","active":false,"position":null}
+{"code":"raj","code3t":"","code2":"","en_name":"Rajasthani","fr_name":"rajasthani","it_name":"","active":false,"position":null}
+{"code":"rap","code3t":"","code2":"","en_name":"Rapanui","fr_name":"rapanui","it_name":"","active":false,"position":null}
+{"code":"rar","code3t":"","code2":"","en_name":"\"Rarotongan;   Cook Islands Maori\"","fr_name":"\"rarotonga;   maori des îles Cook\"","it_name":"","active":false,"position":null}
+{"code":"roa","code3t":"","code2":"","en_name":"Romance languages","fr_name":"romanes, langues","it_name":"","active":false,"position":null}
+{"code":"roh","code3t":"","code2":"rm","en_name":"Romansh","fr_name":"romanche","it_name":"","active":false,"position":null}
+{"code":"rom","code3t":"","code2":"","en_name":"Romany","fr_name":"tsigane","it_name":"","active":false,"position":null}
+{"code":"rum","code3t":"ron","code2":"ro","en_name":"\"Romanian;   Moldavian;   Moldovan\"","fr_name":"\"roumain;   moldave\"","it_name":"\"Romeno;   Moldavo\"","active":true,"position":null}
+{"code":"run","code3t":"","code2":"rn","en_name":"Rundi","fr_name":"rundi","it_name":"","active":false,"position":null}
+{"code":"rup","code3t":"","code2":"","en_name":"\"Aromanian;   Arumanian;   Macedo-Romanian\"","fr_name":"\"aroumain;   macédo-roumain\"","it_name":"","active":false,"position":null}
+{"code":"rus","code3t":"","code2":"ru","en_name":"Russian","fr_name":"russe","it_name":"Russo","active":true,"position":null}
+{"code":"sad","code3t":"","code2":"","en_name":"Sandawe","fr_name":"sandawe","it_name":"","active":false,"position":null}
+{"code":"sag","code3t":"","code2":"sg","en_name":"Sango","fr_name":"sango","it_name":"","active":false,"position":null}
+{"code":"sah","code3t":"","code2":"","en_name":"Yakut","fr_name":"iakoute","it_name":"","active":false,"position":null}
+{"code":"sai","code3t":"","code2":"","en_name":"South American Indian (Other)","fr_name":"indiennes d'Amérique du Sud, autres langues","it_name":"","active":false,"position":null}
+{"code":"sal","code3t":"","code2":"","en_name":"Salishan languages","fr_name":"salishennes, langues","it_name":"","active":false,"position":null}
+{"code":"sam","code3t":"","code2":"","en_name":"Samaritan Aramaic","fr_name":"samaritain","it_name":"","active":false,"position":null}
+{"code":"san","code3t":"","code2":"sa","en_name":"Sanskrit","fr_name":"sanskrit","it_name":"","active":false,"position":null}
+{"code":"sas","code3t":"","code2":"","en_name":"Sasak","fr_name":"sasak","it_name":"","active":false,"position":null}
+{"code":"sat","code3t":"","code2":"","en_name":"Santali","fr_name":"santal","it_name":"","active":false,"position":null}
+{"code":"scn","code3t":"","code2":"","en_name":"Sicilian","fr_name":"sicilien","it_name":"","active":false,"position":null}
+{"code":"sco","code3t":"","code2":"","en_name":"Scots","fr_name":"écossais","it_name":"","active":false,"position":null}
+{"code":"sel","code3t":"","code2":"","en_name":"Selkup","fr_name":"selkoupe","it_name":"","active":false,"position":null}
+{"code":"sem","code3t":"","code2":"","en_name":"Semitic languages","fr_name":"sémitiques, langues","it_name":"","active":false,"position":null}
+{"code":"sga","code3t":"","code2":"","en_name":"Irish, Old (to 900)","fr_name":"irlandais ancien (jusqu'à 900)","it_name":"","active":false,"position":null}
+{"code":"sgn","code3t":"","code2":"","en_name":"Sign Languages","fr_name":"langues des signes","it_name":"","active":false,"position":null}
+{"code":"shn","code3t":"","code2":"","en_name":"Shan","fr_name":"chan","it_name":"","active":false,"position":null}
+{"code":"sid","code3t":"","code2":"","en_name":"Sidamo","fr_name":"sidamo","it_name":"","active":false,"position":null}
+{"code":"sin","code3t":"","code2":"si","en_name":"\"Sinhala;   Sinhalese\"","fr_name":"singhalais","it_name":"","active":false,"position":null}
+{"code":"sio","code3t":"","code2":"","en_name":"Siouan languages","fr_name":"sioux, langues","it_name":"","active":false,"position":null}
+{"code":"sit","code3t":"","code2":"","en_name":"Sino-Tibetan languages","fr_name":"sino-tibétaines, langues","it_name":"","active":false,"position":null}
+{"code":"sla","code3t":"","code2":"","en_name":"Slavic languages","fr_name":"slaves, langues","it_name":"","active":false,"position":null}
+{"code":"slo","code3t":"slk","code2":"sk","en_name":"Slovak","fr_name":"slovaque","it_name":"","active":false,"position":null}
+{"code":"slv","code3t":"","code2":"sl","en_name":"Slovenian","fr_name":"slovène","it_name":"","active":false,"position":null}
+{"code":"sma","code3t":"","code2":"","en_name":"Southern Sami","fr_name":"sami du Sud","it_name":"","active":false,"position":null}
+{"code":"sme","code3t":"","code2":"se","en_name":"Northern Sami","fr_name":"sami du Nord","it_name":"","active":false,"position":null}
+{"code":"smi","code3t":"","code2":"","en_name":"Sami languages","fr_name":"sames, langues","it_name":"","active":false,"position":null}
+{"code":"smj","code3t":"","code2":"","en_name":"Lule Sami","fr_name":"sami de Lule","it_name":"","active":false,"position":null}
+{"code":"smn","code3t":"","code2":"","en_name":"Inari Sami","fr_name":"sami d'Inari","it_name":"","active":false,"position":null}
+{"code":"smo","code3t":"","code2":"sm","en_name":"Samoan","fr_name":"samoan","it_name":"","active":false,"position":null}
+{"code":"sms","code3t":"","code2":"","en_name":"Skolt Sami","fr_name":"sami skolt","it_name":"","active":false,"position":null}
+{"code":"sna","code3t":"","code2":"sn","en_name":"Shona","fr_name":"shona","it_name":"","active":false,"position":null}
+{"code":"snd","code3t":"","code2":"sd","en_name":"Sindhi","fr_name":"sindhi","it_name":"","active":false,"position":null}
+{"code":"snk","code3t":"","code2":"","en_name":"Soninke","fr_name":"soninké","it_name":"","active":false,"position":null}
+{"code":"sog","code3t":"","code2":"","en_name":"Sogdian","fr_name":"sogdien","it_name":"","active":false,"position":null}
+{"code":"som","code3t":"","code2":"so","en_name":"Somali","fr_name":"somali","it_name":"","active":false,"position":null}
+{"code":"son","code3t":"","code2":"","en_name":"Songhai languages","fr_name":"songhai, langues","it_name":"","active":false,"position":null}
+{"code":"sot","code3t":"","code2":"st","en_name":"Sotho, Southern","fr_name":"sotho du Sud","it_name":"","active":false,"position":null}
+{"code":"spa","code3t":"","code2":"es","en_name":"\"Spanish;   Castilian\"","fr_name":"\"espagnol;   castillan\"","it_name":"\"Spagnolo;   Castigliano\"","active":false,"position":null}
+{"code":"srd","code3t":"","code2":"sc","en_name":"Sardinian","fr_name":"sarde","it_name":"","active":false,"position":null}
+{"code":"srn","code3t":"","code2":"","en_name":"Sranan Tongo","fr_name":"sranan tongo","it_name":"","active":false,"position":null}
+{"code":"srp","code3t":"","code2":"sr","en_name":"Serbian","fr_name":"serbe","it_name":"","active":false,"position":null}
+{"code":"srr","code3t":"","code2":"","en_name":"Serer","fr_name":"sérère","it_name":"","active":false,"position":null}
+{"code":"ssa","code3t":"","code2":"","en_name":"Nilo-Saharan languages","fr_name":"nilo-sahariennes, langues","it_name":"","active":false,"position":null}
+{"code":"ssw","code3t":"","code2":"ss","en_name":"Swati","fr_name":"swati","it_name":"","active":false,"position":null}
+{"code":"suk","code3t":"","code2":"","en_name":"Sukuma","fr_name":"sukuma","it_name":"","active":false,"position":null}
+{"code":"sun","code3t":"","code2":"su","en_name":"Sundanese","fr_name":"soundanais","it_name":"","active":false,"position":null}
+{"code":"sus","code3t":"","code2":"","en_name":"Susu","fr_name":"soussou","it_name":"","active":false,"position":null}
+{"code":"sux","code3t":"","code2":"","en_name":"Sumerian","fr_name":"sumérien","it_name":"","active":false,"position":null}
+{"code":"swa","code3t":"","code2":"sw","en_name":"Swahili","fr_name":"swahili","it_name":"","active":false,"position":null}
+{"code":"swe","code3t":"","code2":"sv","en_name":"Swedish","fr_name":"suédois","it_name":"","active":false,"position":null}
+{"code":"syc","code3t":"","code2":"","en_name":"Classical Syriac","fr_name":"syriaque classique","it_name":"","active":false,"position":null}
+{"code":"syr","code3t":"","code2":"","en_name":"Syriac","fr_name":"syriaque","it_name":"","active":false,"position":null}
+{"code":"tah","code3t":"","code2":"ty","en_name":"Tahitian","fr_name":"tahitien","it_name":"","active":false,"position":null}
+{"code":"tai","code3t":"","code2":"","en_name":"Tai languages","fr_name":"tai, langues","it_name":"","active":false,"position":null}
+{"code":"tam","code3t":"","code2":"ta","en_name":"Tamil","fr_name":"tamoul","it_name":"","active":false,"position":null}
+{"code":"tat","code3t":"","code2":"tt","en_name":"Tatar","fr_name":"tatar","it_name":"","active":false,"position":null}
+{"code":"tel","code3t":"","code2":"te","en_name":"Telugu","fr_name":"télougou","it_name":"","active":false,"position":null}
+{"code":"tem","code3t":"","code2":"","en_name":"Timne","fr_name":"temne","it_name":"","active":false,"position":null}
+{"code":"ter","code3t":"","code2":"","en_name":"Tereno","fr_name":"tereno","it_name":"","active":false,"position":null}
+{"code":"tet","code3t":"","code2":"","en_name":"Tetum","fr_name":"tetum","it_name":"","active":false,"position":null}
+{"code":"tgk","code3t":"","code2":"tg","en_name":"Tajik","fr_name":"tadjik","it_name":"","active":false,"position":null}
+{"code":"tgl","code3t":"","code2":"tl","en_name":"Tagalog","fr_name":"tagalog","it_name":"","active":false,"position":null}
+{"code":"tha","code3t":"","code2":"th","en_name":"Thai","fr_name":"thaï","it_name":"","active":false,"position":null}
+{"code":"tib","code3t":"bod","code2":"bo","en_name":"Tibetan","fr_name":"tibétain","it_name":"","active":false,"position":null}
+{"code":"tig","code3t":"","code2":"","en_name":"Tigre","fr_name":"tigré","it_name":"","active":false,"position":null}
+{"code":"tir","code3t":"","code2":"ti","en_name":"Tigrinya","fr_name":"tigrigna","it_name":"","active":false,"position":null}
+{"code":"tiv","code3t":"","code2":"","en_name":"Tiv","fr_name":"tiv","it_name":"","active":false,"position":null}
+{"code":"tkl","code3t":"","code2":"","en_name":"Tokelau","fr_name":"tokelau","it_name":"","active":false,"position":null}
+{"code":"tlh","code3t":"","code2":"","en_name":"\"Klingon;   tlhIngan-Hol\"","fr_name":"klingon","it_name":"","active":false,"position":null}
+{"code":"tli","code3t":"","code2":"","en_name":"Tlingit","fr_name":"tlingit","it_name":"","active":false,"position":null}
+{"code":"tmh","code3t":"","code2":"","en_name":"Tamashek","fr_name":"tamacheq","it_name":"","active":false,"position":null}
+{"code":"tog","code3t":"","code2":"","en_name":"Tonga (Nyasa)","fr_name":"tonga (Nyasa)","it_name":"","active":false,"position":null}
+{"code":"ton","code3t":"","code2":"to","en_name":"Tonga (Tonga Islands)","fr_name":"tongan (Îles Tonga)","it_name":"","active":false,"position":null}
+{"code":"tpi","code3t":"","code2":"","en_name":"Tok Pisin","fr_name":"tok pisin","it_name":"","active":false,"position":null}
+{"code":"tsi","code3t":"","code2":"","en_name":"Tsimshian","fr_name":"tsimshian","it_name":"","active":false,"position":null}
+{"code":"tsn","code3t":"","code2":"tn","en_name":"Tswana","fr_name":"tswana","it_name":"","active":false,"position":null}
+{"code":"tso","code3t":"","code2":"ts","en_name":"Tsonga","fr_name":"tsonga","it_name":"","active":false,"position":null}
+{"code":"tuk","code3t":"","code2":"tk","en_name":"Turkmen","fr_name":"turkmène","it_name":"","active":false,"position":null}
+{"code":"tum","code3t":"","code2":"","en_name":"Tumbuka","fr_name":"tumbuka","it_name":"","active":false,"position":null}
+{"code":"tup","code3t":"","code2":"","en_name":"Tupi languages","fr_name":"tupi, langues","it_name":"","active":false,"position":null}
+{"code":"tur","code3t":"","code2":"tr","en_name":"Turkish","fr_name":"turc","it_name":"Turco","active":true,"position":null}
+{"code":"tut","code3t":"","code2":"","en_name":"Altaic languages","fr_name":"altaïques, langues","it_name":"","active":false,"position":null}
+{"code":"tvl","code3t":"","code2":"","en_name":"Tuvalu","fr_name":"tuvalu","it_name":"","active":false,"position":null}
+{"code":"twi","code3t":"","code2":"tw","en_name":"Twi","fr_name":"twi","it_name":"","active":false,"position":null}
+{"code":"tyv","code3t":"","code2":"","en_name":"Tuvinian","fr_name":"touva","it_name":"","active":false,"position":null}
+{"code":"udm","code3t":"","code2":"","en_name":"Udmurt","fr_name":"oudmourte","it_name":"","active":false,"position":null}
+{"code":"uga","code3t":"","code2":"","en_name":"Ugaritic","fr_name":"ougaritique","it_name":"","active":false,"position":null}
+{"code":"uig","code3t":"","code2":"ug","en_name":"\"Uighur;   Uyghur\"","fr_name":"ouïgour","it_name":"","active":false,"position":null}
+{"code":"ukr","code3t":"","code2":"uk","en_name":"Ukrainian","fr_name":"ukrainien","it_name":"","active":false,"position":null}
+{"code":"umb","code3t":"","code2":"","en_name":"Umbundu","fr_name":"umbundu","it_name":"","active":false,"position":null}
+{"code":"und","code3t":"","code2":"","en_name":"Undetermined","fr_name":"indéterminée","it_name":"","active":false,"position":null}
+{"code":"urd","code3t":"","code2":"ur","en_name":"Urdu","fr_name":"ourdou","it_name":"","active":false,"position":null}
+{"code":"uzb","code3t":"","code2":"uz","en_name":"Uzbek","fr_name":"ouszbek","it_name":"","active":false,"position":null}
+{"code":"vai","code3t":"","code2":"","en_name":"Vai","fr_name":"vaï","it_name":"","active":false,"position":null}
+{"code":"ven","code3t":"","code2":"ve","en_name":"Venda","fr_name":"venda","it_name":"","active":false,"position":null}
+{"code":"vie","code3t":"","code2":"vi","en_name":"Vietnamese","fr_name":"vietnamien","it_name":"","active":false,"position":null}
+{"code":"vol","code3t":"","code2":"vo","en_name":"Volapük","fr_name":"volapük","it_name":"","active":false,"position":null}
+{"code":"vot","code3t":"","code2":"","en_name":"Votic","fr_name":"vote","it_name":"","active":false,"position":null}
+{"code":"wak","code3t":"","code2":"","en_name":"Wakashan languages","fr_name":"wakashanes, langues","it_name":"","active":false,"position":null}
+{"code":"wal","code3t":"","code2":"","en_name":"Walamo","fr_name":"walamo","it_name":"","active":false,"position":null}
+{"code":"war","code3t":"","code2":"","en_name":"Waray","fr_name":"waray","it_name":"","active":false,"position":null}
+{"code":"was","code3t":"","code2":"","en_name":"Washo","fr_name":"washo","it_name":"","active":false,"position":null}
+{"code":"wel","code3t":"cym","code2":"cy","en_name":"Welsh","fr_name":"gallois","it_name":"","active":false,"position":null}
+{"code":"wen","code3t":"","code2":"","en_name":"Sorbian languages","fr_name":"sorabes, langues","it_name":"","active":false,"position":null}
+{"code":"wln","code3t":"","code2":"wa","en_name":"Walloon","fr_name":"wallon","it_name":"","active":false,"position":null}
+{"code":"wol","code3t":"","code2":"wo","en_name":"Wolof","fr_name":"wolof","it_name":"","active":false,"position":null}
+{"code":"xal","code3t":"","code2":"","en_name":"\"Kalmyk;   Oirat\"","fr_name":"\"kalmouk;   oïrat\"","it_name":"","active":false,"position":null}
+{"code":"xho","code3t":"","code2":"xh","en_name":"Xhosa","fr_name":"xhosa","it_name":"","active":false,"position":null}
+{"code":"yao","code3t":"","code2":"","en_name":"Yao","fr_name":"yao","it_name":"","active":false,"position":null}
+{"code":"yap","code3t":"","code2":"","en_name":"Yapese","fr_name":"yapois","it_name":"","active":false,"position":null}
+{"code":"yid","code3t":"","code2":"yi","en_name":"Yiddish","fr_name":"yiddish","it_name":"","active":false,"position":null}
+{"code":"yor","code3t":"","code2":"yo","en_name":"Yoruba","fr_name":"yoruba","it_name":"","active":false,"position":null}
+{"code":"ypk","code3t":"","code2":"","en_name":"Yupik languages","fr_name":"yupik, langues","it_name":"","active":false,"position":null}
+{"code":"zap","code3t":"","code2":"","en_name":"Zapotec","fr_name":"zapotèque","it_name":"","active":false,"position":null}
+{"code":"zbl","code3t":"","code2":"","en_name":"\"Blissymbols;   Blissymbolics;   Bliss\"","fr_name":"\"symboles Bliss;   Bliss\"","it_name":"","active":false,"position":null}
+{"code":"zen","code3t":"","code2":"","en_name":"Zenaga","fr_name":"zenaga","it_name":"","active":false,"position":null}
+{"code":"zha","code3t":"","code2":"za","en_name":"\"Zhuang;   Chuang\"","fr_name":"\"zhuang;   chuang\"","it_name":"","active":false,"position":null}
+{"code":"znd","code3t":"","code2":"","en_name":"Zande languages","fr_name":"zandé, langues","it_name":"","active":false,"position":null}
+{"code":"zul","code3t":"","code2":"zu","en_name":"Zulu","fr_name":"zoulou","it_name":"","active":false,"position":null}
+{"code":"zun","code3t":"","code2":"","en_name":"Zuni","fr_name":"zuni","it_name":"","active":false,"position":null}
+{"code":"zxx","code3t":"","code2":"","en_name":"\"No linguistic content;   Not applicable\"","fr_name":"\"pas de contenu linguistique;   non applicable\"","it_name":"","active":false,"position":null}
+{"code":"zza","code3t":"","code2":"","en_name":"\"Zaza;   Dimili;   Dimli;   Kirdki;   Kirmanjki;   Zazaki\"","fr_name":"\"zaza;   dimili;   dimli;   kirdki;   kirmanjki;   zazaki\"","it_name":"","active":false,"position":null}

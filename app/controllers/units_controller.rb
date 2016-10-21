@@ -2,6 +2,25 @@ class UnitsController < ApplicationController
   helper_method :sort_column
   # FIXME: [1.x] iccd_unit subclass
 
+# Upgrade 2.2.0 inizio
+  def current_ability
+    if @current_ability.nil?
+      if (current_user.is_multi_group_user?())
+        # è stata inserita la gestione perché altre operazioni (ad es. list dei sources) per funzionare necessitano che per l'utente corrente, se multigruppo, sia specificato il gruppo da usare
+        if (["edit"].include?(params[:action]))
+          u = Unit.find(params[:id])
+          f = Fond.find(u.fond_id)
+          @current_ability ||= Ability.new(current_user, f.group_id)
+        end
+      end
+    end
+    if @current_ability.nil?
+      @current_ability = super
+    end
+    return @current_ability
+  end
+# Upgrade 2.2.0 fine
+
   def gridview
 # Upgrade 2.0.0 inizio
 #    @fond                   = Fond.find(params[:fond_id], :select => "id, name, ancestry")
@@ -268,14 +287,14 @@ class UnitsController < ApplicationController
       @root_fond = @fond.root
       @display_sequence_numbers = Unit.display_sequence_numbers_of(@root_fond)
 
+# Upgrade 2.0.0 inizio
+=begin
       @units =  if @fond.is_root?
         @fond.descendant_units
       else
         @fond.units
       end.
         search(params[:q]).
-# Upgrade 2.0.0 inizio
-=begin
         paginate( :page => params[:page],
         :select => "units.id, units.fond_id, units.position, units.sequence_number,
                     units.ancestry, units.ancestry_depth, units.tsk,
@@ -288,6 +307,14 @@ class UnitsController < ApplicationController
         :conditions => ["units.sequence_number IS NOT NULL AND (unit_events.preferred = ? OR unit_events.preferred IS NULL)", true],
         :order => sort_column + ' ' + sort_direction )
 =end
+# Upgrade 2.2.0 inizio
+=begin
+      @units =  if @fond.is_root?
+        @fond.descendant_units
+      else
+        @fond.units
+      end.
+        search(params[:q]).
         select("units.id, units.fond_id, units.position, units.sequence_number,
                     units.ancestry, units.ancestry_depth, units.tsk,
                     units.reference_number, units.tmp_reference_number, units.title,
@@ -298,6 +325,44 @@ class UnitsController < ApplicationController
         # :include => [:fond], # OPTIMIZE: esaminare attentamente. Forse migliora performance.
         where(["units.sequence_number IS NOT NULL AND (unit_events.preferred = ? OR unit_events.preferred IS NULL)", true]).
         order(sort_column + ' ' + sort_direction).page(params[:page])
+=end
+      if @fond.is_root?
+        if params[:top_level_only].present?
+          @units = @fond.units
+        else
+          @units = @fond.descendant_units
+        end
+      else
+        @units = @fond.units
+      end
+      select_clause = "units.id, units.fond_id, units.position, units.sequence_number,
+                    units.ancestry, units.ancestry_depth, units.tsk,
+                    units.reference_number, units.tmp_reference_number, units.title,
+                    unit_events.start_date_display AS preferred_start_date_display,
+                    unit_events.end_date_display AS preferred_end_date_display,
+                    unit_events.order_date AS preferred_order_date".squish
+      join_clause = "LEFT OUTER JOIN unit_events ON units.id = unit_events.unit_id"
+      where_clause = "units.sequence_number IS NOT NULL AND (unit_events.preferred = ? OR unit_events.preferred IS NULL)"
+      order_clause = sort_column + ' ' + sort_direction
+      if params[:do_not_paginate].present?
+        @units = @units.
+          search(params[:q]).
+          select(select_clause).
+          joins(join_clause).
+          # :include => [:fond], # OPTIMIZE: esaminare attentamente. Forse migliora performance.
+          where([where_clause, true]).
+          order(order_clause)
+      else
+        @units = @units.
+          search(params[:q]).
+          select(select_clause).
+          joins(join_clause).
+          # :include => [:fond], # OPTIMIZE: esaminare attentamente. Forse migliora performance.
+          where([where_clause, true]).
+          order(order_clause).
+          page(params[:page])
+      end
+# Upgrade 2.2.0 fine
 # Upgrade 2.0.0 fine
     else
       redirect_to fonds_url
@@ -360,7 +425,6 @@ class UnitsController < ApplicationController
   end
 
   def list_oa_ogtd
-puts "###################### list_oa_ogtd inizio"
     term = params[:term] || ""
 # Upgrade 2.0.0 inizio
 =begin

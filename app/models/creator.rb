@@ -61,12 +61,19 @@ class Creator < ActiveRecord::Base
 #  has_many :fonds, :through => :rel_creator_fonds, :include => :preferred_event, :order => "fonds.name"
   has_many :fonds, -> {order("fonds.name").includes(:preferred_event)}, :through => :rel_creator_fonds
 # Upgrade 2.0.0 fine
+# Upgrade 2.2.0 inizio
+  has_many :projects, -> { distinct }, :through => :fonds
+# Upgrade 2.2.0 fine
 
   has_many :rel_creator_institutions, :dependent => :destroy, :autosave => true
   has_many :institutions, :through => :rel_creator_institutions
 
   has_many :rel_creator_sources, :dependent => :destroy, :autosave => true
   has_many :sources, :through => :rel_creator_sources
+
+# Upgrade 2.2.0 inizio
+  belongs_to :group
+# Upgrade 2.2.0 fine
 
   # Nested attributes
 
@@ -156,7 +163,10 @@ class Creator < ActiveRecord::Base
     }
   }
 =end
-  scope :list, -> { select("creators.id, creators.creator_type, creator_names.name, creators.residence, creators.updated_at").joins(:preferred_name) }
+# Upgrade 2.2.0 inizio
+#  scope :list, -> { select("creators.id, creators.creator_type, creator_names.name, creators.residence, creators.updated_at").joins(:preferred_name) }
+  scope :list, -> { select("creators.id, creators.creator_type, creator_names.name, creators.residence, creators.updated_at, group_id, groups.short_name").joins(:preferred_name, :group) }
+# Upgrade 2.2.0 fine
 
   scope :search, ->(q) {
     conditions = ["creator_names.qualifier = 'A' AND LOWER(creator_names.name) LIKE :q", {:q => "%#{q.downcase.squish}%"}] if q.present?

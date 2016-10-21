@@ -3,6 +3,49 @@ class DigitalObjectsController < ApplicationController
   before_filter :require_image_magick, :except => [:disabled]
   load_and_authorize_resource
 
+# Upgrade 2.2.0 inizio
+
+  skip_load_and_authorize_resource :only => [ :all ]
+
+  def current_ability
+    if @current_ability.nil?
+      if (current_user.is_multi_group_user?())
+        group_id = -1
+        if (["destroy"].include?(params[:action]))
+          group_id = DigitalObject.find(params[:id]).group_id
+        elsif (["bulk_destroy"].include?(params[:action]))
+          if params["digital_object_ids"].present?
+            if params["digital_object_ids"].length > 0
+              group_id = DigitalObject.find(params["digital_object_ids"][0]).group_id
+            end
+          end
+        else
+          @attachable = find_attachable
+          if !@attachable.nil?
+            begin
+              if @attachable.class.name.to_s == "Unit"
+                group_id = Fond.find(@attachable.fond_id).group_id
+              else
+                group_id = @attachable.group_id
+              end
+            rescue Exception => e
+              group_id = -1
+            end
+          end
+        end
+        if group_id != -1
+          @current_ability ||= Ability.new(current_user, group_id)
+        end
+
+      end
+    end
+    if @current_ability.nil?
+      @current_ability = super
+    end
+    return @current_ability
+  end
+# Upgrade 2.2.0 fine
+
   def all
 # Upgrade 2.0.0 inizio
 =begin
@@ -11,11 +54,21 @@ class DigitalObjectsController < ApplicationController
       :order => sort_column + ' ' + sort_direction).
       delete_if {|o| o.attachable.nil? || (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?) }
 =end
+# Upgrade 2.2.0 inizio
+=begin
     @digital_objects = DigitalObject.accessible_by(current_ability, :read).
       includes(:attachable).
       order(sort_column + ' ' + sort_direction).page(params[:page]).
       to_a.
       delete_if {|o| o.attachable.nil? || (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?) }
+=end
+    @digital_objects = DigitalObject.accessible_by(current_ability, :read).
+      joins(:group).
+      includes(:attachable).
+      order(sort_column + ' ' + sort_direction).page(params[:page]).
+      to_a.
+      delete_if {|o| o.attachable.nil? || (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?) }
+# Upgrade 2.2.0 fine
 # Upgrade 2.0.0 fine
 
     # FIXME: retrieving del path di fonds/units è query intensive. Ma per ora teniamocelo...
@@ -58,7 +111,15 @@ class DigitalObjectsController < ApplicationController
     @digital_object = @attachable.digital_objects.build(digital_object_params).tap do |digital_object|
       digital_object.created_by = current_user.id
       digital_object.updated_by = current_user.id
-      digital_object.group_id = current_user.group_id
+# Upgrade 2.2.0 inizio
+#      digital_object.group_id = current_user.group_id
+        if current_user.is_multi_group_user?()
+          digital_object.group_id = current_ability.target_group_id
+        else
+          digital_object.group_id = current_user.rel_user_groups[0].group_id
+        end
+# Upgrade 2.2.0 fine
+			
     end
 # Upgrade 2.0.0 fine
 

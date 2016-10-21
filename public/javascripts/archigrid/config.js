@@ -133,6 +133,14 @@ $(document).ready(function(){
       classes:'standalone-editable standalone-text'
     },
 
+/* Upgrade 2.0.0 inizio */
+    'extent' : {
+      name:'unit[extent]',
+      width:340,
+      classes:'standalone-editable standalone-text'
+    },
+/* Upgrade 2.0.0 fine */
+
     'preferred_event' : {
       name:'unit[preferred_event]',
       width:220,

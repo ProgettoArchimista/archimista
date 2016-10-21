@@ -10,6 +10,26 @@ class ApplicationController < ActionController::Base
     redirect_to(root_url, :alert => t('access_denied'))
   end
 
+# Upgrade 2.2.0 inizio
+  def current_ability
+    if (current_user.is_multi_group_user?())
+      @current_ability ||= Ability.new(current_user, -1)
+    else
+      @current_ability ||= Ability.new(current_user, current_user.rel_user_groups[0].group_id)
+    end
+    return @current_ability
+  end
+
+  def str2int(svalue, ivalue_default=-1)
+    begin
+      ivalue = Integer(svalue)
+    rescue
+      ivalue = ivalue_default
+    end
+    return ivalue
+  end
+# Upgrade 2.2.0 fine
+
   # Sortable Columns
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"

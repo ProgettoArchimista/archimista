@@ -4,7 +4,7 @@
 {"name":"custodian_contacts.contact_type"}
 {"name":"projects.project_type"}
 {"name":"projects.status"}
-{"name":"project_credits.qualifier"}
+{"name":"project_managers.qualifier"}
 {"name":"project_credits.credit_type"}
 {"name":"fonds.fond_type"}
 {"name":"fonds.preservation"}
@@ -24,3 +24,4 @@
 {"name":"headings.heading_type"}
 {"name":"editors.editing_type"}
 {"name":"digital_objects.digital_object_type"}
+{"name":"project_stakeholders.qualifier"}

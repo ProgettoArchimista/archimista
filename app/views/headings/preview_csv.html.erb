@@ -10,6 +10,9 @@
 <%= form_tag '/headings/save_csv' do -%>
   <p>Sei sicuro di voler importare i seguenti lemmi?</p>
   <p>
+<%# Upgrade 2.2.0 inizio %>
+    <%= hidden_field_tag 'heading[group_id]', current_ability.target_group_id %>
+<%# Upgrade 2.2.0 fine %>
     <%= hidden_field_tag :filename, params[:upload][:csv].path -%>
     <%= submit_tag t('confirm'), :class => "btn btn-primary" -%> oppure
     <%= link_to t('cancel'), headings_path -%>

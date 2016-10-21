@@ -5,9 +5,12 @@
   </div>
   <div class="modal-body">
     <div id="editor_form_error"></div>
-
 <%# TAI aggiunto = prima di form_tag %>
     <%= form_tag({:controller => 'editors', :action => 'modal_create'}, {:method => :post, :id => "new-editor-form"}) do %>
+<%# Upgrade 2.2.0 inizio %>
+  <%= hidden_field_tag 'group_id', current_ability.target_group_id %>
+<%# Upgrade 2.2.0 fine %>
+
 <%# TAI aggiunto raw() %>
       <%= label_tag 'editor[first_name]', raw(t('editors_first_name') + required_marker) %>
       <%= text_field_tag 'editor[first_name]', '', :class=> "span5" %>

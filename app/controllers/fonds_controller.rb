@@ -2,7 +2,49 @@ class FondsController < ApplicationController
   helper_method :sort_column
 
   load_and_authorize_resource
-  skip_load_resource :only => [ :save_a_tree, :saving_the_tree ]
+# Upgrade 2.2.0 inizio
+#  skip_load_resource :only => [ :save_a_tree, :saving_the_tree ]
+  skip_load_and_authorize_resource :only => [ :save_a_tree, :list ]
+  skip_load_resource :only => [ :saving_the_tree ]
+# Upgrade 2.2.0 fine
+
+# Upgrade 2.2.0 inizio
+  def current_ability
+    if @current_ability.nil?
+      if (current_user.is_multi_group_user?())
+        if (["treeview","tree","trash","move_to_trash","trashed_subtree","restore_subtree","show","edit","ajax_update","merge_with","merge","update","rename","move","destroy","destroy_subtree"].include?(params[:action]))
+          f = Fond.select("group_id").find(params[:id])
+          @current_ability ||= Ability.new(current_user, f.group_id)
+        elsif (["index"].include?(params[:action]))
+          @current_ability ||= Ability.new(current_user, -1)
+        elsif (["ajax_create"].include?(params[:action]))     
+          group_id = str2int(params[:fond][:group_id])
+          @current_ability ||= Ability.new(current_user, group_id)
+        elsif (["saving_the_tree"].include?(params[:action]))     #save_a_tree non richiede una gestione ad hoc di ability
+          if params[:tree][:group_id].present?
+            group_id = str2int(params[:tree][:group_id])
+            @current_ability ||= Ability.new(current_user, group_id)
+          end
+        elsif (["list"].include?(params[:action]))
+          group_id = str2int(params[:group_id])
+          @current_ability ||= Ability.new(current_user, group_id)
+        elsif (["create"].include?(params[:action]))
+          fp = fond_params
+          if request.xhr? && fp[:parent_id].present?
+            group_id = Fond.find(fp[:parent_id]).group_id
+            @current_ability ||= Ability.new(current_user, group_id)
+          else
+            #
+          end
+        end
+      end
+    end
+    if @current_ability.nil?
+      @current_ability = super
+    end
+    return @current_ability
+  end
+# Upgrade 2.2.0 fine
 
   # Alberi
 
@@ -31,10 +73,12 @@ class FondsController < ApplicationController
     set_template_paths
   end
 
+# Upgrade 2.2.0 inizio
+=begin
   def saving_the_tree
     @fond_types = Term.fond_types
     set_template_paths
-
+		
     if params[:tree_template].present?
       @root = Fond.save_a_tree_with_sequence(params[:tree_template], :created_by => current_user.id, :updated_by => current_user.id, :group_id => current_user.group_id)
       if @root && @root.valid?
@@ -48,6 +92,34 @@ class FondsController < ApplicationController
       render :action => "save_a_tree"
     end
   end
+=end
+  def saving_the_tree
+    @fond_types = Term.fond_types
+    set_template_paths
+
+    if params[:tree][:group_id].present?
+			group_id = str2int(params[:tree][:group_id])
+		else
+			group_id = -1
+		end
+    if group_id != -1
+      if params[:tree_template].present?
+        @root = Fond.save_a_tree_with_sequence(params[:tree_template], :created_by => current_user.id, :updated_by => current_user.id, :group_id => group_id)
+        if @root && @root.valid?
+          flash[:notice] = "Struttura importata."
+          redirect_to treeview_fond_url(@root)
+        else
+          flash.now[:alert] = "Struttura non valida. Controlla i livelli e le tipologie indicate."
+          render :action => "save_a_tree"
+        end
+      else
+        render :action => "save_a_tree"
+      end
+    else
+      render :action => "save_a_tree"
+    end
+  end
+# Upgrade 2.2.0 fine
 
   def trash
     @fond = Fond.find(params[:id])
@@ -136,12 +208,22 @@ class FondsController < ApplicationController
         :group => :root_fond_id)
     end
 =end
+# Upgrade 2.2.0 inizio
+=begin
     @fonds = Fond.list.
       roots.
       active.
       search(params[:q]).
       accessible_by(current_ability, :read).
       order(sort_column + ' ' + sort_direction).includes(:preferred_event).page(params[:page])
+=end
+    @fonds = Fond.list.
+      roots.
+      active.
+      search(params[:q]).
+      accessible_by(current_ability, :read).
+      order(sort_column + ' ' + sort_direction).includes(:preferred_event, :projects).page(params[:page])
+# Upgrade 2.2.0 fine
     if @fonds.size > 0
       @units_counts = Unit.joins(:fond).
         where({:root_fond_id => @fonds.map(&:id), :fonds => {:trashed => false}}).
@@ -203,19 +285,38 @@ class FondsController < ApplicationController
 =end
     fp = fond_params
     @fond = if request.xhr? && fp[:parent_id].present?
+# Upgrade 2.2.0 inizio
+=begin
       Fond.find(fp[:parent_id]).
-        children.
+      children.
         build(fp.reject{|k,v| [:parent_id, 'parent_id'].include?(k)}).
         tap do |fond|
           fond.created_by = current_user.id
           fond.updated_by = current_user.id
           fond.group_id = current_user.group_id
         end
+=end
+      parent = Fond.find(fp[:parent_id])
+      parent.children.
+        build(fp.reject{|k,v| [:parent_id, 'parent_id'].include?(k)}).
+        tap do |fond|
+          fond.created_by = current_user.id
+          fond.updated_by = current_user.id
+          fond.group_id = parent.group_id
+# Upgrade 2.2.0 fine
+        end
     else
       Fond.new(fp).tap do |fond|
         fond.created_by = current_user.id
         fond.updated_by = current_user.id
-        fond.group_id = current_user.group_id
+# Upgrade 2.2.0 inizio
+#        fond.group_id = current_user.group_id
+        if current_user.is_multi_group_user?()
+          fond.group_id = current_ability.target_group_id
+        else
+          fond.group_id = current_user.rel_user_groups[0].group_id
+        end
+# Upgrade 2.2.0 fine
       end
     end
 # Upgrade 2.0.0 fine
@@ -486,7 +587,10 @@ class FondsController < ApplicationController
   end
 
   def sort_column
-    params[:sort] || "name"
+# Upgrade 2.2.0 inizio
+#    params[:sort] || "name"
+    params[:sort] || "fonds.name"
+# Upgrade 2.2.0 fine
   end
 
 # Upgrade 2.0.0 inizio Strong parameters

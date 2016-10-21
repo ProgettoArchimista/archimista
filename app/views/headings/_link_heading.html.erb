@@ -3,6 +3,9 @@
     $('#term').liveUpdate('#headings-list', {
       url: '/headings/list.json',
       field: 'heading_id',
+// Upgrade 2.2.0 inizio
+      group_id: {group_id: '<%= current_ability.target_group_id %>'},
+// Upgrade 2.2.0 fine
       exclude : {exclude: [<%= object.join(',') %>]}
     });
   });

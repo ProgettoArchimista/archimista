@@ -8,6 +8,10 @@ class Institution < ActiveRecord::Base
   has_many :institution_editors, -> { order(:edited_at) }, :dependent => :destroy
 # Upgrade 2.0.0 fine
 
+# Upgrade 2.2.0 inizio
+  belongs_to :group
+# Upgrade 2.2.0 fine
+
   validates_presence_of :name
 
   squished_fields :name

@@ -14,7 +14,7 @@
 <%= render :partial => "shared/generic_error_message", object: @unit, as: "object" %>
 <%# Upgrade 2.0.0 fine %>
 
-<%# Upgrade 2.1.0 upgrade %>
+<%# Upgrade 2.1.0 inizio %>
   <% @sc2 = @unit.sc2 || @unit.build_sc2 %>
 <%# Upgrade 2.1.0 fine %>
 
@@ -64,7 +64,12 @@
           </div>
           <div class="row">
             <div class="span4"><%= terms_select(f, "units.unit_type", {:include_blank => true}, :class => "span4" )%></div>
-            <div class="span4 sc2_container"><%= sc2_terms_select(f, "units.sc2_tsk", nil, {:include_blank => true, :id => "sc2_tsk", :selected => @unit.sc2_tsk}, :class => "span4 sc2_field") %></div>
+            <div class="span4 sc2_container">
+<%# Upgrade 2.2.0 inizio %>
+              <%#= sc2_terms_select(f, "units.sc2_tsk", nil, {:include_blank => true, :id => "sc2_tsk", :selected => @unit.sc2_tsk}, :class => "span4 sc2_field") %>
+              <%= sc2_terms_select(f, "units.sc2_tsk", nil, "units_sc2_tsk", {:include_blank => true, :id => "sc2_tsk", :selected => @unit.sc2_tsk}, :class => "span4 sc2_field") %>
+<%# Upgrade 2.2.0 fine %>
+            </div>
           </div>
 <%# Upgrade 2.1.0 fine %>
 
@@ -81,6 +86,11 @@
 
           <%= f.label :content, t('content') %>
           <%= f.text_area :content, :class => "textile long-content span9" %>
+
+<%# Upgrade 2.2.0 inizio %>
+          <%= f.label :extent, t('unit_extent') %>
+          <%= f.text_area :extent, :class=> "x-short-content span9" %>
+<%# Upgrade 2.2.0 fine %>
 
 <%# Upgrade 2.1.0 inizio %>
           <div id="unit_sc2_textual_elements" class="row sc2_container sc2_multi_instance sc2_all">
@@ -167,15 +177,32 @@
           </div>
           <div class="row">
             <div class="span3"><%= f.label :folder_number, t('folder_number') %></div>
-            <div class="span3"><%= f.label :file_number, t('file_number') %></div>
-            <div class="span1">&nbsp;</div>
-            <div class="span2"><%= f.label :reference_number, t('reference_number') %></div>
+<%# Upgrade 2.2.0 inizio %>
+<%# da span3 a span2 %>
+            <div class="span2"><%= f.label :file_number, t('file_number') %></div>
+<%# da span1 a span2; + style %>
+            <div class="span2" style="width: 100px; margin-left: 5px;">&nbsp;</div>
+<%# da span2 a span3; + style %>
+            <div class="span3" style="width: 200px; margin-left: 5px;"><%= f.label :reference_number, t('reference_number') %></div>
+<%# Upgrade 2.2.0 fine %>
           </div>
           <div class="row">
             <div class="span3"><%= f.text_field :folder_number, :class => "span3" %></div>
-            <div class="span3"><%= f.text_field :file_number, :class => "span3" %></div>
-            <div class="span1"><%= link_to t('create_reference_number'), '#', :id => 'create_reference_number', :class => 'btn btn-small' %></div>
-            <div class="span2"><%= f.text_field :reference_number, :class => "span2"  %></div>
+<%# Upgrade 2.2.0 inizio %>
+<%# da span3 a span2 %>
+            <div class="span2"><%= f.text_field :file_number, :class => "span2" %></div>
+<%# da span1 a span2 %>
+            <div class="span2" style="width: 100px; margin-left: 5px;">
+<%# Upgrade 2.2.0 fine %>
+              <%= link_to t('create_reference_number'), '#', :id => 'create_reference_number', :class => 'btn btn-small' %>
+<%# Upgrade 2.2.0 inizio %>
+              <%= link_to raw("<i class=\"icon-cog\"></i>"), "#create-unit-reference-number-options-dialog", { :"data-toggle" => "modal", :class => "btn btn-small" } %>
+<%# Upgrade 2.2.0 fine %>
+            </div>
+<%# Upgrade 2.2.0 inizio %>
+<%# da span2 a span3; + style %>
+            <div class="span3" style="width: 200px; margin-left: 5px;"><%= f.text_field :reference_number, :class => "span3", :style => "width: 200px;"  %></div>
+<%# Upgrade 2.2.0 fine %>
           </div>
 
           <%= f.label :arrangement_note, t('arrangement_note') %>
@@ -452,3 +479,7 @@
 <%# Upgrade 2.1.0 inizio %>
     <%= render :partial => 'sc2_openedvoc' %>
 <%# Upgrade 2.1.0 fine %>
+
+<%# Upgrade 2.2.0 inizio %>
+    <%= render :partial => 'create_unit_reference_number_options' %>
+<%# Upgrade 2.2.0 fine %>

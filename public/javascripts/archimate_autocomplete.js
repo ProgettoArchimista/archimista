@@ -7,6 +7,9 @@
       var $field      = $(this),
       controller  = $field.data('autocompletion-controller'),
       action      = $field.data('autocompletion-action') || 'list',
+/* Upgrade 2.2.0 inizio */
+      group_filter = $field.data('autocompletion-group-filter') || '',
+/* Upgrade 2.2.0 fine */
       cache       = {},
       path,
       lastXhr;
@@ -25,6 +28,9 @@
             response( cache[ term ] );
             return;
           }
+/* Upgrade 2.2.0 inizio */
+          if (group_filter != '') request.group_id = group_filter;
+/* Upgrade 2.2.0 fine */
           lastXhr = $.getJSON( path, request, function( data, status, xhr ) {
             cache[ term ] = data;
             if ( xhr === lastXhr ) {

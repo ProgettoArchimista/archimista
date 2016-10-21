@@ -1,8 +1,12 @@
 <div class="row fields">
   <div class="span2">
-    <%= f.text_field :name, :id => "fond-editor-name-autocomplete",
-      :class => "autocomplete span2",
-      :'data-autocompletion-controller' => 'editors' %>
+<%# Upgrade 2.2.0 inizio %>
+    <%#= f.text_field :name, :id => "fond-editor-name-autocomplete", :class => "autocomplete span2", :'data-autocompletion-controller' => 'editors' %>
+    <%= f.text_field :name, :id => "fond-editor-name-autocomplete", :class => "autocomplete span2",
+        :'data-autocompletion-controller' => 'editors',
+        :'data-autocompletion-group-filter' => if current_user.is_multi_group_user?() then current_ability.target_group_id.to_s else '' end
+    %>
+<%# Upgrade 2.2.0 fine %>
   </div>
   <div class="span2">
     <%= f.text_field :qualifier, :class => "span2" %>

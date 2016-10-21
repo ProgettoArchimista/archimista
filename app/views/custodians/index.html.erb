@@ -4,23 +4,43 @@
 
 <div class="span12">
   <div id="index-controls">
-    <% if @custodians.total_entries > Custodian.per_page || params[:q].present? %>
+<%# Upgrade 2.2.0 inizio %>
+    <%# if @custodians.total_entries > Custodian.per_page || params[:q].present? %>
+    <% if true %>
+<%# Upgrade 2.2.0 fine %>
 <%# TAI aggiunto = prima di form_tag %>
       <%= form_tag('/custodians', :method => :get, :class => "skip-prompt form-search pull-right") do %>
         <%= text_field_tag :q, params[:q], :class => "search-query", :placeholder => "Denominazione" %>
         <%= submit_tag "Cerca", :name => "", :class => "btn btn-small" %>
       <% end %>
     <% end %>
-    <%= link_to t('new'), new_custodian_path, { :class => "btn btn-small new" } %>
+<%# Upgrade 2.2.0 inizio %>
+    <%#= link_to t('new'), new_custodian_path, { :class => "btn btn-small new" } %>
+    <% if current_user.is_multi_group_user?() %>
+      <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#select_custodian_group_modal", { :"data-toggle" => "modal", :class => "btn btn-mini new" } %>
+    <% else %>
+      <%= link_to t('new'), new_custodian_path, { :class => "btn btn-small new" } %>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
   </div>
 
   <% if @custodians.size > 0 %>
   <%= display_page_entries_info @custodians %>
 
+<%# Upgrade 2.2.0 inizio %>
+    <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span7" else "span8" end %>
+<%# Upgrade 2.2.0 fine %>
+
   <table class="table table-sortable">
     <thead>
     <tr>
-      <th class="span8"><%= sortable("name", t('custodian_name')) %></th>
+<%# inserito class_name e cambiato nome campo da name a custodians_names.name%>
+      <th class="<%= class_name %>"><%= sortable("custodian_names.name", t('custodian_name')) %></th>
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
       <th><%= sortable("custodians.updated_at", t('updated_at')) %></th>
       <th>&nbsp;</th>
       <th>&nbsp;</th>
@@ -30,6 +50,13 @@
     <% @custodians.each do |custodian| %>
       <tr class="<%= cycle("odd", "even") %>">
         <td><%= link_to custodian.name, edit_custodian_path(custodian) %></td>
+
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <td style="font-size: 11px;"><%= custodian.group.short_name %></td>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
+
         <td><%= l custodian.updated_at, :format => :long %></td>
         <td><%= link_to t('show'), custodian %></td>
         <td>
@@ -54,3 +81,9 @@
   <p>Non sono presenti schede soggetto conservatore.</p>
 <% end %>
 </div>
+
+<%# Upgrade 2.2.0 inizio %>
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "custodians/custodian_group" %>
+<% end %>
+<%# Upgrade 2.2.0 fine %>

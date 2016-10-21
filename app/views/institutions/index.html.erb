@@ -4,16 +4,32 @@
 
 <div class="span12">
   <div id="index-controls">
-    <%= link_to t('new'), new_institution_path, {:class => "btn btn-small new"} %>
+
+<%# Upgrade 2.2.0 inizio %>
+    <% if current_user.is_multi_group_user?() %>
+      <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#select_institution_group_modal", { :"data-toggle" => "modal", :class => "btn btn-mini new" } %>
+    <% else %>
+      <%= link_to t('new'), new_institution_path, {:class => "btn btn-small new"} %>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
   </div>
 
 <% if @institutions.size > 0 %>
 <%= display_page_entries_info @institutions %>
 
+<%# Upgrade 2.2.0 inizio %>
+    <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span6" else "span7" end %>
+<%# Upgrade 2.2.0 fine %>
+
 <table class="table table-sortable">
   <thead>
   <tr>
-    <th class="span7"><%= t('institutions_name') %></th>
+    <th class="<%= class_name %>"><%= t('institutions_name') %></th>
+<%# Upgrade 2.2.0 inizio %>
+    <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+      <th class="span2"><%= t('list_group_short_name') %></th>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
     <th class="span2"><%= t('updated_at') %></th>
     <th class="span1">&nbsp;</th>
     <th class="span1">&nbsp;</th>
@@ -23,6 +39,11 @@
   <% @institutions.each do |institution| %>
     <tr class="<%= cycle("odd", "even") %>">
       <td><%= link_to institution.name, edit_institution_path(institution) %></td>
+<%# Upgrade 2.2.0 inizio %>
+    <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+      <td style="font-size: 11px;"><%= institution.group.short_name %></td>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
       <td><%= l institution.updated_at, :format => :long %></td>
       <td><%= link_to t('show'), institution %></td>
       <td>
@@ -47,3 +68,9 @@
   <p>Non sono presenti schede profilo istituzionale.</p>
 <% end %>
 </div>
+
+<%# Upgrade 2.2.0 inizio %>
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "institutions/institution_group" %>
+<% end %>
+<%# Upgrade 2.2.0 fine %>

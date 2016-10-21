@@ -46,7 +46,10 @@
       <td><%= show_value(@fond.length) %></td>
     </tr>
     <tr>
-      <th><%= t('extent') %></th>
+<%# Upgrade 2.2.0 inizio %>
+<%# cambiato da extent a fond.extent %>
+      <th><%= t('fond_extent') %></th>
+<%# Upgrade 2.2.0 fine %>
       <td><%= show_value(@fond.extent) %></td>
     </tr>
     <% if @fond.is_root? %>

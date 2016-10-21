@@ -10,6 +10,10 @@ class DigitalObject < ActiveRecord::Base
   belongs_to :attachable, :polymorphic => true
   belongs_to :updater,  :class_name => "User", :foreign_key => "updated_by"
 
+# Upgrade 2.2.0 inizio
+  belongs_to :group
+# Upgrade 2.2.0 fine
+
   acts_as_list
 
   def scope_condition

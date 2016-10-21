@@ -28,7 +28,12 @@
     <% if @unit.sc2_tsk.present? %>
       <tr>
         <th class="sc2_show_field_caption"><%= t('sc2_tsk') %></th>
-        <td class="sc2_show_field_value"><%= show_value(@unit.sc2_tsk, "t") %></td>
+        <td class="sc2_show_field_value">
+<%# Upgrade 2.2.0 inizio %>
+          <%#= show_value(@unit.sc2_tsk, "t") %>
+          <%= show_value("units_sc2_tsk." + @unit.sc2_tsk, "t") %>
+<%# Upgrade 2.2.0 fine %>
+        </td>
       </tr>
     <% end %>
 <%# Upgrade 2.1.0 fine %>
@@ -65,6 +70,12 @@
       <th><%= t('content') %></th>
       <td id="unit_content"><%= show_value(textilize(@unit.content)) %></td>
     </tr>
+<%# Upgrade 2.2.0 inizio %>
+    <tr>
+      <th><%= t('unit_extent') %></th>
+      <td id="extent"><%= show_value(textilize(@unit.extent)) %></td>
+    </tr>
+<%# Upgrade 2.2.0 fine %>
 <%# Upgrade 2.1.0 inizio %>
     <% if @unit.sc2_textual_elements.present? %>
       <tr>

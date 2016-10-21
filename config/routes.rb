@@ -202,6 +202,9 @@ Rails.application.routes.draw do
   resources :exports, :only => [:index] do
     collection do
       get :download
+# Upgrade 2.2.0 inizio
+      post :units
+# Upgrade 2.2.0 fine
     end
   end
 

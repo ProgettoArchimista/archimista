@@ -1,6 +1,36 @@
 class CreatorsController < ApplicationController
   helper_method :sort_column
   load_and_authorize_resource
+# Upgrade 2.2.0 inizio
+  skip_load_and_authorize_resource :only => [ :list ]
+# Upgrade 2.2.0 fine
+
+# Upgrade 2.2.0 inizio
+  def current_ability
+    if @current_ability.nil?
+      if (current_user.is_multi_group_user?())
+        if (["show","edit","update","destroy"].include?(params[:action]))
+          c = Creator.select("group_id").find(params[:id])
+          @current_ability ||= Ability.new(current_user, c.group_id)
+        elsif (["list"].include?(params[:action]))
+          group_id = str2int(params[:group_id])
+          @current_ability ||= Ability.new(current_user, group_id)
+        elsif (["index"].include?(params[:action]))
+          @current_ability ||= Ability.new(current_user, -1)
+        elsif (["new","create"].include?(params[:action]))
+          if params[:group_id].present?
+            group_id = str2int(params[:group_id])
+            @current_ability ||= Ability.new(current_user, group_id)
+          end
+        end
+      end
+    end
+    if @current_ability.nil?
+      @current_ability = super
+    end
+    return @current_ability
+  end
+# Upgrade 2.2.0 fine
 
   def index
 # Upgrade 2.0.0 inizio
@@ -9,9 +39,16 @@ class CreatorsController < ApplicationController
       :order => sort_column + ' ' + sort_direction,
       :include => :preferred_event)
 =end
+# Upgrade 2.2.0 inizio
+=begin
     @creators = Creator.list.search(params[:q]).accessible_by(current_ability, :read).
       order(sort_column + ' ' + sort_direction).
       includes(:preferred_event).page(params[:page])
+=end
+    @creators = Creator.list.search(params[:q]).accessible_by(current_ability, :read).
+      order(sort_column + ' ' + sort_direction).
+      includes(:preferred_event,:projects).page(params[:page])
+# Upgrade 2.2.0 fine
 # Upgrade 2.0.0 fine
   end
 
@@ -53,7 +90,14 @@ class CreatorsController < ApplicationController
 # Upgrade 2.0.0 fine
       creator.created_by = current_user.id
       creator.updated_by = current_user.id
-      creator.group_id = current_user.group_id
+# Upgrade 2.2.0 inizio
+#      creator.group_id = current_user.group_id
+        if current_user.is_multi_group_user?()
+          creator.group_id = current_ability.target_group_id
+        else
+          creator.group_id = current_user.rel_user_groups[0].group_id
+        end
+# Upgrade 2.2.0 fine
     end
     @events = @creator.events.sort_by(&:order_date)
     @creator.save
@@ -143,7 +187,10 @@ class CreatorsController < ApplicationController
   end
 
   def sort_column
-    params[:sort] || "name"
+# Upgrade 2.2.0 inizio
+#    params[:sort] || "name"
+    params[:sort] || "creator_names.name"
+# Upgrade 2.2.0 fine
   end
 
 # Upgrade 2.0.0 inizio Strong parameters

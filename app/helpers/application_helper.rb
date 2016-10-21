@@ -134,11 +134,44 @@ module ApplicationHelper
     f.select(attribute, @iccd_terms.select {|l| l.vocabulary_name == "#{list_name}" && l.term_scope == term_scope}.map {|a| [ a.term_key, a.term_value ]}, options, html_options)
   end
 
+# Upgrade 2.2.0 inizio
+  def rel_user_groups_select(rel_user_groups)
+    rel_user_groups.includes(:group).map {|p| [p.group.name, p.group_id] }
+  end
+  
+  def list_db_value_to_view_value(voc_terms, list_name, term_value)
+    op_value = term_value
+    if (!term_value.nil? && term_value != "")
+      if (voc_terms.nil?)
+        voc_terms = Term.select("terms.*").joins(:vocabulary).where("vocabularies.name = '#{list_name}'")
+      end
+      if (!voc_terms.nil?)
+        item = voc_terms.find_by term_value: term_value
+        if (!item.nil?)
+          term_key = item.term_key
+          op_value = t(term_key)
+        else
+          op_value = term_value
+        end
+      end
+    end
+    return op_value
+  end
+# Upgrade 2.2.0 fine
+
 # Upgrade 2.1.0 inizio
+# Upgrade 2.2.0 inizio
+=begin
   def sc2_terms_select(f, list_name, term_scope = nil, options={}, html_options={})
     attribute = list_name.split('.')[1]
     f.select(attribute, @sc2_terms.select {|l| l.vocabulary_name == "#{list_name}" && l.term_scope == term_scope}.map {|a| [ a.term_key, a.term_value ]}, options, html_options.merge({:data_voc_name => list_name}))
   end
+=end
+  def sc2_terms_select(f, list_name, term_scope = nil, translation_key_prefix = nil, options={}, html_options={})
+    attribute = list_name.split('.')[1]
+    f.select(attribute, @sc2_terms.select {|l| l.vocabulary_name == "#{list_name}" && l.term_scope == term_scope}.map {|a| [ t(!translation_key_prefix.nil? ? translation_key_prefix + "." + a.term_key : a.term_key, default: a.term_key), a.term_value ]}, options, html_options.merge({:data_voc_name => list_name}))
+  end
+# Upgrade 2.2.0 fine
 # Upgrade 2.1.0 inizio
 
   # Options for select heading_types
@@ -438,6 +471,9 @@ module ApplicationHelper
 
   def default_relation_options_for( f, related_to, related_through )
     {
+# Upgrade 2.2.0 inizio
+      :autocompletion_action => if current_user.is_multi_group_user?() then "list?group_id=" + current_ability.target_group_id.to_s else nil end,
+# Upgrade 2.2.0 fine
       :related_to => related_to.to_sym,
       :related_through => related_through,
       :suggested_list => instance_variable_get("@suggested_#{related_to}".to_sym),

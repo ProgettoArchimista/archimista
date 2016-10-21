@@ -32,8 +32,11 @@ en:
   subtitle: "subtitle"
   article: "article"
   name: "name / title"
-  extent: "Extent"
-  archival_extent: "Archival extent"
+  # Upgrade 2.2.0 inizio
+  # extent: "Extent"
+  # archival_extent: "Archival extent"
+  fond_extent: "Archival extent"
+  # Upgrade 2.2.0 fine
   lenght: "Lenght"
   units_count: "Units count"
   arrangement_note: "arrangement note"
@@ -108,8 +111,11 @@ it:
   subtitle: "Sottotitolo"
   article: "Articolo"
   name: "Denominazione"
-  extent: "Consistenza"
-  archival_extent: "Consistenza archivistica"
+  # Upgrade 2.2.0 inizio
+  # extent: "Consistenza"
+  # archival_extent: "Consistenza archivistica"
+  fond_extent: "Consistenza archivistica"
+  # Upgrade 2.2.0 fine
   length: "Metri lineari"
   units_count: "Unità archivistiche"
   arrangement_note: "Nota dell'archivista"

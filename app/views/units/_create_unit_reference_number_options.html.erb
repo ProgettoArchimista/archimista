@@ -1,0 +1,31 @@
+<%# Upgrade 2.2.0 inizio %>
+<div class="modal hide fade" id="create-unit-reference-number-options-dialog">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Impostazioni per composizione valore del campo "<%= t('reference_number') %>"</h3>
+  </div>
+  <div class="modal-body">
+    <div>
+      <div>
+        <%= label_tag "Prefisso per il campo \"" + t('folder_number') + "\"", nil, nil %>
+      </div>
+      <div>
+        <%= text_field_tag "txt_folder_number_prefix", "b. " %>
+      </div>
+    </div>
+    <div>
+      <div>
+        <%= label_tag "Prefisso per il campo \"" + t('file_number') + "\"", nil, nil %>
+      </div>
+      <div>
+        <%= text_field_tag "txt_file_number_prefix", "fasc. " %>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal"><%= t('cancel') %></button>
+    <button id="default-create-unit-reference-number-options" class="btn">Ripristina valori di default</button>
+    <button id="confirm-create-unit-reference-number-options" class="btn btn-primary"><%= t('save') %></button>
+  </div>
+</div>
+<%# Upgrade 2.2.0 fine %>

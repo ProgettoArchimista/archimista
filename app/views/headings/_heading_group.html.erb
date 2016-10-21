@@ -1,0 +1,27 @@
+<%# Upgrade 2.2.0 inizio %>
+<div class="modal hide fade" id="select_heading_group_modal">
+  <div class="modal-header">
+    <a class="close close_heading" data-dismiss="modal">×</a>
+    <h3>Nuovo lemma</h3>
+  </div>
+  <div class="modal-body">
+    <div>
+      <% if current_user.is_multi_group_user?() %>
+        <div style="text-align: justify;">
+          Per eseguire l'operazione è necessario selezionare il gruppo cui associare il nuovo lemma scegliendolo tra i gruppi associati all'utente corrente.
+        </div>
+        <div style="margin-top: 10px;">
+          <%= label_tag :group_id, raw(t('devise.attributes.group_id') + required_marker + '<span class="inline-msg hide">obbligatorio</span>'), :class => "control-label" %>            
+          <%= select :heading, :group_id, rel_user_groups_select(current_user.rel_user_groups), {:prompt => t('devise.attributes.group_id_prompt'), :selected => current_user.rel_user_groups[0].group_id} %>
+        </div>
+      <% else %>
+        <%= hidden_field_tag 'heading[group_id]', current_ability.target_group_id %>
+      <% end %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Annulla</button>
+    <button id="create_heading" class="submit btn btn-primary">Crea scheda</button>
+  </div>
+</div>
+<%# Upgrade 2.2.0 fine %>

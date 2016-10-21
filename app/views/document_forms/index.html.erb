@@ -4,17 +4,33 @@
 
 <div class="span12">
 <div id="index-controls">
-  <%= link_to t('new'), new_document_form_path, { :class => "btn btn-small new" } %>
+<%# Upgrade 2.2.0 inizio %>
+  <% if current_user.is_multi_group_user?() %>
+    <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#select_document_form_group_modal", { :"data-toggle" => "modal", :class => "btn btn-mini new" } %>
+  <% else %>
+    <%= link_to t('new'), new_document_form_path, { :class => "btn btn-small new" } %>
+  <% end %>
+<%# Upgrade 2.2.0 fine %>
 </div>
 
 <% if @document_forms.size > 0 %>
 <%= display_page_entries_info @document_forms %>
 
+<%# Upgrade 2.2.0 inizio %>
+    <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span6" else "span8" end %>
+<%# Upgrade 2.2.0 fine %>
+
 <table class="table table-sortable">
   <thead>
   <tr>
-    <th class="span7"><%= sortable("name", t('document_forms_name')) %></th>
-    <th class="span2"><%= sortable("updated_at", t('updated_at')) %></th>
+<%# inserito class_name e cambiato nome campo da name a document_forms.name%>
+    <th class="<%= class_name %>"><%= sortable("document_forms.name", t('document_forms_name')) %></th>
+<%# Upgrade 2.2.0 inizio %>
+    <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+      <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
+    <th class="span2"><%= sortable("document_forms.updated_at", t('updated_at')) %></th>
     <th class="span1">&nbsp;</th>
     <th class="span1">&nbsp;</th>
   </tr>
@@ -23,6 +39,13 @@
   <% @document_forms.each do |document_form| %>
     <tr class="<%= cycle("odd", "even") %>">
       <td><%= link_to document_form.name, edit_document_form_path(document_form) %></td>
+
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <td style="font-size: 11px;"><%= document_form.group.short_name %></td>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
+
       <td><%= l document_form.updated_at, :format => :long %></td>
       <td><%= link_to t('show'), document_form %></td>
       <td>
@@ -46,3 +69,9 @@
   <p>Non sono presenti schede profilo documentario.</p>
 <% end %>
 </div>
+
+<%# Upgrade 2.2.0 inizio %>
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "document_forms/document_form_group" %>
+<% end %>
+<%# Upgrade 2.2.0 fine %>

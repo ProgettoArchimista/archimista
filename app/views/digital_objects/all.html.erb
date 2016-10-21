@@ -12,6 +12,11 @@
         <tr>
           <th class="span2">&nbsp;</th>
           <th class="span6"><%= sortable("asset_file_name", "Nome file") %></th>
+<%# Upgrade 2.2.0 inizio %>
+          <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
+          <% end %>
+<%# Upgrade 2.2.0 fine %>
           <th class="span3"><%= sortable("updated_at", t('updated_at')) %></th>
           <th class="span1">&nbsp;</th>
         </tr>
@@ -52,6 +57,13 @@
                 </span>
               </p>
             </td>
+
+<%# Upgrade 2.2.0 inizio %>
+            <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+              <td style="font-size: 11px;"><%= digital_object.group.short_name %></td>
+            <% end %>
+<%# Upgrade 2.2.0 fine %>
+
             <td><%= l digital_object.updated_at, :format => :long %></td>
             <td>
 <%# Upgrade 2.0.0 inizio %>

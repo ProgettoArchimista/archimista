@@ -4,7 +4,10 @@
 
 <div class="span12">
   <div id="index-controls" class="clearfix">
-    <% if @creators.total_entries > Creator.per_page || params[:q].present? %>
+<%# Upgrade 2.2.0 inizio %>
+    <%# if @creators.total_entries > Creator.per_page || params[:q].present? %>
+    <% if true %>
+<%# Upgrade 2.2.0 fine %>
 <%# TAI aggiunto = prima di form_tag %>
       <%= form_tag('/creators', :method => :get, :class => "skip-prompt form-search pull-right", :style => "margin-bottom: 0") do %>
         <%= text_field_tag :q, params[:q], :class => "search-query", :placeholder => "Denominazione" %>
@@ -12,15 +15,21 @@
       <% end %>
     <% end %>
     <div class="btn-group pull-left">
+<%# Upgrade 2.2.0 inizio %>
+      <% if current_user.is_multi_group_user?() %>
+        <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#add_creator_modal", { :"data-toggle" => "modal", :class => "btn btn-mini new" } %>
+      <% else %>
 <%# Upgrade 2.0.0 inizio %>
-      <%#= link_to t('new') + '<span class="caret"></span>', "#", { :class => "btn btn-small dropdown-toggle new", :'data-toggle' => "dropdown" } %>
-      <%= link_to raw(t('new') + '<span class="caret"></span>'), "#", { :class => "btn btn-small dropdown-toggle new", :'data-toggle' => "dropdown" } %>
+        <%#= link_to t('new') + '<span class="caret"></span>', "#", { :class => "btn btn-small dropdown-toggle new", :'data-toggle' => "dropdown" } %>
+        <%= link_to raw(t('new') + '<span class="caret"></span>'), "#", { :class => "btn btn-small dropdown-toggle new", :'data-toggle' => "dropdown" } %>
 <%# Upgrade 2.0.0 fine %>
-      <ul class="dropdown-menu">
-        <li><%= link_to t('C'), new_creator_path(:type => "C") %></li>
-        <li><%= link_to t('P'), new_creator_path(:type => "P") %></li>
-        <li><%= link_to t('F'), new_creator_path(:type => "F") %></li>
-      </ul>
+        <ul class="dropdown-menu">
+          <li><%= link_to t('C'), new_creator_path(:type => "C") %></li>
+          <li><%= link_to t('P'), new_creator_path(:type => "P") %></li>
+          <li><%= link_to t('F'), new_creator_path(:type => "F") %></li>
+        </ul>
+      <% end %>
+<%# Upgrade 2.2.0 fine %>
     </div>
   </div>
 
@@ -29,8 +38,14 @@
   <table class="table table-sortable">
     <thead>
       <tr>
-        <th><%= sortable("name", t('creator_name')) %></th>
+<%# cambiato nome campo da name a creator_names.name %>
+        <th><%= sortable("creator_names.name", t('creator_name')) %></th>
         <th><%= sortable("creator_type", t('creator_type')) %></th>
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
         <th><%= sortable("creators.updated_at", t('updated_at')) %></th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
@@ -43,8 +58,29 @@
             <%= creator.residence + ", " if creator.residence.present? %>
             <%= link_to creator.name, edit_creator_path(creator) %>
             <%= creator.preferred_event.try(:full_display_date) %>
+            
+<%# Upgrade 2.2.0 inizio %>
+            <div class="index-item-info">
+              <% if creator.projects.present? %>
+                <%= t('projects') %>
+                <ul class="index-item-list">
+                  <% creator.projects.each do |project| %>
+                    <li><%= link_to "#{project.name}", edit_project_path(project) %> <%= project.display_date %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+<%# Upgrade 2.2.0 fine %>
+            
         </td>
         <td><%= show_value(creator.creator_type, "t") %></td>
+
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <td style="font-size: 11px;"><%= creator.group.short_name %></td>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
+
         <td><%= l creator.updated_at, :format => :long %></td>
         <td><%= link_to t('show'), creator %></td>
         <td>
@@ -69,3 +105,9 @@
   <p>Non sono presenti schede soggetto produttore.</p>
 <% end %>
 </div>
+
+<%# Upgrade 2.2.0 inizio %>
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "creators/new_creator" %>
+<% end %>
+<%# Upgrade 2.2.0 fine %>

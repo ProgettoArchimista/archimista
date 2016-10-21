@@ -4,7 +4,14 @@
 
 <div class="span12">
   <div id="index-controls">
-    <%= link_to t('new'), new_editor_path, {:class => "btn btn-small new"} %>
+<%# Upgrade 2.2.0 inizio %>
+    <%#= link_to t('new'), new_editor_path, {:class => "btn btn-small new"} %>
+    <% if current_user.is_multi_group_user?() %>
+      <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#select_editor_group_modal", { :"data-toggle" => "modal", :class => "btn btn-mini new" } %>
+    <% else %>
+      <%= link_to t('new'), new_editor_path, {:class => "btn btn-small new"} %>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
   </div>
 
 <%= display_page_entries_info @editors %>
@@ -15,6 +22,11 @@
     <thead>
     <tr>
       <th><%= t('editors_editor') %></th>
+<%# Upgrade 2.2.0 inizio %>
+      <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+        <th class="span2"><%= t('list_group_short_name') %></th>
+      <% end %>
+<%# Upgrade 2.2.0 fine %>
       <th>&nbsp;</th>
     </tr>
     </thead>
@@ -22,6 +34,13 @@
     <% @editors.each do |editor| %>
       <tr class="<%= cycle("odd", "even") %>">
         <td><%= link_to editor.reverse_full_name, edit_editor_path(editor) %></td>
+
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <td style="font-size: 11px;"><%= editor.group.short_name %></td>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
+
         <td>
 <%# Upgrade 2.0.0 inizio %>
           <%#= link_to t('destroy'), editor, :confirm => t('are_you_sure'), :method => :delete %>
@@ -45,3 +64,9 @@
   <p>Non sono presenti schede compilatore.</p>
 <% end %>
 </div>
+
+<%# Upgrade 2.2.0 inizio %>
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "editors/editor_group" %>
+<% end %>
+<%# Upgrade 2.2.0 fine %>

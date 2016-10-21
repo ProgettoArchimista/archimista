@@ -9,5 +9,4 @@ class SiteController < ApplicationController
   def parse_textile
     render :text => RedCloth.new("#{params[:data]}").to_html
   end
-
 end

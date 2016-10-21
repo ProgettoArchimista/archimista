@@ -4,7 +4,10 @@
 
 <div class="span12">
   <div id="index-controls">
-    <% if @fonds.total_entries > Fond.per_page || params[:q].present? %>
+<%# Upgrade 2.2.0 inizio %>
+    <%# if @fonds.total_entries > Fond.per_page || params[:q].present? %>
+    <% if true %>
+<%# Upgrade 2.2.0 fine %>
       <% # OPTIMIZE: questo forse potrebbe stare in helper, se ripetuto in tutti gli index %>
 <%# TAI aggiunto = prima di form_tag %>
       <%= form_tag('/fonds', :method => :get, :class => "skip-prompt form-search pull-right") do %>
@@ -24,11 +27,24 @@
   <% if @fonds.size > 0 %>
     <%= display_page_entries_info @fonds %>
 
+<%# Upgrade 2.2.0 inizio %>
+    <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span6" else "span7" end %>
+<%# Upgrade 2.2.0 fine %>
+
     <table class="table table-sortable">
       <thead>
         <tr>
-          <th class="span7"><%= sortable("name", t('name')) %></th>
-          <th><%= sortable("updated_at", t('updated_at')) %></th>
+<%# Upgrade 2.2.0 inizio %>
+<%# inserito class_name e cambiato nome campo da name a fonds.name %>
+          <th class="<%= class_name %>"><%= sortable("fonds.name", t('name')) %></th>
+<%# Upgrade 2.2.0 fine %>
+<%# Upgrade 2.2.0 inizio %>
+          <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+            <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
+          <% end %>
+<%# cambiato nome campo da updated_at a fonds.updated_at %>
+          <th><%= sortable("fonds.updated_at", t('updated_at')) %></th>
+<%# Upgrade 2.2.0 fine %>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
@@ -37,7 +53,8 @@
       <tbody>
         <% @fonds.each do |fond| %>
           <tr class="<%= cycle("odd", "even") %>">
-            <td><%= link_to fond.name, treeview_fond_path(fond) %>
+            <td>
+              <%= link_to fond.name, treeview_fond_path(fond) %>
               <%= fond.preferred_event.try(:full_display_date) %>
               <% if fond.fond_type.present? %>
                 <span class="light">(<%= fond.fond_type %>)</span>
@@ -46,8 +63,25 @@
               <p class="fond-units">
                 <i class='icon-list-alt'></i>
                 <%= link_to "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità", fond_units_path(fond) %>
-              </p>
+              </p>            
+<%# Upgrade 2.2.0 inizio %>
+              <div class="index-item-info">
+                <% if fond.projects.present? %>
+                  <%= t('projects') %>
+                  <ul class="index-item-list">
+                    <% fond.projects.each do |project| %>
+                      <li><%= link_to "#{project.name}", edit_project_path(project) %> <%= project.display_date %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+<%# Upgrade 2.2.0 fine %>
             </td>
+<%# Upgrade 2.2.0 inizio %>
+            <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+              <td style="font-size: 11px;"><%= fond.group.short_name %></td>
+            <% end %>
+<%# Upgrade 2.2.0 fine %>
             <td><%= l fond.updated_at, :format => :long %></td>
             <td><%= link_to t('show'), fond %></td>
             <td><%= link_to_if(@fonds.size > 1, t('merge_with'), '#', {:class => 'merge', :"data-id" => fond.id}) %></td>

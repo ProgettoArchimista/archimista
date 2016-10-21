@@ -6,6 +6,11 @@ jQuery.fn.liveUpdate = function (list, options) {
       'field': '',
       'targetClass': 'livesearch',
       'selectedClass': 'highlight',
+// Upgrade 2.2.0 inizio
+      'group_id': {
+        group_id: -1
+      },
+// Upgrade 2.2.0 fine
       'exclude': {
         exclude: []
       }
@@ -34,7 +39,10 @@ jQuery.fn.liveUpdate = function (list, options) {
       return;
     }
 
-    $.getJSON(settings.url + '?' + $.param(settings.exclude), {
+// Upgrade 2.2.0 inizio
+//    $.getJSON(settings.url + '?' + $.param(settings.exclude), {
+// Upgrade 2.2.0 fine
+    $.getJSON(settings.url + '?' + $.param(settings.exclude) + '&' + $.param(settings.group_id), {
       term: q
     }, function (data) {
       cache[q] = data;

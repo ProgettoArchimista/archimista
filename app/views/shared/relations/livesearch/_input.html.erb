@@ -11,7 +11,11 @@
         <span class="ui-icon ui-icon-search" style="display:inline; float:left; margin: 5px 0 0 0;">&nbsp;</span>
       </div>
       <div style="margin-left:16px; padding-left:10px;">
-        <%= text_field_tag :sources_live_search, '', :style => 'width:600px;' %>
+<%# Upgrade 2.2.0 inizio %>
+        <%#= text_field_tag :sources_live_search, '', :style => 'width:600px;' %>
+        <%= text_field_tag :sources_live_search, '', :style => 'width:600px;',
+            :livesearch_group_filter => if current_user.is_multi_group_user?() then current_ability.target_group_id.to_s else '' end %>
+<%# Upgrade 2.2.0 fine %>
       </div>
     </div>
 

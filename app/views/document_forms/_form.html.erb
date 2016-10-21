@@ -5,6 +5,11 @@
 
 <%# TAI aggiunto = prima di form_for %>
 <%= form_for @document_form do |f| %>
+
+<%# Upgrade 2.2.0 inizio %>
+  <%= hidden_field_tag 'group_id', current_ability.target_group_id %>
+<%# Upgrade 2.2.0 fine %>
+
   <div id="record-main" class="span9">
 
     <% if @document_form.identifier.present? || @document_form.identifier_source.present? %>

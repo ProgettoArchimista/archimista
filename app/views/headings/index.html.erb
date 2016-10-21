@@ -10,13 +10,20 @@
       <%#= submit_tag "Cerca", :name => "", :class => "btn btn-small" %>
     <%# end %>
   <%# end %>
-  <div id="buttons">
-    <%= link_to t('new_heading'), new_heading_path, { :class => "btn btn-small new" } %>
+    <div id="buttons">
+<%# Upgrade 2.2.0 inizio %>
+      <% if current_user.is_multi_group_user?() %>
+        <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#select_heading_group_modal", { :"data-toggle" => "modal", :class => "btn btn-small new" } %>
+      <% else %>
+        <%= link_to t('new_heading'), new_heading_path, { :class => "btn btn-small new" } %>
+      <% end %>
+<%# Upgrade 2.2.0 fine %>
+
 <%# Upgrade 2.0.0 inizio %>
-    <%#= link_to '<i class="icon-share"></i> ' + t('import_heading'), import_csv_headings_path, { :class => "btn btn-small" } %>
-    <%= link_to raw('<i class="icon-share"></i> ' + t('import_heading')), import_csv_headings_path, { :class => "btn btn-small" } %>
+      <%#= link_to '<i class="icon-share"></i> ' + t('import_heading'), import_csv_headings_path, { :class => "btn btn-small" } %>
+      <%= link_to raw('<i class="icon-share"></i> ' + t('import_heading')), import_csv_headings_path, { :class => "btn btn-small" } %>
 <%# Upgrade 2.0.0 fine %>
-  </div>
+    </div>
   </div>
 
 <% if @counts_by_type.present? %>
@@ -48,12 +55,18 @@
 <table class="table table-sortable">
   <thead>
   <tr>
-    <th><%= t('heading_type') %></th>
-    <th><%= sortable("name", t('heading_name')) %></th>
+<%# cambiato nome campo da heading_type,name,dates,heading_qualifier a headings.heading_type,headings.name,headings.dates,headings.qualifier; reso sortable heading_type e qualifier%>
+    <th><%= sortable("headings.heading_type", t('heading_type')) %></th>
+    <th><%= sortable("headings.name", t('heading_name')) %></th>
     <%# FIXME: dubbio che servano colonne dates e qualifier %>
-    <th><%= sortable("dates", t('heading_dates')) %></th>
-    <th><%= t('heading_qualifier') %></th>
+    <th><%= sortable("headings.dates", t('heading_dates')) %></th>
+    <th><%= sortable("headings.qualifier", t('heading_qualifier')) %></th>
     <th>Occorrenze</th>
+<%# Upgrade 2.2.0 inizio %>
+    <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+      <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
+    <% end %>
+<%# Upgrade 2.2.0 fine %>
     <th>&nbsp;</th>
   </tr>
   </thead>
@@ -65,12 +78,17 @@
       <td><%= heading.dates %></td>
       <td><%= heading.qualifier %></td>
       <td><%= link_to "#{number_with_delimiter(@units_counts[heading.id] || "0")} unità", heading_path(heading) %></td>
-      <td>
+<%# Upgrade 2.2.0 inizio %>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <td style="font-size: 11px;"><%= heading.group.short_name %></td>
+        <% end %>
+<%# Upgrade 2.2.0 fine %>
 <%# Upgrade 2.0.0 inizio %>
+      <td>
         <%#= link_to t('destroy'), heading, :confirm => t('are_you_sure'), :method => :delete %>
         <%= link_to t('destroy'), heading, data: {:confirm => t('are_you_sure')}, :method => :delete %>
-<%# Upgrade 2.0.0 fine %>
       </td>
+<%# Upgrade 2.0.0 fine %>
     </tr>
   <% end %>
   </tbody>
@@ -87,3 +105,9 @@
   <p>Non sono presenti lemmi.</p>
 <% end %>
 </div>
+
+<%# Upgrade 2.2.0 inizio %>
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "headings/heading_group" %>
+<% end %>
+<%# Upgrade 2.2.0 fine %>

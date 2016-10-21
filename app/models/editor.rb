@@ -2,6 +2,10 @@ class Editor < ActiveRecord::Base
 
   belongs_to :updater,  :class_name => "User", :foreign_key => "updated_by"
 
+# Upgrade 2.2.0 inizio
+  belongs_to :group
+# Upgrade 2.2.0 fine
+
   # Modules
 
   extend Cleaner
