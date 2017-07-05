@@ -105,6 +105,7 @@ archigrid_i18n =
   :'data-total-entries' => @units_count,
   :'data-sortname' => 'sequence_number',
   :'data-vocabularies' => @vocabularies.to_json,
+  :'data-vocabularies_sc2' => @vocabularies_sc2.to_json,
   :'data-go-to-record-id' => @fond.go_to_unit.try(:id),
   :'data-go-to-row-index' => @fond.go_to_unit.try(:sequence_number),
   :'data-selected-attributes' => @selected_attributes.to_json,

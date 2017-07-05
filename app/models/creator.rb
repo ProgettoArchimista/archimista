@@ -165,7 +165,7 @@ class Creator < ActiveRecord::Base
 =end
 # Upgrade 2.2.0 inizio
 #  scope :list, -> { select("creators.id, creators.creator_type, creator_names.name, creators.residence, creators.updated_at").joins(:preferred_name) }
-  scope :list, -> { select("creators.id, creators.creator_type, creator_names.name, creators.residence, creators.updated_at, group_id, groups.short_name").joins(:preferred_name, :group) }
+  scope :list, -> { select("creators.id, creators.creator_type, creator_names.name, creators.residence, creators.updated_at, creators.published, group_id, groups.short_name").joins(:preferred_name, :group) }
 # Upgrade 2.2.0 fine
 
   scope :search, ->(q) {

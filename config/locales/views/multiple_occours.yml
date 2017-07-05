@@ -1,0 +1,19 @@
+en:
+  multiple_occurs: "Multiple Occurs"
+  no_multiple_occurse_message: "There are no multiple occurrences on sources." 
+  select: "Select"
+  delete_ok: "Multiple occurrences elimination completed"
+  delete_ko: "Multiple occurrences elimination failed"
+  note_title: "Nota bene"
+  tools_allows: "This tool allows to analyze the list of duplicated sources."
+  tools_info: "Clicking on Select, user chooses which source to save as original and inherits deleted sources relations."
+
+it: 
+  multiple_occurs: "Occorrenze multiple"
+  no_multiple_occurse_message: "Non sono presenti occorrenze multiple sulle schede fonte."
+  select: "Seleziona"
+  delete_ok: "Eliminazione occorrenze multiple completata"
+  delete_ko: "Eliminazione occorrenze multiple fallita"
+  note_title: "Nota bene"
+  tools_allows: "Lo strumento consente di analizzare la lista dei raggruppamenti di fonti duplicate."
+  tools_info: "Cliccando su Seleziona, l'utente sceglie quale fonte salvare come originale ed eredita le relazioni relative alle fonti eliminate."

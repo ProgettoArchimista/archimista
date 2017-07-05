@@ -32,6 +32,21 @@ $(document).ready(function(){
       }
     }
   );
+/* Upgrade 3.0.0 inizio */ 
+  $("#close-mass-export").click(function(event){
+    $("input[name=radio_export]").prop('checked', false);
+  });
+
+  $("input[name=radio_export]").click(function(event){
+    if($("input[name=radio_export]").is(':checked')){
+      $("#confirm-mass-export").prop('disabled', false).removeClass('disabled');
+    }else{
+        $("#confirm-mass-export").prop('disabled', true).addClass('disabled');
+    }
+  });
+/* Upgrade 3.0.0 fine */ 
+
+
 
   gvExportUnitsSettings = ExportUnitsSettingsInit();
 
@@ -48,7 +63,7 @@ $(document).ready(function(){
     }
   );
 });
-
+/* Upgrade 3.0.0 inizio */
 function ExportUnitsSettingsInit()
 {
   var settings;
@@ -72,6 +87,8 @@ function ExportUnitsSettingsInit()
 				unit_ids = [];
         settings.selected_checkboxes().each(function(index, checkbox) { unit_ids[index] = $(checkbox).val(); } );
 
+        var export_choice = $("input[name=radio_export]:checked").val();
+
         event.preventDefault();
         $.blockUI({ message: 'Esportazione in corso...' });
         $.ajax({
@@ -79,22 +96,33 @@ function ExportUnitsSettingsInit()
 					type: 'POST',
           data: {
             ref_fond_id: parseInt($("#mass-export").attr("ref_fond_id")),
-						unit_ids: unit_ids
-          },
+						unit_ids: unit_ids,
+            export_type: export_choice
+			},
           dataType: 'json',
           success: function (data) {
-            var tokens, file, data_file, metadata_file;
-            $.unblockUI();
-            tokens = data["dest_file"].split('/');
-            file = tokens[tokens.length - 1];
+            if(export_choice == "aef"){
+              var tokens, file, data_file, metadata_file;
+              $.unblockUI();
+              tokens = data["dest_file"].split('/');
+              file = tokens[tokens.length - 1];
 
-            tokens = data["data_file"].split('/');
-            data_file = tokens[tokens.length - 1];
+              tokens = data["data_file"].split('/');
+              data_file = tokens[tokens.length - 1];
 
-            tokens = data["metadata_file"].split('/');
-            metadata_file = tokens[tokens.length - 1];
+              tokens = data["metadata_file"].split('/');
+              metadata_file = tokens[tokens.length - 1];
+              $(window.location).attr('href', "/exports/download?file=" + file + "&data=" + data_file + "&meta=" + metadata_file);
 
-            $(window.location).attr('href', "/exports/download?file=" + file + "&data=" + data_file + "&meta=" + metadata_file);
+            }else{
+              var tokens, file;
+              $.unblockUI();
+              tokens = data["dest_file"].split('/');
+              file = tokens[tokens.length - 1];
+
+              $(window.location).attr('href', "/exports/download?file=" + file);
+            }
+            
           }
         });
       }
@@ -102,6 +130,7 @@ function ExportUnitsSettingsInit()
       {
       }
     };
+/* Upgrade 3.0.0 fine */    
     //verifiche sulla fattibilità dell'export
     settings.check_selected = function()
     {
@@ -195,6 +224,7 @@ function ExportUnitsSettingsInit()
         {
           $("#confirm-msg-area").show();
           $("#confirm-mass-export").show();
+          $("#export-list").show();
           $("#error-msg-area").hide();
         }
         else
@@ -205,7 +235,7 @@ function ExportUnitsSettingsInit()
             err_msg = "<p>Non è possibile effettuare l'esportazione perché le unità selezionate non appartengono tutte allo stesso complesso.</p>";
           else if (!status3)
             err_msg = "<p>Non è possibile effettuare l'esportazione perché sono state selezionate sotto-unità o sotto-sotto-unità senza la rispettiva unità di livello superiore.</p>";
-
+          $("#export-list").hide();
           $("#confirm-msg-area").hide();
           $("#confirm-mass-export").hide();
           $("#error-msg-area").html(err_msg);

@@ -26,7 +26,18 @@
       <% end %>
     </div>
 
-    <div class="clearfix"><%= f.file_field :asset %></div>
+    <div class="clearfix">
+      <%# Upgrade 3.0.0 inizio %>
+        <%# Inserita checkbox stato pubblicazione nell'interfaccia, racchiusa in un div con la input di caricamento file %>
+          <div style="float:left;">
+            <%= f.file_field :asset %>
+          </div>
+          <div class="span2">
+            <%= f.label :published, t('published') %>
+            <%= check_box("digital_object", "published")%>
+          </div>
+        <%# Upgrade 3.0.0 fine %>
+    </div>
 
     <%= f.label :title, t('digital_objects_title') %>
     <%= f.text_field :title, :class => "span9" %>

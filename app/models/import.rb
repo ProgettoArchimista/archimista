@@ -15,6 +15,10 @@ class Import < ActiveRecord::Base
 # Upgrade 2.2.0 fine
 
   TMP_IMPORTS = "#{Rails.root}/tmp/imports"
+# Upgrade 3.0.0 inizio  
+  PUBLIC_IMPORTS = "#{Rails.root}/public/imports"
+# Upgrade 3.0.0 fine  
+  DIGITAL_FOLDER_PATH = "#{Rails.root}/public/digital_objects"
 
   belongs_to :user
   belongs_to :importable, :polymorphic => true
@@ -38,6 +42,12 @@ class Import < ActiveRecord::Base
     ar_connection.adapter_name.downcase
   end
 
+# Upgrade 3.0.0 inizio  
+  def csv_data_file
+    PUBLIC_IMPORTS + "/#{self.id}/#{self.data_file_name}"  
+  end
+# Upgrade 3.0.0 fine  
+
   def data_file
     TMP_IMPORTS + "/#{self.id}_data.json"
   end
@@ -49,6 +59,12 @@ class Import < ActiveRecord::Base
   def delete_tmp_files
     File.delete(data_file)      if File.exists?(data_file)
     File.delete(metadata_file)  if File.exists?(metadata_file)
+  end
+
+  def delete_digital_folder(folder)
+    if Dir.exists?(DIGITAL_FOLDER_PATH + "/" + folder)
+      FileUtils.remove_dir(DIGITAL_FOLDER_PATH + "/" + folder)
+    end
   end
 
   def db_has_subunits?
@@ -67,6 +83,81 @@ class Import < ActiveRecord::Base
   def is_unit_aef_file?
     return is_unit_importable_type?
   end
+
+# Upgrade 3.0.0 inizio
+  def import_csv_file(user, ability)
+    begin
+      lines = File.readlines(csv_data_file)
+      unit_aef_import_units_count = 0
+      ActiveRecord::Base.transaction do
+        model = nil
+        prev_model = nil
+        object = nil
+        prev_line = ""
+        headers = ""
+        elem_count = 0
+        separator = ""
+        lines.each do |line|
+          if prev_line.blank?
+            elements = line.delete("\n").split(',')
+            elem_count > elements.count - 1 ? elem_count = elem_count : elem_count = elements.count - 1
+            separator = ","*elem_count
+            elem = elements[0].split('_')
+            pos_last = -1
+            elem.each do |e|
+              if e.last == "s"
+                pos_last += 1
+                break
+              else
+                pos_last += 1
+              end            
+            end
+            key = (elem[0..pos_last].join('_'))[0..-2]
+            model = key.camelize.constantize
+            headers = elements.map!{ |element| element.gsub(key + 's_', '') }
+            prev_line = "not_blank"
+          else
+            line = line.delete("\n")
+            if (line.include? separator) || (line.blank?)
+              prev_line = ""
+              next
+            else
+              values = line.delete("\n").split(',')
+              values = values.map!{ |element| element.gsub('""', '') }
+              zipped = headers.zip(values)
+              ipdata = Hash[zipped]
+              object = model.new(ipdata)
+              object.db_source = self.identifier
+              if object.has_attribute? 'group_id'
+                object.group_id = if user.is_multi_group_user?() then ability.target_group_id else user.rel_user_groups[0].group_id end
+              end
+              if (self.is_unit_aef_file?)
+                if (model.to_s == "Unit")
+                  object.fond_id = self.ref_fond_id
+                  object.root_fond_id = prv_get_ref_root_fond_id
+                  unit_aef_import_units_count += 1
+                end
+              end
+              object.created_by = user.id if object.has_attribute? 'created_by'
+              object.updated_by = user.id if object.has_attribute? 'updated_by'
+              object.sneaky_save!
+              if model != prev_model && !prev_model.nil?
+                prev_object = prev_model.new
+                set_lacking_field_values(prev_object)
+              end
+              prev_model = model
+            end
+          end
+        end
+      end
+      update_statements(unit_aef_import_units_count)
+    rescue Exception => e
+      Rails.logger.info "import_csv_file Errore=" + e.message.to_s
+      return false
+    ensure
+    end
+  end
+# Upgrade 3.0.0 fine    
 
 #  def import_aef_file(user)
   def import_aef_file(user, ability)
@@ -135,6 +226,7 @@ class Import < ActiveRecord::Base
           if object.has_attribute? 'group_id'
             object.group_id = if user.is_multi_group_user?() then ability.target_group_id else user.rel_user_groups[0].group_id end
           end
+
           if (self.is_unit_aef_file?)
             if (model.to_s == "Unit")
               object.fond_id = self.ref_fond_id
@@ -145,6 +237,7 @@ class Import < ActiveRecord::Base
 # Upgrade 2.2.0 fine
 					object.created_by = user.id if object.has_attribute? 'created_by'
 					object.updated_by = user.id if object.has_attribute? 'updated_by'
+
 # Upgrade 2.0.0 inizio
 #          object.send(:create_without_callbacks)
 					object.sneaky_save!
@@ -198,9 +291,11 @@ class Import < ActiveRecord::Base
         end
         update_sc2_second_level_relations
 # Upgrade 2.2.0 fine
-
 # Upgrade 2.1.0 inizio
-        if imported_file_version < "2.1.0"
+		#if imported_file_version < "2.1.0"
+# Upgrade 3.0.0 inizio 
+        if !imported_file_version.nil? && imported_file_version < "2.1.0"
+# Upgrade 3.0.0 fine  		
           Import.restore_d_f_s(self.identifier)
           Import.restore_bdm_oa(self.identifier)
         end
@@ -212,6 +307,10 @@ class Import < ActiveRecord::Base
           self.importable_id = self.importable_type.constantize.find_by_db_source("#{self.identifier}").id
         end
       end
+    rescue Exception => e
+      Rails.logger.info "Errore update statements=" + e.message.to_s
+      return false
+    ensure
     end
   end
 
@@ -589,6 +688,29 @@ class Import < ActiveRecord::Base
         end
       end
     end
+
+
+# Upgrade 3.0.0 inizio
+# Copia degli oggetti digitali dall'aef alla destinazione fisica
+    begin
+     Zip::File.open("#{Rails.root}/public/imports/#{self.id}/#{self.data_file_name}") { |zip_file|
+         zip_file.each { |f|
+          if (f.name.include? "public") && (f.name.include? "digital_objects")
+             f_path=File.join("#{Rails.root}/", f.name)
+             FileUtils.mkdir_p(File.dirname(f_path))
+             zip_file.extract(f, f_path){ true } unless File.exist?(f_path)   
+          end         
+       }
+      }
+    rescue Exception => e
+      Rails.logger.info "Errore apertura file=" + e.message.to_s
+      return false
+    ensure
+    end
+
+# Upgrade 3.0.0 fine
+
+
   end
 
 # Upgrade 2.2.0 inizio
@@ -641,56 +763,74 @@ class Import < ActiveRecord::Base
   def is_valid_file?
     begin
       extension = File.extname(data_file_name).downcase.gsub('.', '')
-      raise Zip::ZipInternalError unless ['aef'].include? extension
+# Upgrade 3.0.0 inizio     
+      raise Zip::ZipInternalError unless ['aef', 'csv'].include? extension
+         
     rescue Zip::ZipInternalError
-      raise 'Il file fornito non è di formato <code>aef</code>'
+      raise 'Il file fornito non è di formato <code>aef</code> o <code>csv</code>'
     end
-
-    files = ["metadata.json", "data.json"]
-    begin
-# Upgrade 2.0.0 inizio
-#      Zip::ZipFile.open("#{Rails.root}/public/imports/#{self.id}/#{self.data_file_name}") do |zipfile|
-      Zip::File.open("#{Rails.root}/public/imports/#{self.id}/#{self.data_file_name}") do |zipfile|
-# Upgrade 2.0.0 fine
-        zipfile.each do |entry|
-          raise Zip::ZipEntryNameError unless files.include? entry.to_s
-          zipfile.extract(entry, TMP_IMPORTS + "/#{self.id}_#{entry.to_s}")
-        end
-      end
-    rescue Zip::ZipInternalError
-      raise 'Il file fornito non è di formato <code>aef</code>'
-    rescue Zip::ZipEntryNameError
-      raise 'Il file fornito contiene dati non validi'
-    rescue Zip::ZipCompressionMethodError
-      raise 'Il file <code>aef</code> è danneggiato'
-    rescue Zip::ZipDestinationFileExistsError
-      raise "Errore interno di #{APP_NAME}, <em>stale files</em> nella directory tmp"
-    rescue
-      raise "Si è verificato un errore nell'elaborazione del file <code>aef</code>"
-    end
-
-    File.open(metadata_file) do |file|
+# Upgrade 3.0.0 fine  
+    if ['aef'].include? extension
+      files = ["metadata.json", "data.json"]
       begin
-        lines = file.enum_for(:each_line)
-        lines.each do |line|
-          next if line.blank?
-          data = ActiveSupport::JSON.decode(line.strip)
-          raise "Controllo di integrità fallito" unless data['checksum'] == Digest::SHA256.file(data_file).hexdigest
-          unless AEF_COMPATIBLE_VERSIONS.include?(data['version'])
-            aef_version = data['version'].to_s.scan(%r([0-9])).join(".")
-            raise "File incompatibile con questa versione di #{APP_NAME} (#{APP_VERSION}).<br>
-            Il file <code>aef</code> è stato prodotto con la versione #{aef_version}."
+  # Upgrade 2.0.0 inizio
+  #      Zip::ZipFile.open("#{Rails.root}/public/imports/#{self.id}/#{self.data_file_name}") do |zipfile|
+        Zip::File.open("#{Rails.root}/public/imports/#{self.id}/#{self.data_file_name}") do |zipfile|
+  # Upgrade 2.0.0 fine
+  # Upgrade 3.0.0 inizio
+  # esclusi dal controllo di validità i file degli oggetti digitali
+          zipfile.each do |entry|
+            if (entry.directory?) && (entry.to_s.include? "public")
+              next
+            else
+              if (entry.to_s.include? "public")
+                next
+              else
+                raise Zip::ZipEntryNameError unless files.include? entry.to_s
+                zipfile.extract(entry, TMP_IMPORTS + "/#{self.id}_#{entry.to_s}")
+              end
+            end
           end
-          self.importable_type = data['attached_entity']
-
-          self.imported_file_version = data['version'].to_s.scan(%r([0-9])).join(".")
+  # Upgrade 3.0.0 fine
         end
-      rescue Exception => e
-        raise e.message
-      ensure
-        file.close
+      rescue Zip::ZipInternalError
+        raise 'Il file fornito non è di formato <code>aef</code>'
+      rescue Zip::ZipEntryNameError
+        raise 'Il file fornito contiene dati non validi'
+      rescue Zip::ZipCompressionMethodError
+        raise 'Il file <code>aef</code> è danneggiato'
+      rescue Zip::ZipDestinationFileExistsError
+        raise "Errore interno di #{APP_NAME}, <em>stale files</em> nella directory tmp"
+      rescue
+        raise "Si è verificato un errore nell'elaborazione del file <code>aef</code>"
       end
+
+      File.open(metadata_file) do |file|
+        begin
+          lines = file.enum_for(:each_line)
+          lines.each do |line|
+            next if line.blank?
+            data = ActiveSupport::JSON.decode(line.strip)
+            raise "Controllo di integrità fallito" unless data['checksum'] == Digest::SHA256.file(data_file).hexdigest
+            unless AEF_COMPATIBLE_VERSIONS.include?(data['version'])
+              aef_version = data['version'].to_s.scan(%r([0-9])).join(".")
+              raise "File incompatibile con questa versione di #{APP_NAME} (#{APP_VERSION}).<br>
+              Il file <code>aef</code> è stato prodotto con la versione #{aef_version}."
+            end
+            self.importable_type = data['attached_entity']
+
+            self.imported_file_version = data['version'].to_s.scan(%r([0-9])).join(".")
+          end
+        rescue Exception => e
+          raise e.message
+        ensure
+          file.close
+        end
+      end 
+    else     
+      self.importable_type = "Unit"
     end
+    # Upgrade 3.0.0 fine
   end
 
   def wipe_all_related_records
@@ -716,6 +856,16 @@ class Import < ActiveRecord::Base
           model = table.classify.constantize
           object = model.new
           if object.has_attribute? 'db_source'
+# Upgrade 3.0.0 inizio
+# Vengono eliminati fisicamente gli oggetti digitali precedentemente importati   
+# insieme alle cartelle corrispondenti e prima dell'eliminazione dei record corrispondenti su db
+            if table.include? "digital_objects"
+              digital_object_ids = DigitalObject.where(:db_source => self.identifier).map(&:access_token)
+              digital_object_ids.each do |doi|
+                delete_digital_folder(doi)
+              end
+            end
+# Upgrade 3.0.0 fine
             model.delete_all("db_source = '#{self.identifier}'")
           end
         end

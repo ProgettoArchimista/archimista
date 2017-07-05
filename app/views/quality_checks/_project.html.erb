@@ -1,0 +1,14 @@
+<table class="table">
+  <tr>
+    <th style="width:25%;"><%= t('name') %></th>
+    <td>
+      <% if project.name.present? %>
+        <%= project.name %>
+      <% else %>
+        <%= warning_field %>
+      <% end %>
+    </td>
+  </tr>
+
+
+</table>

@@ -40,6 +40,10 @@
       <tr>
 <%# cambiato nome campo da name a creator_names.name %>
         <th><%= sortable("creator_names.name", t('creator_name')) %></th>
+        <%# Upgrade 3.0.0 inizio %>
+<%# aggiunta colonna per stato pubblicazione %>
+          <th>&nbsp;</th>
+<%# Upgrade 3.0.0 fine %>
         <th><%= sortable("creator_type", t('creator_type')) %></th>
 <%# Upgrade 2.2.0 inizio %>
         <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
@@ -73,6 +77,9 @@
 <%# Upgrade 2.2.0 fine %>
             
         </td>
+<%# aggiunta visualizzazione stato pubblicazione %>
+        <td><%= if creator.published == true then t('published') else  t('unpublished') end %></td>
+<%# Upgrade 3.0.0 fine %>           
         <td><%= show_value(creator.creator_type, "t") %></td>
 
 <%# Upgrade 2.2.0 inizio %>

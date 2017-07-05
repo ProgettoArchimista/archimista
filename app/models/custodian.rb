@@ -144,7 +144,7 @@ class Custodian < ActiveRecord::Base
 =end
 # Upgrade 2.2.0 inizio
 #  scope :list, -> { select("custodians.id, custodian_names.name, custodians.updated_at").joins(:preferred_name) }
-  scope :list, -> { select("custodians.id, custodian_names.name, custodians.updated_at, group_id, groups.short_name").joins(:preferred_name, :group) }
+  scope :list, -> { select("custodians.id, custodian_names.name, custodians.updated_at, custodians.published, group_id, groups.short_name").joins(:preferred_name, :group) }
 # Upgrade 2.2.0 fine
 
   scope :export_list, -> { select("custodians.id, custodian_names.name, custodians.updated_at, custodians.db_source, count(custodians.id) AS num").joins([:fonds, :preferred_name]).group("custodians.id, custodian_names.name").order("custodian_names.name") }

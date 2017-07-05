@@ -28,7 +28,7 @@
   <%= display_page_entries_info @custodians %>
 
 <%# Upgrade 2.2.0 inizio %>
-    <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span7" else "span8" end %>
+    <% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span6" else "span7" end %>
 <%# Upgrade 2.2.0 fine %>
 
   <table class="table table-sortable">
@@ -36,6 +36,9 @@
     <tr>
 <%# inserito class_name e cambiato nome campo da name a custodians_names.name%>
       <th class="<%= class_name %>"><%= sortable("custodian_names.name", t('custodian_name')) %></th>
+<%# aggiunta colonna per stato pubblicazione %>
+      <th>&nbsp;</th>
+<%# Upgrade 3.0.0 fine %>
 <%# Upgrade 2.2.0 inizio %>
         <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
           <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
@@ -50,7 +53,9 @@
     <% @custodians.each do |custodian| %>
       <tr class="<%= cycle("odd", "even") %>">
         <td><%= link_to custodian.name, edit_custodian_path(custodian) %></td>
-
+<%# aggiunta visualizzazione stato pubblicazione %>
+        <td><%= if custodian.published == true then t('published') else  t('unpublished') end %></td>
+<%# Upgrade 3.0.0 fine %>   
 <%# Upgrade 2.2.0 inizio %>
         <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
           <td style="font-size: 11px;"><%= custodian.group.short_name %></td>

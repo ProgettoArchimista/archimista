@@ -1,6 +1,6 @@
 ## Archimista
 Archimista è un'applicazione web open source per la descrizione di archivi storici. È disponibile in due versioni: standalone e server.
-Versione corrente: **2.2.0**
+Versione corrente: **3.0.0**
 
 ## Requisiti
 Archimista funziona sui sistemi operativi GNU/Linux, Mac OS X, Windows Vista e superiori. Per Windows XP è necessario utilizzare una versione apposita
@@ -45,9 +45,11 @@ Archimista è un progetto promosso da:
 ## Autori
 Codex Società Cooperativa, Pavia
 * [http://www.codexcoop.it](http://www.codexcoop.it)
-
-La versione attuale è stata sviluppata da TAI S.a.s.
+TAI S.a.s.
 * [http://www.taisas.com](http://www.taisas.com)
+
+Lo sviluppo attuale è curato da INGLOBA360 s.r.l.
+* [http://www.ingloba360.it](http://www.ingloba360.it)
 
 ## Licenza
 Archimista è rilasciato sotto licenza GNU General Public License v2.0 o successive.

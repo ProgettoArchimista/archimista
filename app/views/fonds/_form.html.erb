@@ -74,9 +74,19 @@
       <% end %>
 
       <div class="tab-pane active" id="tab-description">
-        <%= f.label :fond_type, t('fond_type') %>
-        <%= terms_select(f, "fonds.fond_type", {:prompt => true}, {:class => "span3"}) %>
-
+        <%# Upgrade 3.0.0 inizio %>
+        <%# Inserita checkbox stato pubblicazione nell'interfaccia, racchiusa in un div con la select di tipologia complesso archivistico %>
+        <div class="row">
+          <div class="span3">
+            <%= f.label :fond_type, t('fond_type') %>
+            <%= terms_select(f, "fonds.fond_type", {:prompt => true}, {:class => "span3"}) %>
+          </div>
+          <div class="span2">
+            <%= f.label :published, t('published') %>
+            <%= check_box("fond", "published")%>
+          </div>
+        </div>
+        <%# Upgrade 3.0.0 fine %>
         <%= f.label :name, t('name') %>
         <%= f.text_field :name %>
 

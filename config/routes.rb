@@ -1,5 +1,6 @@
 # Upgrade 2.0.0 inizio
 Rails.application.routes.draw do
+
   devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
   resources :users do
@@ -39,11 +40,15 @@ Rails.application.routes.draw do
       put    :move
       get    :merge_with
       post   :merge
+      get    :split_fond
+      post   :split
       get    :trash
       get    :trashed_subtree
       put    :move_to_trash
       put    :restore_subtree
       delete :destroy_subtree
+      put    :publish
+      put    :unpublish
     end
     collection do
       get  :save_a_tree
@@ -143,6 +148,8 @@ Rails.application.routes.draw do
   resources :projects do
     collection do
       get :list
+      put :publish
+      put :unpublish
     end
   end
 
@@ -197,6 +204,14 @@ Rails.application.routes.draw do
       get :custodian
     end
   end
+
+# Upgrade 3.0.0 inizio
+resources :multiple_occours, :only => [:index] do
+    member do
+      post :merge
+    end
+  end
+# Upgrade 3.0.0 fine
 
   resources :imports, :only => [:index, :new, :create, :destroy]
   resources :exports, :only => [:index] do

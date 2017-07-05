@@ -43,12 +43,16 @@
   <tr>
     <th class="<%= class_name %>"><%= t('name') %></th>
     <th class="span2"><%= t('duration') %></th>
+<%# Upgrade 3.0.0 inizio %>
+    <th class="span1">&nbsp;</th>
+<%# Upgrade 3.0.0 fine %>
 <%# Upgrade 2.2.0 inizio %>
     <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
       <th class="span2"><%= t('list_group_short_name') %></th>
     <% end %>
 <%# Upgrade 2.2.0 fine %>
     <th class="span2"><%= t('updated_at') %></th>
+    <th class="span1">&nbsp;</th>
     <th class="span1">&nbsp;</th>
     <th class="span1">&nbsp;</th>
  </tr>
@@ -101,6 +105,9 @@
 <%# Upgrade 2.2.0 fine %>
     </td>
     <td><%= project.display_date %></td>
+<%# Upgrade 3.0.0 inizio %>
+    <td><%= if project.published == true then t('published') else  t('unpublished') end %></td>
+<%# Upgrade 3.0.0 fine %>
 <%# Upgrade 2.2.0 inizio %>
     <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
       <td style="font-size: 11px;"><%= project.group.short_name %></td>
@@ -108,6 +115,14 @@
 <%# Upgrade 2.2.0 fine %>
     <td><%= l project.updated_at, :format => :long %></td>
     <td class="action"><%= link_to t('show'), project %></td>
+<%# Upgrade 3.0.0 inizio %>
+<%# aggiunto link di pubblicazione %>  
+    <% if project.published == true %>          
+      <td class="action"><%= link_to t('unpublish'), unpublish_projects_path({:id => project.id}), data: {:confirm => t('are_you_sure')}, method: 'put'%></td>
+    <% else %>
+      <td class="action"><%= link_to t('publish'), publish_projects_path({:id => project.id}), data: {:confirm => t('are_you_sure')}, method: 'put'%></td>
+    <% end %>  
+<%# Upgrade 3.0.0 fine %> 
     <td class="action">
 <%# Upgrade 2.0.0 inizio %>
       <%#= link_to t('destroy'), project, :confirm => t('are_you_sure'), :method => :delete %>

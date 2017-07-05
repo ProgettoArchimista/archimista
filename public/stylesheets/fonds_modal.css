@@ -1,0 +1,23 @@
+#merge-fonds-modal
+{
+	width: 800px;
+	left: 43%;
+}
+
+#merge-fonds-modal .modal-body
+{
+	height: 400px;
+
+}
+
+#split-fonds-modal
+{
+	width: 800px;
+	left: 43%;
+}
+
+#split-fonds-modal .modal-body
+{
+	height: 400px;
+
+}

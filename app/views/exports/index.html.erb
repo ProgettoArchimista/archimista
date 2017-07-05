@@ -6,7 +6,8 @@
 <div class="span8">
   <p style="margin-bottom: 2em;">Puoi esportare i tuoi complessi archivistici nel formato <code>aef</code> adatto all'importazione in un'altra istanza di Archimista.<br>
     Seleziona un singolo complesso archivistico o un insieme di complessi collegati a un soggetto conservatore o a un progetto.</p>
-
+  <%= check_box_tag 'inc_digit'%><%= label_tag 'inc_digit', 'Includi gli oggetti digitali', :class => 'digital_checkbox' %>
+  
   <ul class="nav nav-tabs" id="export-tabs">
     <li><a href="#fonds" data-toggle="tab"><%= t('fonds')%></a></li>
     <li><a href="#custodians" data-toggle="tab"><%= t('custodians')%></a></li>

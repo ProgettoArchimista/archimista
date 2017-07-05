@@ -22,10 +22,11 @@ class Export < ActiveRecord::Base
   column :target_class, :string
   column :mode, :string
   column :group_id, :integer
+  column :inc_digit, :boolean
 
 # Upgrade 2.0.0 inizio
 #  attr_accessor :fond_ids, :unit_ids, :creator_ids, :custodian_ids, :document_form_ids, :project_ids, :institution_ids, :source_ids, :group_id
-  attr_accessor :fond_ids, :unit_ids, :creator_ids, :custodian_ids, :document_form_ids, :project_ids, :institution_ids, :source_ids, :group_id, :metadata_file, :data_file, :dest_file, :target_id, :target_class, :mode
+  attr_accessor :fond_ids, :unit_ids, :creator_ids, :custodian_ids, :document_form_ids, :project_ids, :institution_ids, :source_ids, :group_id, :metadata_file, :data_file, :dest_file, :target_id, :target_class, :mode, :inc_digit
 # Upgrade 2.0.0 fine
 
   def tables
@@ -439,11 +440,30 @@ class Export < ActiveRecord::Base
   end
 # Upgrade 2.2.0 fine
 
+# Upgrade 3.0.0 inizio
+  def create_units_export_file_csv(unit_ids, fond_id, dest_folder)
+    create_units_data_file_csv(unit_ids, fond_id)
+    create_csv_file(dest_folder)
+  end
+# Upgrade 3.0.0 fine
+
   private
-  
+
+# Upgrade 3.0.0 inizio
+  def create_csv_file(dest_folder)
+    FileUtils.cp(self.data_file, dest_folder)
+  end
+# Upgrade 3.0.0 fine
+
 # Upgrade 2.2.0 inizio
   def create_aef_file
     files = {"metadata.json" => self.metadata_file, "data.json" => self.data_file}
+# Upgrade 3.0.0 inizio
+# definizione directory oggetti digitali
+    @dir = "#{Rails.root}/public/digital_objects"
+    @dir.sub!(%r[/$],'')
+    include_digital_objects = self.inc_digit
+# Upgrade 3.0.0 fine
 # Upgrade 2.0.0 inizio
 #    Zip::ZipFile.open(self.dest_file, Zip::ZipFile::CREATE) do |zipfile|
     Zip::File.open(self.dest_file, Zip::File::CREATE) do |zipfile|
@@ -451,8 +471,41 @@ class Export < ActiveRecord::Base
       files.each do |dst, src|
         zipfile.add(dst, src)
       end
+# Upgrade 3.0.0 inizio
+# recupero degli access tokens corrispondenti alle cartelle degli oggetti digitali da importare se selezionato checkbox
+    if include_digital_objects == 'true'
+      fond_access_tokens = DigitalObject.select("access_token").where(:attachable_id => self.fond_ids, :attachable_type => "Fond").map(&:access_token)
+      unit_access_tokens = DigitalObject.select("access_token").where(:attachable_id => self.unit_ids, :attachable_type => "Unit").map(&:access_token)
+      entries = fond_access_tokens + unit_access_tokens
+      writeEntries(entries, "", zipfile )
+    end
+# Upgrade 3.0.0 fine
     end
   end
+
+# Upgrade 3.0.0 inizio
+# metodo di import delle cartelle digital object
+  def writeEntries(entries, path, io)
+    entries.each { |e|
+      zipFilePath = path == "" ? e : File.join(path, e)
+      destZipFilePath = "public/digital_objects/" + zipFilePath
+      diskFilePath = File.join(@dir, zipFilePath)
+      if  File.directory?(diskFilePath)
+        io.mkdir(destZipFilePath)
+        subdir =Dir.entries(diskFilePath); subdir.delete("."); subdir.delete("..")
+        writeEntries(subdir, zipFilePath, io)
+      else
+        if Dir.exists?(diskFilePath) 
+          io.get_output_stream(destZipFilePath) { |f| f.puts(File.open(diskFilePath, "rb").read())}
+        elsif File.exists?(diskFilePath)
+          io.get_output_stream(destZipFilePath) { |f| f.puts(File.open(diskFilePath, "rb").read())}
+        else
+          next
+        end
+      end
+    }
+  end
+# Upgrade 3.0.0 fine
 
   def create_units_data_file(unit_ids)
     ActiveRecord::Base.include_root_in_json = true
@@ -460,7 +513,9 @@ class Export < ActiveRecord::Base
     File.open(self.data_file, "a") do |file|
       unit_sequence_number_index = 1
       units.each do |unit|
-        # le relazioni con i fondi (legacy_root_fond_id, legacy_parent_fond_id) non vengono esportate perché il fondo in cui si effettuerà l'importazione dei dati avrà in generale una struttura diversa da quella di origine (e comunque è prevista l'esportazione di unità appartenenti ad un unico livello (fondo)). Per lo stesso motivo non si esportano i campi fond_id, root_fond_id
+        # le relazioni con i fondi (legacy_root_fond_id, legacy_parent_fond_id) non vengono esportate perché il fondo in cui si effettuerà l'importazione dei dati avrà
+        # in generale una struttura diversa da quella di origine (e comunque è prevista l'esportazione di unità appartenenti ad un unico livello (fondo)). 
+        # Per lo stesso motivo non si esportano i campi fond_id, root_fond_id
         #
         # ancestry non viene esportato perché lo si ricostruisce in import
         #
@@ -479,6 +534,110 @@ class Export < ActiveRecord::Base
       export_entity_related_digital_objects(file, "Unit", unit_ids)
     end
   end
+
+# Upgrade 3.0.0 inizio
+  def create_units_data_file_csv(unit_ids, fond_id)
+    fond = Fond.select("id, ancestry, name").find(fond_id)
+    display_sequence_numbers = Unit.display_sequence_numbers_of(fond.root)
+    File.open(self.data_file, "a") do |file|
+      file.write(create_csv(unit_ids, display_sequence_numbers))
+      export_units_related_entities_csv(file, unit_ids, self.tables[:units])
+    end
+  end
+
+   def create_csv(ids, sequence_numbers, options = {})
+    conditionParam = "#{:id} IN (#{ids.join(',')})"
+    ucsv = Unit.where(conditionParam).order("sequence_number")
+    attributes_all = Unit.column_names
+    attributes_except = ["id", "fond_id", "root_fond_id", "position", "ancestry", "db_source", "created_by", "updated_by", "legacy_sequence_number", "legacy_parent_fond_id", "legacy_root_fond_id", "created_at", "updated_at"]
+    attributes = attributes_all - attributes_except
+    attr_names = attributes.collect { |x| "units_" + x }
+
+    CSV.generate(options) do |new_csv|
+      new_csv << attr_names
+      ucsv.each_with_index do |csv_unit, index|
+        csv_data = []
+        attributes.each do |attribute|
+          if attribute == "legacy_id"
+            csv_data << csv_unit.id
+          elsif attribute == "legacy_parent_unit_id"
+            csv_data << csv_unit.is_root? ? nil : csv_unit.parent_id.to_s
+          elsif attribute == "sequence_number"
+            csv_data << csv_unit.display_sequence_number_from_hash(sequence_numbers)
+          else
+            csv_data << csv_unit.try(attribute.to_sym).to_s
+          end
+        end
+        new_csv << csv_data
+      end
+      new_csv << []
+    end
+  end
+
+  def create_related_csv(table, set_element, options = {})
+    related_attributes_all = table.singularize.camelize.constantize.column_names
+    related_attributes_except = ["id", "db_source", "created_at", "updated_at"]
+    related_attributes = related_attributes_all - related_attributes_except
+    related_attr_names = related_attributes.collect { |j| table + "_" + j }
+
+    CSV.generate(options) do |new_related_csv|
+      new_related_csv << related_attr_names
+      set_element.each_with_index do |csv_related_unit, index|
+        csv_related_data = []
+        if (["sc2_authors","sc2_commissions"].include?(table)) then
+          csv_related_unit.legacy_current_id = csv_related_unit.id
+          if (table == "sc2_authors") then @sc2_attribution_reasons_ids.push(csv_related_unit.id) end
+          if (table == "sc2_commissions") then @sc2_commission_names_ids.push(csv_related_unit.id) end
+        end
+        related_attributes.each do |attribute|
+          if attribute == "legacy_id"
+            if table == "sc2_attribution_reasons"
+              csv_related_data << csv_related_unit.sc2_author_id
+            elsif table == "sc2_commission_names"
+              csv_related_data << csv_related_unit.sc2_commission_id
+            else
+              csv_related_data << csv_related_unit.unit_id
+            end
+          else
+            csv_related_data << csv_related_unit.try(attribute.to_sym).to_s
+          end
+        end
+        new_related_csv << csv_related_data
+      end
+      new_related_csv << []
+    end
+
+  end
+
+  def export_units_related_entities_csv(file, unit_ids, unit_related_tables)
+    @sc2_attribution_reasons_ids = Array.new
+    @sc2_commission_names_ids = Array.new
+    
+    unless unit_ids.empty?
+      unit_related_tables.each do |table|
+        model = table.singularize.camelize.constantize
+        set = model.where("unit_id IN (#{unit_ids.join(',')})")
+        if set.count > 0
+          file.write(create_related_csv(table, set))
+        end
+      end
+    end
+    unless @sc2_attribution_reasons_ids.empty?
+      set = Sc2AttributionReason.where("sc2_author_id IN (#{@sc2_attribution_reasons_ids.join(',')})")
+      table = "sc2_attribution_reasons"
+      if set.count > 0
+        file.write(create_related_csv(table, set))
+      end
+    end
+    unless @sc2_commission_names_ids.empty?
+      set = Sc2CommissionName.where("sc2_commission_id IN (#{@sc2_commission_names_ids.join(',')})")
+      table = "sc2_commission_names"
+      if set.count > 0
+        file.write(create_related_csv(table, set))
+      end
+    end
+  end
+# Upgrade 3.0.0 fine  
   
   def export_units_related_entities(file, unit_ids, unit_related_tables)
     #TODO considerare each_slice su unit_ids per grandi quantitativi di unità (+query ma meno memoria).

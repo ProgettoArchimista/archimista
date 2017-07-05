@@ -5,7 +5,9 @@
     <h3>Importa unità</h3>
   </div>
   <div class="modal-body">
-    <p>Puoi importare i dati da un file in formato <code>aef</code> che contenga i dati prodotti mediante esportazione di unità.</p>
+<%# Upgrade 3.0.0 fine %>
+    <p>Puoi importare i dati da un file in formato <code>aef</code> oppure <code>csv</code> che contenga i dati prodotti mediante esportazione di unità.</p>
+<%# Upgrade 3.0.0 fine %>    
     <p>Le unità importate si accoderanno a quelle del complesso corrente.</p>
     <% import_wrk = Import.new %>
     <%= form_for import_wrk, :html => { :id => 'import-wait', :multipart => true } do |f| %>

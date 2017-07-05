@@ -43,18 +43,39 @@ $(document).ready(function () {
       data: {
         target_id: $("#exports-fond-id-autocomplete").val(),
         target_class: 'fond',
-        mode: 'full'
+        mode: 'full',
+/* Upgrade 3.0.0 inizio */        
+        inc_digit: $("#inc_digit").is(":checked")
+/* Upgrade 3.0.0 inizio */
+
       },
       dataType: 'json',
       success: function (data) {
-        var tokens, file;
+        var tokens, file, data_file, metadata_file;
         $.unblockUI();
-/* Upgrade 2.0.0 inizio */
+/*codice senza file digitali da esportare
 //        tokens = data["export"]["dest_file"].split('/');
         tokens = data["dest_file"].split('/');
-/* Upgrade 2.0.0 fine */
+
+        file = tokens[tokens.length - 1];*/
+
+        tokens = data["dest_file"].split('/');
         file = tokens[tokens.length - 1];
+
+        tokens = data["data_file"].split('/');
+        data_file = tokens[tokens.length - 1];
+
+        tokens = data["metadata_file"].split('/');
+        metadata_file = tokens[tokens.length - 1];
+
+/* Upgrade 3.0.0 inizio */        
+        $("#inc_digit").prop('checked', false);
+/* Upgrade 3.0.0 inizio */
         $(window.location).attr('href', "/exports/download?file=" + file);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Errore nell'esportazione.");
+        $.unblockUI();
       }
     });
     return false;
@@ -70,19 +91,39 @@ $(document).ready(function () {
       data: {
         target_id: $("#exports-custodian-id-autocomplete").val(),
         target_class: 'custodian',
-        mode: 'full'
+        mode: 'full',
+/* Upgrade 3.0.0 inizio */        
+        inc_digit: $("#inc_digit").is(":checked")
+/* Upgrade 3.0.0 inizio */
 
       },
       dataType: 'json',
       success: function (data) {
-        var tokens, file;
+        var tokens, file, data_file, metadata_file;
         $.unblockUI();
-/* Upgrade 2.0.0 inizio */
+/* Codice senza file digitali da esportare
 //        tokens = data["export"]["dest_file"].split('/');
         tokens = data["dest_file"].split('/');
-/* Upgrade 2.0.0 fine */
+        file = tokens[tokens.length - 1];*/
+
+        tokens = data["dest_file"].split('/');
         file = tokens[tokens.length - 1];
+
+        tokens = data["data_file"].split('/');
+        data_file = tokens[tokens.length - 1];
+
+        tokens = data["metadata_file"].split('/');
+        metadata_file = tokens[tokens.length - 1];
+
+/* Upgrade 3.0.0 inizio */        
+        $("#inc_digit").prop('checked', false);
+/* Upgrade 3.0.0 inizio */
+
         $(window.location).attr('href', "/exports/download?file=" + file);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Errore nell'esportazione.");
+        $.unblockUI();
       }
     });
     return false;
@@ -98,19 +139,39 @@ $(document).ready(function () {
       data: {
         target_id: $("#exports-project-id-autocomplete").val(),
         target_class: 'project',
-        mode: 'full'
+        mode: 'full',
+/* Upgrade 3.0.0 inizio */        
+        inc_digit: $("#inc_digit").is(":checked")
+/* Upgrade 3.0.0 inizio */
 
       },
       dataType: 'json',
       success: function (data) {
-        var tokens, file;
+        var tokens, file, data_file, metadata_file;
         $.unblockUI();
-/* Upgrade 2.0.0 inizio */
+/* codice senza file digitali da esportare
 //        tokens = data["export"]["dest_file"].split('/');
         tokens = data["dest_file"].split('/');
-/* Upgrade 2.0.0 fine */
+        file = tokens[tokens.length - 1];*/
+
+        tokens = data["dest_file"].split('/');
         file = tokens[tokens.length - 1];
+
+        tokens = data["data_file"].split('/');
+        data_file = tokens[tokens.length - 1];
+
+        tokens = data["metadata_file"].split('/');
+        metadata_file = tokens[tokens.length - 1];
+
+/* Upgrade 3.0.0 inizio */        
+        $("#inc_digit").prop('checked', false);
+/* Upgrade 3.0.0 inizio */
+
         $(window.location).attr('href', "/exports/download?file=" + file);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Errore nell'esportazione.");
+        $.unblockUI();
       }
     });
     return false;
@@ -126,7 +187,10 @@ $(document).ready(function () {
       data: {
         target_id: $(this).attr('target-id'),
         target_class: $(this).attr('target-class'),
-        mode: $(this).attr('target-mode')
+        mode: $(this).attr('target-mode'),
+/* Upgrade 3.0.0 inizio */        
+        inc_digit: $("#inc_digit").is(":checked")
+/* Upgrade 3.0.0 inizio */
       },
       dataType: 'json',
       success: function (data) {
@@ -152,8 +216,14 @@ $(document).ready(function () {
         tokens = data["metadata_file"].split('/');
         metadata_file = tokens[tokens.length - 1];
 /* Upgrade 2.0.0 fine */
-
+/* Upgrade 3.0.0 inizio */        
+        $("#inc_digit").prop('checked', false);
+/* Upgrade 3.0.0 inizio */
         $(window.location).attr('href', "/exports/download?file=" + file + "&data=" + data_file + "&meta=" + metadata_file);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Errore nell'esportazione.");
+        $.unblockUI();
       }
     });
     return false;
@@ -181,7 +251,7 @@ $(document).ready(function () {
         if (data.status === "success") {
           location.reload();
         } else {
-          $("div.container").prepend('<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a>' + data.msg + '.</div>');
+          $("div.container").prepend('<div class="alert alert-error"><a class="close" data-dismiss="alert">Ã—</a>' + data.msg + '.</div>');
         }
       }
     });

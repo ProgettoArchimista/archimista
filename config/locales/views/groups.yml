@@ -22,6 +22,12 @@ en:
 # Upgrade 2.2.0 inizio
   list_group_short_name: "Nome gruppo"
 # Upgrade 2.2.0 fine
+# Upgrade 3.0.0 inizio
+  published: "Published"
+  publish: "Publish"
+  unpublished: "Unpublished"
+  unpublish: "Unpublish"
+# Upgrade 3.0.0 fine
 
 it:
   groups: "Gruppi"
@@ -47,3 +53,9 @@ it:
 # Upgrade 2.2.0 inizio
   list_group_short_name: "Nome gruppo"
 # Upgrade 2.2.0 fine
+# Upgrade 3.0.0 inizio
+  published: "Pubblicato"
+  publish: "Pubblica"
+  unpublished: "Non pubblicato"
+  unpublish: "Rimuovi pubblicazione"
+# Upgrade 3.0.0 fine

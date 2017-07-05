@@ -198,8 +198,11 @@ class Fond < ActiveRecord::Base
 =end
 # Upgrade 2.2.0 inizio
 #  scope :list, -> {select("id, name, units_count, fond_type, updated_at, db_source").includes(:preferred_event)}
-  scope :list, -> {select("fonds.id, fonds.name, units_count, fond_type, fonds.updated_at, db_source, group_id, groups.short_name").joins(:group).includes(:preferred_event)}
+#  scope :list, -> {select("fonds.id, fonds.name, units_count, fond_type, fonds.updated_at, db_source, group_id, groups.short_name").joins(:group).includes(:preferred_event)}
 # Upgrade 2.2.0 fine
+# Upgrade 3.0.0 inizio
+   scope :list, -> {select("fonds.id, fonds.name, units_count, fond_type, fonds.updated_at, fonds.published, db_source, group_id, groups.short_name").joins(:group).includes(:preferred_event)}
+# Upgrade 3.0.0 fine
 
   scope :default_order, -> {order("fonds.name")}
 

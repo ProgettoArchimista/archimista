@@ -100,6 +100,10 @@
   <table id="units-index" class="table table-sortable table-bordered">
     <col style="width: 30px" />
     <col style="width: 80px" />
+<%# Upgrade 3.0.0 inizio %>  
+<%# Colonna stato pubblicazione unità %>    
+    <col style="width: 80px" />
+<%# Upgrade 3.0.0 fine %>    
     <col style="width: auto" />
     <col style="width: 260px" />
     <col style="width: 150px" />
@@ -107,6 +111,7 @@
     <tr>
       <th><%= check_box_tag 'select_all', nil, false, :id => 'select-all-records' %></th>
       <th><%= sortable("sequence_number", t('sequence_number_short')) %></th>
+      <th>&nbsp;</th>
       <th><%= sortable("title", t('title')) %></th>
       <th><%= sortable("order_date", "Estremi cronologici") %></th>
       <th><%= sortable("reference_number", t('reference_number')) %></th>
@@ -125,6 +130,10 @@
         <td class="muted" style="text-align: right; padding-right: 20px;">
           <%= unit.display_sequence_number_from_hash(@display_sequence_numbers) %>
         </td>
+<%# Upgrade 3.0.0 inizio %>
+<%# aggiunta visualizzazione stato pubblicazione %>
+        <td><%= if unit.published == true then t('published') else  t('unpublished') end %></td>
+<%# Upgrade 3.0.0 fine %>       
         <td>
 <%# TAI aggiunto raw() %>
           <%= raw("&mdash;" * unit.ancestry_depth) %>

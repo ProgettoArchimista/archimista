@@ -29,10 +29,19 @@
 <%# TAI aggiunto raw() %>
         <%= f.label :name, raw(t('name') + required_marker) %>
         <%= f.text_field :name, :class => "span9" %>
-
-        <%= f.label :project_type, t('project_type') %>
-        <%= terms_select(f, "projects.project_type", {:prompt => true}, :class => "span4") %>
-
+        <%# Upgrade 3.0.0 inizio %>
+        <%# Inserita checkbox stato pubblicazione nell'interfaccia, racchiusa in un div con la select di tipologia progetto %>
+        <div class="row">
+          <div class="span4">
+            <%= f.label :project_type, t('project_type') %>
+            <%= terms_select(f, "projects.project_type", {:prompt => true}, :class => "span4") %>
+          </div>
+          <div class="span2">
+            <%= f.label :published, t('published') %>
+            <%= check_box("project", "published")%>
+          </div>
+        </div>
+        <%# Upgrade 3.0.0 fine %>
         <div class="row">
           <div class="span2">
             <%= f.label :start_year, t('start_year') %>

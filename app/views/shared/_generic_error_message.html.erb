@@ -7,12 +7,8 @@
 <%# Upgrade 2.1.0 inizio %>
     <ul>
       <% object.errors.each do |key, message| %>
-<%# Upgrade 2.2.0 inizio %>
-        <li>
-          <%#= t(key) + ": " + message.to_s %>
-          <%= t(key).to_s + ": " + message.to_s %>
-        </li>
-<%# Upgrade 2.2.0 fine %>
+        <li><%= t(key) %></li>
+        <li><%= message.to_s %></li>
       <% end %>
     </ul>
 <%# Upgrade 2.1.0 fine %>

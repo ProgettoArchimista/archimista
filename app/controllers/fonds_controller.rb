@@ -1,4 +1,5 @@
 class FondsController < ApplicationController
+  include FondsHelper
   helper_method :sort_column
 
   load_and_authorize_resource
@@ -383,7 +384,46 @@ class FondsController < ApplicationController
     render :partial => 'fonds/form', :layout => false
   end
 
+# Upgrade 3.0.0 inizio
+  def split_fond
+    @fond = Fond.find(params[:id])
+    render :partial => 'fonds/fond_split', :object => @fond, :layout => false, :as => "object"
+  end
+
+  def split
+    if params[:new_root_id].present?
+      if params[:id] == params[:new_root_id]
+        flash[:alert] =  'Impossibile dividere un complesso archivistico da se stesso.'
+        redirect_to fonds_url
+        return
+      end
+
+      @new_root = Fond.find(params[:new_root_id])
+
+      if @new_root.move_with_external_sequence( :new_parent_id => params[:new_root_id], :new_position => 1, :jstree => true )
+        if @new_root.move_with_external_sequence( :new_parent_id => nil, :new_position => 1, :jstree => true )
+          new_tree_ids = Fond.find(@new_root.id).subtree_ids
+          Unit.where({:fond_id => new_tree_ids}).update_all("root_fond_id = #{@new_root.id}")
+          @new_root.update_deletable_status
+          @new_root.update_deletable_status
+          flash[:notice] = 'Complessi archivistici divisi'
+          redirect_to fonds_url
+        else
+          flash[:alert] = 'Divisione complessi archivistici fallita'
+          redirect_to fonds_url
+        end
+      else
+        flash[:alert] = 'Divisione complessi archivistici fallita'
+        redirect_to fonds_url
+      end
+    else
+      redirect_to fonds_url
+    end
+  end
+# Upgrade 3.0.0 fine
+
   def merge_with
+    
     @fond = Fond.find(params[:id])
 # Upgrade 2.0.0 inizio
 =begin
@@ -392,7 +432,6 @@ class FondsController < ApplicationController
       :order => "name")
     render :partial => 'fonds/merge_with', :locals => {:fonds => @available_fonds}, :object => @fond, :layout => false
 =end
-
     @available_fonds = Fond.accessible_by(current_ability, :read).roots.
       select("id, name").where("id != #{@fond.id}").includes(:preferred_event).
       order("name")
@@ -410,14 +449,16 @@ class FondsController < ApplicationController
         return
       end
 
-      @new_root = Fond.find(params[:new_root_id])
-
-      if @fond.move_with_external_sequence(:new_parent_id => @new_root.id, :new_position => 1)
-# Upgrade 2.0.0 inizio
+      @choosen_root = Fond.find(params[:choosen_root_id])
+      new_root_id = params[:new_root_id].to_i
+      if @fond.move_with_external_sequence(:new_parent_id => @choosen_root.id, :new_position => 1)
+# Upgrade 3.0.0 inizio
 #        Unit.update_all("root_fond_id = #{@new_root.id}", ["root_fond_id = ?", @fond.id])
-        Unit.where(["root_fond_id = ?", @fond.id]).update_all("root_fond_id = #{@new_root.id}")
-# Upgrade 2.0.0 fine
-        @new_root.update_deletable_status
+#        Unit.where(["root_fond_id = ?", @fond.id]).update_all("root_fond_id = #{@new_root.id}")
+        real_root_id = Fond.find(new_root_id).root_id
+        Unit.where(["root_fond_id = ?", @fond.id]).update_all("root_fond_id = #{new_root_id}")
+# Upgrade 3.0.0 fine
+        @choosen_root.update_deletable_status
         @fond.update_deletable_status
 
         # The merged fond is not a root anymore, so clear the relations specific to root fonds.
@@ -425,7 +466,8 @@ class FondsController < ApplicationController
         @fond.rel_project_fonds.clear
 
         flash[:notice] = 'Complessi archivistici uniti'
-        redirect_to treeview_fond_url(@new_root.id)
+        #redirect_to treeview_fond_url(@new_root.id)
+        redirect_to fonds_url
       else
         flash[:alert] = 'Unione complessi archivistici fallita'
         redirect_to fonds_url
@@ -535,6 +577,19 @@ class FondsController < ApplicationController
 
     redirect_to(trash_fond_url(@fond.root.id))
   end
+
+  # Upgrade 3.0.0 inizio
+  # Aggiunte azioni di pubblicazione e rimozione pubblicazione a cascata fondi/unità/oggetti
+  def publish
+    publish_fond(params[:id])
+    redirect_to(fonds_url, :notice => 'Scheda aggiornata')
+  end
+
+  def unpublish
+    unpublish_fond(params[:id])
+    redirect_to(fonds_url, :notice => 'Scheda aggiornata')
+  end
+# Upgrade 3.0.0 fine
 
   private
 

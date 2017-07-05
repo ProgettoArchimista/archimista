@@ -257,7 +257,14 @@ module UnitSupport
     def conditions_for_strings(params)
       columns_of_type(:string).map do |column|
         if params[column.name.to_s].present?
-          ["LOWER(#{quoted_table_name}.#{column.name}) LIKE ?", "%#{params[column.name.to_s].squish.downcase}%"]
+# Upgrade 3.0.0 inizio
+# Corretto il like su codici schede speciali 
+          if column.name.to_s.eql?("sc2_tsk")
+            ["LOWER(#{quoted_table_name}.#{column.name}) LIKE ?", "#{params[column.name.to_s].squish.downcase}"]
+          else
+            ["LOWER(#{quoted_table_name}.#{column.name}) LIKE ?", "%#{params[column.name.to_s].squish.downcase}%"]  
+          end
+# Upgrade 3.0.0 fine          
         end
       end.compact
     end

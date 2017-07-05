@@ -30,7 +30,9 @@ class UnitsController < ApplicationController
     @units_count            = @fond.active_descendant_units_count
     @vocabularies           = Unit.vocabularies_with_terms
     @root_fond              = @fond.root
+    @vocabularies_sc2       = Unit.vocabularies_for_grid(sc2_terms)
     selected_attributes
+
   end
 
   def grid
@@ -335,12 +337,14 @@ class UnitsController < ApplicationController
       else
         @units = @fond.units
       end
+# Upgrade 3.0.0 inizio	  
       select_clause = "units.id, units.fond_id, units.position, units.sequence_number,
-                    units.ancestry, units.ancestry_depth, units.tsk,
+                    units.ancestry, units.ancestry_depth, units.published,  units.tsk,
                     units.reference_number, units.tmp_reference_number, units.title,
                     unit_events.start_date_display AS preferred_start_date_display,
                     unit_events.end_date_display AS preferred_end_date_display,
                     unit_events.order_date AS preferred_order_date".squish
+# Upgrade 3.0.0 fine	  					
       join_clause = "LEFT OUTER JOIN unit_events ON units.id = unit_events.unit_id"
       where_clause = "units.sequence_number IS NOT NULL AND (unit_events.preferred = ? OR unit_events.preferred IS NULL)"
       order_clause = sort_column + ' ' + sort_direction

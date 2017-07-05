@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-
+  include FondsHelper
   load_and_authorize_resource
 # Upgrade 2.2.0 inizio
   skip_load_and_authorize_resource :only => [ :list ]
@@ -124,6 +124,38 @@ class ProjectsController < ApplicationController
 
     redirect_to(projects_url, :notice => 'Scheda eliminata')
   end
+
+# Upgrade 3.0.0 inizio
+# Aggiunte azioni di pubblicazione e rimozione pubblicazione a cascata progetto/fondi/unità/oggetti
+  def publish
+    @project = Project.find(params[:id])
+    @project.update_attribute(:published, true)
+    @related_fonds = RelProjectFond.where(project_id: params[:id])
+    if @related_fonds.empty?
+      redirect_to(projects_url, :notice => 'Scheda aggiornata')
+    else
+      @related_fonds.each do |rel_fond|
+        publish_fond(rel_fond.fond_id)
+      end
+      redirect_to(projects_url, :notice => 'Scheda aggiornata')
+    end
+    
+  end
+
+  def unpublish
+    @project = Project.find(params[:id])
+    @project.update_attribute(:published, false)
+    @related_fonds = RelProjectFond.where(project_id: params[:id])
+    if @related_fonds.empty?
+      redirect_to(projects_url, :notice => 'Scheda aggiornata')
+    else
+      @related_fonds.each do |rel_fond|
+        unpublish_fond(rel_fond.fond_id)
+      end
+      redirect_to(projects_url, :notice => 'Scheda aggiornata')
+    end
+  end
+# Upgrade 3.0.0 fine
 
   private
 

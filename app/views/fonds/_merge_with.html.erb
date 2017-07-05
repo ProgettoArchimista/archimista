@@ -11,7 +11,7 @@
     });
   });
 </script>
-
+<%= stylesheet_link_tag "fonds_modal" %>
 <div class="modal hide fade" id="merge-fonds-modal">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">×</a>
@@ -39,7 +39,11 @@
                 <%= fond.value %>
               </label>
             </li>
+            <div id="fondmerge-<%= fond.id %>" class="dropdown divmerge">
+              <%= render :partial => 'fonds/jump_to', :locals => {:fond => fond, :root => fond.root} %>
+            </div>
           <% end %>
+          <input name="choosen_root_id" value="" type="hidden" />
         <% end %>
       </ul>
     <% end %>

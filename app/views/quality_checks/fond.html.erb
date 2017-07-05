@@ -77,6 +77,23 @@
     </div>
   <% end %>
 
+<%# Upgrade 3.0.0 inizio %>
+<%# Requisito minimo unità correlate %>
+<h4>4. <%= t('short_units_count') %></h4>
+  <% if @fonds_with_no_units.count.zero? %>
+    <p><i class="icon-ok-sign"></i> <%= raw(t('count.units.success', :count => @fonds.count, :field => t('short_units_count'))) %></p>
+  <% else %>
+    <p data-toggle="collapse" data-target="#fonds-no-units">
+      <i class="icon-exclamation-sign"></i> <%= raw(t('count.units.failure', :count => @fonds_with_no_units.count,
+        :total => @fonds.count,
+        :percentage => number_to_percentage(@fonds_with_no_units.count.to_f/@fonds.count.to_f * 100,:precision => 2),
+        :field => t('short_units_count'))) %>
+    </p>
+    <div id="fonds-no-units"  class="collapse">
+      <%= render :partial => "fond", :object => @fonds_with_no_units, as: "object" %>
+    </div>
+  <% end %>
+<%# Upgrade 3.0.0 fine %>
 
   <h3 class="section">Requisiti medi</h3>
   <h4>1. <%= t('description') %> </h4>
@@ -139,19 +156,44 @@
     </div>
   <% end %>
 
+<%# Upgrade 3.0.0 inizio %>
+<%# Aggiunta requisiti medi progetti e fonti %>
+<h4>4. <%= t('projects') %></h4>
+  <% if @projects.present? %>
+      <p><%= raw(t('count.projects', :count => @projects.count)) %></p>
+      <%= render :partial => "project", :collection => @projects %>
+  <% else %>
+    <p class="red">[Nessun progetto associato]</p>
+  <% end %>
+
+<h4>5. <%= t('sources') %></h4>
+  <% if @fonds_with_sources.count.empty? %>
+    <p><i class="icon-ok-sign"></i> <%= raw(t('count.sources', :count => @fonds_with_sources.length)) %></p>
+  <% else %>
+    <p data-toggle="collapse" data-target="#fonds-no-sources">
+      <i class="icon-exclamation-sign"></i> <%= raw(t('count.sources', :count => @fonds_with_sources.length,
+        :total => @fonds.count,
+        :percentage => number_to_percentage(@fonds_with_sources.length/@fonds.count.to_f * 100,:precision => 2),
+        :field =>  t('length'))) %>
+    </p>
+    <div id="fonds-no-sources" class="collapse">
+      <%= render :partial => "fond", :object => @fonds_with_sources, as: "object" %>
+    </div>
+  <% end %>
+<%# Upgrade 3.0.0 fine %>
+
   <h2>Soggetti produttori</h2>
 
   <% if @creators.present? %>
 <%# TAI aggiunto raw() %>
-    <p><%= raw(t('count.creators', :count => @creators.count)) %></p>
+    <p><%= raw(t('count.creators', :count => @creators.length)) %></p>
     <% unless @fonds.first.creators.present? %>
       <p class="red">[Nessun soggetto produttore associato al complesso archivistico di primo livello]</p>
     <% end %>
-    <%= render :partial => "creator", :collection => @creators %>
+    <%= render :partial => 'creator', :collection => @creators, :locals => {:fond => params[:id]} %>
   <% else %>
     <p class="red">[Nessun soggetto produttore associato]</p>
   <% end %>
-
 
   <h2>Soggetti conservatori</h2>
 
@@ -162,4 +204,5 @@
   <% else %>
     <p class="red">[Nessun soggetto conservatore associato]</p>
   <% end %>
+
 </div>

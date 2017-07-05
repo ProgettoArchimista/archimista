@@ -8,6 +8,10 @@ $(document).ready(function(){
   $.archigrid.config.vocabularies = $.archigrid.commons.jqgrid_table.data('vocabularies');
 
   // json embedded data, set server-side in the view, already translated in the current session locale
+  // Upgrade 3.0.0 Inserito vocabolario schede speciali
+  $.archigrid.config.vocabularies_sc2 = $.archigrid.commons.jqgrid_table.data('vocabularies_sc2');
+
+  // json embedded data, set server-side in the view, already translated in the current session locale
   $.archigrid.config.column_labels = $.archigrid.commons.jqgrid_table.data('column-labels');
 
   // Columns must be completed with additional required properties (index and label),
@@ -160,6 +164,20 @@ $(document).ready(function(){
       stype:'select',
       editoptions:{value:$.archigrid.config.vocabularies['units.unit_type']}
     },
+
+/* Upgrade 3.0.0 inizio */
+    'sc2_tsk': {
+      name:'unit[sc2_tsk]',
+      width:220,
+      fixed:true,
+      editable:true,
+      classes:"editable-jqgrid-native",
+      edittype:'select',
+      formatter:'select',
+      stype:'select',
+      editoptions:{value:$.archigrid.config.vocabularies_sc2['units.sc2_tsk']}
+    },
+/* Upgrade 3.0.0 fine */
 
     'medium' : {
       name:'unit[medium]',
@@ -326,13 +344,15 @@ $(document).ready(function(){
   };
 
   // For consistency, should follow the same order as in $.archigrid.config.columns
+  // Upgrade 3.0.0 Inserito schede speciali come attributo di default
   $.archigrid.config.default_attribute_names = [
     'id',
     'sequence_number',
     'tmp_reference_string',
     'title',
     'preferred_event',
-    'unit_type'
+    'unit_type',
+    'sc2_tsk'
   ];
 
   $.archigrid.config.col_model = function(){

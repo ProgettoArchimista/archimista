@@ -42,6 +42,14 @@
                   :selected => @creator.creator_corporate_type_id},
                 :class => "hide span5") %>
             </div>
+<%# Upgrade 3.0.0 inizio %>
+<%# Inserito label per flag published %>
+            <div class="span1">
+              <%= f.label :published, t('published') %>
+<%# Inserito checkbox published %>
+              <%= check_box("creator", "published")%>
+            </div>
+<%# Upgrade 3.0.0 fine %>    
           </div>
 
           <div id="preferred_name_cf" class="row">

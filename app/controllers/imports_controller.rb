@@ -74,7 +74,6 @@ class ImportsController < ApplicationController
       end
 # Upgrade 2.2.0 fine
       @import.identifier = Digest::SHA1.hexdigest("#{Time.now}")
-
       if @import.save
         begin
           @import.is_valid_file?
@@ -98,26 +97,37 @@ class ImportsController < ApplicationController
 # Upgrade 2.2.0 fine
           return
         end
-
 # Upgrade 2.2.0 inizio
 #        if @import.import_aef_file(current_user)
-        if @import.import_aef_file(current_user, current_ability)
-# Upgrade 2.2.0 fine
-          @import.delete_tmp_files
-          @import.update_attributes :importable_id => @import.importable_id, :importable_type => @import.importable_type
-# Upgrade 2.2.0 inizio
-#          redirect_to imports_url, :notice => "File importato correttamente."
-          redirect_to redirect_url, :notice => "File importato correttamente."
-# Upgrade 2.2.0 fine
-        else
-          @import.delete_tmp_files
-          @import.delete
-# Upgrade 2.2.0 inizio
-#          redirect_to imports_url, :alert => "Si è verificato un errore durante l'importazione del file <code>aef</code>."
-          redirect_to redirect_url, :alert => "Si è verificato un errore durante l'importazione del file <code>aef</code>."
-# Upgrade 2.2.0 fine
-        end
+# Upgrade 3.0.0 inizio
+        extens = File.extname(@import.data_file_name).downcase.gsub('.', '')
 
+        if ['aef'].include? extens
+          if @import.import_aef_file(current_user, current_ability)
+# Upgrade 2.2.0 fine
+            @import.delete_tmp_files
+            @import.update_attributes :importable_id => @import.importable_id, :importable_type => @import.importable_type
+# Upgrade 2.2.0 inizio
+#           redirect_to imports_url, :notice => "File importato correttamente."
+            redirect_to redirect_url, :notice => "File importato correttamente."
+# Upgrade 2.2.0 fine
+          else
+            @import.delete_tmp_files
+            @import.delete
+# Upgrade 2.2.0 inizio
+#           redirect_to imports_url, :alert => "Si è verificato un errore durante l'importazione del file <code>aef</code>."
+            redirect_to redirect_url, :alert => "Si è verificato un errore durante l'importazione del file <code>aef</code>."			
+# Upgrade 2.2.0 fine
+          end
+        else
+          if @import.import_csv_file(current_user, current_ability)
+            redirect_to redirect_url, :notice => "File importato correttamente."
+          else            
+            @import.delete
+            redirect_to redirect_url, :alert => "Si è verificato un errore durante l'importazione del file <code>csv</code>."
+          end
+        end
+# Upgrade 3.0.0 fine
       else
 # Upgrade 2.2.0 inizio
 #        redirect_to imports_url, :alert => "Si è verificato un errore durante il salvataggio del file <code>aef</code>."

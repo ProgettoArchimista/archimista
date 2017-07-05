@@ -58,9 +58,12 @@
           </div>
 
 <%# Upgrade 2.1.0 inizio %>
+<%# Upgrade 3.0.0 inizio %>
+<%# Inserito label per flag published %>
           <div class="row">
             <div class="span4"><%= f.label :unit_type, t('unit_type') %></div>
             <div class="span4 sc2_container"><%= f.label :sc2_tsk,  t('sc2_tsk'), {:id => "lbl_unit_sc2_tsk", :class => "sc2_field_label" } %></div>
+            <div class="span1"><%= f.label :published, t('published') %></div>
           </div>
           <div class="row">
             <div class="span4"><%= terms_select(f, "units.unit_type", {:include_blank => true}, :class => "span4" )%></div>
@@ -70,6 +73,9 @@
               <%= sc2_terms_select(f, "units.sc2_tsk", nil, "units_sc2_tsk", {:include_blank => true, :id => "sc2_tsk", :selected => @unit.sc2_tsk}, :class => "span4 sc2_field") %>
 <%# Upgrade 2.2.0 fine %>
             </div>
+<%# Inserito checkbox published %>
+            <div class="span1"><%= check_box("unit", "published")%></div>
+<%# Upgrade 3.0.0 fine %>            
           </div>
 <%# Upgrade 2.1.0 fine %>
 

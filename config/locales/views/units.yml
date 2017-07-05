@@ -155,7 +155,11 @@ en:
 # Upgrade 2.2.0 inizio
   unit_export: "Export"
   unit_import: "Import"
-  confirm_export: "Are you sure to export the selected units?"
+# Upgrade 3.0.0 inizio  
+  confirm_export: "Are you sure to export the selected units? If you are, please select export format."
+  aef_export: "Export in aef format"
+  csv_export: "Export in csv format"
+# Upgrade 3.0.0 fine  
   unit_extent: "Extent"
   units_sc2_tsk:
     CARS: "CARS - Cartografia storica"
@@ -364,7 +368,11 @@ it:
 # Upgrade 2.2.0 inizio
   unit_export: "Esporta"
   unit_import: "Importa"
-  confirm_export: "Sei sicuro di voler esportare le unità selezionate?"
+# Upgrade 3.0.0 inizio  
+  confirm_export: "Sei sicuro di voler esportare le unità selezionate? Se si, seleziona il formato di esportazione."
+  aef_export: "Esporta in formato aef"
+  csv_export: "Esporta in formato csv"
+# Upgrade 3.0.0 fine  
   unit_extent: "Consistenza"
   units_sc2_tsk:
     CARS: "CARS - Cartografia storica"

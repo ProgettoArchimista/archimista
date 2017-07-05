@@ -2,6 +2,12 @@
   <h2><%= t('listing_fonds') %></h2>
 <% end %>
 
+<%# Upgrade 3.0.0 inizio %>
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "jsTree/jquery.jstree.min" %>
+<% end %>
+<%# Upgrade 3.0.0 fine %>
+
 <div class="span12">
   <div id="index-controls">
 <%# Upgrade 2.2.0 inizio %>
@@ -39,14 +45,24 @@
           <th class="<%= class_name %>"><%= sortable("fonds.name", t('name')) %></th>
 <%# Upgrade 2.2.0 fine %>
 <%# Upgrade 2.2.0 inizio %>
+<%# Upgrade 3.0.0 inizio %>
+<%# aggiunta colonna per status pubblicazione %>
+          <th>&nbsp;</th>
+<%# Upgrade 3.0.0 fine %>
           <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
             <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
           <% end %>
 <%# cambiato nome campo da updated_at a fonds.updated_at %>
-          <th><%= sortable("fonds.updated_at", t('updated_at')) %></th>
+          <th class="span2"><%= sortable("fonds.updated_at", t('updated_at')) %></th>
 <%# Upgrade 2.2.0 fine %>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
+<%# Upgrade 3.0.0 inizio %>
+<%# aggiunta colonna per azione Dividi %>
+<%# aggiunta colonna per azione Pubblica %>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+<%# Upgrade 3.0.0 fine %>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -62,7 +78,14 @@
               <%# FIXME: rivedere e impostare classe css astratta %>
               <p class="fond-units">
                 <i class='icon-list-alt'></i>
-                <%= link_to "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità", fond_units_path(fond) %>
+<%# Upgrade 3.0.0 inizio %>
+<%# aggiunta gestione permessi su visualizzazione unità %>				
+                <% if can? :manage, fond %>
+                  <%= link_to "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità", fond_units_path(fond) %>
+                <% else %>
+                  <%= "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità" %>
+                <% end %>
+<%# Upgrade 3.0.0 fine %>				
               </p>            
 <%# Upgrade 2.2.0 inizio %>
               <div class="index-item-info">
@@ -77,6 +100,10 @@
               </div>
 <%# Upgrade 2.2.0 fine %>
             </td>
+<%# Upgrade 3.0.0 inizio %>
+<%# aggiunta visualizzazione stato pubblicazione %>
+            <td><%= if fond.published == true then t('published') else  t('unpublished') end %></td>
+<%# Upgrade 3.0.0 fine %>            
 <%# Upgrade 2.2.0 inizio %>
             <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
               <td style="font-size: 11px;"><%= fond.group.short_name %></td>
@@ -84,7 +111,49 @@
 <%# Upgrade 2.2.0 fine %>
             <td><%= l fond.updated_at, :format => :long %></td>
             <td><%= link_to t('show'), fond %></td>
-            <td><%= link_to_if(@fonds.size > 1, t('merge_with'), '#', {:class => 'merge', :"data-id" => fond.id}) %></td>
+<%# Upgrade 3.0.0 inizio %>            
+<%# aggiunta gestione permessi su funzionalità unisci %> 
+            <% if can? :manage, fond %>
+              <td class="action">
+              <%= link_to_if(@fonds.size > 1, t('merge_with'), '#', {:class => 'merge', :"data-id" => fond.id})%>
+            <% else %>
+              <td class="muted">
+              <%= t('merge_with') %>
+            <% end %> 
+            </td>  
+<%# Upgrade 3.0.0 fine %>
+<%# Upgrade 3.0.0 inizio %>
+<%# aggiunto link di divisione fondo e gestione permessi %> 
+            <% if can? :manage, fond %>
+              <td class="action">
+                <%= f = Fond.find(fond.id)
+                link_to_unless(!f.children?, t('split_fond'), '#' , {:class => 'fondsplit', :"data-id" => fond.id}) do |name| raw("<span class='muted' title='Il complesso non è divisibile.'>#{name}</span>") end %>
+            <% else %>
+              <td class="muted">
+                <%= t('split_fond') %>
+            <% end %> 
+            </td> 
+<%# aggiunto link di pubblicazione %>  
+            <% if fond.published == true %>  
+              <% if can? :manage, fond %>
+                <td class="action">
+                <%= link_to t('unpublish'), unpublish_fond_path({:id => fond.id}), data: {:confirm => t('are_you_sure')}, method: 'put'%>
+              <% else %>
+                <td class="muted">
+                <%= t('unpublish') %>
+              <% end %> 
+            </td>
+            <% else %>
+              <% if can? :manage, fond %>
+                <td class="action">
+                <%= link_to t('publish'), publish_fond_path({:id => fond.id}), data: {:confirm => t('are_you_sure')}, method: 'put'%>
+              <% else %>
+                <td class="muted">
+                <%= t('publish') %>
+              <% end %> 
+              </td>
+            <% end %>  
+<%# Upgrade 3.0.0 fine %>  
             <td>
 <%# Upgrade 2.0.0 inizio %>
               <%#= link_to_unless(@units_counts[fond.id], t('destroy'), fond, :confirm => t('are_you_sure'), :method => :delete) do |name| raw("<span class='muted' title='Per poter eliminare il complesso devi prima eliminare le unità collegate.'>#{name}</span>") end %>
@@ -114,3 +183,4 @@
 </div>
 
 <div id="merge-with-container"></div>
+<div id="split-fond-container"></div>

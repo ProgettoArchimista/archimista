@@ -6,11 +6,29 @@
   </div>
   <div class="modal-body">
     <div id="confirm-msg-area"><%= t('confirm_export') %></div>
+<%# Upgrade 3.0.0 inizio %>
+<%# Inserito radio scelta tipo export %>
+    </br>
+     <ul id="export-list" class="unstyled">
+      <li>
+        <label class="livesearch radio">
+          <input name="radio_export" value="aef" type="radio" />
+          <%= t('aef_export') %>
+        </label>
+      </li>
+      <li>
+        <label class="livesearch radio">
+          <input name="radio_export" value="csv" type="radio" />
+          <%= t('csv_export') %>
+        </label>
+      </li>
+    </ul>
+<%# Upgrade 3.0.0 fine %>
     <div id="error-msg-area"></div>
   </div>
   <div class="modal-footer">
     <button id="close-mass-export" class="btn" data-dismiss="modal"><%= t('cancel') %></button>
-    <button id="confirm-mass-export" class="btn btn-primary"><%= t('unit_export') %></button>
+    <button id="confirm-mass-export" class="btn btn-primary disabled"><%= t('unit_export') %></button>
   </div>
 </div>
 <%# Upgrade 2.2.0 fine %>

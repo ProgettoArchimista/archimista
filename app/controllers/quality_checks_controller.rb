@@ -1,4 +1,5 @@
 class QualityChecksController < ApplicationController
+  helper_method :creator_source, :creator_fond
 
   def index
 
@@ -41,6 +42,11 @@ class QualityChecksController < ApplicationController
     @fonds_with_no_history = @fonds.select { |e| e.history.blank? }
     @fonds_with_no_length = @fonds.select { |e| e.length.blank? }
 
+# Upgrade 3.0.0 inizio
+# Potenziamento controllo qualità con l'aggiunta della relazione fondo-progetto
+    @fonds_with_no_units = @fonds.select { |e| e.units_count == 0 }
+# Upgrade 3.0.0 fine    
+
     @fond_root_name = @fonds.first.name
 
     ids = @fonds.map(&:id).join(',')
@@ -56,6 +62,7 @@ class QualityChecksController < ApplicationController
       joins(:rel_creator_fonds).
       where("rel_creator_fonds.fond_id IN (#{ids})").
       includes([:preferred_name, :preferred_event])
+      .group(:creator_id)
 # Upgrade 2.0.0 fine
 
 # Upgrade 2.0.0 inizio
@@ -70,6 +77,19 @@ class QualityChecksController < ApplicationController
       where("rel_custodian_fonds.fond_id IN (#{ids})").
       includes([:preferred_name, :custodian_buildings])
 # Upgrade 2.0.0 fine
+
+# Upgrade 3.0.0 inizio
+# Potenziamento controllo qualità con l'aggiunta della relazione fondo-progetto, fondo-fonti e produttore-fonti
+
+    @projects = Project.
+      joins(:rel_project_fonds)
+      .where("rel_project_fonds.fond_id IN (#{params[:id]})")
+
+    @fonds_with_sources = Fond.
+      joins(:rel_fond_sources)
+      .where("rel_fond_sources.fond_id IN (#{ids})")
+      .group(:fond_id)
+# Upgrade 3.0.0 fine
   end
 
   def creator
@@ -78,6 +98,14 @@ class QualityChecksController < ApplicationController
 
   def custodian
     @custodian = Custodian.find(params[:id])
+  end
+
+  def creator_source(id)
+     @creator = RelCreatorSource.where("rel_creator_sources.creator_id IN (#{id})")
+  end
+
+  def creator_fond(id)
+    fond = Fond.find(id)
   end
 
 end

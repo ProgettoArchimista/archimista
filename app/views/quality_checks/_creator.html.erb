@@ -47,3 +47,56 @@
     </td>
   </tr>
 </table>
+
+<%# Upgrade 3.0.0 inizio %>
+  <h4>1. <%= t('creator_history')  %> </h4>
+  <% if creator.history.present? %>
+    <p><i class="icon-ok-sign"></i> <%= raw(t('count.creator_history.success', :field => t('creator_history'))) %></p>
+  <% else %>
+    <table class="table">
+    <thead>
+        <tr>
+          <th style="width:90%;">&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>
+              <%= raw(t('count.creator_history.failure', :field => t('creator_history'))) %>
+            </td>
+            <td>
+              <%= link_to 'modifica', edit_source_path(creator) %>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+<% end %>
+
+<h4>2. <%= t('sources')  %> </h4>
+  <%  cr_s = creator_source(creator.id)  %>
+  <% f = creator_fond(fond) %>
+  <% if cr_s.count.zero? %>
+    <p><i class="icon-exclamation-sign"></i> <%= raw(t('count.creator_sources.failure', :count => cr_s.count )) %></p>
+  <% else %>
+    <table class="table">
+    <thead>
+        <tr>
+          <th style="width:90%;">&nbsp;</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>
+              <%= raw(t('count.creator_sources.success', :count => cr_s.count)) %>
+            </td>
+            <td>
+              <%= link_to 'modifica', treeview_fond_path(f) %>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  <%  end %>
+<%# Upgrade 3.0.0 fine %>
+<hr style="border-width: 2px 0;">

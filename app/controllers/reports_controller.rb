@@ -445,7 +445,6 @@ class ReportsController < ApplicationController
 # Upgrade 2.0.0 fine
 
     filename = "#{File.basename(action,'.*')}-#{Time.now.strftime('%Y%m%d%H%M%S')}"
-
     respond_to do |format|
       format.html
       format.pdf do

@@ -42,6 +42,14 @@
                 CustodianType.all.collect {|p| [ p.custodian_type.capitalize, p.id ] },
                 {:include_blank => true, :selected => @custodian.custodian_type_id }, :class => "span5" ) %>
             </div>
+<%# Upgrade 3.0.0 inizio %>
+<%# Inserito label per flag published %>
+            <div class="span1">
+              <%= f.label :published, t('published') %>
+<%# Inserito checkbox published %>
+              <%= check_box("custodian", "published")%>
+            </div>
+<%# Upgrade 3.0.0 fine %>   
           </div>
 
           <div id="preferred_name" class="row">

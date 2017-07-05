@@ -1,0 +1,51 @@
+<% container_class "container-fluid" %>
+<% content_for :status_bar do %>
+  <h2><%= t('multiple_occurs') %></h2>
+<% end %>
+<% class_name = if current_user.is_multi_group_user?() || current_user.is_superadmin?() then "span4" else "span5" end %>
+<% if @multiple_sources.size > 0 %>
+<div class="span8">
+	<% @multiple_sources.each do |source_title| %>
+		<table class="table table-sortable">
+	    	<thead>
+	    		<tr>
+	    			<th class="span2"><%= t('short_title') %></th>
+			      	<th class="<%= class_name %>"><%= t('full_title') %></th>
+			      	<th class="span2"><%= t('updated_at') %></th>
+			      	<th class="span1">&nbsp;</th>
+			      	<th class="span1">&nbsp;</th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+			<% @sources = Source.where({:short_title => source_title}) %>
+			<% @sources.each do |source| %>
+				<tr class="<%= cycle("odd", "even") %>">
+					<td><%= link_to source.short_title, edit_source_path(source) %></td>
+					<td><%=
+			            if source.source_type.present?
+			              formatted_source(source) + raw("<span class='light'>&nbsp;[#{source.source_type.source_type}]</span>")
+			            else
+			              formatted_source(source)
+			            end
+			        %>
+			        </td>
+			        <td><%= l source.updated_at, :format => :long %></td>
+			        <td>
+          			<%= raw('<span class="label">importato</span>') if source.use_legacy? %>
+        			</td>
+        			<td class="action"><%= link_to t('select'), merge_multiple_occour_path({:id => source.id}), data: {:confirm => t('are_you_sure')}, method: 'post'%></td>
+				</tr>
+			<% end %>
+	    	</tbody>
+		</table>
+</div>
+<% end %>
+<div class="span4">
+  <p><strong><%= t('note_title') %></strong></p>
+  <p><%= t('tools_allows') %></p>
+  <p><%= t('tools_info') %></p>
+</div>
+	
+<% else %>
+	<p><%= t('no_multiple_occurse_message')%></p>
+<% end %>
