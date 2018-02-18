@@ -38,8 +38,8 @@ Nel caso di aggiornamento da versioni precedenti dell'applicazione:
 
 Per installare Archimista cross-platform come server locale:
 
-1. Scaricare ed installare (Docker)[https://www.docker.com/];
-2. installare (git)[https://git-scm.com/] e clonare il progetto da github.com:
+1. Scaricare ed installare [Docker](https://www.docker.com/);
+2. installare [git](https://git-scm.com/) e clonare il progetto da github.com:
 ```bash
 git clone https://github.com/ProgettoArchimista/archimista.git
 ```
