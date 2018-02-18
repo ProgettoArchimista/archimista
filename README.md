@@ -39,10 +39,12 @@ Nel caso di aggiornamento da versioni precedenti dell'applicazione:
 Per installare Archimista cross-platform come server locale:
 
 1. Scaricare ed installare (Docker)[https://www.docker.com/];
-2. installare (git)[https://git-scm.com/] e clonare il progetto da github.com:```bash
+2. installare (git)[https://git-scm.com/] e clonare il progetto da github.com:
+```bash
 git clone https://github.com/ProgettoArchimista/archimista.git
 ```
-3. creare il file di configurazione del database, per esempio:```yaml
+3. creare il file di configurazione del database, per esempio:
+```yaml
 defaultMySql: &defaultMySql
   adapter:    mysql2
   encoding:   utf8
@@ -63,7 +65,8 @@ production:
   <<:         *defaultMySql
   database:   archimista_production
 ```
-4. creare il file di configuazione dei secrets, per esempio:```yaml
+4. creare il file di configuazione dei secrets, per esempio:
+```yaml
 development:
   secret_key_base: eb49b41d0d03e8b0aa951eb60e213e7d1ab905ec8c276c9b99be1a6cd90665d03e198fe9479f32ce839ed703efe81629388f9488b79d8842d1974bd412b4f2d7
 
@@ -73,26 +76,31 @@ test:
 production:
   secret_key_base: 7ec7f033f7d1811f5d4e23351f80eeec6d3142d1cdd2eaceafc71a5951a3446b1507e738de88afb19664491ad6be0e792f9c58714c85abfdb35f031a4ad9dbaf
 ```
-5. eseguire la build tramite Docker Compose:```bash
+5. eseguire la build tramite Docker Compose:
+```bash
 docker-compose build
 ```
-6. avviare Docker Compose con il comando start:```bash
+6. avviare Docker Compose con il comando start:
+```bash
 docker-compose up
 ```
 
-7. eseguire il comando di creazione del database:```bash
+7. eseguire il comando di creazione del database:
+```bash
 docker-compose exec web rake db:setup RAILS_ENV=production
 ```
 
 8. spegnere l'applicativo tramite la pressione di ctrl + c.
 
 #### Start applicazione
-Per eseguire l'avvio dell'applicazine tramite Docker Compose digitare il comando start:```bash
+Per eseguire l'avvio dell'applicazine tramite Docker Compose digitare il comando start:
+```bash
 docker-compose start
 ```
 
 #### Stop applicazione
-Per fermare archivista eseguire:```bash
+Per fermare archivista eseguire:
+```bash
 docker-compose stop
 ```
 
