@@ -1,4 +1,4 @@
-## Archimista 3.1 (gennaio 2019)
+## Archimista 3.1.0 (gennaio 2019)
 Definiti i tracciati EAD3, SCONS2, EAC-CPF e le relative procedure di export via procedura batch e/o via sito web.
 Import dei file EAD3, SCONS2, EAC-CPF temporaneamente non disponibile.
 

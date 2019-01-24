@@ -1,8 +1,8 @@
 # Application metadata
 APP_NAME = "Archimista"
-APP_VERSION = "3.1"
+APP_VERSION = "3.1.0"
 APP_STATUS = ""
-AEF_COMPATIBLE_VERSIONS = [110, 120, 121, 200, 210, 211, 220, 300, 301, 302]
+AEF_COMPATIBLE_VERSIONS = [110, 120, 121, 200, 210, 211, 220, 300, 301, 302, 310]
 APP_CREATOR = "INGLOBA360 srl"
 APP_EDITION = "server" # server | standalone | hub
 IM_ENABLED = DigitalObject.is_enabled?
