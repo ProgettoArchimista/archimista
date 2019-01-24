@@ -69,6 +69,9 @@
     <%= javascript_include_tag "livesearch2" %>
     <%= javascript_include_tag "headings" %>
   <% end %>
+  <% if ["units"].include?(controller_name) %>
+    <%= javascript_include_tag "anagraphics" %>
+  <% end %>
   <% if ["imports", "exports"].include?(controller_name) %>
     <%= javascript_include_tag "imports-exports" %>
   <% end %>

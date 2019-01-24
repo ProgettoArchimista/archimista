@@ -1,0 +1,36 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#term').liveUpdate('#anagraphics-list', {
+      url: '/anagraphics/list.json',
+      field: 'anagraphic_id',
+      group_id: {group_id: '<%= current_ability.target_group_id %>'},
+      exclude : {exclude: [<%= object.join(',') %>]}
+    });
+  });
+</script>
+
+<div class="modal hide fade" id="link-anagraphic-dialog">
+  <div class="modal-header">
+    <a class="close close-link-anagraphic-dialog" data-dismiss="modal">×</a>
+    <h3><%= t('link_anagraphic')  %></h3>
+  </div>
+  <div class="modal-body">
+    <div id="anagraphic_form_error"></div>
+    <form>
+      <%= text_field_tag :term, '', :id => "term",
+        :class => "span6",
+        :placeholder => "Cerca una anagrafica" %>
+    </form>
+    <%= form_tag({:controller => 'anagraphics', :action => 'modal_link'}, {:method => :post, :id => "link-anagraphic-form"}) do %>
+      <%= hidden_field_tag 'related_entity_id', params['related_entity_id'] %>
+      <%= hidden_field_tag 'related_entity', params['related_entity'] %>
+      <ul id="anagraphics-list" class="unstyled">
+      </ul>
+    <% end %>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal"><%= t('cancel') %></button>
+    <button id="link-anagraphic-btn" class="btn btn-primary disabled"><%= t('link') %></button>
+  </div>
+</div>

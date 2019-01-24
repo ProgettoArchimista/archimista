@@ -25,6 +25,18 @@
       <td><%= show_value(@unit.unit_type) %></td>
     </tr>
 <%# Upgrade 2.1.0 inizio %>
+    <% if @unit.file_type.present? %>
+      <tr>
+        <th class="sc2_show_field_caption"><%= t('file_type') %></th>
+        <td class="sc2_show_field_value">
+<%# Upgrade 2.2.0 inizio %>
+          <%#= show_value(@unit.sc2_tsk, "t") %>
+          <%= show_value(@unit.file_type, "t") %>
+<%# Upgrade 2.2.0 fine %>
+        </td>
+      </tr>
+    <% end %>
+<%# Upgrade 2.1.0 fine %>
     <% if @unit.sc2_tsk.present? %>
       <tr>
         <th class="sc2_show_field_caption"><%= t('sc2_tsk') %></th>
@@ -36,7 +48,6 @@
         </td>
       </tr>
     <% end %>
-<%# Upgrade 2.1.0 fine %>
     <tr>
       <th><%= t('title') %></th>
       <td><%= @unit.formatted_title %></td>
@@ -433,7 +444,9 @@
 <%# Upgrade 2.0.0 fine %>
 
   <div id="add-heading-container"></div>
+  <div id="add-anagraphic-container"></div>
   <div id="link-heading-container"></div>
+  <div id="link-anagraphic-container"></div>
 
 </div>
 

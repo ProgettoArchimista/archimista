@@ -41,6 +41,8 @@ class SourcesController < ApplicationController
 
   def list
     sources = Source.accessible_by(current_ability, :read).autocomplete_list(params[:term])
+    @export_sources = Source.accessible_by(current_ability, :read).autocomplete_export_list(params[:term])
+    results = @export_sources.to_json(:methods => [:id, :value], :only => :methods)
 
     respond_to do |format|
       format.html do
@@ -50,7 +52,7 @@ class SourcesController < ApplicationController
                             :selected_label_short => lambda{|source| h(source.short_title)},
                             :selected_label_full  => lambda{|source, builder| builder.formatted_source(source)} }
       end
-      format.json { render :json => sources.map(&:attributes) }
+      format.json { render :json => results }
     end
   end
 

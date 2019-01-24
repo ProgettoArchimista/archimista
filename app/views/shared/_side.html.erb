@@ -162,6 +162,28 @@
     <% end %>
   <% end %>
 
+  <%# anagraphics %>
+  <% if %w[units].include?(controller_name) %>
+    <div class="well" id="anagraphic" style="padding-top: 5px; padding-bottom: 5px;" >
+      <% if %w[new create].include?(action_name) %>
+        <span class="muted"><%= t('anagraphics') %></span>
+      <% else %>
+        <h3><%= t('anagraphics') %></h3>
+        <div>
+          <p>
+            <%= link_to t('new_anagraphic'), "#",
+              {:id => "add-anagraphic-modal", :class => "btn btn-mini new",
+              :'data-id' => object.id, :'data-controller' => controller_name} %>
+            <%= link_to t('link_anagraphic'), "#",
+              {:id => "link-anagraphic-modal", :class => "btn btn-mini",
+              :'data-id' => object.id, :'data-controller' => controller_name} %>
+          </p>
+          <div style="overflow-y: auto; max-height:180px; background: #fff;" id="anagraphic-list" data-id="<%= object.id %>" data-controller="<%= controller_name %>"></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
 <%# headings %>
   <% if %w[fonds units].include?(controller_name) %>
     <div class="well" id="heading" style="padding-top: 5px; padding-bottom: 5px;" >

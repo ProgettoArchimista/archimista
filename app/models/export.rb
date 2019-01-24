@@ -5,6 +5,7 @@ class Export < ActiveRecord::Base
 #  require 'zip/zip'
 # nella versione rubyzip-1.1.6 zip.rb non è nella sottocartella zip dove invece era nella rubyzip-0.9.9 usata prima
   require 'zip'
+  require 'builder'
 # Upgrade 2.0.0 fine
 
   TMP_EXPORTS = "#{Rails.root}/tmp/exports"
@@ -34,7 +35,7 @@ class Export < ActiveRecord::Base
       :fonds => ["fond_events", "fond_identifiers", "fond_langs", "fond_names", "fond_owners", "fond_urls", "fond_editors"],
 # Upgrade 2.2.0 inizio
 #      :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects"],
-      :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects", "sc2s", "sc2_textual_elements", "sc2_visual_elements", "sc2_authors", "sc2_commissions", "sc2_techniques", "sc2_scales"],
+      :units => ["unit_events", "unit_identifiers", "unit_damages", "unit_langs", "unit_other_reference_numbers", "unit_urls", "unit_editors", "iccd_authors", "iccd_descriptions", "iccd_tech_specs", "iccd_damages", "iccd_subjects", "sc2s", "sc2_textual_elements", "sc2_visual_elements", "sc2_authors", "sc2_commissions", "sc2_techniques", "sc2_scales", "fsc_organizations", "fsc_nationalities", "fsc_codes", "fsc_opens", "fsc_closes",  "fe_identifications", "fe_contexts", "fe_operas", "fe_designers", "fe_cadastrals", "fe_land_parcels", "fe_fract_land_parcels", "fe_fract_edil_parcels"],
 # Upgrade 2.2.0 fine
       :creators => ["creator_events", "creator_identifiers","creator_legal_statuses", "creator_names", "creator_urls", "creator_activities", "creator_editors"],
       :custodians => ["custodian_buildings", "custodian_contacts","custodian_identifiers", "custodian_names", "custodian_owners", "custodian_urls", "custodian_editors"],
@@ -413,6 +414,436 @@ class Export < ActiveRecord::Base
     end
   end
 
+  def create_export_xml_ead_file
+    @data_names = Array.new
+    if self.mode == 'full'
+      case self.target_class
+        when "fond"
+          set_fonds(self.target_id)
+          stream_ead(@fonds, self.target_id)
+          related_to_eadfond
+        when "custodian"
+          set_custodians(self.target_id)
+          stream_ead(@custodians, self.target_id)
+          related_to_eadcustodian
+        when "creator"
+          set_ead_creators(self.target_id)
+          @rel_ead_creator_ids.each do |reci|
+            intreci = [reci.to_i]
+            @creators = Creator.where("id = ?", intreci).sort_by { |u| intreci.index(u.id) }
+            stream_ead(@creators, selected_fond_ids)
+          end 
+          related_to_eadcreator
+        when "source"
+          set_sources(self.target_id)
+          stream_ead(@sources, self.target_id)
+          related_to_eadsource
+        else
+          Rails.logger.info("scelto altro")
+      end
+    else
+      case self.target_class
+        when "fond"
+          set_fonds(self.target_id)
+          stream_ead(@fonds, self.target_id)
+        when "custodian"
+          set_custodians(self.target_id)
+          stream_ead(@custodians, self.target_id)
+        when "creator"
+          set_ead_creators(self.target_id)
+          @rel_ead_creator_ids.each do |reci|
+            intreci = [reci.to_i]
+            @creators = Creator.where("id = ?", intreci).sort_by { |u| intreci.index(u.id) }
+            stream_ead(@creators, selected_fond_ids)
+          end 
+        when "source"
+          set_sources(self.target_id)
+          stream_ead(@sources, self.target_id)
+        else
+          Rails.logger.info("scelto altro")
+      end
+    end
+
+    create_xml_ead_export_file
+  end
+  
+  def create_export_xml_san_file
+    @data_names = Array.new
+    if self.mode == 'full'
+      case self.target_class
+        when "fond"
+          set_fonds(self.target_id)
+          stream(@fonds, self.target_id)
+          if self.inc_digit == 'true'
+            set_units(self.target_id)
+            stream_mets(@units)
+          end
+          related_to_fond
+        when "custodian"
+          set_custodians(self.target_id)
+          stream(@custodians, self.target_id)
+          related_to_custodian
+        when "creator"
+          set_creators(self.target_id)
+          stream(@creators, selected_fond_ids)
+          related_to_creator
+        when "source"
+          set_sources(self.target_id)
+          stream(@sources, self.target_id)
+          related_to_source
+        else
+          Rails.logger.info("scelto altro")
+      end
+    else
+      case self.target_class
+        when "fond"
+          set_fonds(self.target_id)
+          stream(@fonds, self.target_id)
+          if self.inc_digit == 'true'
+            set_units(self.target_id)
+            stream_mets(@units)
+          end
+        when "custodian"
+          set_custodians(self.target_id)
+          stream(@custodians, self.target_id)
+        when "creator"
+          set_creators(self.target_id)
+          stream(@creators, selected_fond_ids)
+        when "source"
+          set_sources(self.target_id)
+          stream(@sources, self.target_id)
+        else
+          Rails.logger.info("scelto altro")
+      end
+    end
+
+    create_xml_export_file
+  end
+
+  def related_to_fond
+    custodians = RelCustodianFond.where("fond_id IN (#{self.target_id})")
+    custodians.each do |c|
+      set_custodians(c.custodian_id)
+      stream(@custodians, self.target_id)
+    end
+    set_fond_creators(self.target_id)
+    stream(@creators, selected_fond_ids)
+    fond_sources = Fond.find(self.target_id)
+    sources = fond_sources.sources.where("source_type_code = 2")
+    stream(sources, self.target_id)
+  end
+
+  def related_to_eadfond
+    custodians = RelCustodianFond.where("fond_id IN (#{self.target_id})")
+    custodians.each do |c|
+      set_custodians(c.custodian_id)
+      stream_ead(@custodians, self.target_id)
+    end
+    set_ead_fond_creators(self.target_id)
+    @rel_ead_creator_ids.each do |reci|
+      intreci = [reci.to_i]
+      @creators = Creator.where("id = ?", intreci).sort_by { |u| intreci.index(u.id) }
+      stream_ead(@creators, selected_fond_ids)
+    end  
+    
+    fond_sources = Fond.find(self.target_id)
+    sources = fond_sources.sources.where("source_type_code = 2")
+    stream_ead(sources, self.target_id)
+  end
+
+  def related_to_source
+    source = Source.find(self.target_id)
+    source_fonds_ids = source.fond_ids
+    set_fonds(source_fonds_ids)
+    stream(@fonds, source_fonds_ids)
+    if self.inc_digit == 'true'
+      set_units(source_fonds_ids)
+      stream_mets(@units)
+    end
+  end
+
+  def related_to_eadsource
+    source = Source.find(self.target_id)
+    source_fonds_ids = source.fond_ids
+    source_fonds_ids.each do |sfi|
+      intsfi = [sfi.to_i]
+      @fonds = Fond.where("id IN (?) AND trashed = 0", intsfi).sort_by { |u| intsfi.index(u.id) }
+      stream_ead(@fonds, sfi)
+    end  
+  end
+
+  def related_to_creator
+    creator = Creator.find(self.target_id)
+    c_fond_ids = creator.fond_ids
+    creator_root_fond_ids = c_fond_ids & selected_fond_ids
+    set_fonds(creator_root_fond_ids)
+    stream(@fonds, creator_root_fond_ids)
+    if self.inc_digit == 'true'
+      set_units(creator_root_fond_ids)
+      stream_mets(@units)
+    end
+    custodian_ids = RelCustodianFond.where("fond_id IN (?)", creator_root_fond_ids).map(&:custodian_id).uniq
+    custodians = Custodian.where("id IN (?)", custodian_ids).sort_by { |u| custodian_ids.index(u.id) }
+    stream(custodians, self.target_id)
+    fond_source_ids = Array.new
+    creator_root_fond_ids.each do |crfi|
+      fond_sources = Fond.find(crfi)
+      sources_ids = fond_sources.sources.where("source_type_code = 2").map(&:id)
+      fond_source_ids = (fond_source_ids + sources_ids).uniq
+    end
+    sources = Source.where("id IN (?)", fond_source_ids).sort_by { |u| fond_source_ids.index(u.id) }
+    stream(sources, self.target_id)
+  end
+
+  def related_to_eadcreator
+    creator = Creator.find(self.target_id)
+    c_fond_ids = creator.fond_ids
+    creator_root_fond_ids = c_fond_ids & selected_fond_ids
+    creator_root_fond_ids.each do |crfi|
+      intcrfi = [crfi.to_i]
+      @fonds = Fond.where("id IN (?) AND trashed = 0", intcrfi).sort_by { |u| intcrfi.index(u.id) }
+      stream_ead(@fonds, crfi)
+    end  
+    custodian_ids = RelCustodianFond.where("fond_id IN (?)", creator_root_fond_ids).map(&:custodian_id).uniq
+    custodians = Custodian.where("id IN (?)", custodian_ids).sort_by { |u| custodian_ids.index(u.id) }
+    stream_ead(custodians, self.target_id)
+    fond_source_ids = Array.new
+    creator_root_fond_ids.each do |crfi|
+      fond_sources = Fond.find(crfi)
+      sources_ids = fond_sources.sources.where("source_type_code = 2").map(&:id)
+      fond_source_ids = (fond_source_ids + sources_ids).uniq
+    end
+    sources = Source.where("id IN (?)", fond_source_ids).sort_by { |u| fond_source_ids.index(u.id) }
+    stream_ead(sources, self.target_id)
+  end
+
+  def related_to_custodian
+    custodian = Custodian.find(self.target_id)
+    custodian_fonds_ids = custodian.fond_ids
+    set_fonds(custodian_fonds_ids)
+    stream(@fonds, custodian_fonds_ids)
+    if self.inc_digit == 'true'
+      set_units(custodian_fonds_ids)
+      stream_mets(@units)
+    end
+    set_custodian_fonds_creators(custodian_fonds_ids)
+    stream(@creators, selected_fond_ids)
+    fond_source_ids = Array.new
+    custodian_fonds_ids.each do |cfi|
+      fond_sources = Fond.find(cfi)
+      sources_ids = fond_sources.sources.where("source_type_code = 2").map(&:id)
+      fond_source_ids = (fond_source_ids + sources_ids).uniq
+    end
+    sources = Source.where("id IN (?)", fond_source_ids).sort_by { |u| fond_source_ids.index(u.id) }
+    stream(sources, self.target_id)
+  end
+
+  def related_to_eadcustodian
+    custodian = Custodian.find(self.target_id)
+    custodian_fonds_ids = custodian.fond_ids
+    custodian_fonds_ids.each do |cfi|
+      intcfi = [cfi.to_i]
+      @fonds = Fond.where("id IN (?) AND trashed = 0", intcfi).sort_by { |u| intcfi.index(u.id) }
+      stream_ead(@fonds, cfi)
+    end  
+    set_ead_custodian_fonds_creators(custodian_fonds_ids)
+    @rel_ead_creator_ids.each do |reci|
+      intreci = [reci.to_i]
+      @creators = Creator.where("id = ?", intreci).sort_by { |u| intreci.index(u.id) }
+      stream_ead(@creators, selected_fond_ids)
+    end  
+    fond_source_ids = Array.new
+    custodian_fonds_ids.each do |cfi|
+      fond_sources = Fond.find(cfi)
+      sources_ids = fond_sources.sources.where("source_type_code = 2").map(&:id)
+      fond_source_ids = (fond_source_ids + sources_ids).uniq
+    end
+    sources = Source.where("id IN (?)", fond_source_ids).sort_by { |u| fond_source_ids.index(u.id) }
+    stream_ead(sources, self.target_id)
+  end
+
+  def views_path(record)
+    File.join(File.dirname(__FILE__), "..", "views", record)
+  end
+
+  def set_units(id)
+    @units = Unit.where("id IN (?) AND root_fond_id IN (?)", DigitalObject.distinct.select(:attachable_id).where("attachable_type = 'Unit' AND asset_content_type LIKE 'image%'"), id).order(:sequence_number)
+  end
+
+  def set_fonds(id)
+    @fonds = Fond.where('id IN (?) AND trashed = 0', id)
+    id.kind_of?(Array) ? fond_ids = id : fond_ids = [id.to_i]
+  end
+
+  def set_fond_creators(f_id)
+      fond_creator_ids = Array.new
+      fond = Fond.find(f_id)
+      fond_creator_ids = (fond_creator_ids + fond.creator_ids).uniq
+      creators = Creator.find(fond_creator_ids).sort_by { |u| fond_creator_ids.index(u.id) }
+      fond_creator_creator_ids = Array.new
+      creators.each do |c|
+        fond_creator_creator_ids = (fond_creator_creator_ids + c.related_creator_ids).uniq
+      end
+      rel_creator_ids = (fond_creator_ids + fond_creator_creator_ids).uniq
+      @creators = Creator.where("id IN (?)", rel_creator_ids).sort_by { |u| rel_creator_ids.index(u.id) }
+  end
+
+  def set_ead_fond_creators(f_id)
+      fond_creator_ids = Array.new
+      fond = Fond.find(f_id)
+      fond_creator_ids = (fond_creator_ids + fond.creator_ids).uniq
+      creators = Creator.find(fond_creator_ids).sort_by { |u| fond_creator_ids.index(u.id) }
+      fond_creator_creator_ids = Array.new
+      creators.each do |c|
+        fond_creator_creator_ids = (fond_creator_creator_ids + c.related_creator_ids).uniq
+      end
+      @rel_ead_creator_ids = (fond_creator_ids + fond_creator_creator_ids).uniq
+  end
+
+  def set_ead_custodian_fonds_creators(c_ids)
+    fond_creator_ids = Array.new
+    c_ids.each do |cfi|
+      cust_fond = Fond.find(cfi)
+      fond_creator_ids = (fond_creator_ids + cust_fond.creator_ids).uniq
+    end
+    creators = Creator.find(fond_creator_ids).sort_by { |u| fond_creator_ids.index(u.id) }
+    custodian_fond_creator_ids = Array.new
+    creators.each do |c|
+      custodian_fond_creator_ids = (custodian_fond_creator_ids + c.related_creator_ids).uniq
+    end
+    @rel_ead_creator_ids = (fond_creator_ids + custodian_fond_creator_ids).uniq
+  end
+
+  def set_custodian_fonds_creators(c_ids)
+    fond_creator_ids = Array.new
+    c_ids.each do |cfi|
+      cust_fond = Fond.find(cfi)
+      fond_creator_ids = (fond_creator_ids + cust_fond.creator_ids).uniq
+    end
+    creators = Creator.find(fond_creator_ids).sort_by { |u| fond_creator_ids.index(u.id) }
+    custodian_fond_creator_ids = Array.new
+    creators.each do |c|
+      custodian_fond_creator_ids = (custodian_fond_creator_ids + c.related_creator_ids).uniq
+    end
+    rel_creator_ids = (fond_creator_ids + custodian_fond_creator_ids).uniq
+    @creators = Creator.where("id IN (?)", rel_creator_ids).sort_by { |u| rel_creator_ids.index(u.id) }
+  end
+
+  def set_ead_creators(id)
+    creator = Creator.find("#{id}")
+    rel_creator_ids = creator.related_creator_ids
+    @rel_ead_creator_ids = [id.to_i] + rel_creator_ids
+  end
+
+  def set_creators(id)
+    creator = Creator.find("#{id}")
+    rel_creator_ids = creator.related_creator_ids
+    ids = [id.to_i] + rel_creator_ids
+    @creators = Creator.where("id IN (?)", ids).sort_by { |u| ids.index(u.id) }
+  end
+
+  def set_custodians(id)
+    @custodians = Custodian.where("id = #{id}")
+    custodian_ids = [id.to_i]
+  end
+
+  def set_sources(id)
+    @sources = Source.where("id = #{id}")
+    source_ids = [id.to_i]
+  end
+
+  def set_all_fonds
+    @fonds = Fond.roots.order(:name).all
+  end
+
+  def selected_fond_ids
+    set_all_fonds
+    fond_ids = @fonds.map(&:id)
+  end
+  
+  def stream_ead(records, ids = [])
+    if records.present?
+      
+      suffix = Time.now.strftime("%Y%m%d%H%M%S")
+      file = "#{records[0].class.name.tableize}_ead.xml"
+      view = ActionView::Base.new(views_path(records[0].class.name.tableize))
+      if records[0].class.name.tableize == 'creators'
+        data_file_name = TMP_EXPORTS + "/sp-#{records[0].id}-#{suffix}.xml"
+      elsif records[0].class.name.tableize == 'fonds'
+        data_file_name = TMP_EXPORTS + "/ca-#{records[0].id}-#{suffix}.xml"
+      elsif records[0].class.name.tableize == 'custodians'
+        data_file_name = TMP_EXPORTS + "/sc-#{records[0].id}-#{suffix}.xml"
+      else
+        data_file_name = TMP_EXPORTS + "/data-#{records[0].class.name.tableize}-#{suffix}.xml"
+      end
+
+      self.data_file = data_file_name
+      @data_names.push(data_file_name)
+      file_dest = File.new(data_file_name, 'w+')
+
+      xml = ::Builder::XmlMarkup.new(target: file_dest, :indent => 2)
+
+      xml =  view.render(:partial => "#{file}.builder", :locals => {:records => records, :fond_ids => ids})
+      File.open(file_dest, 'w+') { |f| f.write(xml) }
+    else
+      puts "Nessun risultato"
+    end
+  end
+
+  def stream(records, fond_ids = [])
+    if records.present?
+      eval File.read('/usr/local/webapps/archimista/tmp/Configurazione_dl.rb')
+      dl_metadata = {'DL_FOND_ID' => DL_FOND_ID, 'PROVIDER_DL' => PROVIDER_DL, 
+                    'DL_HACONSERVATORE' => DL_HACONSERVATORE, 'DL_REPOSITORYID' => DL_REPOSITORYID,
+                    'DL_ABBR' => DL_ABBR, 'DL_CORPNAME' => DL_CORPNAME,
+                    'DL_HAPROGETTO' => DL_HAPROGETTO, 'DL_HACOMPLESSO' => DL_HACOMPLESSO,
+                    'DL_UNITID' => DL_UNITID, 'DL_UNITTITLE' => DL_UNITTITLE
+                  }
+
+      suffix = Time.now.strftime("%Y%m%d%H%M%S")
+      file = "#{records[0].class.name.tableize}.xml"
+      view = ActionView::Base.new(views_path(records[0].class.name.tableize))
+      
+      #file_dest = File.new(self.data_file, 'w+')
+      data_file_name = TMP_EXPORTS + "/data-#{records[0].class.name.tableize}-#{suffix}.xml"
+
+      self.data_file = data_file_name
+      @data_names.push(data_file_name)
+      file_dest = File.new(data_file_name, 'w+')
+      xml = ::Builder::XmlMarkup.new(target: file_dest, :indent => 2)
+
+      xml =  view.render(:partial => "#{file}.builder", :locals => {:records => records, :fond_ids => fond_ids, :metadata => dl_metadata})
+      File.open(file_dest, 'w+') { |f| f.write(xml) }
+    else
+      puts "Nessun risultato"
+    end
+  end
+
+  def stream_mets(records)
+    if records.present?
+      eval File.read('/usr/local/webapps/archimista/tmp/Configurazione_dl.rb')
+      dl_metadata = {'DL_FOND_ID' => DL_FOND_ID, 'PROVIDER_DL' => PROVIDER_DL, 
+                    'DL_HACONSERVATORE' => DL_HACONSERVATORE, 'DL_REPOSITORYID' => DL_REPOSITORYID,
+                    'DL_ABBR' => DL_ABBR, 'DL_CORPNAME' => DL_CORPNAME,
+                    'DL_HAPROGETTO' => DL_HAPROGETTO, 'DL_HACOMPLESSO' => DL_HACOMPLESSO,
+                    'DL_UNITID' => DL_UNITID, 'DL_UNITTITLE' => DL_UNITTITLE
+                  }
+
+      file = "digital_objects.xml"
+      file_mets = TMP_EXPORTS + "/digital_objects_CL.xml"
+      @data_names.push(file_mets)
+      view = ActionView::Base.new(views_path("digital_objects"))
+
+      file_dest_mets = File.new(file_mets, 'w+')
+      xml_mets = ::Builder::XmlMarkup.new(target: file_dest_mets, :indent => 2)
+
+      xml_mets =  view.render(:partial => "#{file}.builder", :locals => {:records => records, :metadata => dl_metadata})
+      File.open(file_dest_mets, 'w+') { |f| f.write(xml_mets) }
+    else
+      puts "Nessun risultato"
+    end
+  end
+
   def create_export_file
     create_data_file
     create_metadata_file
@@ -432,6 +863,16 @@ class Export < ActiveRecord::Base
 # Upgrade 2.2.0 fine
   end
 
+  def create_xml_export_file
+    create_metadata_file
+    create_aef_for_xml_file
+  end
+
+  def create_xml_ead_export_file
+    create_metadata_file
+    create_aef_for_xml_ead_file
+  end
+
 # Upgrade 2.2.0 inizio
   def create_units_export_file(unit_ids)
     create_units_data_file(unit_ids)
@@ -440,12 +881,12 @@ class Export < ActiveRecord::Base
   end
 # Upgrade 2.2.0 fine
 
-# Upgrade 3.0.0 inizio
+# Upgrade 2.2.0 inizio
   def create_units_export_file_csv(unit_ids, fond_id, dest_folder)
     create_units_data_file_csv(unit_ids, fond_id)
     create_csv_file(dest_folder)
   end
-# Upgrade 3.0.0 fine
+# Upgrade 2.2.0 fine
 
   private
 
@@ -454,6 +895,102 @@ class Export < ActiveRecord::Base
     FileUtils.cp(self.data_file, dest_folder)
   end
 # Upgrade 3.0.0 fine
+
+  def create_aef_for_xml_ead_file
+    files = {}
+    @data_names.each do |dn|
+      case dn
+      when /fond/
+        files["data-fond.xml"] = dn
+      when /ca/
+        url_split = dn.split("/")
+        ca_name = url_split[-1]
+        name_split = ca_name.split("-")
+        fond_name = name_split[0] + "-" + name_split[1] + ".xml"
+        files[fond_name] = dn
+      when /custodian/
+        files["data-custodian.xml"] = dn
+      when /sp/
+        url_split = dn.split("/")
+        sp_name = url_split[-1]
+        name_split = sp_name.split("-")
+        creator_name = name_split[0] + "-" + name_split[1] + ".xml"
+        files[creator_name] = dn
+      when /digital/
+        files["data-digital-object.xml"] = dn   
+      when /source/
+        files["data-source.xml"] = dn       
+      end
+    end
+    
+# Upgrade 3.0.0 inizio
+# definizione directory oggetti digitali
+    @dir = "#{Rails.root}/public/digital_objects"
+    @dir.sub!(%r[/$],'')
+    include_digital_objects = self.inc_digit
+# Upgrade 3.0.0 fine
+
+# Upgrade 2.0.0 inizio
+#    Zip::ZipFile.open(self.dest_file, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(self.dest_file, Zip::File::CREATE) do |zipfile|
+# Upgrade 2.0.0 fine
+      files.each do |dst, src|
+        zipfile.add(dst, src)
+      end
+# Upgrade 3.0.0 inizio
+# recupero degli access tokens corrispondenti alle cartelle degli oggetti digitali da importare se selezionato checkbox
+    if include_digital_objects == 'true'
+      fond_access_tokens = DigitalObject.select("access_token").where(:attachable_id => self.fond_ids, :attachable_type => "Fond").map(&:access_token)
+      unit_access_tokens = DigitalObject.select("access_token").where(:attachable_id => self.unit_ids, :attachable_type => "Unit").map(&:access_token)
+      entries = fond_access_tokens + unit_access_tokens
+      writeEntries(entries, "", zipfile )
+    end
+# Upgrade 3.0.0 fine
+    end
+  end
+
+  def create_aef_for_xml_file
+    files = {}
+    @data_names.each do |dn|
+      case dn
+      when /fond/
+        files["data-fond.xml"] = dn
+      when /custodian/
+        files["data-custodian.xml"] = dn
+      when /creator/
+        files["data-creator.xml"] = dn
+      when /digital/
+        files["data-digital-object.xml"] = dn   
+      when /source/
+        files["data-source.xml"] = dn       
+      end
+    end
+    
+# Upgrade 3.0.0 inizio
+# definizione directory oggetti digitali
+    @dir = "#{Rails.root}/public/digital_objects"
+    @dir.sub!(%r[/$],'')
+    include_digital_objects = self.inc_digit
+# Upgrade 3.0.0 fine
+
+# Upgrade 2.0.0 inizio
+#    Zip::ZipFile.open(self.dest_file, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(self.dest_file, Zip::File::CREATE) do |zipfile|
+# Upgrade 2.0.0 fine
+      files.each do |dst, src|
+        zipfile.add(dst, src)
+      end
+# Upgrade 3.0.0 inizio
+# recupero degli access tokens corrispondenti alle cartelle degli oggetti digitali da importare se selezionato checkbox
+    if include_digital_objects == 'true'
+      fond_access_tokens = DigitalObject.select("access_token").where(:attachable_id => self.fond_ids, :attachable_type => "Fond").map(&:access_token)
+      unit_access_tokens = DigitalObject.select("access_token").where(:attachable_id => self.unit_ids, :attachable_type => "Unit").map(&:access_token)
+      entries = fond_access_tokens + unit_access_tokens
+      writeEntries(entries, "", zipfile )
+    end
+# Upgrade 3.0.0 fine
+    end
+  end
 
 # Upgrade 2.2.0 inizio
   def create_aef_file
@@ -464,6 +1001,7 @@ class Export < ActiveRecord::Base
     @dir.sub!(%r[/$],'')
     include_digital_objects = self.inc_digit
 # Upgrade 3.0.0 fine
+
 # Upgrade 2.0.0 inizio
 #    Zip::ZipFile.open(self.dest_file, Zip::ZipFile::CREATE) do |zipfile|
     Zip::File.open(self.dest_file, Zip::File::CREATE) do |zipfile|
@@ -535,7 +1073,6 @@ class Export < ActiveRecord::Base
     end
   end
 
-# Upgrade 3.0.0 inizio
   def create_units_data_file_csv(unit_ids, fond_id)
     fond = Fond.select("id, ancestry, name").find(fond_id)
     display_sequence_numbers = Unit.display_sequence_numbers_of(fond.root)
@@ -637,7 +1174,6 @@ class Export < ActiveRecord::Base
       end
     end
   end
-# Upgrade 3.0.0 fine  
   
   def export_units_related_entities(file, unit_ids, unit_related_tables)
     #TODO considerare each_slice su unit_ids per grandi quantitativi di unità (+query ma meno memoria).
@@ -750,7 +1286,7 @@ class Export < ActiveRecord::Base
           self.fond_ids += tmp
         end
       end
-      fonds_and_units
+      fonds_and_units 
       major_entities
       headings
       document_forms

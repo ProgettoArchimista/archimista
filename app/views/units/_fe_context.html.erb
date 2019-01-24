@@ -1,0 +1,65 @@
+<div class="fields row">
+  <div class="span4">
+  	<%= f.label :number, t('fe_number') %>
+	<%= f.number_field :number, :class =>"span4 fe_field" %>
+  </div>
+  <div class="span4">
+  	<%= f.label :sub_number, t('fe_sub_number') %>
+	<%= f.number_field :sub_number, :class =>"span4 fe_field" %>
+  </div>
+</div>
+
+<div class="fields row">
+  <div class="span6">
+    <%= f.label :classification, t('fe_classification') %>
+  <%= f.text_field :classification, :class =>"span6 fe_field" %>
+  </div>
+  <div class="span1">
+    <%= link_to t('create_fe_classification'), '#', :id => 'create_fe_classification', :class => 'btn btn-small destroy_fsc' %>
+  </div>
+</div>
+
+<div class="fields row">
+  <div class="span4">
+  	<%= f.label :applicant, t('fe_applicant') %>
+	<%= f.text_field :applicant, :class =>"span4 fe_field" %>
+  </div>
+  <div class="span4">
+  	<%= f.label :request, t('fe_request') %>
+	<%= f.text_field :request, :class =>"span4 fe_field" %>
+  </div>
+</div>
+
+<div class="fields row">
+  <div class="span3">
+  	<%= f.label :license_number, t('fe_license_number') %>
+	<%= f.number_field :license_number, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span3">
+  	<%= f.label :license_year, t('fe_license_year') %>
+	<%= f.number_field :license_year, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span3">
+  	<%= f.label :license_date, t('fe_license_date') %>
+	<%= f.date_field :license_date, :class =>"span3 fe_field" %>
+  </div>
+</div>
+
+<div class="fields row">
+  <div class="span3">
+  	<%= f.label :protocol_number, t('fe_protocol_number') %>
+	<%= f.number_field :protocol_number, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span2">
+  	<%= f.label :habitability_number, t('fe_habitability_number') %>
+	<%= f.number_field :habitability_number, :class =>"span2 fe_field" %>
+  </div>
+  <div class="span1">
+  	<%= f.label :habitability_year, t('fe_habitability_year') %>
+	<%= f.number_field :habitability_year, :class =>"span1 fe_field" %>
+  </div>
+  <div class="span3">
+  	<%= f.label :habitability_date, t('fe_habitability_date') %>
+	<%= f.date_field :habitability_date, :class =>"span3 fe_field" %>
+  </div>
+</div>

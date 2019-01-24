@@ -1,0 +1,14 @@
+<div class="fields row">
+	<div class="span4">
+		<%= f.label :identifier, t('identifier') %>
+		<%= f.text_field :identifier, :class =>"span4" %>
+	</div>
+	<div class="span4">
+		<%= f.label :qualifier, t('qualifier') %>
+		<%= f.text_field :qualifier, :class =>"span4" %>
+	</div>
+	<div class="span1">
+		<label>&nbsp;</label>
+		<div class="destroy"><%= f.check_box :_destroy %> <%= f.label :_destroy, t('destroy') %></div>
+	</div>
+</div>

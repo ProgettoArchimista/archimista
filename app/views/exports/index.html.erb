@@ -5,13 +5,20 @@
 
 <div class="span8">
   <p style="margin-bottom: 2em;">Puoi esportare i tuoi complessi archivistici nel formato <code>aef</code> adatto all'importazione in un'altra istanza di Archimista.<br>
+    In alternativa puoi esportare i tuoi complessi archivistici nel formato <code>xml</code> adatto all'importazione nei formati CAT-SAN, METS-SAN, EAD e EAC-CPF.<br>
     Seleziona un singolo complesso archivistico o un insieme di complessi collegati a un soggetto conservatore o a un progetto.</p>
-  <%= check_box_tag 'inc_digit'%><%= label_tag 'inc_digit', 'Includi gli oggetti digitali', :class => 'digital_checkbox' %>
-  
+  <p><%= check_box_tag 'inc_digit'%><%= label_tag 'inc_digit', 'Includi gli oggetti digitali', :class => 'digital_checkbox exports_checkbox' %></p>
+  <p><%= check_box_tag 'inc_entities'%><%= label_tag 'inc_entities', 'Includi le entità correlate all\'oggetto da esportare', :class => 'digital_checkbox exports_checkbox' %></p>
+  <p><%= check_box_tag 'inc_san'%><%= label_tag 'inc_san', 'Esporta le entità selezionate in formato CAT-SAN e METS-SAN', :class => 'digital_checkbox exports_checkbox' %></p>
+  <p><%= check_box_tag 'inc_ead'%><%= label_tag 'inc_ead', 'Esporta le entità selezionate in formato EAD e EAC-CPF', :class => 'digital_checkbox exports_checkbox' %></p>
+
+  <br>
   <ul class="nav nav-tabs" id="export-tabs">
     <li><a href="#fonds" data-toggle="tab"><%= t('fonds')%></a></li>
     <li><a href="#custodians" data-toggle="tab"><%= t('custodians')%></a></li>
     <li><a href="#projects" data-toggle="tab"><%= t('projects')%></a></li>
+    <li><a href="#creators" data-toggle="tab"><%= t('creators')%></a></li>
+    <li><a href="#sources" data-toggle="tab"><%= t('sources')%></a></li>
   </ul>
 
   <div class="tab-content">
@@ -27,7 +34,7 @@
               <% @fonds.each do |fond| %>
                 <tr>
                   <td>
-                    <%= link_to fond.name, '#', {:class => "export-aef-wait", "target-id".to_sym => fond.id, "target-class" => "fond", "target-mode" => "full"} %>
+                    <%= link_to fond.name, '#', {:class => "export-trigger-wait", "target-id".to_sym => fond.id, "target-class" => "fond", "target-mode" => "full"} %>
                     <%= fond.preferred_event.try(:full_display_date) %>
                     <% if fond.fond_type.present? %>
                       <span class="light">(<%= fond.fond_type %>)</span>
@@ -60,7 +67,7 @@
               <% @custodians.each do |custodian| %>
                 <tr>
                   <td>
-                    <%= link_to custodian.name, '#', {:class => "export-aef-wait", "target-id".to_sym => custodian.id, "target-class" => "custodian", "target-mode" => "full"} %><br>
+                    <%= link_to custodian.name, '#', {:class => "export-trigger-wait", "target-id".to_sym => custodian.id, "target-class" => "custodian", "target-mode" => "full"} %><br>
 <%# TAI cambiato XXXX.human_name in XXXX.model_name.human %>
                     <span class="muted"><%= custodian.num %> <%= Fond.model_name.human(:count => custodian.num.to_i).downcase %></span>
                     <% if Rails.env == "development" && custodian.db_source.present? %>
@@ -107,6 +114,71 @@
       <% else %>
         <p>Non sono presenti schede progetto collegate a complessi archivistici.<br>
           Export per progetto non disponibili.</p>
+      <% end %>
+    </div>
+
+    <div class="tab-pane tab-xml" id="creators">
+      <% if @creators.length > 0 %>
+        <% if @creators.length < 100 %>
+          <p>Scegli il soggetto produttore di cui esportare i complessi archivistici:</p>
+          <table class="table">
+            <col class="span8" />
+            <col class="span3" />
+            <tbody>
+              <% @creators.each do |creator| %>
+                <tr>
+                  <td>
+                    <%= link_to creator.name, '#', {:class => "export-trigger-wait", "target-id".to_sym => creator.id, "target-class" => "creator", "target-mode" => "full"} %><br>
+<%# TAI cambiato XXXX.human_name in XXXX.model_name.human %>
+                    <span class="muted"><%= creator.num %> <%= Fond.model_name.human(:count => creator.num.to_i).downcase %></span>
+                    <% if Rails.env == "development" && creator.db_source.present? %>
+                      <span class="light">(<%= creator.db_source %>)</span>
+                    <% end %>
+                  </td>
+                  <td><%= l creator.updated_at, :format => :long %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <%= render :partial => "form_creators" %>
+        <% end %>
+      <% else %>
+        <p>Non sono presenti schede soggetto produttore collegate a complessi archivistici.<br>
+          Export per soggetto produttore non disponibili.</p>
+      <% end %>
+    </div>
+
+    <div class="tab-pane tab-xml" id="sources">
+      <% if @sources.length > 0 %>
+        <% if @sources.length < 100 %>
+          <p>Scegli la fonte della quale esportare i complessi archivistici:</p>
+          <table class="table">
+            <col class="span8" />
+            <col class="span3" />
+            <tbody>
+              <% @sources.each do |source| %>
+                <tr>
+                  <td>
+                    <%= link_to source.short_title, '#', {:class => "export-trigger-wait", "target-id".to_sym => source.id, "target-class" => "source", "target-mode" => "full"} %>
+                    <span class="muted"><%= source.title %></span><br>
+<%# TAI cambiato XXXX.human_name in XXXX.model_name.human %>
+                    <span class="muted"><%= source.num %> <%= Fond.model_name.human(:count => source.num.to_i).downcase %></span>
+                    <% if Rails.env == "development" && source.db_source.present? %>
+                      <span class="light">(<%= source.db_source %>)</span>
+                    <% end %>
+                  </td>
+                  <td><%= l source.updated_at, :format => :long %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <%= render :partial => "form_sources" %>
+        <% end %>
+      <% else %>
+        <p>Non sono presenti schede fonte collegate a complessi archivistici.<br>
+          Export per fonti non disponibili.</p>
       <% end %>
     </div>
 

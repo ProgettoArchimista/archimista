@@ -31,6 +31,7 @@ it:
   relationships_area: "Relazioni"
   sources_area: "Fonti" # "Bibliografia"
   headings_area: "Indici"
+  anagraphics_area: "Anagrafiche"
   other_information_area: "Altre informazioni"
   active: "attivo"
   places: "Toponimi"
@@ -56,14 +57,14 @@ it:
   split_fond: "Dividi"
   count:
     creators:
-        one: "&Egrave; stato trovato %{count} soggetto produttore."
+        one: "È stato trovato %{count} soggetto produttore."
         other: "Sono stati trovati %{count} soggetti produttori."
     custodians:
-        one: "&Egrave; stato trovato %{count} soggetto conservatore."
+        one: "È stato trovato %{count} soggetto conservatore."
         other: "Sono stati trovati %{count} soggetti conservatori."
     projects:
-        one: "Il complesso archivistico &egrave; in relazione con %{count} progetto."
-        other: "Il complesso archivistico &egrave; in relazione con %{count} progetti."
+        one: "Il complesso archivistico è in relazione con %{count} progetto."
+        other: "Il complesso archivistico è in relazione con %{count} progetti."
     fonds:
         success:
           one: "Il complesso archivistico ha il campo &quot;%{field}&quot; compilato."
@@ -72,22 +73,22 @@ it:
           one: "%{count} complesso archivistico su %{total} (%{percentage}) ha il campo &quot;%{field}&quot; vuoto."
           other: "%{count} complessi archivistici su %{total} (%{percentage}) hanno il campo &quot;%{field}&quot; vuoto."
     sources:
-        one: "&Egrave; stato trovato %{count} complesso archivistico con relazione a fonti."
+        one: "È stato trovato %{count} complesso archivistico con relazione a fonti."
         other: "Sono stati trovati %{count} complessi archivistici con relazione a fonti."
     creator_history:
         success: "Il soggetto produttore ha il campo &quot;%{field}&quot; compilato."
         failure: "Il soggetto produttore non ha il campo &quot;%{field}&quot; compilato."
     creator_sources:
         success:
-          one: "Il soggetto produttore &egrave in relazione a %{count} fonte."
-          other: "Il soggetto produttore &egrave in relazione a %{count} fonti."
+          one: "Il soggetto produttore è in relazione a %{count} fonte."
+          other: "Il soggetto produttore è in relazione a %{count} fonti."
         failure: "Il soggetto produttore non presenta relazioni a fonti."
     units:
       success:
-        one: "Il complesso archivistico &egrave collegato ad almeno una &quot;%{field}&quot;."
+        one: "Il complesso archivistico è collegato ad almeno una &quot;%{field}&quot;."
         other: "Tutti i %{count} complessi archivistici sono collegati ad almeno una &quot;%{field}&quot;."
       failure:
-        one: "%{count} complesso archivistico su %{total} (%{percentage}) &egrave privo di &quot;%{field}&quot; collegate."
+        one: "%{count} complesso archivistico su %{total} (%{percentage}) è privo di &quot;%{field}&quot; collegate."
         other: "%{count} complessi archivistici su %{total} (%{percentage}) sono privi di &quot;%{field}&quot; collegate."
   time:
     formats:
@@ -112,17 +113,17 @@ it:
       # activerecord.errors.messages
       models:
         unit:
-          not_matching_parent_and_fond: "Il complesso specificato non corrisponde all'unit&agrave di livello superiore"
-          not_matching_fond_and_root_fond: "Il complesso principale non &egrave compatibile con il complesso di appartenenza"
-          not_allowed_ancestry_depth: "Non &egrave; possibile creare sottounit&agrave; a questo livello"
+          not_matching_parent_and_fond: "Il complesso specificato non corrisponde all'unità di livello superiore"
+          not_matching_fond_and_root_fond: "Il complesso principale non è compatibile con il complesso di appartenenza"
+          not_allowed_ancestry_depth: "Non è possibile creare sottounità a questo livello"
         fond:
-          at_most_one_custodian: "Un complesso pu&ograve avere un solo soggetto conservatore"
+          at_most_one_custodian: "Un complesso può avere un solo soggetto conservatore"
 # Upgrade 2.1.0 inizio
         group:
           attributes:
             short_name:
-              illegal_format: "Valore non valido. I caratteri validi sono: lettere (maiuscole o minuscole), numeri, \"-\", \"_\". Non &egrave possibile inserire spazi e lettere accentate. Il primo carattere deve essere una lettera."
-              not_unique_value: "Il valore impostato non &egrave univoco."
+              illegal_format: "Valore non valido. I caratteri validi sono: lettere (maiuscole o minuscole), numeri, \"-\", \"_\". Non è possibile inserire spazi e lettere accentate. Il primo carattere deve essere una lettera."
+              not_unique_value: "Il valore impostato non è univoco."
               too_long_value: "Il numero di caratteri inserito supera il massimo consentito (30)."
 # Upgrade 2.0.0 fine
     models:
@@ -130,8 +131,8 @@ it:
         one: "Complesso archivistico"
         other: "Complessi archivistici"
       unit:
-        one: "Unit&agrave archivistica"
-        other: "Unit&agrave archivistiche"
+        one: "Unità archivistica"
+        other: "Unità archivistiche"
       creator:
         one: "Soggetto produttore"
         other: "Soggetti produttori"
@@ -153,6 +154,9 @@ it:
       heading:
         one: "Indice"
         other: "Indici"
+      anagraphic:
+        one: "Anagrafica"
+        other: "Anagrafiche"
       user:
         one: "Utente"
         other: "Utenti"
@@ -183,7 +187,7 @@ it:
         extent: "Consistenza archivistica"
         # Upgrade 2.2.0 fine
         length: "Metri lineari"
-        units_count: "Unit&agrave archivistiche"
+        units_count: "Unità archivistiche"
         arrangement_note: "Nota dell'archivista"
         related_materials: "Documentazione collegata"
         access_condition: "Condizione di accesso"

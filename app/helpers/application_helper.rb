@@ -76,6 +76,10 @@ module ApplicationHelper
   def add_child_link(name, association, replace_reference_string=nil)
     link_to(name, "javascript:void(0)", :class => "add_child", :"data-association" => association, :replace_reference => replace_reference_string)
   end
+
+  def add_child_link_anag(name, association, replace_reference_string=nil)
+    link_to(name, "javascript:void(0)", :class => "add_child anag_child", :"data-association" => association, :replace_reference => replace_reference_string)
+  end
 # Upgrade 2.0.0 fine
 
   def link_to_digital_objects_by_count(digital_objects_count, name, object, html_options = {})
@@ -179,6 +183,10 @@ module ApplicationHelper
     options_for_select(@terms.select {|l| l.vocabulary_name == "headings.heading_type"}.map {|a| [a.term_value, a.term_value]})
   end
 
+  def anagraphic_types
+    options_for_select(@terms.select {|l| l.vocabulary_name == "anagraphics.anagraphic_type"}.map {|a| [a.term_value, a.term_value]})
+  end
+
   def required_marker
     "&nbsp;*&nbsp;"
   end
@@ -250,7 +258,7 @@ module ApplicationHelper
 
   # ShowEditor
   def show_editor(object)
-    string = object.name
+    string = object.name.nil? ? "" : object.name
     string += " (#{object.qualifier})" unless object.qualifier.blank?
     string += ", #{object.editing_type}" unless object.editing_type.blank?
     string += ", #{l object.edited_at, :format => :long}" unless object.edited_at.blank?

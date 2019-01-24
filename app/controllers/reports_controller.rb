@@ -90,9 +90,15 @@ class ReportsController < ApplicationController
 #    @fonds = Fond.subtree_of(params[:id]).active.all(:include => [:preferred_event], :order => "sequence_number")
 #    @root_fond_name = @fonds.first.name
 # @fond risulta non assegnato, da cui il fatto che è stata aggiunta l'istruzione che lo inizializza. Non è chiaro come poteva funzionare nella precedente versione
-    @fonds = Fond.subtree_of(params[:id]).active.includes([:preferred_event]).order("sequence_number")
-    @fond = @fonds.find(params[:id])
+    #@fonds = Fond.subtree_of(params[:id]).active.includes([:preferred_event]).order("sequence_number")
+    base_ids = [params[:id].to_i]
+    tree_ordered_ids = tree_array(base_ids)
+
+
+    @fonds = Fond.subtree_of(params[:id]).active.includes([:preferred_event]).sort_by{|thing| tree_ordered_ids.index thing.id}
+    @fond = Fond.find(params[:id])
     @root_fond_name = @fond.name
+    
 # Upgrade 2.0.0 fine
     respond_to do |format|
       format.html
@@ -101,6 +107,16 @@ class ReportsController < ApplicationController
         render :json => {:file => "#{filename}.pdf"}
       end
     end
+  end
+
+  def tree_array(ids)
+     arr = []
+     ids.each do |node, children|
+      children = Fond.children_of(node).active.order("position").map(&:id)
+      arr << node
+      arr += tree_array(children) unless children.empty? || children.nil?
+     end
+     arr
   end
 
   def inventory
@@ -127,15 +143,26 @@ class ReportsController < ApplicationController
     # ----------------
     @report_settings.initialize_entities_selected_attribute_names(params, cookies)
 
-    @fonds = Fond.subtree_of(params[:id]).active.
-      includes([
+    #@fonds = Fond.subtree_of(params[:id]).active.
+    #  includes([
+    #    :other_names, :fond_langs, :fond_owners, :fond_urls, :fond_identifiers, :fond_editors, :preferred_event, :sources,
+    #    [:projects => [:project_managers, :project_stakeholders, :project_urls]],
+    #    [:units => [:preferred_event, :unit_damages, :unit_other_reference_numbers, :unit_langs, :unit_urls, :unit_identifiers, :sources, :unit_editors, :iccd_description, :iccd_tech_spec, :iccd_authors, :iccd_subjects, :iccd_damages]],
+    #    [:creators => [:preferred_name, :preferred_event, :other_names, :creator_legal_statuses, :creator_urls, :creator_identifiers, :creator_activities, :sources, :creator_editors]],
+    #    [:custodians =>  [:preferred_name, :other_names, :custodian_contacts, :custodian_urls, :custodian_identifiers, :custodian_headquarter, :custodian_other_buildings, :sources, :custodian_editors]]
+    #  ]).
+    #  order("sequence_number")
+
+    base_ids = [params[:id].to_i]
+    tree_ordered_ids = tree_array(base_ids)
+
+    @fonds = Fond.subtree_of(params[:id]).active.includes([
         :other_names, :fond_langs, :fond_owners, :fond_urls, :fond_identifiers, :fond_editors, :preferred_event, :sources,
         [:projects => [:project_managers, :project_stakeholders, :project_urls]],
         [:units => [:preferred_event, :unit_damages, :unit_other_reference_numbers, :unit_langs, :unit_urls, :unit_identifiers, :sources, :unit_editors, :iccd_description, :iccd_tech_spec, :iccd_authors, :iccd_subjects, :iccd_damages]],
         [:creators => [:preferred_name, :preferred_event, :other_names, :creator_legal_statuses, :creator_urls, :creator_identifiers, :creator_activities, :sources, :creator_editors]],
         [:custodians =>  [:preferred_name, :other_names, :custodian_contacts, :custodian_urls, :custodian_identifiers, :custodian_headquarter, :custodian_other_buildings, :sources, :custodian_editors]]
-      ]).
-      order("sequence_number")
+      ]).sort_by{|thing| tree_ordered_ids.index thing.id}
 
     @root_fond = @fonds.first
     @display_sequence_numbers = Unit.display_sequence_numbers_of(@root_fond)

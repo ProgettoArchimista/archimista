@@ -1,0 +1,35 @@
+<div class="fields row">
+  <div class="span4"><%= f.check_box :is_present%> <%= f.label :is_present, t('fe_is_present') %></div>
+</div>
+<div class="fields row">
+  <div class="span3">
+  	<%= f.label :status, t('fe_status') %>
+  	<%= terms_select(f, "fe_operas.status", {:include_blank => true}, :class => "span2 fe_field" )%>
+  </div>
+  <div class="span3">
+  	<%= f.label :building_name, t('fe_building_name') %>
+	<%= f.text_field :building_name, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span3">
+  	<%= f.label :building_type, t('fe_building_type') %>
+	<%= f.text_field :building_type, :class =>"span3 fe_field" %>
+  </div>
+</div>
+<div class="fields row">
+  <div class="span3">
+  	<%= f.label :place_name, t('fe_place_name') %>
+	<%= f.text_field :place_name, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span3">
+  	<%= f.label :place_type, t('fe_place_type') %>
+	<%= f.text_field :place_type, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span1">
+  	<%= f.label :house_number, t('fe_house_number') %>
+	<%= f.text_field :house_number, :class =>"span1 fe_field" %>
+  </div>
+  <div class="span2">
+  	<%= f.label :district, t('fe_district') %>
+	<%= f.text_field :district, :class =>"span2 fe_field" %>
+  </div>
+</div>

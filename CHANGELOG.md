@@ -1,12 +1,18 @@
+## Archimista 3.1 (gennaio 2019)
+Definiti i tracciati EAD3, SCONS2, EAC-CPF e le relative procedure di export via procedura batch e/o via sito web.
+Import dei file EAD3, SCONS2, EAC-CPF temporaneamente non disponibile.
+
 ## Archimista 3.0.0 (23 dicembre 2016)
 Nuove funzionalità
 - Ogni item delle entità Complesso archivistico (di 1° livello), Produttore, Conservatore e Progetto mostra il gruppo di appartenenza che ha generato il dato.
-- Aggiunto flag "Pubblicato" per le entità Complesso archivistico (a ogni livello), Progetto, Soggetto Produttore, Soggetto Conservatore, Unità e Oggetto Digitale e link alle azioni "Pubblica/Rimuovi pubblicazione" negli elenchi di visualizzazione
+- Aggiunto flag "Pubblicato" per le entità Complesso archivistico (a ogni livello), Progetto, Unità e Oggetto Digitale e link alle azioni "Pubblica/Rimuovi pubblicazione" negli elenchi di visualizzazione
   di Complessi archivistici e Progetti. Le suddette azioni agiscono a cascata su tutte le istanze di entità collegate mentre il check/uncheck della flag singola agisce puntualmente sull'entità selezionata.
 - Esportazione/Importazione di Oggetti digitali associati ai corredi in formato aef.
-- Aggiunto tool di controllo e bonifica delle occorrenze multiple delle schede Fonti in Strumenti/Occorrenze Multiple. Nel caso di più istanze duplicate, la selezione della fonte corretta da mantenere elimina tutti i duplicati e fa ereditare tutte le relazioni relative alle istanze eliminate.
+- Aggiunto tool di controllo e bonifica delle occorrenze multiple delle schede Fonti in Strumenti/Occorrenze Multiple. Nel caso di più istanze duplicate, la selezione della fonte corretta da mantenere elimina
+  tutti i duplicati e fa ereditare tutte le relazioni relative alle istanze eliminate.
 - Modificata la funzione "Unisci a" per un Complesso archivistico: è possibile effettuare l'unione su un qualsiasi livello gerarchico anzichè sul 1° come in precedenza.
-- Aggiunta la funzione "Dividi" per un Complesso archivistico: è possibile dividere un qualsiasi livello gerarchico di un Complesso archivistico dal Complesso di primo livello di appartenenza creando un nuovo Complesso archivistico di 1° livello.
+- Aggiunta la funzione "Dividi" per un Complesso archivistico: è possibile dividere un qualsiasi livello gerarchico di un Complesso archivistico dal Complesso di primo livello di appartenenza creando un nuovo
+  Complesso archivistico di 1° livello.
 - Le entità Profili documentari e Profili istituzionali saranno modificabili esclusivamente a cura degli operatori di profilo admin.
 - Aggiunto filtro Schede speciali in modalità visione tabellare per le unità.
 

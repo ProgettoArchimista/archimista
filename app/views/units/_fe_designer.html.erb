@@ -1,0 +1,11 @@
+<div class="fields row">
+  <div class="span3">
+    <%= f.label :designer_name, t('fe_designer_name') %>
+    <%= f.text_field :designer_name, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span3">
+    <%= f.label :designer_role, t('fe_designer_role') %>
+    <%= f.text_field :designer_role, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span1 destroy_fe"><%= f.check_box :_destroy %> <%= f.label :_destroy, t('destroy') %></div>
+</div>

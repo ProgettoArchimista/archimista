@@ -1,0 +1,44 @@
+<%# Upgrade 2.1.0 inizio %>
+<div class="fields sc2_voc_ref_container">
+	<%= javascript_tag do %>
+	  window.I18n = <%= t('fsc_codes').to_json.html_safe %>
+	<% end %>
+	<div class="row">
+		<div class="span3">
+			<div class="sc2_openedvoc_link_wrapper">
+				<label for="unit_fsc_attributes_code" class="sc2_openedvoc_label"><%= t('fsc_code_type')%></label>
+				<a href="javascript:void(0)" class="sc2_openedvoc_link sc2_voc_add_empty sc2_all" data_voc_name="fsc.code" data_voc_caption="<%= t('fsc_code_type')%>" data-toggle="modal"><%= t('sc2_openedvoc') %></a>
+			</div>
+			<%= f.text_field :code, :class => "span3 fsc_field sc2_voc" %>
+		</div>
+		<div class="span3">
+			<%= f.label :fsc_opened_at, t('fsc_opened_at') %>
+			<%= f.text_field :fsc_opened_at, { :class => "span3 fsc_field datepicker" } %>
+		</div>
+		<div class="span3">
+			<%= f.label :fsc_closed_at, t('fsc_closed_at') %>
+			<%= f.text_field :fsc_closed_at, { :class => "span3 fsc_field datepicker" } %>
+		</div>
+		
+	</div>
+
+	<div class="row">
+		<div class="span4">
+			<%= f.label :nationality, t('fsc_nationality') %>
+			<%= f.text_field :nationality, :class =>"span4 fsc_field" %>
+		</div>
+		<div class="span4">
+			<%= f.label :organization, t('fsc_organization') %>
+			<%= f.text_field :organization, :class =>"span4 fsc_field" %>
+		</div>
+		<div class="span1">
+			<label>&nbsp;</label>
+			<div class="destroy"><%= f.check_box :_destroy %> <%= f.label :_destroy, t('destroy') %></div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span9 sc2_instance_highlighter"></div>
+	</div>
+</div>
+<%# Upgrade 2.1.0 fine %>

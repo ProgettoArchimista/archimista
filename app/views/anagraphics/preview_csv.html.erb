@@ -1,0 +1,68 @@
+<% content_for :status_bar do %>
+  <h2><%= t('anagraphics') %><%= path_separator %><%= t('import_anagraphic') %><%= path_separator %><%= "Anteprima dell'importazione" %></h2>
+  <div id="links">
+    <%= link_to_index t('listing_anagraphics'), anagraphics_path %>
+  </div>
+<% end %>
+
+<div class="span12">
+<%= form_tag '/anagraphics/save_csv' do -%>
+  <p>Sei sicuro di voler importare le seguenti anagrafiche?</p>
+  <p>
+    <%= hidden_field_tag 'anagraphic[group_id]', current_ability.target_group_id %>
+
+    <%= hidden_field_tag :filename, params[:upload][:csv].path -%>
+    <%= submit_tag t('confirm'), :class => "btn btn-primary" -%> oppure
+    <%= link_to t('cancel'), anagraphics_path -%>
+  </p>
+<% end -%>
+<% @breakrow = 0 %>
+<% if @csv.size > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <th><%= "#" %></th>
+      <th><%= t('anagraphic_name') %></th>
+      <th><%= t('anagraphic_surname') %></th>
+      <th><%= t('anagraphic_start_date_place') %></th>
+      <th><%= t('anagraphic_start_date') %></th>
+      <th><%= t('anagraphic_end_date_place') %></th>
+      <th><%= t('anagraphic_end_date') %></th>
+    </thead>
+  <% @csv.each_with_index do |row, index|  %>
+    <% if row.empty? 
+          @breakrow = index +1
+          break
+       else %>
+      <tr>
+        <td><%= row[0] %></td>
+        <td><%= row[1] %></td>
+        <td><%= row[2] %></td>
+        <td><%= row[3] %></td>
+        <td><%= row[4] %></td>
+        <td><%= row[5] %></td>
+        <td><%= row[6] %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+  <p>Identificativi anagrafici</p>
+  <table class="table table-striped">
+    <thead>
+      <th><%= "#" %></th>
+      <th><%= t('anagraphic_identifier') %></th>
+      <th><%= t('anagraphic_qualifier') %></th>
+    </thead>
+  <% @csv.drop(@breakrow).each do |row|  %>
+      <tr>
+        <td><%= row[0] %></td>
+        <td><%= row[1] %></td>
+        <td><%= row[2] %></td>
+      </tr>
+  <% end %>
+  </table>
+
+<% else %>
+  <p><%= t('no_anagraphics') %></p>
+<% end %>
+
+</div>

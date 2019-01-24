@@ -57,6 +57,93 @@ class Unit < ActiveRecord::Base
   has_many :unit_editors, -> { order(:edited_at) }, :dependent => :destroy
 # Upgrade 2.0.0 fine
 
+  #has_many :personal_fscs, :dependent => :destroy
+  has_many :fsc_organizations, :dependent => :destroy
+  has_many :fsc_nationalities, :dependent => :destroy
+  has_many :fsc_codes, :dependent => :destroy
+  has_many :fsc_opens, :dependent => :destroy
+  has_many :fsc_closes, :dependent => :destroy
+
+  has_many :fe_identifications, :dependent => :destroy
+  has_many :fe_contexts, :dependent => :destroy
+  has_many :fe_operas, :dependent => :destroy
+  has_many :fe_designers, :dependent => :destroy
+  has_many :fe_cadastrals, :dependent => :destroy
+  has_many :fe_land_parcels, :dependent => :destroy
+  has_many :fe_fract_land_parcels, :dependent => :destroy
+  has_many :fe_fract_edil_parcels, :dependent => :destroy
+
+  accepts_nested_attributes_for :fe_identifications, :allow_destroy => true, :reject_if => :fe_identifications_reject_if
+  accepts_nested_attributes_for :fe_contexts, :allow_destroy => true, :reject_if => :fe_contexts_reject_if
+  accepts_nested_attributes_for :fe_operas, :allow_destroy => true, :reject_if => :fe_operas_reject_if
+  accepts_nested_attributes_for :fe_designers, :allow_destroy => true, :reject_if => :fe_designers_reject_if
+  accepts_nested_attributes_for :fe_cadastrals, :allow_destroy => true, :reject_if => :fe_cadastrals_reject_if
+  accepts_nested_attributes_for :fe_land_parcels, :allow_destroy => true, :reject_if => :fe_land_parcels_reject_if
+  accepts_nested_attributes_for :fe_fract_land_parcels, :allow_destroy => true, :reject_if => :fe_fract_land_parcels_reject_if
+  accepts_nested_attributes_for :fe_fract_edil_parcels, :allow_destroy => true, :reject_if => :fe_fract_edil_parcels_reject_if
+
+  def fe_identifications_reject_if(attributes)
+    Rails.logger.info("qua dentro")
+    exists = attributes[:id].present?
+    empty = attributes[:code].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  def fe_contexts_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:number].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  def fe_operas_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:building_name].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  def fe_designers_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:designer_name].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  def fe_cadastrals_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:way_code].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  def fe_land_parcels_reject_if(attributes)
+    Rails.logger.info("attributes[:id]: #{attributes[:id]}")
+    exists = attributes[:id].present?
+    Rails.logger.info("exists: #{exists}")
+
+    Rails.logger.info("attributes[:land_parcel_number]: #{attributes[:land_parcel_number]}")
+    empty = attributes[:land_parcel_number].blank?
+    Rails.logger.info("empty: #{empty}")
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  def fe_fract_land_parcels_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:fract_land_parcel_number].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  def fe_fract_edil_parcels_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:fract_edil_parcel_number].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
   has_many :digital_objects, :as => :attachable, :dependent => :destroy
 
   has_many :rel_unit_sources, :autosave => true, :dependent => :destroy
@@ -64,6 +151,9 @@ class Unit < ActiveRecord::Base
 
   has_many :rel_unit_headings, :autosave => true, :dependent => :destroy
   has_many :headings, :through => :rel_unit_headings
+
+  has_many :rel_unit_anagraphics, :autosave => true, :dependent => :destroy
+  has_many :anagraphics, :through => :rel_unit_anagraphics
 
   has_one :iccd_description
   has_one :iccd_tech_spec
@@ -191,6 +281,61 @@ class Unit < ActiveRecord::Base
   accepts_nested_attributes_for :rel_unit_headings,
     :allow_destroy => true,
     :reject_if => Proc.new { |a| a['heading_id'].blank? }
+
+  accepts_nested_attributes_for :rel_unit_anagraphics,
+    :allow_destroy => true,
+    :reject_if => Proc.new { |a| a['anagraphic_id'].blank? }
+
+  accepts_nested_attributes_for :fsc_codes, :allow_destroy => true, :reject_if => :fsc_codes_reject_if
+  
+  def fsc_codes_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:code].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  accepts_nested_attributes_for :fsc_nationalities, :allow_destroy => true, :reject_if => :fsc_nationalities_reject_if
+  
+  def fsc_nationalities_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:nationality].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  accepts_nested_attributes_for :fsc_organizations, :allow_destroy => true, :reject_if => :fsc_organizations_reject_if
+  
+  def fsc_organizations_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:organization].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  accepts_nested_attributes_for :fsc_opens, :allow_destroy => true, :reject_if => :fsc_opens_reject_if
+  
+  def fsc_opens_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:open].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  accepts_nested_attributes_for :fsc_closes, :allow_destroy => true, :reject_if => :fsc_closes_reject_if
+  
+  def fsc_closes_reject_if(attributes)
+    exists = attributes[:id].present?
+    empty = attributes[:close].blank?
+    attributes.merge!({_destroy: 1}) if exists and empty
+    return (!exists and empty)
+  end
+
+  #def personal_fscs_reject_if(attributes)
+  #  empty = attributes[:code].blank?
+  #  attributes.merge!({_destroy: 1}) if empty
+  #  return empty
+  #end
 
   # Validations
 
@@ -393,6 +538,10 @@ class Unit < ActiveRecord::Base
 #    rel_unit_headings.all(:include => :heading).sort_by{|rel| rel.heading.try(:name) || 'zz'}
     rel_unit_headings.includes(:heading).sort_by{|rel| rel.heading.try(:name) || 'zz'}
 # Upgrade 2.0.0 fine
+  end
+
+  def sorted_rel_unit_anagraphics
+    rel_unit_anagraphics.includes(:anagraphic).sort_by{|rel| rel.anagraphic.try(:name) || 'zz'}
   end
 
   def self.build_order_options(params)

@@ -1,6 +1,6 @@
 ## Archimista
 Archimista è un'applicazione web open source per la descrizione di archivi storici. È disponibile in due versioni: standalone e server.
-Versione corrente: **3.0.0**
+Versione corrente: **3.1**
 
 ## Requisiti
 Archimista funziona sui sistemi operativi GNU/Linux, Mac OS X, Windows Vista e superiori. Per Windows XP è necessario utilizzare una versione apposita
@@ -22,7 +22,8 @@ Per la versione server, nel caso di prima installazione:
 2. Creare un file di configurazione per il database: config/database.yml. Per maggiori informazioni leggi: [http://guides.rubyonrails.org/v2.3.11/getting_started.html#configuring-a-database](http://guides.rubyonrails.org/v2.3.11/getting_started.html#configuring-a-database)
 3. Eseguire il task rake gems:install
 4. Eseguire il task RAILS_ENV=production rake db:setup
-5. Avviare il webserver
+5. Nel file config/initializers/metadata.rb modificare la variabile BASE_URL inserendo il proprio url di archivista, modificare il file tmp/Configurazione_dl.rb con i dati da usare negli export SAN
+6. Avviare il webserver
 
 L'utente per il primo login è:
 

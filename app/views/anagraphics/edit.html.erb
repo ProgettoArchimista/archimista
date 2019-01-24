@@ -1,0 +1,8 @@
+<% content_for :status_bar do %>
+  <h2><%= t('anagraphics') %><%= path_separator %><%= t('edit_anagraphic') %></h2>
+  <div id="links">
+    <%= link_to_index t('listing_anagraphics'), anagraphics_path %>
+  </div>
+<% end %>
+
+<%= render :partial => "form" %>

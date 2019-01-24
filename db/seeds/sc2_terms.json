@@ -501,3 +501,12 @@
 {"sc2_vocabulary_id":9,"position":8,"term_key":"carta topografica","term_value":"carta topografica","term_scope":"CARS"}
 {"sc2_vocabulary_id":9,"position":9,"term_key":"mappa catastale","term_value":"mappa catastale","term_scope":"CARS"}
 {"sc2_vocabulary_id":9,"position":10,"term_key":"carta IGM","term_value":"carta IGM","term_scope":"CARS"}
+{"sc2_vocabulary_id":10,"position":1,"term_key":"a_hiring","term_value":"Assunzione"}
+{"sc2_vocabulary_id":10,"position":2,"term_key":"b_subscription","term_value":"Iscrizione"}
+{"sc2_vocabulary_id":10,"position":3,"term_key":"c_opened_relationship_date","term_value":"Data significativa per l’apertura del rapporto della persona con l’organizzazione"}
+{"sc2_vocabulary_id":10,"position":4,"term_key":"d_other_fsc","term_value":"Altro"}
+{"sc2_vocabulary_id":11,"position":1,"term_key":"a_organization","term_value":"Organizzazione di appartenenza"}
+{"sc2_vocabulary_id":11,"position":2,"term_key":"b_nationality","term_value":"Nazionalità"}
+{"sc2_vocabulary_id":11,"position":3,"term_key":"c_code","term_value":"Codice"}
+{"sc2_vocabulary_id":11,"position":4,"term_key":"d_opened_at","term_value":"Data apertura fascicolo"}
+{"sc2_vocabulary_id":11,"position":5,"term_key":"e_closed_at","term_value":"Data chiusura fascicolo"}

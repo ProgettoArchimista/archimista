@@ -1,0 +1,79 @@
+<% content_for :status_bar do %>
+  <h2><%= t('anagraphics') %></h2>
+<% end %>
+
+<div class="span12">
+  <div id="index-controls">
+    <div id="buttons">
+      <% if current_user.is_multi_group_user?() %>
+        <%= link_to raw(t('new') + '&nbsp;&nbsp;&nbsp;'), "#select_anagraphic_group_modal", { :"data-toggle" => "modal", :class => "btn btn-small new" } %>
+      <% else %>
+        <%= link_to t('new_anagraphic'), new_anagraphic_path, { :class => "btn btn-small new" } %>
+      <% end %>
+      <%= link_to raw('<i class="icon-share"></i> ' + t('import_anagraphic')), import_csv_anagraphics_path, { :class => "btn btn-small" } %>
+    </div>
+  </div>
+<% if false %>
+<% if @counts_by_type.present? %>
+<p>
+  <%
+    s1 = link_to_unless(params[:view].nil?, "Tutti", anagraphics_path)
+    s2 = @terms.select {|l| l.vocabulary_name == "anagraphics.anagraphic_type"}.map {|a|
+    link_to_unless(params[:view] == "#{a.term_value}", "#{a.term_value} ", anagraphics_path(:view => "#{a.term_value}")) +
+    raw("<span class='muted'>(#{(number_with_delimiter(@counts_by_type[a.term_value]) || 0).to_s})</span>")
+    }
+  %>
+  <%= raw(s1) + " | " + raw(s2.join(" | ")) if !s2.nil? && s2.length > 0 %>
+  <%= raw(s1) if s2.nil? || s2.length == 0 %>
+</p>
+<% end %>
+<% end %>
+<% if @anagraphics.size > 0  %>
+
+<%= display_page_entries_info @anagraphics %>
+
+<table class="table table-sortable">
+  <thead>
+  <tr>
+    <th><%= sortable("anagraphics.name", t('anagraphic_name')) %></th>
+    <th><%= sortable("anagraphics.surname", t('anagraphic_surname')) %></th>
+    <th><%= sortable("anagraphics.start_date", t('anagraphic_start_date')) %></th>
+    <th><%= sortable("anagraphics.end_date", t('anagraphic_end_date')) %></th>
+    <th>Occorrenze</th>
+    <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+      <th class="span2"><%= sortable("groups.short_name", t('list_group_short_name')) %></th>
+    <% end %>
+    <th>&nbsp;</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @anagraphics.each do |anagraphic| %>
+    <tr>
+      <td><%= link_to anagraphic.name, edit_anagraphic_path(anagraphic) %></td>
+      <td><%= anagraphic.surname %></td>
+      <td><%= (if anagraphic.start_date.nil? then "" else l anagraphic.start_date, :format => :long end) %></td>
+      <td><%= (if anagraphic.start_date.nil? then "" else l anagraphic.start_date, :format => :long end) %></td>
+      <td><%= link_to "#{number_with_delimiter(@units_counts[anagraphic.id] || "0")} unità", anagraphic_path(anagraphic) %></td>
+        <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
+          <td style="font-size: 11px;"><%= anagraphic.group.short_name %></td>
+        <% end %>
+      <td>
+        <%= link_to t('destroy'), anagraphic, data: {:confirm => t('are_you_sure')}, :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+  <div class="digg_pagination">
+    <%= will_paginate @anagraphics, :container => false %>
+  </div>
+
+<% else %>
+  <p>Non sono presenti anagrafiche.</p>
+<% end %>
+</div>
+
+<% if current_user.is_multi_group_user?() %>
+<%= render :partial => "anagraphics/anagraphic_group" %>
+<% end %>

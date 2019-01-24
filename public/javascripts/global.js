@@ -265,6 +265,15 @@ $(document).ready(function() {
       $('#select_heading_group_modal').modal('hide');
     }
   );
+  $("#create_anagraphic").click(
+    function()
+    {
+      var group_id = $("#anagraphic_group_id").val();
+
+      window.location = "/anagraphics/new?group_id=" + group_id;
+      $('#select_anagraphic_group_modal').modal('hide');
+    }
+  );
 /* Upgrade 2.2.0 fine */
 
   // EDITORS
@@ -328,6 +337,143 @@ $(document).ready(function() {
     return false;
   });
 
+  $('#create_fe_classification').click(function(){
+    var classification = "";
+    var first = true;
+
+    if($('#unit_fe_identifications_attributes_0_code').val() != ""){
+      classification = classification + $('#unit_fe_identifications_attributes_0_code').val();
+    }else{
+      alert("Il campo Identificativo non deve essere vuoto");
+      return false;
+    }
+
+    if($('#unit_fe_identifications_attributes_0_category').val() != ""){
+      classification = classification + "-" + $('#unit_fe_identifications_attributes_0_category').val();
+      first = false;
+    }
+
+    if($('#unit_fe_identifications_attributes_0_identification_class').val() != ""){
+      if(first === true){
+        classification = classification + "-" + $('#unit_fe_identifications_attributes_0_identification_class').val();
+        first = false;
+      }else{
+        classification = classification + "." + $('#unit_fe_identifications_attributes_0_identification_class').val();
+      }
+    }
+
+    if($('#unit_fe_contexts_attributes_0_number').val() != ""){
+      if(first === true){
+        classification = classification + "-" + $('#unit_fe_contexts_attributes_0_number').val();
+        first = false;
+      }else{
+        classification = classification + "." + $('#unit_fe_contexts_attributes_0_number').val();
+      }
+    }
+
+    if($('#unit_fe_contexts_attributes_0_sub_number').val() != ""){
+      if(first === true){
+        classification = classification + "-" + $('#unit_fe_contexts_attributes_0_sub_number').val();
+        first = false;
+      }else{
+        classification = classification + "." + $('#unit_fe_contexts_attributes_0_sub_number').val();
+      }
+    }
+
+    if($('#unit_fe_identifications_attributes_0_file_year').val() != ""){
+      if(first === true){
+        classification = classification + "-" + $('#unit_fe_identifications_attributes_0_file_year').val();
+        first = false;
+      }else{
+        classification = classification + "." + $('#unit_fe_identifications_attributes_0_file_year').val();
+      }
+    }
+
+    $("#unit_fe_contexts_attributes_0_classification").attr("value", classification);
+    return false;
+  });
+
+  $('#create_fsc_title').click(function(){
+    var start_date = "";
+    var end_date = "";
+    if($('#unit_events_attributes_0_start_date_format_y').prop("checked") && !$('#unit_events_attributes_0_start_date_format_c').prop("checked")){
+      if($('#unit_events_attributes_0_start_date_from_day').val() != ""){
+        start_date = start_date + $('#unit_events_attributes_0_start_date_from_day').val() + "-";
+      }else{
+        start_date = start_date + "?-";
+      }
+
+      if($('#unit_events_attributes_0_start_date_from_month').val() != ""){
+        start_date = start_date + $('#unit_events_attributes_0_start_date_from_month').val() + "-";
+      }else{
+        start_date = start_date + "?-";
+      }
+
+      if($('#unit_events_attributes_0_start_date_from_year').val() != "anno..."){
+        start_date = start_date + $('#unit_events_attributes_0_start_date_from_year').val();
+      }else{
+        start_date = start_date + "?";
+      }
+
+    }else{
+      start_date = start_date + $("#unit_events_attributes_0_start_century option:selected").text();
+      if($("#unit_events_attributes_0_start_century_interval option:selected").text() != "parte..."){
+        start_date = start_date + " - " + $("#unit_events_attributes_0_start_century_interval option:selected").text();
+      }else{
+        start_date = start_date + " - ?";
+      }
+    }
+
+    if($('#unit_events_attributes_0_equal_bounds').prop("checked")){
+      end_date = start_date;
+    }else{
+      if($('#unit_events_attributes_0_end_date_format_y').prop("checked") && !$('#unit_events_attributes_0_end_date_format_c').prop("checked") 
+        && !$('#unit_events_attributes_0_end_date_format_o').prop("checked") && !$('#unit_events_attributes_0_end_date_format_u').prop("checked")){
+               
+        if($('#unit_events_attributes_0_end_date_from_day').val() != ""){
+          end_date = end_date + $('#unit_events_attributes_0_end_date_from_day').val() + "-";
+        }else{
+          end_date = end_date + "?-";
+        }
+
+        if($('#unit_events_attributes_0_end_date_from_month').val() != ""){
+          end_date = end_date + $('#unit_events_attributes_0_end_date_from_month').val() + "-";
+        }else{
+          end_date = end_date + "?-";
+        }
+
+        if($('#unit_events_attributes_0_end_date_from_year').val() != "anno..."){
+          end_date = end_date + $('#unit_events_attributes_0_end_date_from_year').val();
+        }else{
+          end_date = end_date + "?";
+        }
+
+      }else if(!$('#unit_events_attributes_0_end_date_format_y').prop("checked") && $('#unit_events_attributes_0_end_date_format_c').prop("checked") 
+        && !$('#unit_events_attributes_0_end_date_format_o').prop("checked") && !$('#unit_events_attributes_0_end_date_format_u').prop("checked")){
+
+        end_date = end_date + $("#unit_events_attributes_0_end_century option:selected").text();
+        if($("#unit_events_attributes_0_end_century_interval option:selected").text() != "parte..."){
+          end_date = end_date + " - " + $("#unit_events_attributes_0_end_century_interval option:selected").text();
+        }else{
+          end_date = end_date + " - ?";
+		  }
+
+      }else if(!$('#unit_events_attributes_0_end_date_format_y').prop("checked") && !$('#unit_events_attributes_0_end_date_format_c').prop("checked") 
+        && $('#unit_events_attributes_0_end_date_format_o').prop("checked") && !$('#unit_events_attributes_0_end_date_format_u').prop("checked")){
+
+        end_date = "31-12-9999";
+
+      }else if(!$('#unit_events_attributes_0_end_date_format_y').prop("checked") && !$('#unit_events_attributes_0_end_date_format_c').prop("checked") 
+        && !$('#unit_events_attributes_0_end_date_format_o').prop("checked") && $('#unit_events_attributes_0_end_date_format_u').prop("checked")){
+
+        end_date = "?-?-?";
+      }
+    }
+
+    $("#unit_title").attr("value", $('#unit_fsc_surname').val() + ", " + $('#unit_fsc_name').val() + " [ " + start_date +  " / " + end_date + " ]");
+    return false;
+  });
+
   // SOURCES
   $('#source_source_type_code').change(function() {
     window.location = window.location.href.split('?')[0] + "?type=" + this.value;
@@ -348,6 +494,10 @@ $(document).ready(function() {
   // OPTIMIZE: la funzione clone può essere estratta e condivisa come quella di autocomplete
 /* Upgrade 2.1.0 inizio */
   $('form a.add_child').click( function() { add_child_click($(this)); } );
+
+  $(document).delegate('#new_anagraphic a.anag_child', 'click', function () {
+    add_child_click($(this));
+  });
 	
   function add_child_click(jqCtl)
 	{

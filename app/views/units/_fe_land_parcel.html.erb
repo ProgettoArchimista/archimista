@@ -1,0 +1,7 @@
+<div class="fields row">
+  <div class="span3">
+    <%= f.label :land_parcel_number, t('fe_land_parcel_number') %>
+    <%= f.text_field :land_parcel_number, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span1 destroy_fe"><%= f.check_box :_destroy %> <%= f.label :_destroy, t('destroy') %></div>
+</div>

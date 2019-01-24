@@ -177,6 +177,21 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :anagraphics do
+    collection do
+      get  :import_csv
+      post :preview_csv
+      post :save_csv
+      get  :list
+      get  :modal_new
+      post :modal_create
+      get  :modal_link
+      get  :ajax_list
+      post :ajax_remove
+      post :ajax_link
+    end
+  end
+
   resources :reports, :only => [:index] do
     member do
       get  :dashboard
@@ -217,6 +232,7 @@ resources :multiple_occours, :only => [:index] do
   resources :exports, :only => [:index] do
     collection do
       get :download
+      get :xml
 # Upgrade 2.2.0 inizio
       post :units
 # Upgrade 2.2.0 fine

@@ -1,0 +1,13 @@
+<% if object.present? %>
+  <ul>
+    <% object.each do |h| %>
+    <li>
+      <%= h.full_string %>
+      <%= link_to "[rimuovi]", "#", :'data-anagraphic_id' => h.id,
+                                    :'data-related_entity' => params[:related_entity],
+                                    :'data-related_entity_id' => params[:related_entity_id],
+                                    :class => "anagraphic-remove" %>
+    </li>
+    <% end %>
+  </ul>
+<%  end %>

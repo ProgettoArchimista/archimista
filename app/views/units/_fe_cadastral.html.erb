@@ -1,0 +1,18 @@
+<div class="fields row">
+  <div class="span2">
+  	<%= f.label :way_code, t('fe_way_code') %>
+	<%= f.number_field :way_code, :class =>"span2 fe_field" %>
+  </div>
+  <div class="span3">
+  	<%= f.label :cadastral_municipality, t('fe_cadastral_municipality') %>
+	<%= f.text_field :cadastral_municipality, :class =>"span3 fe_field" %>
+  </div>
+  <div class="span2">
+  	<%= f.label :municipality_code, t('fe_municipality_code') %>
+	<%= f.number_field :municipality_code, :class =>"span2 fe_field" %>
+  </div>
+  <div class="span2">
+    <%= f.label :paper_code, t('fe_paper_code') %>
+  <%= f.number_field :paper_code, :class =>"span2 fe_field" %>
+  </div>
+</div>

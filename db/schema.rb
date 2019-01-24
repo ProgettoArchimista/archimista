@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510083213) do
+ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "identifier",        limit: 255
@@ -28,6 +28,36 @@ ActiveRecord::Schema.define(version: 20170510083213) do
   end
 
   add_index "activities", ["db_source", "legacy_id"], name: "index_activities_on_source_and_legacy_id", using: :btree
+
+  create_table "anag_identifiers", force: :cascade do |t|
+    t.integer  "anagraphic_id", limit: 4
+    t.string   "identifier",    limit: 255
+    t.string   "qualifier",     limit: 255
+    t.string   "db_source",     limit: 255
+    t.string   "legacy_id",     limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "anag_identifiers", ["anagraphic_id"], name: "index_anag_identifiers_on_anagraphic_id", using: :btree
+  add_index "anag_identifiers", ["db_source", "legacy_id"], name: "index_anag_identifiers_on_source_and_legacy_id", using: :btree
+
+  create_table "anagraphics", force: :cascade do |t|
+    t.string   "anagraphic_type",  limit: 255
+    t.string   "name",             limit: 255
+    t.string   "surname",          limit: 255
+    t.string   "start_date_place", limit: 255
+    t.date     "start_date"
+    t.string   "end_date_place",   limit: 255
+    t.date     "end_date"
+    t.integer  "group_id",         limit: 4
+    t.string   "db_source",        limit: 255
+    t.string   "legacy_id",        limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "anagraphics", ["db_source", "legacy_id"], name: "index_anagraphics_on_source_and_legacy_id", using: :btree
 
   create_table "creator_activities", force: :cascade do |t|
     t.integer  "creator_id", limit: 4
@@ -542,6 +572,66 @@ ActiveRecord::Schema.define(version: 20170510083213) do
   add_index "fonds", ["db_source", "legacy_parent_id"], name: "index_fonds_on_source_and_legacy_parent_id", using: :btree
   add_index "fonds", ["group_id"], name: "index_fonds_on_group_id", using: :btree
 
+  create_table "fsc_closes", force: :cascade do |t|
+    t.integer  "unit_id",    limit: 4
+    t.date     "close"
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fsc_closes", ["db_source", "legacy_id"], name: "index_fsc_closes_on_source_and_legacy_id", using: :btree
+  add_index "fsc_closes", ["unit_id"], name: "index_fsc_closes_on_unit_id", using: :btree
+
+  create_table "fsc_codes", force: :cascade do |t|
+    t.integer  "unit_id",    limit: 4
+    t.string   "code",       limit: 255
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fsc_codes", ["db_source", "legacy_id"], name: "index_fsc_codes_on_source_and_legacy_id", using: :btree
+  add_index "fsc_codes", ["unit_id"], name: "index_fsc_codes_on_unit_id", using: :btree
+
+  create_table "fsc_nationalities", force: :cascade do |t|
+    t.integer  "unit_id",     limit: 4
+    t.string   "nationality", limit: 255
+    t.string   "db_source",   limit: 255
+    t.string   "legacy_id",   limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fsc_nationalities", ["db_source", "legacy_id"], name: "index_fsc_nationalities_on_source_and_legacy_id", using: :btree
+  add_index "fsc_nationalities", ["unit_id"], name: "index_fsc_nationalities_on_unit_id", using: :btree
+
+  create_table "fsc_opens", force: :cascade do |t|
+    t.integer  "unit_id",    limit: 4
+    t.date     "open"
+    t.string   "db_source",  limit: 255
+    t.string   "legacy_id",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fsc_opens", ["db_source", "legacy_id"], name: "index_fsc_opens_on_source_and_legacy_id", using: :btree
+  add_index "fsc_opens", ["unit_id"], name: "index_fsc_opens_on_unit_id", using: :btree
+
+  create_table "fsc_organizations", force: :cascade do |t|
+    t.integer  "unit_id",      limit: 4
+    t.string   "organization", limit: 255
+    t.string   "db_source",    limit: 255
+    t.string   "legacy_id",    limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fsc_organizations", ["db_source", "legacy_id"], name: "index_fsc_organizations_on_source_and_legacy_id", using: :btree
+  add_index "fsc_organizations", ["unit_id"], name: "index_fsc_organizations_on_unit_id", using: :btree
+
   create_table "group_images", force: :cascade do |t|
     t.integer  "related_group_id",   limit: 4
     t.string   "type",               limit: 255
@@ -773,6 +863,22 @@ ActiveRecord::Schema.define(version: 20170510083213) do
     t.datetime "updated_at"
   end
 
+  create_table "personal_fscs", force: :cascade do |t|
+    t.integer  "unit_id",       limit: 4
+    t.string   "code",          limit: 255
+    t.date     "fsc_opened_at"
+    t.date     "fsc_closed_at"
+    t.string   "nationality",   limit: 255
+    t.string   "organization",  limit: 255
+    t.string   "db_source",     limit: 255
+    t.string   "legacy_id",     limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "personal_fscs", ["db_source", "legacy_id"], name: "index_personal_fscs_on_source_and_legacy_id", using: :btree
+  add_index "personal_fscs", ["unit_id"], name: "index_personal_fscs_on_unit_id", using: :btree
+
   create_table "places", force: :cascade do |t|
     t.string  "record_type",     limit: 2
     t.string  "name",            limit: 200
@@ -995,6 +1101,21 @@ ActiveRecord::Schema.define(version: 20170510083213) do
   add_index "rel_project_fonds", ["db_source", "legacy_project_id"], name: "index_rel_project_fonds_on_source_and_legacy_project_id", using: :btree
   add_index "rel_project_fonds", ["fond_id"], name: "index_rel_project_fonds_on_fond_id", using: :btree
   add_index "rel_project_fonds", ["project_id"], name: "index_rel_project_fonds_on_project_id", using: :btree
+
+  create_table "rel_unit_anagraphics", force: :cascade do |t|
+    t.integer  "unit_id",              limit: 4
+    t.integer  "anagraphic_id",        limit: 4
+    t.string   "db_source",            limit: 255
+    t.string   "legacy_unit_id",       limit: 255
+    t.string   "legacy_anagraphic_id", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rel_unit_anagraphics", ["anagraphic_id"], name: "index_rel_unit_anagraphics_on_anagraphic_id", using: :btree
+  add_index "rel_unit_anagraphics", ["db_source", "legacy_anagraphic_id"], name: "index_rel_unit_anagraphics_on_source_and_legacy_anagraphic_id", using: :btree
+  add_index "rel_unit_anagraphics", ["db_source", "legacy_unit_id"], name: "index_rel_unit_anagraphics_on_source_and_legacy_unit_id", using: :btree
+  add_index "rel_unit_anagraphics", ["unit_id"], name: "index_rel_unit_anagraphics_on_unit_id", using: :btree
 
   create_table "rel_unit_headings", force: :cascade do |t|
     t.integer  "unit_id",           limit: 4
@@ -1426,6 +1547,9 @@ ActiveRecord::Schema.define(version: 20170510083213) do
     t.string   "sc2_tsk",                   limit: 10
     t.text     "extent",                    limit: 65535
     t.boolean  "published",                 limit: 1,        default: true
+    t.string   "file_type",                 limit: 255
+    t.string   "fsc_name",                  limit: 255
+    t.string   "fsc_surname",               limit: 255
   end
 
   add_index "units", ["ancestry"], name: "index_units_on_ancestry", using: :btree

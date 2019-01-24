@@ -11,6 +11,8 @@ class UnitsController < ApplicationController
           u = Unit.find(params[:id])
           f = Fond.find(u.fond_id)
           @current_ability ||= Ability.new(current_user, f.group_id)
+        elsif (["index"].include?(params[:action]))
+          @current_ability ||= Ability.new(current_user, -1)
         end
       end
     end
@@ -337,14 +339,12 @@ class UnitsController < ApplicationController
       else
         @units = @fond.units
       end
-# Upgrade 3.0.0 inizio	  
       select_clause = "units.id, units.fond_id, units.position, units.sequence_number,
                     units.ancestry, units.ancestry_depth, units.published,  units.tsk,
                     units.reference_number, units.tmp_reference_number, units.title,
                     unit_events.start_date_display AS preferred_start_date_display,
                     unit_events.end_date_display AS preferred_end_date_display,
                     unit_events.order_date AS preferred_order_date".squish
-# Upgrade 3.0.0 fine	  					
       join_clause = "LEFT OUTER JOIN unit_events ON units.id = unit_events.unit_id"
       where_clause = "units.sequence_number IS NOT NULL AND (unit_events.preferred = ? OR unit_events.preferred IS NULL)"
       order_clause = sort_column + ' ' + sort_direction
@@ -804,6 +804,8 @@ class UnitsController < ApplicationController
     relation_collections  :related => "sources", :through => "rel_unit_sources"
     relation_collections  :related => "headings", :through => "rel_unit_headings",
       :available => Heading.accessible_by(current_ability, :read).count('id')
+    relation_collections  :related => "anagraphics", :through => "rel_unit_anagraphics",
+      :available => Anagraphic.accessible_by(current_ability, :read).count('id')
   end
 
   def sort_column

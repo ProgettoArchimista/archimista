@@ -1,0 +1,34 @@
+<% content_for :status_bar do %>
+  <h2><%= t('anagraphic') %><%= path_separator %><%= t('import_anagraphic') %></h2>
+  <div id="links">
+    <%= link_to_index t('listing_anagraphics'), anagraphics_path %>
+  </div>
+<% end %>
+
+<div class="span12">
+    <%= form_for :upload, :url => preview_csv_anagraphics_path, :html => {:multipart => true } do |f| %>
+  <% if current_user.is_multi_group_user?() %>
+    <div style="text-align: justify;">
+      Per eseguire l'operazione è necessario selezionare il gruppo cui associare le schede anagrafiche che verranno importate scegliendolo tra i gruppi associati all'utente corrente.
+    </div>
+    <div style="margin-top: 10px;">
+      <%= label_tag :group_id, raw(t('devise.attributes.group_id') + required_marker + '<span class="inline-msg hide">obbligatorio</span>'), :class => "control-label" %>            
+      <%= select :anagraphic, :group_id, rel_user_groups_select(current_user.rel_user_groups), {:prompt => t('devise.attributes.group_id_prompt'), :selected => current_user.rel_user_groups[0].group_id} %>
+    </div>
+  <% else %>
+    <%= hidden_field_tag 'anagraphic[group_id]', current_ability.target_group_id %>
+  <% end %>
+
+  <div style="margin-top: 10px;">
+    <p>Puoi importare le anagrafiche da un file in formato <code>CSV</code> strutturato.</p>
+
+    <p>Ogni riga della prima tabella del file definisce una anagrafica mediante indicazione del valore di massimo sette colonne separate da ";" i cui contenuti sono assegnati nell'ordine ai seguenti campi: Numero di anagrafica, <%= t('anagraphic_name') %>, <%= t('anagraphic_surname') %>, <%= t('anagraphic_start_date') %>,  <%= t('anagraphic_start_date_place') %>,  <%= t('anagraphic_end_date') %>, <%= t('anagraphic_end_date_place') %>.</p>
+    <p>La prima riga è considerata titolo e il suo contenuto viene quindi ignorato.</p>
+    <p>Ogni riga della seconda tabella del file definisce gli identificativi mediante indicazione del valore di massimo tre colonne separate da ";" i cui contenuti sono assegnati nell'ordine ai seguenti campi: Numero di anagrafica associata, <%= t('anagraphic_identifier') %>, <%= t('anagraphic_qualifier') %>.</p>
+    <p>La riga vuota tra le due tabelle serve a distinguere i valori per l'import corretto, i numeri identificativi servono a stabilire la corretta associazione in fase di import.</p>
+      <p style="margin: 1.5em 0 1em 0;"><%= f.file_field :csv %></p>
+      <p><%= f.submit t('import_file'), :class => "btn btn-primary" %></p>
+    <% end %>
+  </div>
+</div>
+

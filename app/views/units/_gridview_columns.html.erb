@@ -7,7 +7,7 @@
 <%# TAI aggiunto = prima di form_tag %>
     <%= form_tag({:action => 'gridview'}, {:method => :post, :id => "select-columns-form", :class => "skip-prompt modal-form"}) do %>
       <ul id="columns-list">
-        <li class="<%= cycle("odd", "even") %>" style="display: none;">
+        <li class="<%= cycle("odd", "even") %>" style="display: none;"> 
           <%= check_box_tag "selected_attributes[]", "<attr_name>", :disabled => true %>
           <%= label_tag "selected_attributes", "attr_description" %>
         </li>

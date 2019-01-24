@@ -1,6 +1,7 @@
 class ExportsController < ApplicationController
 # Upgrade 2.0.0 inizio
 require 'exportjson'
+require 'builder'
 # Upgrade 2.0.0 fine
 
   def index
@@ -12,6 +13,9 @@ require 'exportjson'
 
     @custodians = Custodian.export_list.accessible_by(current_ability, :read)
     @projects = Project.export_list.accessible_by(current_ability, :read)
+    @creators = Creator.export_list.accessible_by(current_ability, :read)
+    @sources = Source.export_list.accessible_by(current_ability, :read)
+
     if params[:target_id].present? && params[:target_class].present?
       suffix = Time.now.strftime("%Y%m%d%H%M%S")
 
@@ -31,7 +35,6 @@ require 'exportjson'
       entity = model.find(params[:target_id])
       @export.group_id = entity.group_id
 # Upgrade 2.2.0 fine
-# Upgrade 3.0.0 inizio
       begin
         @export.create_export_file
       rescue Exception => e
@@ -39,7 +42,7 @@ require 'exportjson'
         redirect_to exports_path, :alert => 'Errore nella creazione del file di export'
         return
       end
-# Upgrade 3.0.0 fine
+
 # Upgrade 2.0.0 inizio
 # usando la struttura @export si verificava un errore
       @exportjson = ExportJson.new
@@ -57,6 +60,40 @@ require 'exportjson'
     end
   end
 
+  def xml
+    if params[:target_id].present? && params[:target_class].present?
+      suffix = Time.now.strftime("%Y%m%d%H%M%S")
+      @export = Export.new
+      @export.target_id = params[:target_id]
+      @export.target_class = params[:target_class]
+      @export.mode = params[:mode]            
+      @export.metadata_file = Export::TMP_EXPORTS + "/metadata-#{suffix}.json"
+      @export.data_file = Export::TMP_EXPORTS + "/data-#{params[:target_class]}-#{suffix}.xml"
+      @export.dest_file = "#{Rails.root}/public/downloads/archimista-#{get_target_class_caption(@export.target_class)}-#{suffix}.zip"
+      @export.inc_digit = params[:inc_digit]
+
+      model = params[:target_class].singularize.camelize.constantize
+      entity = model.find(params[:target_id])
+      @export.group_id = entity.group_id
+      target_xml = params[:target_xml]
+      if target_xml.include? "san"
+        @export.create_export_xml_san_file
+      else
+        @export.create_export_xml_ead_file
+      end
+          
+
+      @exportjson = ExportJson.new
+      @exportjson.metadata_file = @export.metadata_file
+      @exportjson.data_file = @export.data_file
+      @exportjson.dest_file = @export.dest_file
+
+      respond_to do |format|
+        format.json { render :json => @exportjson }
+      end
+    end
+  end 
+
   def download
     #File.delete("#{Export::TMP_EXPORTS}/#{params[:data]}")
     #File.delete("#{Export::TMP_EXPORTS}/#{params[:meta]}")    
@@ -66,8 +103,8 @@ require 'exportjson'
 
 # Upgrade 2.2.0 inizio
   def units
-# Upgrade 3.0.0 inizio
-# Definizione dell'export in formato csv per unità
+    # Upgrade 3.0.0 inizio
+	# Definizione dell'export in formato csv per unità
     if params[:unit_ids].present? && params[:ref_fond_id].present?
 	  suffix = Time.now.strftime("%Y%m%d%H%M%S")
 	  @export = Export.new
@@ -105,8 +142,7 @@ require 'exportjson'
       end    
     end
   end
- # Upgrade 3.0.0 fine
- 
+  # Upgrade 3.0.0 fine
   def get_target_class_caption(target_class)
     case target_class
       when "fond"

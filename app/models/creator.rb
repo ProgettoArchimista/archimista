@@ -168,6 +168,11 @@ class Creator < ActiveRecord::Base
   scope :list, -> { select("creators.id, creators.creator_type, creator_names.name, creators.residence, creators.updated_at, creators.published, group_id, groups.short_name").joins(:preferred_name, :group) }
 # Upgrade 2.2.0 fine
 
+  # Upgrade 3.0.1 ICAR inizio
+  scope :export_list, -> { select("creators.id, creator_names.name, creators.updated_at, creators.db_source, count(creators.id) AS num").joins([:fonds, :preferred_name]).group("creators.id, creator_names.name").order("creator_names.name") }
+  # Upgrade 3.0.1 fine
+
+
   scope :search, ->(q) {
     conditions = ["creator_names.qualifier = 'A' AND LOWER(creator_names.name) LIKE :q", {:q => "%#{q.downcase.squish}%"}] if q.present?
     where(conditions)

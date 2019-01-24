@@ -13,7 +13,7 @@ class FondsController < ApplicationController
   def current_ability
     if @current_ability.nil?
       if (current_user.is_multi_group_user?())
-        if (["treeview","tree","trash","move_to_trash","trashed_subtree","restore_subtree","show","edit","ajax_update","merge_with","merge","update","rename","move","destroy","destroy_subtree"].include?(params[:action]))
+        if (["treeview","tree","trash","move_to_trash","trashed_subtree","restore_subtree","show","edit","ajax_update","merge_with","merge","update","rename","move","destroy","destroy_subtree","split", "split_fond"].include?(params[:action]))
           f = Fond.select("group_id").find(params[:id])
           @current_ability ||= Ability.new(current_user, f.group_id)
         elsif (["index"].include?(params[:action]))

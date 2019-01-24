@@ -177,7 +177,7 @@ a.to-index:before {
 }
 #record-side {
   width: 260px;
-  position: fixed;
+  position: absolute;
   top: 159px;
   left: 740px;
   right: 0;
@@ -376,6 +376,24 @@ h3.row-header {
   border-bottom: 1px solid #ccc;
   font-size: 12px;
   color: #666;
+}
+.destroy_fe{
+  margin-top: 20px;
+}
+.destroy_fe label {
+  display: inline;
+  margin-left: 2px;
+  font-size: 11px;
+  font-weight: normal;
+}
+.destroy_fsc{
+  margin-top: 20px;
+}
+.destroy_fsc label {
+  display: inline;
+  margin-left: 2px;
+  font-size: 11px;
+  font-weight: normal;
 }
 .destroy {
   margin-top: 5px;
@@ -688,8 +706,26 @@ h3 {
   padding-top: 3px;
   padding-bottom: 3px;
 }
+
+.fsc_organization, .fsc_nationality, .fsc_code, .fsc_open, .fsc_close{
+  display: none;
+}
 /* Upgrade 2.1.0 fine */
 /* -----------------------------------------------------
 Fine FIXME
 -------------------------------------------------------- */
 
+.digital_checkbox{
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.exports_checkbox{
+  margin-bottom: 0px;
+}
+
+.tab-xml{
+  pointer-events: none;
+  opacity: 0.3;
+}

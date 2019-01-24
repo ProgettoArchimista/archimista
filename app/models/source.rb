@@ -75,6 +75,10 @@ class Source < ActiveRecord::Base
 
   trimmed_fields :abstract
 
+  # Upgrade 3.0.1 ICAR inizio
+  scope :export_list, -> { select("sources.id, sources.title, sources.short_title, sources.db_source, sources.updated_at, count(sources.id) AS num").joins([:fonds]).group("sources.id").order("sources.short_title")}
+  # Upgrade 3.0.1 fine
+
   def set_year
     if date_string.present?
       self.year = date_string.guess_year
@@ -127,6 +131,16 @@ class Source < ActiveRecord::Base
     conditions = ["LOWER(sources.short_title) LIKE :q OR LOWER(sources.title) LIKE :q", {:q => "%#{q.downcase.squish}%"}] if q.present?
     where(conditions)
   }
+# Upgrade 3.0.1 ICAR inizio
+  scope :autocomplete_export_list, ->(*term){
+    term = term.shift.to_s
+    conditions = ["LOWER(title) LIKE :term OR LOWER(short_title) LIKE :term", {:term => "%#{term}%"}]
+    select("id, CONCAT(short_title,' (', title, ') ') AS value").
+    where(conditions).
+    order("short_title").
+    limit(10)
+  }
+  # Upgrade 3.0.1 ICAR fine
 # Upgrade 2.0.0 fine
 
 

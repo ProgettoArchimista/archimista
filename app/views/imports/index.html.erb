@@ -22,16 +22,16 @@
       </thead>
       <tbody>
         <% @imports.each do |import| %>
-		  <% if import.importable.nil? %>
-			<% next %>
-		 <% else %>
+      <% if import.importable.nil? %>
+      <% next %>
+     <% else %>
           <tr>
             <td>
 <%# Upgrade 2.2.0 inizio %>
               <%#= t(import.importable_type.downcase) %><!-- : -->
               <%#= link_to import.importable.display_name, polymorphic_path([import.importable]) %>
-				<%= importable_type_caption(import) %>:
-				<%= link_to import_caption(import), polymorphic_path([import.importable]) %>
+        <%= importable_type_caption(import) %>:
+        <%= link_to import_caption(import), polymorphic_path([import.importable]) %>
 <%# Upgrade 2.2.0 fine %>
             </td>
             <td><%= import.user.full_name %></td>
@@ -44,7 +44,7 @@
               <%end%>
             </td>
           </tr>
-		  <% end %>
+      <% end %>
         <% end %>
       </tbody>
     </table>

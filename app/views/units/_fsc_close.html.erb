@@ -1,0 +1,7 @@
+<div class="fields row">
+  <div class="span4">
+  	<%= f.label :close, t('fsc_close') %>
+	<%= f.text_field :close, { :class => "span3 fsc_field datepicker" } %>
+  </div>
+  <div class="span1 destroy_fsc"><%= f.check_box :_destroy %> <%= f.label :_destroy, t('destroy') %></div>
+</div>

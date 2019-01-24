@@ -25,3 +25,6 @@
 {"name":"editors.editing_type"}
 {"name":"digital_objects.digital_object_type"}
 {"name":"project_stakeholders.qualifier"}
+{"name":"units.file_type"}
+{"name":"anagraphics.anagraphic_type"}
+{"name":"fe_operas.status"}

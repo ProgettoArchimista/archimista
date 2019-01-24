@@ -79,13 +79,13 @@
               <p class="fond-units">
                 <i class='icon-list-alt'></i>
 <%# Upgrade 3.0.0 inizio %>
-<%# aggiunta gestione permessi su visualizzazione unità %>				
+<%# aggiunta gestione permessi su visualizzazione unità %>        
                 <% if can? :manage, fond %>
                   <%= link_to "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità", fond_units_path(fond) %>
                 <% else %>
                   <%= "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità" %>
                 <% end %>
-<%# Upgrade 3.0.0 fine %>				
+<%# Upgrade 3.0.0 fine %>       
               </p>            
 <%# Upgrade 2.2.0 inizio %>
               <div class="index-item-info">
