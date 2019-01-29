@@ -4,26 +4,28 @@ xml.tag! "scons", {
   :"xmlns:xsi"          => "http://www.w3.org/2001/XMLSchema-instance",
   :"xmlns:xlink"        => "http://www.w3.org/1999/xlink"
 }  do
-  xml.info  do
-    event_types = {
-      "aggiornamento scheda" => "modifica",
-      "inserimento dati" => "creazione",
-      "integrazione successiva" => "modifica",
-      "prima redazione" => "creazione",
-      "revisione" => "modifica",
-      "rielaborazione" => "modifica",
-      "schedatura" => "altro"
-    }
-    editors = custodian.custodian_editors
-    editors.each do |editor|
-      if editor.edited_at.present?
-        event_date = editor.edited_at.strftime("%Y-%m-%dT%H:%M:%S")
-      else
-        event_date = ""
-      end
-      xml.evento :dataEvento => event_date, :tipoEvento => event_types[editor.editing_type.downcase] do
-        xml.agente :tipo => "persona" do
-          xml.cognome editor.name
+  editors = custodian.custodian_editors
+  if !editors.empty?
+    xml.info  do
+      event_types = {
+        "aggiornamento scheda" => "modifica",
+        "inserimento dati" => "creazione",
+        "integrazione successiva" => "modifica",
+        "prima redazione" => "creazione",
+        "revisione" => "modifica",
+        "rielaborazione" => "modifica",
+        "schedatura" => "altro"
+      }
+      editors.each do |editor|
+        if editor.edited_at.present?
+          event_date = editor.edited_at.strftime("%Y-%m-%dT%H:%M:%S")
+        else
+          event_date = ""
+        end
+        xml.evento :dataEvento => event_date, :tipoEvento => event_types[editor.editing_type.downcase] do
+          xml.agente :tipo => "persona" do
+            xml.cognome editor.name
+          end
         end
       end
     end
@@ -78,8 +80,14 @@ xml.tag! "scons", {
       end
       xml.localizzazione :identificativo => custodian_building.id, :principale => principale, :consultazione => consultazione, :privato => "N" do
         xml.denominazione custodian_building.name
-        postcode = custodian_building.postcode.present? ? custodian_building.postcode : ""
-        xml.indirizzo :paese => "ITA", :comune => custodian_building.city, :cap => postcode, :denominazioneStradale => custodian_building.address
+        attributes = {:paese => "ITA", :comune => custodian_building.city}
+        if custodian_building.postcode.present?
+          attributes[:cap] = custodian_building.postcode
+        end
+        if custodian_building.address.present?
+          attributes[:denominazioneStradale] = custodian_building.address
+        end
+        xml.indirizzo attributes
         if (i < 1)
           if custodian.custodian_contacts.present?
             contact_types = {"tel" => "telefono", "fax" => "fax", "email" => "mail"}
