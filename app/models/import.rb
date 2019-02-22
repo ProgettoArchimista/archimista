@@ -1,4 +1,6 @@
 class Import < ActiveRecord::Base
+  require 'csv'
+  
 # Upgrade 2.0.0 inizio
 #  require 'zip/zip'
 # nella versione rubyzip-1.1.6 zip.rb non è nella sottocartella zip dive invece era nella rubyzip-0.9.9 usata prima
@@ -97,10 +99,13 @@ class Import < ActiveRecord::Base
   end
 
 # Upgrade 3.0.0 inizio
+# modificata nella 3.1.1 con l'utilizzo della gemma csv
   def import_csv_file(user, ability)
     begin
+      csv_file = CSV.read(csv_data_file)
       lines = File.readlines(csv_data_file)
       unit_aef_import_units_count = 0
+		
       ActiveRecord::Base.transaction do
         model = nil
         prev_model = nil
@@ -109,7 +114,7 @@ class Import < ActiveRecord::Base
         headers = ""
         elem_count = 0
         separator = ""
-        lines.each do |line|
+        lines.each_with_index do |line, i|
           line = line.delete("\r")
           line = line.delete("\a")
           line = line.delete("\b")
@@ -118,7 +123,7 @@ class Import < ActiveRecord::Base
           if prev_line.blank?
             elements = line.delete("\n").split(',')            
             elem_count > elements.count - 1 ? elem_count = elem_count : elem_count = elements.count - 1
-            separator = ","*elem_count
+            separator = "," * elem_count
             elem = elements[1].split('_')
             pos_last = -1
             elem.each do |e|
@@ -134,15 +139,14 @@ class Import < ActiveRecord::Base
             model = key.camelize.constantize
             headers = elements.map!{ |element| element.gsub(key + 's_', '') }
             prev_line = "not_blank"
-            
           else
             line = line.delete("\n")
             if (line.include? separator) || (line.blank?)
               prev_line = ""
               next
             else
-              values = line.delete("\n").split(',')
-              values = values.map!{ |element| element.gsub('""', '') }
+              values = csv_file[i]
+              values = values.map!{ |value| value.nil? ? '' : value }
               zipped = headers.zip(values)
               ipdata = Hash[zipped]
               object = model.new(ipdata)
@@ -171,12 +175,13 @@ class Import < ActiveRecord::Base
       end
       update_statements(unit_aef_import_units_count)
     rescue Exception => e
-      Rails.logger.info "import_csv_file Errore=" + e.message.to_s
+      Rails.logger.info "import_csv_file errore: " + e.message.to_s
       return false
     ensure
     end
   end
-# Upgrade 3.0.0 fine  
+# Upgrade 3.0.0 fine
+
   def fond_creator_relation(creator_id)
     rel_creator_fond = {'rel_creator_fond' => { 
         'legacy_creator_id'=> creator_id,
