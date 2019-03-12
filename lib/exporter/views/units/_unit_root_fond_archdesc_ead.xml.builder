@@ -47,7 +47,7 @@ xml.dsc do
   else
     fonds = Array.new
     id = unit.fond_id
-    while true
+    while !id.to_s.empty?
       fond = Fond.find(id)
       fonds.push(fond)
       id = fond.ancestry
