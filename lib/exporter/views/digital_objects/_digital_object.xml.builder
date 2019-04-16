@@ -139,7 +139,7 @@ xml.tag! "envelope:recordBody" do
       end
       xml.tag! "mets:fileGrp", :USE => "reference image" do       
         xml.tag! "mets:file", :MIMETYPE => "image/jpeg", :ID => "OD-#{dob_id_str}" do
-          xml.tag! "mets:FLocat", :LOCTYPE => "URL", :"xlink:href" => "#{DIGITAL_OBJECTS_URL}/#{dob.access_token}/large.jpg"
+          xml.tag! "mets:FLocat", :LOCTYPE => "URL", :"xlink:href" => "#{DIGITAL_OBJECTS_URL}/#{dob.access_token}/original.jpg"
         end
       end
     end

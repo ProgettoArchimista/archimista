@@ -136,7 +136,9 @@
         if unit.sc2.present? && unit.sc2.lrc.present?
           xml.descriptivenote do
             xml.p do
-              xml.geogname unit.sc2.lrc, :localtype => "Luogorappresentato"
+              xml.geogname :localtype => "Luogorappresentato" do
+                xml.part unit.sc2.lrc
+              end
             end
           end
         end
@@ -149,7 +151,7 @@
 
     unit.digital_objects.each do |dob|
       dobj_id_str = sprintf '%08d', dob.id
-      xml.dao :daotype => "derived", :linkrole => dob.asset_content_type, :id => "OD-#{dobj_id_str}", :href => "#{DIGITAL_OBJECTS_URL}/#{dob.access_token}/large.jpg"
+      xml.dao :daotype => "derived", :linkrole => dob.asset_content_type, :id => "OD-#{dobj_id_str}", :href => "#{DIGITAL_OBJECTS_URL}/#{dob.access_token}/original.jpg"
     end
   end
 
