@@ -29,7 +29,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'byebug', '= 9.0.6' # last compatible version with ruby 2.1
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -44,7 +44,7 @@ gem 'rubyzip'
 gem 'warden',        '>=1.2.3'
 gem 'devise',        '>=3.5.1'
 gem 'devise-encryptable',        '0.2.0'
-gem 'cancancan'
+gem 'cancancan',     '= 2.1.2' # last compatible version with ruby 2.1
 
 gem 'acts_as_list',  '>=0.7.2'
 gem 'ancestry',      '>=2.1.0'

@@ -1,0 +1,50 @@
+version: '3'
+services:
+    # dbPg:
+    #     image: postgres:9.4.5
+    #     environment:
+    #         POSTGRES_PASSWORD: generic_password
+    #     ports:
+    #         - '5433:5432'
+    #     volumes:
+    #         - archimista-postgres:/var/lib/postgresql/data
+    #     container_name: 
+    #         dbPg
+    #     networks:
+    #         new:
+
+    dbMy:
+        image: mysql:5.7.21
+        environment:
+            MYSQL_ROOT_PASSWORD: generic_password
+        ports:
+            - '3307:3306'
+        volumes:
+            - archimista-mysql:/var/lib/mysql
+        container_name: 
+            dbMy
+        networks:
+            new:
+
+
+    web:
+        build: .
+        volumes:
+          - archimista-webapp:/home/app/webapp
+        ports:
+          - "81:80"
+        depends_on:
+          # - dbPg
+          - dbMy
+        container_name: 
+            web
+        networks:
+            new:
+
+volumes:
+    # archimista-postgres:
+    archimista-mysql:
+    archimista-webapp:
+
+networks:
+    new:
