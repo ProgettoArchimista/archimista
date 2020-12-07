@@ -192,7 +192,9 @@ xml.c attributes do
 
     unit.digital_objects.each do |dob|
       dobj_id_str = sprintf '%08d', dob.id
-      xml.dao :daotype => "derived", :linkrole => dob.asset_content_type, :id => "OD-#{dobj_id_str}", :href => "#{DIGITAL_OBJECTS_URL}/#{dob.access_token}/original.jpg"
+      #xml.dao :daotype => "derived", :linkrole => dob.asset_content_type, :id => "OD-#{dobj_id_str}", :href => "#{DIGITAL_OBJECTS_URL}/#{dob.access_token}/original.jpg"
+      dob_file_ext = dob.asset_file_name.split('.').last
+      xml.dao :daotype => "derived", :linkrole => dob.asset_content_type, :id => "OD-#{dobj_id_str}", :href => "#{dob.access_token}/original.#{dob_file_ext}"
     end
   end
 
@@ -245,7 +247,7 @@ xml.c attributes do
         "schedatura" => "inserimento"
       }
       editors.each do |editor|
-        xml.processinfo do
+        xml.processinfo :localtype => "compilatore" do
           xml.p do
             xml.persname do
               if editor.editing_type.present?
@@ -434,7 +436,8 @@ xml.c attributes do
       end
     end
 
-    xml.relation :relationtype => "otherrelationtype", :href => "#{UNITS_URL}/#{unit.id}", :otherrelationtype => "URL" do
+    #xml.relation :relationtype => "otherrelationtype", :href => "#{UNITS_URL}/#{unit.id}", :otherrelationtype => "URL" do
+    xml.relation :relationtype => "otherrelationtype", :href => "#{FONDS_URL}/#{unit.fond_id}/#{UNITS_URL}/#{unit.id}", :otherrelationtype => "URL" do
       xml.relationentry PROVIDER
     end
     reluniturls = unit.unit_urls

@@ -94,18 +94,34 @@ xml.cpfDescription do
     xml.entityType entityType
     case creator_type
     when 'c'
-      xml.nameEntry do
-        xml.part creator.preferred_name.name
+      parallel_names = Array.new
+      creator.other_names.each do |other_name|
+        if other_name.qualifier.downcase == "pa"
+          parallel_name = a = {'id' => other_name.id, 'name' => other_name.name, 'note' => other_name.note}
+          parallel_names << parallel_name
+        end
+      end
+      if parallel_names.empty?
+        xml.nameEntry do
+          xml.part creator.preferred_name.name
+        end
+      else
+        xml.nameEntryParallel do
+          xml.nameEntry do
+            xml.part creator.preferred_name.name
+          end
+          parallel_names.each do |parallel_name|
+            xml.nameEntry do
+              xml.part parallel_name['name'], :"xml:lang" => parallel_name['note']
+            end
+          end
+        end
       end
       creator.other_names.each do |other_name|
         qualifiers = {"au" => "altraDenominazione", "pa" => "parallela", "ac" => "altraDenominazione", "ot" => "altraDenominazione"}
 	    qualifier = qualifiers.key?(other_name.qualifier.downcase) ? qualifiers[other_name.qualifier.downcase] : "altraDenominazione"
 		if qualifier == "parallela"
-		  xml.nameEntryParallel do
-		    xml.nameEntry do
-              xml.part other_name.name, :lang => other_name.note
-            end
-          end
+		  next
 		else
           xml.nameEntry do
             xml.part other_name.name, :localType => qualifier
@@ -180,11 +196,17 @@ xml.cpfDescription do
           "organo giudiziario" => "TesauroSAN/statali",
           "organo periferico dello stato" => "TesauroSAN/organo_e_ufficio_statale_periferico_di_periodo_postunitario",
           "ente ecclesiastico" => "TesauroSAN/corporazione_religiosa"
-	    }
-	    ente_type = creator.creator_corporate_type.corporate_type.downcase
-        corporate_type = corporate_types.key?(ente_type) ? corporate_types[ente_type] : "altro"
-	    xml.term corporate_type, :vocabularySource => "http://dati.san.beniculturali.it/SAN/TesauroSAN/sottotipologia_ente"
-	  end
+      }
+      
+      if creator.creator_corporate_type.nil?
+        ente_type = ""
+      else
+        ente_type = creator.creator_corporate_type.corporate_type.downcase
+      end
+
+      corporate_type = corporate_types.key?(ente_type) ? corporate_types[ente_type] : "altro"
+      xml.term corporate_type, :vocabularySource => "http://dati.san.beniculturali.it/SAN/TesauroSAN/sottotipologia_ente"
+    end
     when 'p'
       if creator.preferred_event.present?
         xml.existDates do
@@ -240,9 +262,6 @@ xml.cpfDescription do
         xml.placeRole "TesauroSAN/sede", :vocabularySource => "http://dati.san.beniculturali.it/SAN/TesauroSAN/Tipo_luogo_CPF"
         xml.placeEntry "non indicato", :vocabularySource => "http://dati.san.beniculturali.it/ASI"
       end
-	  xml.localDescription :localType => "titoli" do
-	    xml.term creator.note, :vocabularySource => "NIERA"
-	  end
     end
     if creator.creator_legal_statuses.present?
       status = {"PU" => "Pubblico", "PR" => "Privato", "EC" => "Ecclesiastico", "NA" => "Non definito"}

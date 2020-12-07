@@ -45,6 +45,7 @@
       <li><%= link_to raw("Importa&hellip;"), imports_path %></li>
 <%# TAI aggiunto raw() %>
       <li><%= link_to raw("Esporta&hellip;"), exports_path %></li>
+      <li><%= link_to raw("Esportazione batch&hellip;"), exports_batch_index_path %></li>
       <% if current_user.is_superadmin? %>
         <li class="divider"></li>
         <li><%= link_to "Gestione utenti", users_path %></li>

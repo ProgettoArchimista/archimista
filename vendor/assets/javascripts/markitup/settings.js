@@ -18,7 +18,7 @@ mySettings = {
   id: '',
   nameSpace: '',
   root: '',
-  previewInWindow: 'width=400, height=400, resizable=yes, scrollbars=yes',
+  previewInWindow: 'width=400,height=400,resizable=yes,scrollbars=yes',
   previewAutoRefresh: true,
   previewPosition: 'after',
   previewTemplatePath: '/javascripts/markitup/templates/preview.html',

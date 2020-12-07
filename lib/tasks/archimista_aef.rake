@@ -1,7 +1,7 @@
 require 'zip'
 require 'builder'
 
-TMP_AEF_EXPORTS = "#{Rails.root}/tmp/exports"
+TMP_AEF_EXPORTS = "#{Rails.root}/public/exports"
 
 namespace :aef do
 

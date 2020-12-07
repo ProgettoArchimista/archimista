@@ -47,7 +47,6 @@ it:
   show_record: "Anteprima scheda"
   PU: "pubblico"
   PR: "privato"
-  AU: "altra denominazione principale"
   PA: "denominazione parallela"
   AC: "acronimo"
   OT: "altra denominazione"

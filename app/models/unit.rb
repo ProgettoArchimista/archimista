@@ -4,6 +4,12 @@ require 'csv'
 
 class Unit < ActiveRecord::Base
 
+    # INIZIO - require richiesti per l'import batch
+    require File.join(File.dirname(__FILE__), ".", "unit_event.rb")
+    require File.join(File.dirname(__FILE__), ".", "term.rb")
+    require File.join(File.dirname(__FILE__), ".", "vocabulary.rb")
+    # FINE - require richiesti per l'import batch
+
   MAX_LEVEL_OF_NODES = 2
 
   cattr_reader :per_page
@@ -83,7 +89,6 @@ class Unit < ActiveRecord::Base
   accepts_nested_attributes_for :fe_fract_edil_parcels, :allow_destroy => true, :reject_if => :fe_fract_edil_parcels_reject_if
 
   def fe_identifications_reject_if(attributes)
-    Rails.logger.info("qua dentro")
     exists = attributes[:id].present?
     empty = attributes[:code].blank?
     attributes.merge!({_destroy: 1}) if exists and empty
@@ -119,13 +124,8 @@ class Unit < ActiveRecord::Base
   end
 
   def fe_land_parcels_reject_if(attributes)
-    Rails.logger.info("attributes[:id]: #{attributes[:id]}")
     exists = attributes[:id].present?
-    Rails.logger.info("exists: #{exists}")
-
-    Rails.logger.info("attributes[:land_parcel_number]: #{attributes[:land_parcel_number]}")
     empty = attributes[:land_parcel_number].blank?
-    Rails.logger.info("empty: #{empty}")
     attributes.merge!({_destroy: 1}) if exists and empty
     return (!exists and empty)
   end
@@ -619,3 +619,4 @@ class Unit < ActiveRecord::Base
   end
 
 end
+

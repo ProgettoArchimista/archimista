@@ -7,6 +7,9 @@ end
 sc2_tsk = unit_types["sc2_tsks"].key?(unit.sc2_tsk) ? unit_types["sc2_tsks"][unit.sc2_tsk] : nil
 
 if file_type.nil? and sc2_tsk.nil?
+  if unit_type.empty?
+    unit_type = "otherlevel"
+  end
   attributes = {:level => unit_type}
 else
   if !file_type.nil?

@@ -15,17 +15,19 @@ $(document).ready(function() {
 
     $("#inc_ead").click(function(event) {
         if ($("#inc_ead").is(":checked")) {
+            $("#inc_digit").attr('checked', true);
+            $("#inc_digit").attr("disabled", true);
+            $("#inc_entities").attr('checked', true);
+            $("#inc_entities").attr('disabled', true);
             $("#inc_san").attr('checked', false);
             $("#inc_san").attr("disabled", true);
-            $("#inc_digit").attr('checked', false);
-            $("#inc_digit").attr("disabled", true);
-            $("#sources").removeClass('tab-xml');
-            $("#creators").removeClass('tab-xml');
         } else {
-            $("#inc_san").removeAttr("disabled");
-            $("#inc_digit").removeAttr("disabled");
-            $("#sources").addClass('tab-xml');
-            $("#creators").addClass('tab-xml');
+            $("#inc_digit").attr('checked', false);
+            $("#inc_digit").attr("disabled", false);
+            $("#inc_entities").attr('checked', false);
+            $("#inc_entities").attr('disabled', false);
+            $("#inc_san").attr('checked', false);
+            $("#inc_san").attr("disabled", false);
         }
     });
 
@@ -483,6 +485,8 @@ $(document).ready(function() {
     $('#export-tabs a:first').tab('show');
 
     $('#export-tabs li a').click(function(event) {
+        $("#inc_digit").attr('checked', false);
+        $("#inc_digit").attr("disabled", false);
         if ($(this).text().includes('Progetti')) {
             $("#inc_ead").prop('checked', false);
             $("#inc_ead").attr("disabled", true);
@@ -490,9 +494,12 @@ $(document).ready(function() {
             $("#inc_san").attr("disabled", true);
             $("#inc_entities").prop('checked', false);
             $("#inc_entities").attr("disabled", true);
+        } else if ($(this).text().includes('Complessi')) {
+            $("#inc_ead").prop('checked', false);
+            $("#inc_ead").attr("disabled", false);
         } else {
             $("#inc_ead").prop('checked', false);
-            $("#inc_ead").removeAttr("disabled");
+            $("#inc_ead").attr("disabled", true);
             $("#inc_san").prop('checked', false);
             $("#inc_san").removeAttr("disabled");
             $("#inc_entities").prop('checked', false);
@@ -500,7 +507,5 @@ $(document).ready(function() {
             $("#sources").addClass('tab-xml');
             $("#creators").addClass('tab-xml');
         }
-
     });
-
 });

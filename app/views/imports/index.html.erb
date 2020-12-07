@@ -22,7 +22,7 @@
       </thead>
       <tbody>
         <% @imports.each do |import| %>
-      <% if import.importable.nil? %>
+	  <% if (not import.importable.presence) or import.importable.nil? %>
       <% next %>
      <% else %>
           <tr>
@@ -72,3 +72,4 @@
   <p><strong>Nota bene</strong></p>
   Le basi di dati eliminate mediante uno strumento diverso dalla funzionalità presente in questa pagina non sono visualizzate in elenco.</p>
 </div>
+

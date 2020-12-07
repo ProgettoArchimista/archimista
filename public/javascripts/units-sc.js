@@ -91,15 +91,15 @@ function prv_fsc_compiled(){
       }
     );
 
-  open = $("#unit_fsc_opens");
+  openUnitsSc = $("#unit_fsc_opens");
 
-  open.find(".fsc_field").each(
+  openUnitsSc.find(".fsc_field").each(
       function()
       {
         if($(this).val() == ""){
-          open.hide();
+          openUnitsSc.hide();
         }else{
-          open.show();
+          openUnitsSc.show();
         }
       }
     );

@@ -47,6 +47,12 @@ class DigitalObjectsController < ApplicationController
 # Upgrade 2.2.0 fine
 
   def all
+    #if params[:type].present?
+    #  @selected_attachable = {:type => params[:type]}
+    #else
+    #  @selected_attachable = {:type => "Fond"}
+    #end
+
 # Upgrade 2.0.0 inizio
 =begin
     @digital_objects = DigitalObject.accessible_by(current_ability, :read).
@@ -62,14 +68,89 @@ class DigitalObjectsController < ApplicationController
       to_a.
       delete_if {|o| o.attachable.nil? || (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?) }
 =end
-    @digital_objects = DigitalObject.accessible_by(current_ability, :read).
-      joins(:group).
-      includes(:attachable).
-      order(sort_column + ' ' + sort_direction).page(params[:page]).
-      to_a.
-      delete_if {|o| o.attachable.nil? || (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?) }
-# Upgrade 2.2.0 fine
-# Upgrade 2.0.0 fine
+=begin
+    #Ricerca degli oggetti digitali appartenenti a  fondi che hanno come ROOT un fondo con il nome ricercato (like)
+
+        @digital_objects = DigitalObject.accessible_by(current_ability, :read).
+            joins(:group).
+            includes(:attachable).
+            where(attachable: Fond.roots.where("fonds.name LIKE ?", "%" + params[:q] + "%").
+                joins("INNER JOIN fonds f_child ON f_child.ancestry LIKE CONCAT(fonds.id, '/%') OR f_child.ancestry_depth = 0")).
+            order(sort_column + ' ' + sort_direction).
+            page(params[:page]).
+            to_a.
+            delete_if {
+                |o| o.attachable.nil? ||
+                  (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?)}
+=end
+    if params[:q].present? or params[:unit].present?
+      if params[:unit] != "" && params[:q] != ""
+        @digital_objects = DigitalObject.accessible_by(current_ability, :read).
+            joins(:group).
+            includes(:attachable).
+            where(attachable: Unit.joins("INNER JOIN fonds ON units.root_fond_id = fonds.id").
+                where("fonds.name LIKE ? AND units.title LIKE ?",
+                      "%" + params[:q] + "%",
+                      "%" + params[:unit] + "%")).
+            order(sort_column + ' ' + sort_direction).page(params[:page]).
+            to_a.
+            delete_if {
+                |o| o.attachable.nil? ||
+                  (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?)
+            }
+      elsif params[:unit] != ""
+        @digital_objects = DigitalObject.accessible_by(current_ability, :read).
+            joins(:group).
+            includes(:attachable).
+            where(attachable: Unit.joins("INNER JOIN fonds ON units.root_fond_id = fonds.id").
+                where("units.title LIKE ?",
+                      "%" + params[:unit] + "%")).
+            order(sort_column + ' ' + sort_direction).page(params[:page]).
+            to_a.
+            delete_if {
+                |o| o.attachable.nil? ||
+                  (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?)
+            }
+
+      elsif params[:q] != ""
+        @digital_objects = DigitalObject.accessible_by(current_ability, :read).
+            joins(:group).
+            includes(:attachable).
+            where(attachable: Unit.joins("INNER JOIN fonds ON units.root_fond_id = fonds.id").
+                where("fonds.name LIKE ?", "%" + params[:q] + "%")).
+            order(sort_column + ' ' + sort_direction).page(params[:page]).
+            to_a.
+            delete_if {
+                |o| o.attachable.nil? ||
+                (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?)
+            }
+        end
+
+        @fond_ids_AEF = Array.new
+        @fond_ids_EAD = Array.new
+        @unit_ids = Array.new
+
+        @digital_objects.each do |dig_obj|
+          if dig_obj.attachable_type == "Unit"
+            @fond_ids_AEF.push Unit.find(dig_obj.attachable_id).root_fond_id
+            @unit_ids.push dig_obj.attachable_id
+          end
+          if dig_obj.attachable_type == "Fond"
+            @fond_ids_AEF.push dig_obj.attachable_id
+            @fond_ids_EAD.push dig_obj.attachable_id
+          end
+        end
+    else
+      @digital_objects = DigitalObject.accessible_by(current_ability, :read).
+        joins(:group).
+        includes(:attachable).
+        order(sort_column + ' ' + sort_direction).page(params[:page]).
+        to_a.
+        delete_if {|o| o.attachable.nil? || (o.attachable.has_attribute?("sequence_number") && o.attachable.sequence_number.nil?) }
+    end
+
+ #Upgrade 2.2.0 fine
+ #Upgrade 2.0.0 fine
 
     # FIXME: retrieving del path di fonds/units è query intensive. Ma per ora teniamocelo...
   end

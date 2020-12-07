@@ -1,18 +1,18 @@
 unless fonds.empty?
   fond_first_levels = {
     "archivio" => "fonds",
+    "fondo" => "fonds",
     "complesso di fondi" => "recordgrp",
     "iperfondo" => "recordgrp",
-    "fondo" => "fonds",
     "subfondo" => "subfonds",
     "sezione" => "subfonds",
-    "sottosezione" => "otherlevel",
     "partizione" => "subfonds",
     "sottopartizione" => "subfonds",
+    "parte" => "subfonds",
     "serie" => "series",
     "sottoserie" => "subseries",
     "sottosottoserie" => "subseries",
-    "parte" => "subfonds",
+    "sottosezione" => "otherlevel",
     "categoria" => "otherlevel",
     "classe" => "otherlevel",
     "sottoclasse" => "otherlevel",
@@ -26,11 +26,11 @@ unless fonds.empty?
 
   fonds.each do |fond|
     ca_id_str = sprintf '%08d', fond.id
-    if fond.fond_type.present?
+    if !fond.fond_type.present?
       tags = {:level => "fonds", :id => "CA-#{ca_id_str}"}
     else
       level = fond.fond_type
-      if fond_first_levels[level].nil?
+      if (fond_first_levels[level] == "otherlevel")
         tags = {:level => "otherlevel", :otherlevel => level, :id => "CA-#{ca_id_str}"}
       else
         tags = {:level => fond_first_levels[level], :id => "CA-#{ca_id_str}"}

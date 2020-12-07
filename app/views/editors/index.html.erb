@@ -37,7 +37,7 @@
 
 <%# Upgrade 2.2.0 inizio %>
         <% if current_user.is_multi_group_user?() || current_user.is_superadmin?() %>
-          <td style="font-size: 11px;"><%= editor.group.short_name %></td>
+          <td style="font-size: 11px;"><% unless editor.group.nil? %><%= editor.group.short_name %><% end %></td>
         <% end %>
 <%# Upgrade 2.2.0 fine %>
 

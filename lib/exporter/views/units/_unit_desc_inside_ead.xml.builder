@@ -204,7 +204,7 @@
         "schedatura" => "inserimento"
       }
       editors.each do |editor|
-        xml.processinfo do
+        xml.processinfo :localtype => "compilatore" do
           xml.p do
             xml.persname do
               if editor.editing_type.present?
@@ -217,7 +217,7 @@
               xml.part editor.name, :localtype => "compilatore"
               xml.part editor.qualifier, :localtype => "qualifica"
             end
-            dateTime = Time.now.strftime("%Y-%m-%dT%H:%M:%S")
+            dateTime = editor.edited_at.strftime("%Y-%m-%dT%H:%M:%S") #Time.now.strftime("%Y-%m-%dT%H:%M:%S")
             xml.date dateTime, :localtype => "dataIntervento"
           end
         end
@@ -393,7 +393,8 @@
       end
     end
 
-    xml.relation :relationtype => "otherrelationtype", :href => "#{UNITS_URL}/#{unit.id}", :otherrelationtype => "URL" do
+    #xml.relation :relationtype => "otherrelationtype", :href => "#{UNITS_URL}/#{unit.id}", :otherrelationtype => "URL" do
+    xml.relation :relationtype => "otherrelationtype", :href => "#{FONDS_URL}/#{unit.fond_id}/#{UNITS_URL}/#{unit.id}", :otherrelationtype => "URL" do
       xml.relationentry PROVIDER
     end
     reluniturls = unit.unit_urls
@@ -652,6 +653,9 @@
       child_sc2_tsk = unit_types["sc2_tsks"].key?(child_unit.sc2_tsk) ? unit_types["sc2_tsks"][child_unit.sc2_tsk] : nil
 	
       if child_file_type.nil? and child_sc2_tsk.nil?
+        if child_unit_type.empty?
+          child_unit_type = "otherlevel"
+        end
         attributes = {:level => child_unit_type}
       else
         if !child_file_type.nil?

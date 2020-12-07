@@ -1,10 +1,13 @@
 {"vocabulary_id":1,"position":1,"term_key":"corporate_body","term_value":"C"}
 {"vocabulary_id":1,"position":2,"term_key":"person","term_value":"P"}
 {"vocabulary_id":1,"position":3,"term_key":"family","term_value":"F"}
-{"vocabulary_id":2,"position":1,"term_key":"authorized_name","term_value":"AU"}
 {"vocabulary_id":2,"position":2,"term_key":"parallel_name","term_value":"PA"}
 {"vocabulary_id":2,"position":3,"term_key":"acronym","term_value":"AC"}
 {"vocabulary_id":2,"position":4,"term_key":"other_name","term_value":"OT"}
+{"vocabulary_id":2,"position":5,"term_key":"intestazione","term_value":"IN"}
+{"vocabulary_id":2,"position":6,"term_key":"patronimico","term_value":"PT"}
+{"vocabulary_id":2,"position":7,"term_key":"pseudonimo","term_value":"AL"}
+{"vocabulary_id":2,"position":8,"term_key":"soprannome","term_value":"SN"}
 {"vocabulary_id":3,"position":1,"term_key":"public","term_value":"PU"}
 {"vocabulary_id":3,"position":2,"term_key":"private","term_value":"PR"}
 {"vocabulary_id":3,"position":3,"term_key":"ecclesiastic","term_value":"EC"}
@@ -12,6 +15,8 @@
 {"vocabulary_id":4,"position":1,"term_key":"tel","term_value":"tel"}
 {"vocabulary_id":4,"position":2,"term_key":"fax","term_value":"fax"}
 {"vocabulary_id":4,"position":3,"term_key":"email","term_value":"email"}
+{"vocabulary_id":4,"position":4,"term_key":"pec","term_value":"pec"}
+{"vocabulary_id":4,"position":5,"term_key":"web","term_value":"web"}
 {"vocabulary_id":5,"position":2,"term_key":"riordino","term_value":"riordino"}
 {"vocabulary_id":5,"position":3,"term_key":"recupero","term_value":"recupero"}
 {"vocabulary_id":5,"position":1,"term_key":"censimento","term_value":"censimento"}
@@ -81,7 +86,6 @@
 {"vocabulary_id":14,"position":21,"term_key":"acidita","term_value":"acidità"}
 {"vocabulary_id":14,"position":22,"term_key":"usura","term_value":"usura"}
 {"vocabulary_id":14,"position":23,"term_key":"rottura_cuciture","term_value":"rottura delle cuciture"}
-{"vocabulary_id":15,"position":1,"term_key":"authorized_name","term_value":"AU"}
 {"vocabulary_id":15,"position":2,"term_key":"parallel_name","term_value":"PA"}
 {"vocabulary_id":15,"position":3,"term_key":"acronym","term_value":"AC"}
 {"vocabulary_id":15,"position":4,"term_key":"other_name","term_value":"OT"}

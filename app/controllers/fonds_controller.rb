@@ -227,7 +227,7 @@ class FondsController < ApplicationController
 # Upgrade 2.2.0 fine
     if @fonds.size > 0
       @units_counts = Unit.joins(:fond).
-        where({:root_fond_id => @fonds.map(&:id), :fonds => {:trashed => false}}).
+        where({:root_fond_id => @fonds.map(&:id), :fonds => {:trashed => false}, :ancestry => nil}).
         group(:root_fond_id).count("id")
     end
 # Upgrade 2.0.0 fine
@@ -442,15 +442,15 @@ class FondsController < ApplicationController
   def merge
     @fond = Fond.find(params[:id])
 
-    if params[:new_root_id].present?
-      if params[:id] == params[:new_root_id]
+    if params[:choosen_root_id].present?
+      if params[:id] == params[:choosen_root_id]
         flash[:alert] =  'Impossibile unire un complesso archivistico con se stesso.'
         redirect_to fonds_url
         return
       end
 
       @choosen_root = Fond.find(params[:choosen_root_id])
-      new_root_id = params[:new_root_id].to_i
+      new_root_id = params[:choosen_root_id].to_i
       if @fond.move_with_external_sequence(:new_parent_id => @choosen_root.id, :new_position => 1)
 # Upgrade 3.0.0 inizio
 #        Unit.update_all("root_fond_id = #{@new_root.id}", ["root_fond_id = ?", @fond.id])

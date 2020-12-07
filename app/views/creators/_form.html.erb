@@ -38,7 +38,7 @@
               <%= f.label :creator_corporate_type, t('creator_corporate_type'), {:class => "hide"} %>
               <%= select( "creator", "creator_corporate_type_id",
                 CreatorCorporateType.all.collect {|p| [ p.corporate_type.capitalize, p.id ] },
-                {:include_blank => false,
+                {:include_blank => "---",
                   :selected => @creator.creator_corporate_type_id},
                 :class => "hide span5") %>
             </div>

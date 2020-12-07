@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
   def langs
 # Upgrade 2.0.0 inizio
 #    @langs = Lang.find(:all, :conditions => {:active => true})
-    @langs = Lang.where(active: true)
+    @langs = Lang.where(active: true).order("active DESC, it_name ASC")
 # Upgrade 2.0.0 fine
   end
 
@@ -146,4 +146,5 @@ class ApplicationController < ActionController::Base
 # Upgrade 2.0.0 fine
 
 end
+
 

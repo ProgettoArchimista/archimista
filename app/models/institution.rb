@@ -8,6 +8,8 @@ class Institution < ActiveRecord::Base
   has_many :institution_editors, -> { order(:edited_at) }, :dependent => :destroy
 # Upgrade 2.0.0 fine
 
+  has_one :import, :as => :importable, :dependent => :destroy
+
 # Upgrade 2.2.0 inizio
   belongs_to :group
 # Upgrade 2.2.0 fine
@@ -22,4 +24,5 @@ class Institution < ActiveRecord::Base
     :reject_if => Proc.new { |a| a['name'].blank? }
 
 end
+
 

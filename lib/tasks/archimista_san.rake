@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "..", "exporter/Configurazione_dl.rb")
 require 'zip'
 require 'builder'
 
-TMP_RAKE_EXPORTS = "#{Rails.root}/tmp/exports"
+TMP_RAKE_EXPORTS = "#{Rails.root}/public/exports"
 
 namespace :san do
 

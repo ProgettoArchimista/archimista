@@ -45,7 +45,7 @@ xml.tag! "eac-cpf", {
       xml.nameEntry do
         xml.part @creator.preferred_name.name, :localType => "Denominazione"
       end
-      qualifier = {"AU" => "Altra denominazione principale", "PA" => "Denominazione parallela", "AC" => "Acronimo", "OT" => "Altre denominazioni"}
+      qualifier = {"PA" => "Denominazione parallela", "AC" => "Acronimo", "OT" => "Altre denominazioni"}
       @creator.other_names.each do |other_name|
         entityQualifier = qualifier[other_name.qualifier]
         xml.nameEntry :localType => entityQualifier do

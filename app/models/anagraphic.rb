@@ -7,8 +7,10 @@ class Anagraphic < ActiveRecord::Base
 
   belongs_to :updater,  :class_name => "User", :foreign_key => "updated_by"
 
-  # Many-to-many associations (rel)
+  # One-to-many associations (rel)
+  has_one :import, :as => :importable, :dependent => :destroy
 
+  # Many-to-many associations (rel)
   has_many :rel_unit_anagraphics, :autosave => true, :dependent => :destroy
   has_many :anag_identifiers, :dependent => :destroy
   has_many :units, :through => :rel_unit_anagraphics
@@ -67,4 +69,5 @@ class Anagraphic < ActiveRecord::Base
     self.find_or_initialize_by(params)
   end
 end
+
 

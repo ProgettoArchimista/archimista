@@ -48,6 +48,8 @@ class Creator < ActiveRecord::Base
 
   has_many :digital_objects, :as => :attachable, :dependent => :destroy
 
+  has_one :import, :as => :importable, :dependent => :destroy
+
   # Many-to-many associations (rel)
 
   has_many :rel_creator_creators, :dependent => :destroy, :autosave => true
@@ -232,7 +234,7 @@ class Creator < ActiveRecord::Base
       preferred_name.first_name = nil
       preferred_name.last_name = nil
       preferred_name.note_p = nil
-      preferred_name.note = preferred_name.note_cf
+      #preferred_name.note = preferred_name.note_cf  # causa note NULL in produttore corporate
     end
   end
 
@@ -274,4 +276,5 @@ class Creator < ActiveRecord::Base
   end
 
 end
+
 

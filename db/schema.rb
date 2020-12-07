@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130115554) do
+ActiveRecord::Schema.define(version: 20200430064258) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "identifier",        limit: 255
@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "creator_activities", force: :cascade do |t|
     t.integer  "creator_id", limit: 4
-    t.string   "activity",   limit: 255
-    t.string   "note",       limit: 255
+    t.text     "activity",   limit: 16777215
+    t.text     "note",       limit: 16777215
     t.string   "db_source",  limit: 255
     t.string   "legacy_id",  limit: 255
     t.datetime "created_at"
@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "creator_editors", force: :cascade do |t|
     t.integer  "creator_id",   limit: 4
-    t.string   "name",         limit: 255
-    t.string   "qualifier",    limit: 255
+    t.text     "name",         limit: 16777215
+    t.text     "qualifier",    limit: 16777215
     t.string   "editing_type", limit: 255
     t.date     "edited_at"
     t.string   "db_source",    limit: 255
@@ -104,14 +104,14 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.integer  "creator_id",          limit: 4,                        null: false
     t.boolean  "preferred",           limit: 1,        default: false
     t.boolean  "is_valid",            limit: 1,        default: true,  null: false
-    t.string   "start_date_place",    limit: 255
+    t.text     "start_date_place",    limit: 16777215
     t.string   "start_date_spec",     limit: 255
     t.date     "start_date_from"
     t.date     "start_date_to"
     t.string   "start_date_valid",    limit: 255
     t.string   "start_date_format",   limit: 255
     t.string   "start_date_display",  limit: 255
-    t.string   "end_date_place",      limit: 255
+    t.text     "end_date_place",      limit: 16777215
     t.string   "end_date_spec",       limit: 255
     t.date     "end_date_from"
     t.date     "end_date_to"
@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "creator_identifiers", force: :cascade do |t|
     t.integer  "creator_id",        limit: 4
-    t.string   "identifier",        limit: 255
-    t.string   "identifier_source", limit: 255
+    t.text     "identifier",        limit: 16777215
+    t.text     "identifier_source", limit: 16777215
     t.text     "note",              limit: 16777215
     t.string   "db_source",         limit: 255
     t.string   "legacy_id",         limit: 255
@@ -160,9 +160,9 @@ ActiveRecord::Schema.define(version: 20180130115554) do
   create_table "creator_names", force: :cascade do |t|
     t.integer  "creator_id", limit: 4
     t.boolean  "preferred",  limit: 1,        default: false
-    t.string   "name",       limit: 255
-    t.string   "first_name", limit: 255
-    t.string   "last_name",  limit: 255
+    t.text     "name",       limit: 16777215
+    t.text     "first_name", limit: 16777215
+    t.text     "last_name",  limit: 16777215
     t.text     "note",       limit: 16777215
     t.string   "qualifier",  limit: 255
     t.string   "patronymic", limit: 255
@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "creator_urls", force: :cascade do |t|
     t.integer  "creator_id", limit: 4
-    t.string   "url",        limit: 255
+    t.text     "url",        limit: 65535
     t.text     "note",       limit: 16777215
     t.integer  "position",   limit: 4
     t.string   "db_source",  limit: 255
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
   create_table "creators", force: :cascade do |t|
     t.string   "creator_type",              limit: 1
     t.integer  "creator_corporate_type_id", limit: 4
-    t.string   "residence",                 limit: 255
+    t.text     "residence",                 limit: 16777215
     t.text     "abstract",                  limit: 16777215
     t.text     "history",                   limit: 16777215
     t.string   "legal_status",              limit: 255
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
   create_table "custodian_buildings", force: :cascade do |t|
     t.integer  "custodian_id",            limit: 4
     t.string   "custodian_building_type", limit: 255
-    t.string   "name",                    limit: 255
+    t.text     "name",                    limit: 16777215
     t.text     "description",             limit: 16777215
     t.string   "address",                 limit: 255
     t.string   "postcode",                limit: 255
@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.integer  "custodian_id", limit: 4
     t.string   "contact",      limit: 255
     t.string   "contact_type", limit: 255
-    t.string   "contact_note", limit: 255
+    t.text     "contact_note", limit: 16777215
     t.string   "db_source",    limit: 255
     t.string   "legacy_id",    limit: 255
     t.datetime "created_at"
@@ -278,7 +278,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
   create_table "custodian_names", force: :cascade do |t|
     t.integer  "custodian_id", limit: 4
     t.boolean  "preferred",    limit: 1,        default: false
-    t.string   "name",         limit: 255
+    t.text     "name",         limit: 16777215
     t.string   "qualifier",    limit: 255
     t.text     "note",         limit: 16777215
     t.string   "db_source",    limit: 255
@@ -389,7 +389,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
   create_table "document_forms", force: :cascade do |t|
     t.string   "identifier_source", limit: 255
     t.string   "identifier",        limit: 255
-    t.string   "name",              limit: 255
+    t.text     "name",              limit: 16777215
     t.text     "description",       limit: 16777215
     t.integer  "status",            limit: 4
     t.text     "note",              limit: 16777215
@@ -419,10 +419,133 @@ ActiveRecord::Schema.define(version: 20180130115554) do
   add_index "editors", ["db_source", "legacy_id"], name: "index_editors_on_source_and_legacy_id", using: :btree
   add_index "editors", ["group_id"], name: "index_editors_on_group_id", using: :btree
 
+  create_table "fe_cadastrals", force: :cascade do |t|
+    t.integer  "unit_id",                limit: 4
+    t.integer  "way_code",               limit: 4
+    t.text     "cadastral_municipality", limit: 16777215
+    t.integer  "municipality_code",      limit: 4
+    t.integer  "paper_code",             limit: 4
+    t.string   "db_source",              limit: 255
+    t.string   "legacy_id",              limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fe_cadastrals", ["db_source", "legacy_id"], name: "index_fe_cadastrals_on_source_and_legacy_id", using: :btree
+  add_index "fe_cadastrals", ["unit_id"], name: "index_fe_cadastrals_on_unit_id", using: :btree
+
+  create_table "fe_contexts", force: :cascade do |t|
+    t.integer  "unit_id",             limit: 4
+    t.integer  "number",              limit: 4
+    t.integer  "sub_number",          limit: 4
+    t.text     "classification",      limit: 16777215
+    t.text     "applicant",           limit: 16777215
+    t.text     "request",             limit: 16777215
+    t.integer  "license_number",      limit: 4
+    t.integer  "license_year",        limit: 4
+    t.integer  "protocol_number",     limit: 4
+    t.date     "license_date"
+    t.integer  "habitability_number", limit: 4
+    t.integer  "habitability_year",   limit: 4
+    t.date     "habitability_date"
+    t.string   "db_source",           limit: 255
+    t.string   "legacy_id",           limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fe_contexts", ["db_source", "legacy_id"], name: "index_fe_contexts_on_source_and_legacy_id", using: :btree
+  add_index "fe_contexts", ["unit_id"], name: "index_fe_contexts_on_unit_id", using: :btree
+
+  create_table "fe_designers", force: :cascade do |t|
+    t.integer  "unit_id",       limit: 4
+    t.text     "designer_name", limit: 16777215
+    t.text     "designer_role", limit: 16777215
+    t.string   "db_source",     limit: 255
+    t.string   "legacy_id",     limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fe_designers", ["db_source", "legacy_id"], name: "index_fe_designers_on_source_and_legacy_id", using: :btree
+  add_index "fe_designers", ["unit_id"], name: "index_fe_designers_on_unit_id", using: :btree
+
+  create_table "fe_fract_edil_parcels", force: :cascade do |t|
+    t.integer  "unit_id",                  limit: 4
+    t.integer  "fract_edil_parcel_number", limit: 4
+    t.integer  "material_portion",         limit: 4
+    t.string   "db_source",                limit: 255
+    t.string   "legacy_id",                limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fe_fract_edil_parcels", ["db_source", "legacy_id"], name: "index_fe_fract_edil_parcels_on_source_and_legacy_id", using: :btree
+  add_index "fe_fract_edil_parcels", ["unit_id"], name: "index_fe_fract_edil_parcels_on_unit_id", using: :btree
+
+  create_table "fe_fract_land_parcels", force: :cascade do |t|
+    t.integer  "unit_id",                  limit: 4
+    t.integer  "fract_land_parcel_number", limit: 4
+    t.integer  "edil_parcel_number",       limit: 4
+    t.string   "db_source",                limit: 255
+    t.string   "legacy_id",                limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fe_fract_land_parcels", ["db_source", "legacy_id"], name: "index_fe_fract_land_parcels_on_source_and_legacy_id", using: :btree
+  add_index "fe_fract_land_parcels", ["unit_id"], name: "index_fe_fract_land_parcels_on_unit_id", using: :btree
+
+  create_table "fe_identifications", force: :cascade do |t|
+    t.integer  "unit_id",              limit: 4
+    t.text     "code",                 limit: 16777215
+    t.integer  "file_year",            limit: 4
+    t.text     "category",             limit: 16777215
+    t.text     "identification_class", limit: 16777215
+    t.string   "db_source",            limit: 255
+    t.string   "legacy_id",            limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fe_identifications", ["db_source", "legacy_id"], name: "index_fe_identifications_on_source_and_legacy_id", using: :btree
+  add_index "fe_identifications", ["unit_id"], name: "index_fe_identifications_on_unit_id", using: :btree
+
+  create_table "fe_land_parcels", force: :cascade do |t|
+    t.integer  "unit_id",            limit: 4
+    t.text     "land_parcel_number", limit: 16777215
+    t.string   "db_source",          limit: 255
+    t.string   "legacy_id",          limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fe_land_parcels", ["db_source", "legacy_id"], name: "index_fe_land_parcels_on_source_and_legacy_id", using: :btree
+  add_index "fe_land_parcels", ["unit_id"], name: "index_fe_land_parcels_on_unit_id", using: :btree
+
+  create_table "fe_operas", force: :cascade do |t|
+    t.integer  "unit_id",       limit: 4
+    t.boolean  "is_present",    limit: 1,        default: false, null: false
+    t.string   "status",        limit: 10
+    t.text     "building_name", limit: 16777215
+    t.text     "building_type", limit: 16777215
+    t.text     "place_name",    limit: 16777215
+    t.text     "place_type",    limit: 16777215
+    t.string   "house_number",  limit: 255
+    t.text     "district",      limit: 16777215
+    t.string   "db_source",     limit: 255
+    t.string   "legacy_id",     limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fe_operas", ["db_source", "legacy_id"], name: "index_fe_operas_on_source_and_legacy_id", using: :btree
+  add_index "fe_operas", ["unit_id"], name: "index_fe_operas_on_unit_id", using: :btree
+
   create_table "fond_editors", force: :cascade do |t|
     t.integer  "fond_id",      limit: 4
-    t.string   "name",         limit: 255
-    t.string   "qualifier",    limit: 255
+    t.text     "name",         limit: 16777215
+    t.text     "qualifier",    limit: 16777215
     t.string   "editing_type", limit: 255
     t.date     "edited_at"
     t.string   "db_source",    limit: 255
@@ -492,7 +615,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "fond_names", force: :cascade do |t|
     t.integer  "fond_id",    limit: 4
-    t.string   "name",       limit: 255
+    t.text     "name",       limit: 16777215
     t.string   "qualifier",  limit: 255
     t.text     "note",       limit: 16777215
     t.string   "db_source",  limit: 255
@@ -506,7 +629,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "fond_owners", force: :cascade do |t|
     t.integer  "fond_id",    limit: 4
-    t.string   "owner",      limit: 255
+    t.text     "owner",      limit: 16777215
     t.string   "db_source",  limit: 255
     t.string   "legacy_id",  limit: 255
     t.datetime "created_at"
@@ -538,7 +661,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.boolean  "trashed",               limit: 1,        default: false, null: false
     t.integer  "trashed_ancestor_id",   limit: 4
     t.integer  "units_count",           limit: 4,        default: 0,     null: false
-    t.string   "name",                  limit: 255
+    t.text     "name",                  limit: 16777215
     t.string   "fond_type",             limit: 255
     t.float    "length",                limit: 24
     t.text     "extent",                limit: 16777215
@@ -547,7 +670,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.text     "history",               limit: 16777215
     t.text     "arrangement_note",      limit: 16777215
     t.text     "related_materials",     limit: 16777215
-    t.string   "access_condition",      limit: 255
+    t.text     "access_condition",      limit: 16777215
     t.text     "access_condition_note", limit: 16777215
     t.string   "use_condition",         limit: 255
     t.text     "use_condition_note",    limit: 16777215
@@ -598,7 +721,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "fsc_nationalities", force: :cascade do |t|
     t.integer  "unit_id",     limit: 4
-    t.string   "nationality", limit: 255
+    t.text     "nationality", limit: 16777215
     t.string   "db_source",   limit: 255
     t.string   "legacy_id",   limit: 255
     t.datetime "created_at"
@@ -622,7 +745,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "fsc_organizations", force: :cascade do |t|
     t.integer  "unit_id",      limit: 4
-    t.string   "organization", limit: 255
+    t.text     "organization", limit: 16777215
     t.string   "db_source",    limit: 255
     t.string   "legacy_id",    limit: 255
     t.datetime "created_at"
@@ -670,8 +793,8 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.string   "heading_type", limit: 255
     t.string   "name",         limit: 255
     t.string   "dates",        limit: 255
-    t.string   "qualifier",    limit: 255
-    t.integer  "group_id",     limit: 4
+    t.text     "qualifier",    limit: 16777215
+    t.integer  "group_id",     limit: 4,        default: 1
     t.string   "db_source",    limit: 255
     t.string   "legacy_id",    limit: 255
     t.datetime "created_at"
@@ -835,7 +958,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
   create_table "institutions", force: :cascade do |t|
     t.string   "identifier",        limit: 255
     t.string   "identifier_source", limit: 255
-    t.string   "name",              limit: 255
+    t.text     "name",              limit: 16777215
     t.text     "description",       limit: 16777215
     t.integer  "status",            limit: 4
     t.text     "note",              limit: 16777215
@@ -931,7 +1054,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "project_type", limit: 255
-    t.string   "name",         limit: 255
+    t.text     "name",         limit: 16777215
     t.integer  "start_year",   limit: 4
     t.integer  "end_year",     limit: 4
     t.string   "status",       limit: 255
@@ -1176,7 +1299,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
   create_table "sc2_authors", force: :cascade do |t|
     t.integer  "unit_id",           limit: 4
     t.string   "autr",              limit: 50
-    t.string   "autn",              limit: 150
+    t.text     "autn",              limit: 16777215
     t.string   "auta",              limit: 100
     t.string   "db_source",         limit: 255
     t.string   "legacy_id",         limit: 255
@@ -1191,7 +1314,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "sc2_commission_names", force: :cascade do |t|
     t.integer  "sc2_commission_id", limit: 4
-    t.string   "cmmn",              limit: 70
+    t.text     "cmmn",              limit: 16777215
     t.string   "db_source",         limit: 255
     t.string   "legacy_id",         limit: 255
     t.datetime "created_at"
@@ -1203,7 +1326,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "sc2_commissions", force: :cascade do |t|
     t.integer  "unit_id",           limit: 4
-    t.string   "cmmc",              limit: 100
+    t.text     "cmmc",              limit: 16777215
     t.string   "db_source",         limit: 255
     t.string   "legacy_id",         limit: 255
     t.datetime "created_at"
@@ -1253,7 +1376,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "sc2_textual_elements", force: :cascade do |t|
     t.integer  "unit_id",    limit: 4
-    t.string   "isri",       limit: 2200
+    t.text     "isri",       limit: 16777215
     t.string   "db_source",  limit: 255
     t.string   "legacy_id",  limit: 255
     t.datetime "created_at"
@@ -1265,7 +1388,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "sc2_visual_elements", force: :cascade do |t|
     t.integer  "unit_id",    limit: 4
-    t.string   "stmd",       limit: 500
+    t.text     "stmd",       limit: 16777215
     t.string   "db_source",  limit: 255
     t.string   "legacy_id",  limit: 255
     t.datetime "created_at"
@@ -1285,9 +1408,9 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "sc2s", force: :cascade do |t|
     t.integer  "unit_id",    limit: 4
-    t.string   "sgti",       limit: 250
-    t.string   "cmmr",       limit: 25
-    t.string   "lrc",        limit: 250
+    t.text     "sgti",       limit: 16777215
+    t.text     "cmmr",       limit: 16777215
+    t.text     "lrc",        limit: 16777215
     t.string   "lrd",        limit: 50
     t.string   "mtce",       limit: 250
     t.string   "sdtt",       limit: 50
@@ -1316,7 +1439,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "source_urls", force: :cascade do |t|
     t.integer  "source_id",  limit: 4
-    t.string   "url",        limit: 255
+    t.text     "url",        limit: 65535
     t.text     "note",       limit: 16777215
     t.integer  "position",   limit: 4
     t.string   "db_source",  limit: 255
@@ -1332,16 +1455,16 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.boolean  "use_legacy",            limit: 1,        default: false
     t.integer  "source_type_code",      limit: 4
     t.integer  "source_subtype_code",   limit: 4
-    t.string   "short_title",           limit: 255
-    t.string   "author",                limit: 255
+    t.text     "short_title",           limit: 16777215
+    t.text     "author",                limit: 16777215
     t.text     "title",                 limit: 16777215
-    t.string   "editor",                limit: 255
-    t.string   "publisher",             limit: 255
-    t.string   "place",                 limit: 255
+    t.text     "editor",                limit: 16777215
+    t.text     "publisher",             limit: 16777215
+    t.text     "place",                 limit: 16777215
     t.integer  "year",                  limit: 4,        default: 0
-    t.string   "date_string",           limit: 255
-    t.string   "related_item",          limit: 255
-    t.string   "related_item_specs",    limit: 255
+    t.text     "date_string",           limit: 255
+    t.text     "related_item",          limit: 16777215
+    t.text     "related_item_specs",    limit: 16777215
     t.text     "abstract",              limit: 16777215
     t.string   "identifier",            limit: 255
     t.boolean  "finding_aid_published", limit: 1
@@ -1401,8 +1524,8 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "unit_editors", force: :cascade do |t|
     t.integer  "unit_id",      limit: 4
-    t.string   "name",         limit: 255
-    t.string   "qualifier",    limit: 255
+    t.text     "name",         limit: 16777215
+    t.text     "qualifier",    limit: 16777215
     t.string   "editing_type", limit: 255
     t.date     "edited_at"
     t.string   "db_source",    limit: 255
@@ -1446,8 +1569,8 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "unit_identifiers", force: :cascade do |t|
     t.integer  "unit_id",           limit: 4
-    t.string   "identifier",        limit: 255
-    t.string   "identifier_source", limit: 255
+    t.text     "identifier",        limit: 16777215
+    t.text     "identifier_source", limit: 16777215
     t.text     "note",              limit: 16777215
     t.string   "db_source",         limit: 255
     t.string   "legacy_id",         limit: 255
@@ -1472,8 +1595,8 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "unit_other_reference_numbers", force: :cascade do |t|
     t.integer  "unit_id",                limit: 4
-    t.string   "other_reference_number", limit: 255
-    t.string   "qualifier",              limit: 255
+    t.text     "other_reference_number", limit: 16777215
+    t.text     "qualifier",              limit: 16777215
     t.text     "note",                   limit: 16777215
     t.string   "db_source",              limit: 255
     t.string   "legacy_id",              limit: 255
@@ -1486,7 +1609,7 @@ ActiveRecord::Schema.define(version: 20180130115554) do
 
   create_table "unit_urls", force: :cascade do |t|
     t.integer  "unit_id",    limit: 4
-    t.string   "url",        limit: 255
+    t.text     "url",        limit: 65535
     t.text     "note",       limit: 16777215
     t.integer  "position",   limit: 4
     t.string   "db_source",  limit: 255
@@ -1506,9 +1629,9 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.string   "ancestry",                  limit: 255
     t.integer  "ancestry_depth",            limit: 4
     t.string   "tsk",                       limit: 5
-    t.string   "reference_number",          limit: 255
+    t.text     "reference_number",          limit: 16777215
     t.integer  "tmp_reference_number",      limit: 4
-    t.string   "tmp_reference_string",      limit: 255
+    t.text     "tmp_reference_string",      limit: 16777215
     t.text     "title",                     limit: 16777215
     t.boolean  "given_title",               limit: 1
     t.integer  "folder_number",             limit: 4
@@ -1522,9 +1645,9 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.text     "related_materials",         limit: 16777215
     t.string   "physical_type",             limit: 255
     t.text     "physical_description",      limit: 16777215
-    t.string   "physical_container_type",   limit: 255
-    t.string   "physical_container_title",  limit: 255
-    t.string   "physical_container_number", limit: 255
+    t.text     "physical_container_type",   limit: 16777215
+    t.text     "physical_container_title",  limit: 16777215
+    t.text     "physical_container_number", limit: 16777215
     t.string   "preservation",              limit: 255
     t.text     "preservation_note",         limit: 16777215
     t.text     "restoration",               limit: 16777215
@@ -1545,11 +1668,11 @@ ActiveRecord::Schema.define(version: 20180130115554) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "sc2_tsk",                   limit: 10
-    t.text     "extent",                    limit: 65535
+    t.text     "extent",                    limit: 16777215
     t.boolean  "published",                 limit: 1,        default: true
     t.string   "file_type",                 limit: 255
-    t.string   "fsc_name",                  limit: 255
-    t.string   "fsc_surname",               limit: 255
+    t.text     "fsc_name",                  limit: 16777215
+    t.text     "fsc_surname",               limit: 16777215
   end
 
   add_index "units", ["ancestry"], name: "index_units_on_ancestry", using: :btree

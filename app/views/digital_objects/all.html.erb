@@ -3,7 +3,37 @@
 <% end %>
 
 <%# TODO: [1.x] search e filtri per digital_objects %>
+
 <div class="span12">
+  <div id="index-controls">
+    <span class="empty-field">&nbsp;</span>
+
+    <%= form_tag('/digital_objects/all', :method => :get, :class => "skip-prompt form-search pull-right") do %>
+      <%= text_field_tag :q, params[:q], :class => "search-query", :placeholder => "Complesso Archivistico"%>
+      <%= text_field_tag :unit, params[:unit], :class => "search-query", :placeholder => "Unità" %>
+      <%= submit_tag "Cerca", :name => "", :class => "btn btn-small" %>
+    <% end %>
+    <% if params[:q].present? || params[:unit].present? %>
+      <%= link_to raw('<i class="icon-share"></i> ' + t('export') + " AEF"),
+                {
+                  controller: :exports,
+                  action: :fonds_aef,
+                  remote: true,
+                  fonds: @fond_ids_AEF
+                },
+                {onclick:'alert("Export AEF iniziato.\n Al termine il risultato sara\' posizionato nella cartella: archimista/tmp/exports.")', :class => "btn btn-small" } %>
+      <%= link_to raw('<i class="icon-share"></i> ' + t('export') + " EAD"),
+                {
+                  controller: :exports,
+                  action: :units_ead,
+                  remote: true,
+                  units: @unit_ids,
+                  fonds: @fond_ids_EAD
+                },
+                { onclick:'alert("Export EAD3 iniziato.\n\n Al termine il risultato sara\' posizionato nella cartella: archimista/tmp/exports.")', :class => "btn btn-small" } %>
+      <% end %>
+  </div>
+
   <% if @digital_objects.size > 0 %>
     <%= display_page_entries_info @digital_objects %>
 

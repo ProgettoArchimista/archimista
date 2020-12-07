@@ -9,6 +9,13 @@ class Export < ActiveRecord::Base
 # Upgrade 2.0.0 fine
 
   TMP_EXPORTS = "#{Rails.root}/tmp/exports"
+  PUBLIC_DOWNLOADS = "#{Rails.root}/public/downloads"
+
+  @@icarimportfile = ""
+
+  def get_icarimportfile
+    @@icarimportfile
+  end
 
   def self.columns() @columns ||= []; end
 
@@ -761,6 +768,67 @@ class Export < ActiveRecord::Base
     fond_ids = @fonds.map(&:id)
   end
   
+  def stream_icar_import()
+    set_fonds(self.target_id)
+    fond = @fonds.first
+
+    prefix = Time.now.strftime("%Y-%m-%d-%H-%M-%S-")
+    zip_file_name = PUBLIC_DOWNLOADS + "/#{prefix}icar-import-#{fond.id}.zip"
+    @@icarimportfile = zip_file_name
+    File.delete(zip_file_name) if File.exist?(zip_file_name)
+    
+    file_name = "#{prefix}icar-import-#{fond.id}.xml"
+    data_file_name = PUBLIC_DOWNLOADS + "/" + file_name
+    file_dest = File.new(data_file_name, 'w+')
+    view = ActionView::Base.new(views_path("icar-import"))
+    xml = ::Builder::XmlMarkup.new(target: file_dest, :indent => 2)
+    digital_objects = Array.new
+    xml =  view.render(:file => "icar-import.xml.builder", :locals => {:fond => fond})
+    
+    xml_formatted = ''
+    require "rexml/document"
+    doc = REXML::Document.new(xml.to_s)
+    formatter = REXML::Formatters::Pretty.new
+    formatter.compact = true
+    formatter.write(doc, xml_formatted)
+    
+    File.open(file_dest, 'w+') { |f| f.write(xml_formatted) }
+    Zip::File.open(zip_file_name, Zip::File::CREATE) do |zipfile|
+      zipfile.add(file_name, file_dest.path)
+    end
+
+    begin
+      file_dest.close
+      File.delete(data_file_name) if File.exist?(data_file_name)
+    rescue Exception => e
+      puts "ECCEZIONE export.rb > stream_icar_import: #{e.message}"
+    end
+
+    #oggetti digitali
+    fonds_id = Array.new
+    fonds_id.push(fond.id)
+    if fond.ancestry.nil?
+      query = "ancestry LIKE '#{fond.id}/%' OR ancestry = '#{fond.id}'"
+    else
+      query = "ancestry LIKE '#{fond.ancestry}/%' OR ancestry = '#{fond.ancestry}'"
+    end
+    children_ids = Fond.where(query).pluck(:id)
+    fonds_id = fonds_id + children_ids
+    unit_ids = Unit.where(fond_id: fonds_id).pluck(:id)
+    digital_objects = DigitalObject.where(attachable_id: unit_ids)
+    if !digital_objects.empty?
+      Zip::File.open(zip_file_name, false) do |zipfile|
+        digital_objects.each do |digital_object|
+          dob_files = Dir.entries("#{Rails.root}/public/digital_objects/#{digital_object.access_token}").select {|f| !File.directory? f}
+          dob_files.each do |dob_file_name|
+            dob_file_path = "#{Rails.root}/public/digital_objects/#{digital_object.access_token}/#{dob_file_name}"
+            zipfile.add("#{digital_object.access_token}/#{dob_file_name}", dob_file_path)
+          end
+        end
+      end
+    end
+  end
+
   def stream_ead(records, ids = [])
     if records.present?
       
@@ -1082,7 +1150,7 @@ class Export < ActiveRecord::Base
     end
   end
 
-   def create_csv(ids, sequence_numbers, options = {})
+   def create_csv(ids, sequence_numbers)
     conditionParam = "#{:id} IN (#{ids.join(',')})"
     ucsv = Unit.where(conditionParam).order("sequence_number")
     attributes_all = Unit.column_names
@@ -1090,20 +1158,22 @@ class Export < ActiveRecord::Base
     attributes = attributes_all - attributes_except
     attr_names = attributes.collect { |x| "units_" + x }
 
-    CSV.generate(options) do |new_csv|
+    CSV.generate(:force_quotes => true) do |new_csv|
       new_csv << attr_names
       ucsv.each_with_index do |csv_unit, index|
         csv_data = []
         attributes.each do |attribute|
+          value = nil
           if attribute == "legacy_id"
-            csv_data << csv_unit.id
+            value = csv_unit.id
           elsif attribute == "legacy_parent_unit_id"
-            csv_data << csv_unit.is_root? ? nil : csv_unit.parent_id.to_s
+            value = csv_unit.is_root? ? nil : csv_unit.parent_id
           elsif attribute == "sequence_number"
-            csv_data << csv_unit.display_sequence_number_from_hash(sequence_numbers)
+            value = csv_unit.display_sequence_number_from_hash(sequence_numbers)
           else
-            csv_data << csv_unit.try(attribute.to_sym).to_s
+            value = csv_unit.try(attribute.to_sym)
           end
+          csv_data << value
         end
         new_csv << csv_data
       end
@@ -1111,13 +1181,13 @@ class Export < ActiveRecord::Base
     end
   end
 
-  def create_related_csv(table, set_element, options = {})
+  def create_related_csv(table, set_element)
     related_attributes_all = table.singularize.camelize.constantize.column_names
     related_attributes_except = ["id", "db_source", "created_at", "updated_at"]
     related_attributes = related_attributes_all - related_attributes_except
     related_attr_names = related_attributes.collect { |j| table + "_" + j }
 
-    CSV.generate(options) do |new_related_csv|
+    CSV.generate(:force_quotes => true) do |new_related_csv|
       new_related_csv << related_attr_names
       set_element.each_with_index do |csv_related_unit, index|
         csv_related_data = []
@@ -1127,17 +1197,19 @@ class Export < ActiveRecord::Base
           if (table == "sc2_commissions") then @sc2_commission_names_ids.push(csv_related_unit.id) end
         end
         related_attributes.each do |attribute|
+          value = nil
           if attribute == "legacy_id"
             if table == "sc2_attribution_reasons"
-              csv_related_data << csv_related_unit.sc2_author_id
+              value = csv_related_unit.sc2_author_id
             elsif table == "sc2_commission_names"
-              csv_related_data << csv_related_unit.sc2_commission_id
+              value = csv_related_unit.sc2_commission_id
             else
-              csv_related_data << csv_related_unit.unit_id
+              value = csv_related_unit.unit_id
             end
           else
-            csv_related_data << csv_related_unit.try(attribute.to_sym).to_s
+            value = csv_related_unit.try(attribute.to_sym)
           end
+          csv_related_data << value
         end
         new_related_csv << csv_related_data
       end

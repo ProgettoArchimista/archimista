@@ -44,7 +44,17 @@ xml.tag! "scons", {
   if custodian.other_names.present?
     qualifiers = {"au" => "altraDenominazione", "pa" => "parallela", "ac" => "acronimo", "ot" => "altraDenominazione"}
     custodian.other_names.each do |other_name|
-      xml.denominazione other_name.name, :qualifica => qualifiers[other_name.qualifier.downcase]
+      qualifica = qualifiers[other_name.qualifier.downcase]
+      if (qualifica == "parallela")
+        if (other_name.note.nil? || other_name.note.empty? || (other_name.note.downcase.match(/(a-z){3}/) == nil))
+          lingua = "nnn"
+        else
+          lingua = other_name.note.downcase
+        end
+        xml.denominazione other_name.name, :qualifica => qualifica, :lingua => lingua
+      else
+        xml.denominazione other_name.name, :qualifica => qualifica
+      end
     end
   end
   custodian_types = {
@@ -67,6 +77,11 @@ xml.tag! "scons", {
   custodian_type = custodian.custodian_type.present? ? custodian_types[custodian.custodian_type.custodian_type.downcase] : "altro"
   xml.tipologia custodian_type
   xml.localizzazioni do
+    if custodian.legal_status == "PU"
+      privato = "N"
+    else
+      privato = "S"
+    end
     custodian.custodian_buildings.each_with_index do |custodian_building, i|
       if i == 0
         principale = "S"
@@ -78,7 +93,7 @@ xml.tag! "scons", {
       else
         consultazione = "N"
       end
-      xml.localizzazione :identificativo => custodian_building.id, :principale => principale, :consultazione => consultazione, :privato => "N" do
+      xml.localizzazione :identificativo => custodian_building.id, :principale => principale, :consultazione => consultazione, :privato => privato do
         xml.denominazione custodian_building.name
         attributes = {:paese => "ITA", :comune => custodian_building.city}
         if custodian_building.postcode.present?
@@ -90,7 +105,7 @@ xml.tag! "scons", {
         xml.indirizzo attributes
         if (i < 1)
           if custodian.custodian_contacts.present?
-            contact_types = {"tel" => "telefono", "fax" => "fax", "email" => "mail"}
+            contact_types = {"tel" => "telefono", "fax" => "fax", "email" => "mail", "pec" => "pec", "web" => "web"}
             custodian.custodian_contacts.each do |custodian_contacts|
               contact_type = custodian_contacts.contact_type? ? contact_types[custodian_contacts.contact_type.downcase] : "altro"
               xml.contatto custodian_contacts.contact, :tipo => contact_type

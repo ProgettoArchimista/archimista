@@ -564,7 +564,9 @@ class ReportsController < ApplicationController
     html = render_to_string(:action => action, :layout => false)
     kit = PDFKitWrapper.new(html, options)
     kit.stylesheets << "#{Rails.root}/public/stylesheets/reports-print.css"
+	Rails.logger.info(kit.command("#{Rails.root}/public/downloads/#{filename}.pdf"))
     kit.to_file("#{Rails.root}/public/downloads/#{filename}.pdf")
+	
     filename
 # Upgrade 2.0.0 fine
   end

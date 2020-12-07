@@ -16,7 +16,7 @@ class Custodian < ActiveRecord::Base
   has_one   :preferred_name, :class_name => 'CustodianName', :conditions => {:qualifier => 'AU', :preferred => true}
   has_many  :other_names, :class_name => 'CustodianName', :conditions => {:preferred => false}
 =end
-  has_one   :preferred_name, -> { where({:qualifier => 'AU', :preferred => true}) }, :class_name => 'CustodianName'
+  has_one   :preferred_name, -> { where({:qualifier => ['OT', 'AU'], :preferred => true}) }, :class_name => 'CustodianName'
   has_many  :other_names, -> { where({:preferred => false}) }, :class_name => 'CustodianName'
 # Upgrade 2.0.0 fine
 
@@ -150,14 +150,14 @@ class Custodian < ActiveRecord::Base
   scope :export_list, -> { select("custodians.id, custodian_names.name, custodians.updated_at, custodians.db_source, count(custodians.id) AS num").joins([:fonds, :preferred_name]).group("custodians.id, custodian_names.name").order("custodian_names.name") }
 
   scope :search, ->(q) {
-    conditions = ["custodian_names.qualifier = 'AU' AND LOWER(custodian_names.name) LIKE :q", {:q => "%#{q.downcase.squish}%"}] if q.present?
+    conditions = ["custodian_names.qualifier = 'OT' AND LOWER(custodian_names.name) LIKE :q", {:q => "%#{q.downcase.squish}%"}] if q.present?
     where(conditions)
   }
 
   scope :autocomplete_list, ->(term) {
     select("custodians.id AS id, custodian_names.name AS value, custodian_names.name AS name").
     joins(:custodian_names).
-    where(["custodian_names.preferred = ? AND custodian_names.qualifier = ? AND LOWER(custodian_names.name) LIKE ?", true, 'AU', "%#{term}%"]).
+    where(["custodian_names.preferred = ? AND custodian_names.qualifier = ? AND LOWER(custodian_names.name) LIKE ?", true, 'OT', "%#{term}%"]).
     order("custodian_names.name ASC").
     limit(10)
   }

@@ -337,7 +337,7 @@ class UnitsController < ApplicationController
           @units = @fond.descendant_units
         end
       else
-        @units = @fond.units
+        @units = Unit.where(Unit.arel_table[:fond_id].in(@fond.subtree_ids))
       end
       select_clause = "units.id, units.fond_id, units.position, units.sequence_number,
                     units.ancestry, units.ancestry_depth, units.published,  units.tsk,

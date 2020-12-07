@@ -233,11 +233,32 @@ resources :multiple_occours, :only => [:index] do
     collection do
       get :download
       get :xml
-# Upgrade 2.2.0 inizio
+      get :fonds_aef
+      get :units_ead
+      # Upgrade 2.2.0 inizio
       post :units
-# Upgrade 2.2.0 fine
+      # Upgrade 2.2.0 fine
     end
   end
+  resources :exports_batch, :only => [:index] do
+    collection do
+      post :icarimport
+      post :aefallfonds
+      post :aeffondsnoancestry
+      post :aefallfondsnoancestry
+      post :aefprojects
+      post :aefallprojects
+      post :aefcustodiansproject
+      post :aefcustodians
+      post :aefallcustodians
+      post :xmlallfonds
+      post :xmlfondsnoancestry
+      post :xmlallfondsnoancestry
+      post :xmlsourcesproject
+      post :xmlsources
+      post :xmlallsources
+    end
+  end    
 
   # Vocabolari
   resources :vocabularies, :only => [:index]

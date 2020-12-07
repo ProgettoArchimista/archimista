@@ -41,16 +41,9 @@ xml.control do
     xml.citation "ISAAR(CPF)"
   end
   xml.maintenanceHistory do
-    xml.maintenanceEvent do
-      xml.eventType "created"
-      xml.eventDateTime ""
-      xml.agentType "human"
-      xml.agent ""
-    end
-    
     editors = creator.creator_editors
     if editors.present?
-	  event_types = {
+      event_types = {
         "aggiornamento scheda" => "updated",
         "inserimento dati" => "created",
         "integrazione successiva" => "updated",
@@ -61,16 +54,16 @@ xml.control do
       }
       editors.each do |editor|
         xml.maintenanceEvent do
-		  if editor.editing_type.present?
-		    editing_type = editor.editing_type.downcase
-		    event_type = event_types.key?(editing_type) ? event_types[editing_type] : "unknown"
-		  else
-		    event_type = "unknown"
-		  end
+          if editor.editing_type.present?
+            editing_type = editor.editing_type.downcase
+            event_type = event_types.key?(editing_type) ? event_types[editing_type] : "unknown"
+          else
+            event_type = "unknown"
+          end
           
           if editor.edited_at.present?
-		    edited_at = editor.edited_at.strftime("%Y-%m-%dT%H:%M:%S")
-		  end
+            edited_at = editor.edited_at.strftime("%Y-%m-%dT%H:%M:%S")
+          end
           
           xml.eventType event_type
           if !edited_at.nil?
@@ -94,18 +87,34 @@ xml.cpfDescription do
     xml.entityType entityType
     case creator_type
     when 'c'
-      xml.nameEntry do
-        xml.part creator.preferred_name.name
+      parallel_names = Array.new
+      creator.other_names.each do |other_name|
+        if other_name.qualifier.downcase == "pa"
+          parallel_name = a = {'id' => other_name.id, 'name' => other_name.name, 'note' => other_name.note}
+          parallel_names << parallel_name
+        end
+      end
+      if parallel_names.empty?
+        xml.nameEntry do
+          xml.part creator.preferred_name.name
+        end
+      else
+        xml.nameEntryParallel do
+          xml.nameEntry do
+            xml.part creator.preferred_name.name
+          end
+          parallel_names.each do |parallel_name|
+            xml.nameEntry do
+              xml.part parallel_name['name'], :"xml:lang" => parallel_name['note']
+            end
+          end
+        end
       end
       creator.other_names.each do |other_name|
         qualifiers = {"au" => "altraDenominazione", "pa" => "parallela", "ac" => "altraDenominazione", "ot" => "altraDenominazione"}
 	    qualifier = qualifiers.key?(other_name.qualifier.downcase) ? qualifiers[other_name.qualifier.downcase] : "altraDenominazione"
 		if qualifier == "parallela"
-		  xml.nameEntryParallel do
-		    xml.nameEntry do
-              xml.part other_name.name, :lang => other_name.note
-            end
-          end
+		  next
 		else
           xml.nameEntry do
             xml.part other_name.name, :localType => qualifier
@@ -240,9 +249,6 @@ xml.cpfDescription do
         xml.placeRole "TesauroSAN/sede", :vocabularySource => "http://dati.san.beniculturali.it/SAN/TesauroSAN/Tipo_luogo_CPF"
         xml.placeEntry "non indicato", :vocabularySource => "http://dati.san.beniculturali.it/ASI"
       end
-	  xml.localDescription :localType => "titoli" do
-	    xml.term creator.note, :vocabularySource => "NIERA"
-	  end
     end
     if creator.creator_legal_statuses.present?
       status = {"PU" => "Pubblico", "PR" => "Privato", "EC" => "Ecclesiastico", "NA" => "Non definito"}
@@ -257,7 +263,8 @@ xml.cpfDescription do
     end
     if creator.history.present?
       xml.biogHist do
-        xml.abstract creator.history
+        xml.abstract creator.abstract
+        xml.p creator.history
       end
     end
   end

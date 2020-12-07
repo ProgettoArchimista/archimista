@@ -591,7 +591,8 @@ private
       op_html = op_html + "<strong class=\"field-header\">" + ai.name_caption + caption_postfix + "</strong>"
       op_html = op_html + "</p>"
     end
-    op_html = op_html + textilize_with_entities(text)
+    #op_html = op_html + textilize_with_entities(text)
+    op_html = op_html + textilize_with_entities(text.gsub('b. ', 'b.&#32;'))  # bug fix: la stringa 'b. ' viene rimpiazzata con ''; causa: bug in textilize ?
     return op_html
   end
 

@@ -7,7 +7,7 @@ PDFKit.configure do |config|
   end
   if osCurrent.downcase.start_with?("windows")
     if Rails.env.development?
-      config.wkhtmltopdf = 'S:/PortableApps/wkhtmltopdf/wkhtmltopdf.exe'
+      config.wkhtmltopdf = 'C:/wkhtmltox/bin/wkhtmltopdf.exe'
     else
       config.wkhtmltopdf = File.expand_path("../../wkhtmltopdf/wkhtmltopdf.exe", File.dirname(__FILE__))
     end
@@ -21,4 +21,6 @@ PDFKit.configure do |config|
     :disable_smart_shrinking => true,
     :encoding => "UTF-8"
   }
+  
+  config.verbose = true
 end

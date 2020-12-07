@@ -23,7 +23,7 @@
       <%= link_to t('preview'), fond_path(@fond), :id => "fond-preview", :class => "span2 btn btn-mini" %>
     </div>
     <div class="offset4">
-      <% total_count = @fond.is_root? ? @fond.active_descendant_units_count : @fond.units_count %>
+      <% total_count = @fond.is_root? ? @fond.active_descendant_units_count : @fond.active_descendant_units_count_children %>
       <strong><%= link_to "#{number_with_delimiter(total_count)} " + t('view_unit').downcase, fond_units_path(@fond) %></strong>
       <%= "(totale del complesso)" if @fond.is_root? %>
       <%= link_to t('new_unit'), new_fond_unit_path(@fond), :class => 'btn btn-mini' %>

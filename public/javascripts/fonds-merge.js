@@ -1,28 +1,41 @@
 $(document).ready(function () {
 
   $.jump_to_fonds = {};
-  
 
   $(document).delegate(".merge", 'click', function () {
 
     var id = $(this).attr('data-id');
     $.get('fonds/' + id + '/merge_with').success(function (data) {
-      
+
       $('#merge-with-container').html(data);
       $('#merge-with-container #merge-fonds-modal').modal("show");
-      
+
     });
   });
 
   $(document).delegate("#fonds-list input[@name='new_root_id']", 'click', function (event) {
-    var target_value = event.target.value;
-    $.jump_to_fonds.tree = $("#jump-to-tree" + target_value);
-    $.jump_to_fonds.jump(target_value);
+    var id = $(this).val();
+
+    if($('#fondmerge-'+id).hasClass('open')){
+      $('#fondmerge-'+id).removeClass('open');
+    }else{
+      $('.dropdown.divmerge').each(function () {
+        if ($(this).hasClass('open')) {
+          $(this).removeClass('open');
+        }
+      });
+      $('#fondmerge-'+id).addClass('open');
+
+      var target_value = event.target.value;
+      $.jump_to_fonds.tree = $("#jump-to-tree" + target_value);
+      $.jump_to_fonds.jump(target_value);
+    }
+
   });
 
 
   $.jump_to_fonds.tree_setup = function ($tree, root_id, current_node_id) {
-    var self, target_node_id;
+    var self, target_node_id, target_name;
 
     self = this;
 
@@ -50,7 +63,8 @@ $(document).ready(function () {
     .delegate("li a", "click", function (event) {
       event.stopPropagation();
       target_node_id = $(this).parent("li").attr('id').split('-').pop();
-      $tree.trigger("node_selected.custom_jstree", target_node_id);
+      target_name = $(this)[0].innerText;
+      $tree.trigger("node_selected.custom_jstree", {target_node_id: target_node_id, target_name: target_name});
     })
     .delegate($tree, "click", function (event) {
       event.stopPropagation();
@@ -59,7 +73,7 @@ $(document).ready(function () {
   };
 
 $.jump_to_fonds.jump = function (target_id) {
-  
+
     var self, root_id, current_node_id, action;
 
     self            = this;
@@ -68,39 +82,24 @@ $.jump_to_fonds.jump = function (target_id) {
     root_id = target_id;
     current_node_id = target_id;
     action          = self.tree.data('action');
-   
+
     self.tree_setup(self.tree, root_id, current_node_id);
 
     self.tree.bind("loaded.jstree", function (event, data) {
         $(this).jstree("open_all");
     });
 
-    self.tree.bind('node_selected.custom_jstree', function (event, target_node_id) {
+    self.tree.bind('node_selected.custom_jstree', function (event, target_node) {
       if (action === "gridview" ) {
       } else {
         $('.dropdown.divmerge').removeClass('open');
-        $("input[name='choosen_root_id']").val(target_node_id);
+        $("input[name='choosen_root_id']").val(target_node.target_node_id);
+        $('#fonds-list input[name="new_root_id"]').parent().find(".sub-selected" ).text("");
+        $('#fonds-list input[name="new_root_id"]:checked ').parent().find(".sub-selected" ).text(" - " + target_node.target_name);
         $("#confirm-merge").prop('disabled', false).removeClass('disabled');
       }
     });
   };
-
-
-
-  $(document).delegate("#fonds-list input[@name='new_root_id']", 'click', function () {
-    var id = $(this).val();
-
-    if($('#fondmerge-'+id).hasClass('open')){
-      $('#fondmerge-'+id).removeClass('open');
-    }else{
-      $('.dropdown.divmerge').each(function () {
-        if ($(this).hasClass('open')) {
-          $(this).removeClass('open');
-        }
-      });
-      $('#fondmerge-'+id).addClass('open');
-    }
-  });
 
   $(document).delegate('.livesearch', 'click', function () {
     var id = $(this).find("input").val();

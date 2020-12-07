@@ -23,19 +23,24 @@ class DigitalObject < ActiveRecord::Base
   before_create :generate_access_token
 
   # Paperclip
-  has_attached_file :asset,
-    :styles => { :large => "1280x1280>", :medium => "210x210>", :thumb => "130x130>" },
-    :url => "/digital_objects/:access_token/:style.:extension",
-    :default_url => "/images/missing-:style.jpg"
+  begin
+    has_attached_file :asset,
+      :styles => { :large => "1280x1280>", :medium => "210x210>", :thumb => "130x130>" },
+      :url => "/digital_objects/:access_token/:style.:extension",
+      :default_url => "/images/missing-:style.jpg"
 
-  validates_attachment_presence :asset
+      validates_attachment_presence :asset
 
-  validates_attachment_content_type :asset,
-    :content_type => ["image/jpeg", "image/jpg", "image/pjpeg", "application/pdf", "video/mp4", "application/mp4", "video/mpeg4"]
+      validates_attachment_content_type :asset,
+      :content_type => ["image/jpeg", "image/jpg", "image/pjpeg", "application/pdf", "video/mp4", "application/mp4", "video/mpeg4"]
 
-  validates_attachment_size :asset, :less_than => 8.megabytes
+      validates_attachment_size :asset, :less_than => 8.megabytes
 
-  before_post_process :is_image?
+      before_post_process :is_image?
+  rescue
+    # caso del batch import
+    # do_nothing
+  end
 
   # Scopes
 # Upgrade 2.0.0 inizio
@@ -87,7 +92,10 @@ class DigitalObject < ActiveRecord::Base
   private
 
   def generate_access_token
-    self.access_token = Digest::SHA1.hexdigest("#{asset_file_name}#{Time.now.to_i}")
+    if self.access_token.nil?
+      self.access_token = Digest::SHA1.hexdigest("#{asset_file_name}#{Time.now.to_i}")
+    end
+    return self.access_token
   end
 
   Paperclip.interpolates :access_token  do |attachment, style|

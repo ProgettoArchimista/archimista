@@ -1,0 +1,233 @@
+<% container_class "container-fluid" %>
+<% content_for :status_bar do %>
+  <h2>Esportazione batch</h2>
+<% end %>
+
+<div class="span8">
+  <h3>Esportazione in formato icar:import</h3>
+  <p>L'esportazione in formato icar:import consente di esportare - a partire dal complesso archivistico selezionato - tutte le entità ad esso collegate (soggetto conservatore, soggetto produttore, profili istituzionali, fonti, oggetti digitali) raccolte in un unico pacchetto informativo in formato XML conforme ai tracciati di interoperabilità ICAR.</p>
+  <br/>
+
+  <% if @fonds_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/icarimport') do -%>
+      <%= label_tag("Seleziona il Complesso da esportare:") %>
+      <%= select_tag(:fond_id, options_for_select(@fonds_select_options), :multiple => false, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti Fondi di primo livello.<br/>
+       Esportazione batch dei non disponibile.</p><br/>
+  <% end %>
+
+
+  <hr/>
+
+  <h3>Esportazione di Fondi in formato aef</h3>
+  <br/>
+ 
+  <p>&mdash; Esportazione di tutti i Fondi di primo livello di un Progetto.</p>
+  
+  <% if @project_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/aefallfonds') do -%>
+      <%= label_tag("Seleziona il Progetto di cui esportare i Fondi:") %>
+      <%= select_tag(:project_id, options_for_select(@project_select_options), :multiple => false, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti schede Progetto collegate a complessi archivistici.<br/>
+       Esportazione batch per Progetto non disponibile.</p><br/>
+  <% end %>
+  
+
+  <p>&mdash; Esportazione Fondi di primo livello.</p>
+
+  <% if @fonds_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/aeffondsnoancestry') do -%>
+      <%= label_tag("Seleziona i Fondi da esportare:") %>
+      <%= select_tag(:fond_id, options_for_select(@fonds_select_options), :multiple => true, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti Fondi di primo livello.<br/>
+       Esportazione batch dei Fondi non disponibile.</p><br/>
+  <% end %>
+
+
+  <p>&mdash; Esportazione di tutti i Fondi di primo livello.</p>
+
+  <%= form_tag('/exports_batch/aefallfondsnoancestry') do -%>
+    <%= label_tag("Verranno esportati tutti i Fondi di primo livello:") %>
+    <div><%= submit_tag('Esporta') %></div>
+  <% end -%>
+
+
+  <hr/>
+
+  <h3>Esportazione di Progetti in formato aef</h3>
+  <br/>
+
+  <p>&mdash; Esportazione di Progetti.</p>
+
+  <% if @project_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/aefprojects') do -%>
+      <%= label_tag("Seleziona i Progetti da esportare:") %>
+      <%= select_tag(:project_id, options_for_select(@project_select_options), :multiple => true, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti schede Progetto collegate a complessi archivistici.<br/>
+       Esportazione batch dei Progetti non disponibile.</p><br/>
+  <% end %>
+
+
+  <p>&mdash; Esportazione di tutti i Progetti.</p>
+
+  <%= form_tag('/exports_batch/aefallprojects') do -%>
+    <%= label_tag("Verranno esportati tutti i Progetti:") %>
+    <div><%= submit_tag('Esporta') %></div>
+  <% end -%>
+
+
+  <hr/>
+
+  <h3>Esportazione di Soggetti Conservatori in formato aef</h3>
+  <br/>
+
+  <p>&mdash; Esportazione dei Conservatori associati ai Fondi di primo livello di un Progetto.</p>
+
+  <% if @project_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/aefcustodiansproject') do -%>
+      <%= label_tag("Seleziona il Progetto:") %>
+      <%= select_tag(:project_id, options_for_select(@project_select_options), :multiple => false, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti schede Progetto collegate a complessi archivistici.<br/>
+       Esportazione batch per Progetto non disponibile.</p><br/>
+  <% end %>
+
+
+  <p>&mdash; Esportazione di Conservatori.</p>
+
+  <% if @custodians_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/aefcustodians') do -%>
+      <%= label_tag("Seleziona i Conservatori da esportare:") %>
+      <%= select_tag(:custodian_id, options_for_select(@custodians_select_options), :multiple => true, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti Conservatori collegati a complessi archivistici.<br/>
+       Esportazione batch dei Conservatori non disponibile.</p><br/>
+  <% end %>
+
+
+  <p>&mdash; Esportazione di tutti i Conservatori.</p>
+
+  <%= form_tag('/exports_batch/aefallcustodians') do -%>
+    <%= label_tag("Verranno esportati tutti i Conservatori:") %>
+    <div><%= submit_tag('Esporta') %></div>
+  <% end -%>
+
+
+  <hr/>
+
+  <h3>Esportazione di Fondi in formato xml</h3>
+  <br/>
+
+  <p>&mdash; Esportazione di tutti i Fondi di primo livello di un Progetto.</p>
+  
+  <% if @project_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/xmlallfonds') do -%>
+      <%= label_tag("Seleziona il Progetto di cui esportare i Fondi:") %>
+      <%= select_tag(:project_id, options_for_select(@project_select_options), :multiple => false, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti schede Progetto collegate a complessi archivistici.<br/>
+       Esportazione batch per Progetto non disponibile.</p><br/>
+  <% end %>
+
+
+  <p>&mdash; Esportazione Fondi di primo livello.</p>
+
+  <% if @fonds_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/xmlfondsnoancestry') do -%>
+      <%= label_tag("Seleziona i Fondi da esportare:") %>
+      <%= select_tag(:fond_id, options_for_select(@fonds_select_options), :multiple => true, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti Fondi di primo livello.<br/>
+       Esportazione batch dei Fondi non disponibile.</p><br/>
+  <% end %>
+
+
+  <p>&mdash; Esportazione di tutti i Fondi di primo livello.</p>
+
+  <%= form_tag('/exports_batch/xmlallfondsnoancestry') do -%>
+    <%= label_tag("Verranno esportati tutti i Fondi di primo livello:") %>
+    <div><%= submit_tag('Esporta') %></div>
+  <% end -%>
+
+
+  <hr/>
+
+  <h3>Esportazione di Fonti/Strumenti di ricerca in formato xml</h3>
+  <br/>
+
+  <p>&mdash; Esportazione delle Fonti associate ai Fondi di primo livello di un Progetto.</p>
+
+  <% if @project_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/xmlsourcesproject') do -%>
+      <%= label_tag("Seleziona il Progetto:") %>
+      <%= select_tag(:project_id, options_for_select(@project_select_options), :multiple => false, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti schede Progetto collegate a Fondi di primo livello.<br/>
+       Esportazione batch per Progetto non disponibile.</p><br/>
+  <% end %>
+
+
+  <p>&mdash; Esportazione Fonti archivistiche e Strumenti di ricerca.</p>
+
+  <% if @sources_select_options.length > 0 %>
+    <%= form_tag('/exports_batch/xmlsources') do -%>
+      <%= label_tag("Seleziona le Fonti archivistiche e gli Strumenti da esportare:") %>
+      <%= select_tag(:source_id, options_for_select(@sources_select_options), :multiple => true, :style => "width:30%") %>
+      <div><%= submit_tag('Esporta') %></div>
+    <% end -%>
+
+  <% else %>
+    <p>Non sono presenti Fonti archivistiche o Strumenti di ricerca.<br/>
+       Esportazione batch delle Fonti non disponibile.</p><br/>
+  <% end %>
+
+
+  <p>&mdash; Esportazione di tutte le Fonti e gli Strumenti di ricerca.</p>
+
+  <%= form_tag('/exports_batch/xmlallsources') do -%>
+    <%= label_tag("Verranno esportate tutte le Fonti e gli Strumenti di ricerca:") %>
+    <div><%= submit_tag('Esporta') %></div>
+  <% end -%>
+
+</div>
+
+<div class="span4">
+  <p><strong>Nota bene</strong></p>
+  <p>Da questa sezione è possibile attivare l'esportazione in modalità batch delle diverse entità descritte nella specifica installazione di Archimista.<br/>
+  Si consiglia di ricorrere a questa funzionalità di export per eseguire l'esportazione di banche dati di dimensioni notevoli e in presenza di un numero cospicuo di oggetti digitali da gestire.</p>
+  <p>I file esportati verranno posizionati nella cartella:<br/>
+  <code><%= @export_folder %></code><br/>
+  del sistema su cui è installato Archimista.</p>
+  <p>Si avvisa che non è prevista una notifica di segnalazione da parte del sistema dell'avvenuto completamento dell'export.</p>
+</div>

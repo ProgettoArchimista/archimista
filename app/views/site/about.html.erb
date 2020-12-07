@@ -8,15 +8,26 @@
 
 <div class="span8" style="text-align: justify;">
   <div style="margin-top: 1em;">
-    <strong>2015 - in corso</strong>
     <p style="margin-bottom: 0px;">
       Promozione e finanziamento
       <ul>
         <li>
+          <%= link_to_unless(APP_EDITION == "standalone", "Direzione Generale per gli Archivi", "http://www.archivi.beniculturali.it/", { target: "_blank" }) %>
+        </li>
+        <li>
+          <%= link_to_unless(APP_EDITION == "standalone", "ICAR - Istituto Centrale per gli Archivi", "http://www.icar.beniculturali.it/", { target: "_blank" }) %>
+        </li>
+        <li>
+          <%= link_to_unless(APP_EDITION == "standalone", "Regione Lombardia, Direzione Generale Autonomia e Cultura",  "http://www.regione.lombardia.it/wps/portal/istituzionale/HP/istituzione/direzioni-generali/direzione-generale-autonomia-e-cultura", { target: "_blank" }) %>
+        </li>
+        <li>
+          <%= link_to_unless(APP_EDITION == "standalone", raw("Universit&agrave; degli Studi di Pavia"), "http://www.unipv.eu/site/home.html", { target: "_blank" }) %>
+        </li>
+        <li>
           <%= link_to_unless(APP_EDITION == "standalone", "Politecnico di Milano", "http://www.polimi.it/", { target: "_blank" }) %>
         </li>
         <li>
-          <%= link_to_unless(APP_EDITION == "standalone", raw("Regione Lombardia - Direzione Generale Culture, Identit&agrave; e Autonomie"), "http://www.cultura.regione.lombardia.it/", { target: "_blank" }) %>
+          <%= link_to_unless(APP_EDITION == "standalone", "Regione Piemonte", "http://www.regione.piemonte.it/", { target: "_blank" }) %>
         </li>
       </ul>
     </p>
@@ -51,11 +62,11 @@
   <div style="margin-top: 2em;">
     <strong><%= APP_NAME %></strong>
     <p>
-      Versione <%= "#{APP_VERSION}" %>: <%= link_to_unless(APP_EDITION == "standalone", "INGLOBA360 s.r.l.", "http://www.ingloba360.it/", { target: "_blank" }) %>, Matera
+      Sino alla versione <%= "#{APP_VERSION}" %>: <%= link_to_unless(APP_EDITION == "standalone", "INGLOBA360 s.r.l.", "http://www.ingloba360.it/", { target: "_blank" }) %>, Matera
       <br/>
-      Sino versione 2.2.0: <%= link_to_unless(APP_EDITION == "standalone", raw("TAI S.a.s."), "http://www.taisas.com/", { target: "_blank" }) %>, Milano
+      Sino alla versione 2.2.0: <%= link_to_unless(APP_EDITION == "standalone", raw("TAI S.a.s."), "http://www.taisas.com/", { target: "_blank" }) %>, Milano
       <br/>
-      Sino versione 1.2.1: <%= link_to_unless(APP_EDITION == "standalone", raw("Codex Societ&agrave; Cooperativa"), "http://www.codexcoop.it/", { target: "_blank" }) %>, Pavia
+      Sino alla versione 1.2.1: <%= link_to_unless(APP_EDITION == "standalone", raw("Codex Societ&agrave; Cooperativa"), "http://www.codexcoop.it/", { target: "_blank" }) %>, Pavia
       <br/>
       Per la storia del progetto Archimista consultare il sito ufficiale <%= link_to_unless(APP_EDITION == "standalone", "www.archimista.it", "http://www.archimista.it", { target: "_blank" }) %>
       <br/>

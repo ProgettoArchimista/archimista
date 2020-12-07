@@ -1,5 +1,13 @@
 class Fond < ActiveRecord::Base
 
+  # INIZIO - require richiesti per l'import batch
+  require File.join(File.dirname(__FILE__), ".", "fond_event.rb")
+  require File.join(File.dirname(__FILE__), ".", "unit.rb")
+  require File.join(File.dirname(__FILE__), ".", "fond_editor.rb")
+  require File.join(File.dirname(__FILE__), ".", "fond_name.rb")
+  require File.join(File.dirname(__FILE__), ".", "fond_identifier.rb")
+  # FINE - require richiesti per l'import batch
+  
   # Modules
 
   extend Cleaner
@@ -64,7 +72,15 @@ class Fond < ActiveRecord::Base
   def active_descendant_units_count
 # Upgrade 2.0.0 inizio
 #    Unit.count("id", :joins => :fond, :conditions => {:fond_id => subtree_ids, :fonds => {:trashed => false}})
-    Unit.joins(:fond).where({:fond_id => subtree_ids, :fonds => {:trashed => false}}).count("id")
+    Unit.joins(:fond).where({:fond_id => subtree_ids, :fonds => {:trashed => false}, :ancestry => nil}).count("id")
+# Upgrade 2.0.0 fine
+  end
+
+  def active_descendant_units_count_children
+# Upgrade 2.0.0 inizio
+#    Unit.count("id", :joins => :fond, :conditions => {:fond_id => subtree_ids, :fonds => {:trashed => false}})
+#    Unit.joins(:fond).where({:fond_id => id, :fonds => {:trashed => false}, :ancestry => #nil}).count("id")
+   Unit.joins(:fond).where({:fond_id => subtree_ids, :ancestry_depth =>0, :fonds => {:trashed => false}, :ancestry => nil}).count("id")
 # Upgrade 2.0.0 fine
   end
 

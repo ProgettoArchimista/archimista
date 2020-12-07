@@ -19,6 +19,8 @@ class Source < ActiveRecord::Base
 # Upgrade 2.2.0 inizio
   has_one :first_digital_object, -> { where({:position => 1}) }, :as => :attachable, :class_name => DigitalObject
 # Upgrade 2.2.0 fine
+
+  has_one :import, :as => :importable, :dependent => :destroy
     
   # Many-to-many associations (rel)
   # OPTIMIZE: valutare uso di Polymorphic Association. Quali pro/contro ?

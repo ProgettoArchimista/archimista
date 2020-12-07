@@ -11,6 +11,9 @@ end
 parent_sc2_tsk = unit_types["sc2_tsks"].key?(parent_unit.sc2_tsk) ? unit_types["sc2_tsks"][parent_unit.sc2_tsk] : nil
 
 if parent_file_type.nil? and parent_sc2_tsk.nil?
+  if parent_unit_type.empty?
+    parent_unit_type = "otherlevel"
+  end
   xml.c :level => parent_unit_type do
     xml.did do
       pua_id_str = sprintf '%08d', parent_unit.id

@@ -80,7 +80,7 @@ en:
 it:
   trash: "Cestino"
   fond_description: "Contenuto"
-  new_unit: 'Nuova unit&agrave;'
+  new_unit: 'Nuova unità'
   fonds: "Complessi archivistici"
   fond: "Complesso archivistico"
   listing_fonds: "Complessi archivistici"
@@ -157,3 +157,4 @@ it:
   level: "Livello"
   fond_editors: "Compilatori"
   fond_editor: "Compilatore"
+

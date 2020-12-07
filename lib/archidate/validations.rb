@@ -62,7 +62,7 @@ module Archidate
     end
 
     def no_intersection
-      errors.add :start_date_from, :intersection if different_bounds? && has_intersection?
+      errors.add :start_date_from, :intersection if false && different_bounds? && has_intersection?
     end
 
     def no_inversion

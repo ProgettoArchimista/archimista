@@ -4,6 +4,9 @@ require 'exportjson'
 require 'builder'
 # Upgrade 2.0.0 fine
 
+  @@is_icar_file = false
+  @@icar_download_file = ""
+
   def index
     @fonds = Fond.list.
       roots.
@@ -77,9 +80,12 @@ require 'builder'
       @export.group_id = entity.group_id
       target_xml = params[:target_xml]
       if target_xml.include? "san"
+        @@is_icar_file = false
         @export.create_export_xml_san_file
       else
-        @export.create_export_xml_ead_file
+        @@is_icar_file = true
+        @export.stream_icar_import
+        @@icar_download_file = @export.get_icarimportfile
       end
           
 
@@ -97,7 +103,11 @@ require 'builder'
   def download
     #File.delete("#{Export::TMP_EXPORTS}/#{params[:data]}")
     #File.delete("#{Export::TMP_EXPORTS}/#{params[:meta]}")    
-    file = "#{Rails.root}/public/downloads/#{params[:file]}"
+    if @@is_icar_file
+      file = @@icar_download_file
+    else
+      file = "#{Rails.root}/public/downloads/#{params[:file]}"
+    end
     send_file(file)
   end
 
@@ -159,6 +169,47 @@ require 'builder'
     return caption
   end
 # Upgrade 2.2.0 fine
+
+  def units_ead
+    if params[:units].present?
+      ids = String.new
+      params[:units].each do |unit|
+        ids += unit.to_s + "\\,"
+      end
+      ids = ids[0...-2]
+      rake_req = "rake ead:build_xml[units,\"SELECT DISTINCT * from units where id IN (" + ids + ")\"]"
+      puts rake_req
+      system rake_req
+    end
+=begin
+# Al momento solo le unita' vengono ricercate e quindi esportate in EAD
+    if(params[:fonds].present?)
+      ids = String.new
+      params[:units].each do |fond|
+        ids += fond.to_s + "\\,"
+      end
+      ids = ids[0...-2]
+      rake_req = "rake ead:build_xml[fonds,\"SELECT DISTINCT * from fonds where id IN (" + ids + ")\"]"
+      puts rake_req
+      system rake_req
+    end
+=end
+    head :ok
+  end
+
+  def fonds_aef
+    if params[:fonds].present?
+      ids = String.new
+      params[:fonds].each do |fond|
+        ids += fond.to_s + "\\,"
+      end
+      ids = ids[0...-2]
+      rake_req = "rake aef:build_data[fonds,\"SELECT DISTINCT * from fonds where id IN (" + ids + ")\"]"
+      puts rake_req
+      system rake_req
+    end
+    head :ok
+  end
 
 end
 

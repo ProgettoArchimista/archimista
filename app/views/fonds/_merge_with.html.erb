@@ -1,7 +1,7 @@
 <%# OPTIMIZE: valutare se spostare questo js in fond-merge.js %>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#term').liveUpdate('#fonds-list', {
+ $(document).ready(function(){
+    $('#term').liveUpdateFondMerge('#fonds-list', {
       url: '/fonds/list.json',
       field: 'new_root_id',
 // Upgrade 2.2.0 inizio
@@ -28,25 +28,12 @@
           :placeholder => "Cerca un nuovo complesso padre" %>
       </form>
     <% end %>
-<%# TAI aggiunto = prima di form_tag %>
+
     <%= form_tag({:controller => 'fonds', :action => 'merge', :id => object.id}, {:id => "merge-fonds-form", :class => "skip-prompt"}) do %>
-      <ul id="fonds-list" class="unstyled">
-        <% unless fonds.size > 10 %>
-          <% fonds.each do |fond| %>
-            <li>
-              <label class="livesearch radio">
-                <input name="new_root_id" value="<%= fond.id %>" type="radio" />
-                <%= fond.value %>
-              </label>
-            </li>
-            <div id="fondmerge-<%= fond.id %>" class="dropdown divmerge">
-              <%= render :partial => 'fonds/jump_to', :locals => {:fond => fond, :root => fond.root} %>
-            </div>
-          <% end %>
-          <input name="choosen_root_id" value="" type="hidden" />
-        <% end %>
-      </ul>
+      <input name="choosen_root_id" value="" type="hidden" />
+      <ul id="fonds-list" class="unstyled"></ul>
     <% end %>
+
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal"><%= t('cancel') %></button>

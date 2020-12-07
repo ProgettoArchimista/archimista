@@ -26,6 +26,7 @@ namespace :repair do
       "rel_project_fonds" => ["project_id", "fond_id"],
       "rel_unit_headings" => ["unit_id", "heading_id"],
       "rel_unit_sources" => ["unit_id", "source_id"],
+	  "rel_unit_anagraphics" => ["unit_id", "anagraphic_id"]
     }
 
     tables.each do |table, foreign_keys|

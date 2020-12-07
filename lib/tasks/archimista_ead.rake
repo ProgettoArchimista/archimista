@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "..", "exporter/Configurazione_dl.rb")
 require 'zip'
 require 'builder'
 
-TMP_RAKE_EAD_EXPORTS = "#{Rails.root}/tmp/exports"
+TMP_RAKE_EAD_EXPORTS = "#{Rails.root}/public/exports"
 
 namespace :ead do
 
@@ -49,6 +49,7 @@ namespace :ead do
         xml =  view.render(:file => "#{file}.builder", :locals => {:records => [records], :fond_ids => ids})
         File.open(file_dest, 'w+') { |f| f.write(xml) }
         file_dest_path = file_dest.path
+        file_dest.close
 
         Zip::File.open(zip_file_name, Zip::File::CREATE) do |zipfile|
           zipfile.add(file_name, file_dest_path)
@@ -64,12 +65,14 @@ namespace :ead do
   end
   
   def build_icar_import(fond)
-    zip_file_name = TMP_RAKE_EAD_EXPORTS + "/icar-import.zip"
+    prefix = Time.now.strftime("%Y-%m-%d-%H-%M-%S-")
+
+    zip_file_name = TMP_RAKE_EAD_EXPORTS + "/#{prefix}icar-import-#{fond.id}.zip"
     File.delete(zip_file_name) if File.exist?(zip_file_name)
     
-    file_name = "icar-import-#{fond.id}.xml"
+    file_name = "#{prefix}icar-import-#{fond.id}.xml"
     data_file_name = TMP_RAKE_EAD_EXPORTS + "/" + file_name
-	file_dest = File.new(data_file_name, 'w+')
+    file_dest = File.new(data_file_name, 'w+')
     view = ActionView::Base.new(views_path("icar-import"))
     xml = ::Builder::XmlMarkup.new(target: file_dest, :indent => 2)
     digital_objects = Array.new
@@ -86,36 +89,46 @@ namespace :ead do
     Zip::File.open(zip_file_name, Zip::File::CREATE) do |zipfile|
       zipfile.add(file_name, file_dest.path)
     end
-    File.delete(TMP_RAKE_EAD_EXPORTS + "/" + file_name) if File.exist?(TMP_RAKE_EAD_EXPORTS + "/" + file_name)
-    
-    #oggetti digitali
-    fonds_id = Array.new
-    fonds_id.push(fond.id)
-    if fond.ancestry.nil?
-      query = "ancestry LIKE '#{fond.id}/%' OR ancestry = '#{fond.id}'"
-    else
-      query = "ancestry LIKE '#{fond.ancestry}/%' OR ancestry = '#{fond.ancestry}'"
+
+    begin
+      file_dest.close
+      File.delete(data_file_name) if File.exist?(data_file_name)
+    rescue Exception => e
+      puts "ECCEZIONE in archimista_ead.rake > build_icar_import: #{e.message}"
     end
-    children_ids = Fond.where(query).pluck(:id)
-    fonds_id = fonds_id + children_ids
-    unit_ids = Unit.where(fond_id: fonds_id).pluck(:id)
-    digital_objects = DigitalObject.where(attachable_id: unit_ids)
-    if !digital_objects.empty?
-      Zip::File.open(zip_file_name, false) do |zipfile|
-        digital_objects.each do |digital_object|
-          dob_id_str = sprintf '%08d', digital_object.id
-          file_path = "#{Rails.root}/public/digital_objects/#{digital_object.access_token}/original."
-          if digital_object.asset_content_type == "application/pdf"
-            file_path.concat("pdf")
-          else
-            file_path.concat("jpg")
-          end
-          if File.file?(file_path)
-            zipfile.add("OD-#{dob_id_str}/#{digital_object.asset_file_name}", file_path)
+
+    #oggetti digitali
+    begin 
+      fonds_id = Array.new
+      fonds_id.push(fond.id)
+      if fond.ancestry.nil?
+        query = "ancestry LIKE '#{fond.id}/%' OR ancestry = '#{fond.id}'"
+      else
+        query = "ancestry LIKE '#{fond.ancestry}/%' OR ancestry = '#{fond.ancestry}'"
+      end
+      children_ids = Fond.where(query).pluck(:id)
+      fonds_id = fonds_id + children_ids
+      unit_ids = Unit.where(fond_id: fonds_id).pluck(:id)
+      digital_objects = DigitalObject.where(attachable_id: unit_ids)
+      if !digital_objects.empty?
+        Zip::File.open(zip_file_name, false) do |zipfile|
+          digital_objects.each do |digital_object|
+            begin
+              dob_files = Dir.entries("#{Rails.root}/public/digital_objects/#{digital_object.access_token}").select {|f| !File.directory? f}
+              dob_files.each do |dob_file_name|
+                dob_file_path = "#{Rails.root}/public/digital_objects/#{digital_object.access_token}/#{dob_file_name}"
+                zipfile.add("#{digital_object.access_token}/#{dob_file_name}", dob_file_path)
+              end
+            rescue Exception => e
+              puts "ECCEZIONE nell'esportazione di un Oggetto Digitale: #{e.message}"        
+            end
           end
         end
       end
+    rescue Exception => e
+      puts "ECCEZIONE nell'esportazione di Oggetti Digitali: #{e.message}"
     end
+    puts "Creazione file ICAR-IMPORT terminata."
   end
 
   desc "Genera metadati EAD relativi a: [fonds | creators | institutions | custodians | sources | units | anagraphics | icar-import]"
@@ -130,7 +143,8 @@ namespace :ead do
           @fonds = Fond.find_by_sql(query)
 		  if @fonds.count > 0
             puts "Creazione file EAD contenente #{@fonds.count} complessi archivistici ..."
-            zip_file_name = TMP_RAKE_EAD_EXPORTS + "/fonds.zip"
+            prefix = Time.now.strftime("%Y-%m-%d-%H-%M-%S-")
+            zip_file_name = TMP_RAKE_EAD_EXPORTS + "/" + prefix + "fonds.zip"
 			puts "... Attendere, creazione file in corso ..."
             File.delete(zip_file_name) if File.exist?(zip_file_name)
             @fonds.each do |f|
@@ -139,7 +153,7 @@ namespace :ead do
             part_zips_count = Zip::File.split(zip_file_name, 1_152, false) 
             puts "File creato: #{zip_file_name}"
 			
-            Dir.glob("#{zip_file_name}.*").each { |file| File.delete(file)}
+            Dir.glob("#{TMP_RAKE_EAD_EXPORTS}/ca-*.xml").each { |file| File.delete(file)}
 		  else
 		    puts "Nessun complesso archivistico trovato."
 		  end
@@ -234,7 +248,8 @@ namespace :ead do
           @sources = Source.find_by_sql(query)
 		  if @sources.count > 0
             puts "Creazione file EAD contenente #{@sources.count} fonti / strumenti di ricerca ..."
-            zip_file_name = TMP_RAKE_EAD_EXPORTS + "/sources.zip"
+            prefix = Time.now.strftime("%Y-%m-%d-%H-%M-%S-")
+            zip_file_name = TMP_RAKE_EAD_EXPORTS + "/" + prefix + "sources.zip"
 			puts "... Attendere, creazione file in corso ..."
             File.delete(zip_file_name) if File.exist?(zip_file_name)
             @sources.each do |s|

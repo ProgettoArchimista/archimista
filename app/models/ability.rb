@@ -5,7 +5,7 @@ class Ability
 # Upgrade 2.2.0 inizio
 # Upgrade 3.0.0 inizio
   attr_accessor :target_group_id
-  @target_group_id = -1
+  @c = -1
 
   def initialize(user, targetGroupId)
     @target_group_id = targetGroupId
@@ -67,7 +67,7 @@ class Ability
 
     when "admin"
       if (group_id == -1)
-        can :manage, [Fond, Creator, Custodian, Source, DigitalObject, Institution, DocumentForm, Project, Editor, Heading, Import, Unit], :group_id => userRelatedGroupIds
+        can :manage, [Anagraphic, Fond, Creator, Custodian, Source, DigitalObject, Institution, DocumentForm, Project, Editor, Heading, Import, Unit], :group_id => userRelatedGroupIds
 
         can :manage, User, :rel_user_groups => { :group_id => userRelatedGroupIds }
         can :manage, RelUserGroup, :group_id => userRelatedGroupIds
@@ -76,7 +76,7 @@ class Ability
         cannot :create, Group
         can :manage, GroupImage, :group_id => userRelatedGroupIds
       else
-        can :manage, [Fond, Creator, Custodian, Source, DigitalObject, Project, Editor, Heading, Import, Institution, DocumentForm, Unit], :group_id => group_id
+        can :manage, [Anagraphic, Fond, Creator, Custodian, Source, DigitalObject, Project, Editor, Heading, Import, Institution, DocumentForm, Unit], :group_id => group_id
 
         can :manage, User, :rel_user_groups => { :group_id => group_id }
         cannot [:update, :destroy], User, :rel_user_groups => { :role => 'superadmin' }
@@ -118,7 +118,7 @@ class Ability
       cannot [:destroy], Group, :name => 'default'
 
     when "admin"
-      can :manage, [Fond, Creator, Custodian, Source, DigitalObject, Institution, DocumentForm, Project, Editor, Heading, Import], :group_id => user.group_id
+      can :manage, [Anagraphic, Fond, Creator, Custodian, Source, DigitalObject, Institution, DocumentForm, Project, Editor, Heading, Import], :group_id => user.group_id
       can :manage, User, :group_id => user.group_id
       cannot [:update, :destroy], User, :role => 'superadmin'
       can :manage, Group, :id => user.group_id
@@ -137,3 +137,4 @@ class Ability
 # Upgrade 2.1.0 fine
 
 end
+

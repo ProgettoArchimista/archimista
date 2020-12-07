@@ -3,11 +3,24 @@
   <%= javascript_include_tag "relations" %>
   <%= javascript_include_tag "live_search" %>
   <%= javascript_include_tag "sources" %>
+  <%= javascript_include_tag "digit_number" %>
 
 <%# Upgrade 2.1.0 inizio %>
   <%= javascript_include_tag "units-sc" %>
 <%# Upgrade 2.1.0 fine %>
 <% end %>
+
+<script>
+function isNumberKey(evt)
+       { 
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+</script>
 
 <%# Upgrade 2.0.0 inizio %>
 <%#= render :partial => "shared/generic_error_message", :object => @unit %>
@@ -284,7 +297,9 @@
             <div class="span6"><%= f.label :tmp_reference_string, t('tmp_reference_string') %></div>
           </div>
           <div class="row">
-            <div class="span3"><%= f.text_field :tmp_reference_number, :class => "span3" %></div>
+            <div class="span3"><%= f.number_field :tmp_reference_number,  :onkeypress=>"return isNumberKey(event)" , :class => "span3"%></div>
+
+
             <div class="span6"><%= f.text_field :tmp_reference_string, :class => "span6" %></div>
           </div>
           <div class="row">
@@ -671,3 +686,4 @@
 <%# Upgrade 2.2.0 inizio %>
     <%= render :partial => 'create_unit_reference_number_options' %>
 <%# Upgrade 2.2.0 fine %>
+

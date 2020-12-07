@@ -1,4 +1,4 @@
-## Archimista FAQ 3.1.0
+## Archimista FAQ 3.1.1
 
 **È possibile estrarre un complesso o un’unità includendo tutta la gerarchia (ascendenza e discendenza)?**
 Sì. Il tracciato relativo ad un complesso ora contiene: tutta l’ascendenza (se presente) a partire dal complesso radice secondo una struttura breve contenente solo *unitid* e *unittitle*; il complesso oggetto di esportazione; tutta la discendenza (se presente); le unità archivistiche associate al complesso oggetto di esportazione ed ai complessi figli. Il tracciato relativo ad una unità ora contiene: tutta l’ascendenza sia in termini di complessi che di unità a partire dal complesso radice secondo una struttura breve contenente solo *unitid* e *unittitle*; l’unità oggetto di esportazione; tutta la discendenza (se presente).
@@ -14,6 +14,9 @@ Il tracciato ICAR-IMPORT è costruito a partire da un complesso archivistico (ra
 * i profili istituzionali collegati ai soggetti produttori secondo il tracciato EAC-CPF;
 * le schede anagrafiche collegate alle unità incluse secondo il tracciato EAC-CPF;
 * le fonti archivistiche collegate al complesso oggetto di esportazione o ai complessi figli secondo il tracciato EAD3.
+
+**Tentando di estrarre mediante unzip un archivio generato dall'export in formato ICAR-IMPORT si ottiene un errore del tipo "error: invalid zip file with overlapped components (possible zip bomb)"; come risolvere?**
+Per archivi di dimensioni superiori a 4GB potrebbe verificarsi un errore in fase di estrazione mediante unzip. Per ovviare al problema è possibile utilizzare in alernativa il software "7zip" o il comando "jar xf <nome_file.zip>".
 
 **È possibile creare una scheda sottofascicolo?**
 Sì. È possibile crearla, dalla schermata in cui compare la lista delle unità relative ad un determinato complesso archivistico, è sufficiente cliccare sul bottone “crea sottofascicolo”. E’ anche possibile reiterare l’operazione su più livelli.
@@ -59,3 +62,4 @@ Per dettagli consulta la pagina [Note di rilascio](http://www.archimista.it/?pag
 * produzione di report per Complesso archivistico, Progetto o Soggetto conservatore
 * upload multiplo di oggetti digitali
 * creazione sotto-unità e sotto-sotto-unità e possibilità di modificarne il livello
+

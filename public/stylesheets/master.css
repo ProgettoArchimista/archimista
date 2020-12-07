@@ -729,3 +729,7 @@ Fine FIXME
   pointer-events: none;
   opacity: 0.3;
 }
+
+.empty-field {
+  line-height: 28px;
+}

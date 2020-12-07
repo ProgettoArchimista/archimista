@@ -81,9 +81,9 @@
 <%# Upgrade 3.0.0 inizio %>
 <%# aggiunta gestione permessi su visualizzazione unità %>        
                 <% if can? :manage, fond %>
-                  <%= link_to "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità", fond_units_path(fond) %>
+                  <%= link_to "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità di primo livello", fond_units_path(fond) %>
                 <% else %>
-                  <%= "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità" %>
+                  <%= "#{number_with_delimiter(@units_counts[fond.id] || "0")} unità di primo livello" %>
                 <% end %>
 <%# Upgrade 3.0.0 fine %>       
               </p>            

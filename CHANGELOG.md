@@ -1,4 +1,23 @@
-## Archimista 3.0 e 3.1 versione server e stand alone – gennaio 2019
+## Archimista 3.1.1
+* Il ruolo admin può ora gestire le schede anagrafiche all'interno del suo gruppo.
+* Ripristinata l'anteprima delle text area nelle unità archivistiche.
+* Modificati i loghi sulla home page.
+* Correzione codifica caratteri accentati su alcune pagine.
+* Modificata pagina di Informazioni e Copyright.
+* Aumentata la dimensione di diversi campi testuali a 16777215 caratteri.
+* Corretto il caricamento dei CSV in maniera tale da poter inserire nei campi testuali le virgole.
+* Modificato il modo in cui sono conteggiate le unità archivistiche.
+* Aggiunto filtro per complesso archivistico sulla pagina degli oggetti digitali.
+* Corretta la tipologia fascicolo nella versione standalone.
+* Corretta la segnatura provvisoria - numero delle unità: accetta solo caratteri numerici.
+* Rese utilizzabili tutte le lingue nel relativo vocabolario.
+* Modificato l'export XML (SCONS2, EAC-CPF, EAD3) in maniera tale da essere conforme al relativo tracciato.
+* Tracciato EAC-CPF: modificato import dei soggetti produttori.
+* Tracciato EAC-CPF: implementato import dei profili istituzionali.
+* Tracciato EAC-CPF: implementato import delle schede anagrafiche.
+* Tracciato SCONS2: modificato import dei soggetti conservatori.
+
+## Archimista 3.0 e 3.1 – gennaio 2019
 * Sviluppo del fascicolo edilizio secondo il modello presentato e dopo analisi con l’ICAR; 
 * Integrazione con la procedura di esportazione/importazione aef; 
 * Integrazione con la procedura di esportazione/importazione EAD3/EAC; 
