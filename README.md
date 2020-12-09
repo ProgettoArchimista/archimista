@@ -31,6 +31,13 @@ Nel caso di aggiornamento da versioni precedenti dell'applicazione:
 1. Eseguire il task RAILS_ENV=production rake db:migrate
 2. Eseguire il task RAILS_ENV=production rake assets:clean
 
+## Macchina virtuale
+È possibile utilizzare una macchina virtuale già pronta per l'utilizzo di archimista e archivista scaricandola dal seguente url:
+[http://archimista.icar.beniculturali.it/downloads/2020-11-24-archimista.ova](http://archimista.icar.beniculturali.it/downloads/2020-11-24-archimista.ova)
+
+Di seguito il link alla guida all'uso della macchina virtuale:
+[http://archimista.icar.beniculturali.it/downloads/VM-Archimista-manuale.pdf](http://archimista.icar.beniculturali.it/downloads/VM-Archimista-manuale.pdf)
+
 ## Crediti
 Archimista è un progetto promosso da:
 * [Direzione Generale per gli Archivi](http://www.regione.lombardia.it)
