@@ -38,6 +38,10 @@ Nel caso di aggiornamento da versioni precedenti dell'applicazione:
 Di seguito il link alla guida all'uso della macchina virtuale:
 [http://archimista.icar.beniculturali.it/downloads/VM-Archimista-manuale.pdf](http://archimista.icar.beniculturali.it/downloads/VM-Archimista-manuale.pdf)
 
+## FAQ
+Consulta le FAQ per risolvere problemi comuni come ad esempio la gestione di export di dimensioni maggiori di 4GB o scoprire come utilizzare al meglio archimista.
+[https://github.com/ProgettoArchimista/archimista/blob/master/FAQ.md](https://github.com/ProgettoArchimista/archimista/blob/master/FAQ.md)
+
 ## Crediti
 Archimista è un progetto promosso da:
 * [Direzione Generale per gli Archivi](http://www.regione.lombardia.it)
