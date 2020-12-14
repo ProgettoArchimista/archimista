@@ -38,6 +38,9 @@ Nel caso di aggiornamento da versioni precedenti dell'applicazione:
 Di seguito il link alla guida all'uso della macchina virtuale:
 [http://archimista.icar.beniculturali.it/downloads/VM-Archimista-manuale.pdf](http://archimista.icar.beniculturali.it/downloads/VM-Archimista-manuale.pdf)
 
+## Supporto a Windows XP
+In considerazione dell'obsolescenza del sistema operativo Windows XP, non più supportato da Microsoft dal 2014, non è stato possibile verificare appieno le funzionalità della versione archimista 3.1.1 per XP, e quindi non se ne raccomanda l'installazione. A partire dalle versioni di archimista successive alla 3.1.1, Windows XP non sarà più supportato.
+
 ## FAQ
 Consulta le FAQ per risolvere problemi comuni come ad esempio la gestione di export di dimensioni maggiori di 4GB o scoprire come utilizzare al meglio archimista.
 [https://github.com/ProgettoArchimista/archimista/blob/master/FAQ.md](https://github.com/ProgettoArchimista/archimista/blob/master/FAQ.md)
