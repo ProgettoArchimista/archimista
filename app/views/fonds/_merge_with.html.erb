@@ -21,7 +21,7 @@
     <p>Unisci il complesso <strong><%= object.name %></strong> con uno di tua scelta.</p>
     <p class="muted">Il complesso sarà inserito nel complesso di destinazione come primo figlio di livello 1.</p>
 
-    <% if fonds.size > 10 %>
+    <% if fonds.size > 0 %>
       <form id="search-fond">
         <%= text_field_tag :term, '', :id => "term",
           :class => "span6",

@@ -347,7 +347,7 @@ class Fond < ActiveRecord::Base
     # rel_custodian_fonds.length is not a proper solution because make a
     # SELECT * and computes the size on the resulting array
     rel_custodian_fonds_size = rel_custodian_fonds.size - rel_custodian_fonds.select{|rec| rec.marked_for_destruction?}.size
-    errors.add_to_base :at_most_one_custodian if rel_custodian_fonds_size > 1
+    errors[:base] << :at_most_one_custodian if rel_custodian_fonds_size > 1
   end
 
 end

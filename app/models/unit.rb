@@ -367,15 +367,15 @@ class Unit < ActiveRecord::Base
     :allowed_ancestry_depth
 
   def matching_parent_and_fond
-    errors.add_to_base :not_matching_parent_and_fond if parent && fond_id != parent.fond_id
+    errors[:base] << :not_matching_parent_and_fond if parent && fond_id != parent.fond_id
   end
 
   def matching_fond_and_root_fond
-    errors.add_to_base :not_matching_fond_and_root_fond unless fond_id && root_fond_id && root_fond_id == fond.root_id
+    errors[:base] << :not_matching_fond_and_root_fond unless fond_id && root_fond_id && root_fond_id == fond.root_id
   end
 
   def allowed_ancestry_depth
-    errors.add_to_base :not_allowed_ancestry_depth if ancestry_depth > MAX_LEVEL_OF_NODES
+    errors[:base] << :not_allowed_ancestry_depth if ancestry_depth > MAX_LEVEL_OF_NODES
   end
 
   # Scopes  

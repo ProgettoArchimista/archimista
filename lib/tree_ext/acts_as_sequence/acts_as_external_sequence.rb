@@ -79,7 +79,7 @@ module TreeExt
                                   options.delete(:conditions)
                                 )
 
-        where(conditions).merge(options)
+        where(conditions).joins(options[:joins] || '')
       }
 # Upgrade 2.0.0 fine
 

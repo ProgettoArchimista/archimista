@@ -303,11 +303,34 @@ class Import < ActiveRecord::Base
     unit.created_at = datetime
     unit.updated_at = datetime
 
-    case  document.xpath("@level").text
-    when "list"
-      unit.unit_type = "registro o altra unità rilegata"
+    case document.xpath("@level").text
+    #fpu when "list"
+    #  unit.unit_type = "registro o altra unità rilegata"
     when "file"
-      unit.unit_type = "fascicolo o altra unità complessa"
+      case document.xpath("@otherlevel").text
+      when "registro"
+        unit.unit_type = "registro o altra unità rilegata"
+      when "fascicolopersonale"
+        unit.unit_type = "fascicolo o altra unità complessa"
+        unit.file_type = "fascicolo personale"
+      when "cartografiastorica"
+        unit.unit_type = "unità documentaria"
+        unit.sc2_tsk = "CARS"
+      when "disegnoartistico"
+        unit.unit_type = "unità documentaria"
+        unit.sc2_tsk = "D"
+      when "disegnotecnico"
+        unit.unit_type = "unità documentaria"
+        unit.sc2_tsk = "DT"
+      when "fotografia"
+        unit.unit_type = "unità documentaria"
+        unit.sc2_tsk = "F"
+      when "stampa"
+        unit.unit_type = "unità documentaria"
+        unit.sc2_tsk = "S"
+      else
+        unit.unit_type = "fascicolo o altra unità complessa"
+      end
     when  "item"
       unit.unit_type = "unità documentaria"
     end

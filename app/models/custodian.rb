@@ -16,7 +16,10 @@ class Custodian < ActiveRecord::Base
   has_one   :preferred_name, :class_name => 'CustodianName', :conditions => {:qualifier => 'AU', :preferred => true}
   has_many  :other_names, :class_name => 'CustodianName', :conditions => {:preferred => false}
 =end
-  has_one   :preferred_name, -> { where({:qualifier => ['OT', 'AU'], :preferred => true}) }, :class_name => 'CustodianName'
+
+#has_one   :preferred_name, -> { where({:qualifier => ['OT', 'AU'], :preferred => true}) }, :class_name => 'CustodianName'
+  has_one   :preferred_name, -> { where({:qualifier => 'OT', :preferred => true}) }, :class_name => 'CustodianName'
+
   has_many  :other_names, -> { where({:preferred => false}) }, :class_name => 'CustodianName'
 # Upgrade 2.0.0 fine
 

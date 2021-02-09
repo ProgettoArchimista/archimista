@@ -9,7 +9,7 @@ file_types = {
 }
 sc2_tsks = {
   "CARS" => "cartografiastorica",
-  "D" => "”disegnoartistico",
+  "D" => "disegnoartistico",
   "DT" => "disegnotecnico",
   "F" => "fotografia",
   "S" => "stampa"
@@ -35,7 +35,7 @@ else
   else
     otherlevel = sc2_tsk
   end
-  attributes = {:level => "otherlevel", :otherlevel => otherlevel}
+  attributes = {:level => "file", :otherlevel => otherlevel}
 end
 xml.c attributes do
   sequence_numbers = Unit.display_sequence_numbers_of(Fond.find(unit.root_fond_id).root)
