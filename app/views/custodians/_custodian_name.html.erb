@@ -2,6 +2,7 @@
   <div class="span6">
     <%= f.hidden_field :preferred, :value => f.object.preferred %>
     <%= f.text_field :name, :class => "span6" %>
+    <%= f.hidden_field :qualifier, :value => "AU" %>
   </div>
   <div class="span3">
     <%= f.text_field :note %>
