@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+    db:
+        image: icar2021/mysql:5.7_archimista
+        restart: always
+        environment:
+            MYSQL_DATABASE: 'archimista'
+            MYSQL_ROOT_PASSWORD: 'archipass'
+        volumes:
+          - db:/var/lib/mysql
+    web:
+        image: icar2021/archimista_web:2021-06-20a
+        restart: always
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+        volumes:
+            - app_public:/usr/src/app/public
+        ports:
+            - "80:3000"
+        depends_on:
+            - db
+    web2:
+        image: icar2021/archivista_web:2021-06-20a
+        restart: always
+        environment:
+            # URL to Digital Ojects Server
+            DIGIT_OBJ_HOST_URL: http://localhost
+            # URL to Group Images Server
+            GROUP_IMAGES_HOST_URL: http://localhost
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+        ports:
+            - "8080:3000"
+        depends_on:
+            - db
+volumes:
+    db:
+    app_public:
