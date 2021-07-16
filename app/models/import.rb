@@ -65,19 +65,12 @@ class Import < ActiveRecord::Base
   require File.join(File.dirname(__FILE__), ".", "fe_identification.rb")
   # FINE - require richiesti per l'import batch
   
-  # Upgrade 2.1.0 inizio
   extend Sc2Restore
-  # Upgrade 2.1.0 fine
-
   attr_accessor :imported_file_version, :does_source_have_fonds
-  # Upgrade 2.2.0 inizio
   attr_accessor :ref_fond_id, :ref_root_fond_id, :is_icar_import, :is_batch_import, :batch_import_filename
-  # Upgrade 2.2.0 fine
 
   TMP_IMPORTS = "#{Rails.root}/tmp/imports"
-  # Upgrade 3.0.0 inizio  
   PUBLIC_IMPORTS = "#{Rails.root}/public/imports"
-  # Upgrade 3.0.0 fine  
   DIGITAL_FOLDER_PATH = "#{Rails.root}/public/digital_objects"
 
   belongs_to :user
@@ -340,7 +333,7 @@ class Import < ActiveRecord::Base
 
     if unit_component.xpath("../../accessrestrict/p").present?
       terms = Term.where(vocabulary_id: Vocabulary.where(name: "units.access_condition").first.id).select(:term_key)
-      condition = unit_component.xpath("../../accessrestrict/p").text.squish
+      condition = unit_component.xpath("../../accessrestrict/p").text
       if terms.include? condition.downcase
         unit.access_condition = condition.downcase
       else
@@ -349,7 +342,7 @@ class Import < ActiveRecord::Base
     end
     if unit_component.xpath("../../userestrict/p").present?
       terms = Term.where(vocabulary_id: Vocabulary.where(name: "units.use_condition").first.id).select(:term_key)
-      condition = unit_component.xpath("../../userestrict/p").text.squish
+      condition = unit_component.xpath("../../userestrict/p").text
       if terms.include? condition.downcase
         unit.use_condition = condition.downcase
       else
@@ -362,8 +355,8 @@ class Import < ActiveRecord::Base
     if (unit.ancestry.present?)
       unit.ancestry_depth = Unit.find(unit.ancestry).ancestry_depth + 1
     end
-    unit.arrangement_note = unit_component.xpath("../processinfo[@localtype='noteDellArchivista']/p").text.squish
-    unit.content = unit_component.xpath("../../scopecontent/p").text.squish
+    unit.arrangement_note = unit_component.xpath("../processinfo[@localtype='noteDellArchivista']/p").text
+    unit.content = unit_component.xpath("../../scopecontent/p").text
     unit.extent = unit_component.xpath("../physdescstructured/quantity").text
     unit.physical_type = unit_component.xpath("../physdescstructured/unittype").text
     unit.file_number = unit_component.xpath("../unitid[@localtype='numFascicolo']").text
@@ -372,11 +365,11 @@ class Import < ActiveRecord::Base
     unit.physical_container_number = unit_component.xpath("../container/@containerid").text
     unit.physical_container_title = unit_component.xpath("../container").text
     unit.physical_container_type = unit_component.xpath("../container/@localtype").text
-    unit.physical_description = unit_component.xpath("../physdescstructured/descriptivenote").text.squish
-    unit.preservation_note = unit_component.xpath("../physdescstructured/phystech").text.squish
+    unit.physical_description = unit_component.xpath("../physdescstructured/descriptivenote").text
+    unit.preservation_note = unit_component.xpath("../physdescstructured/phystech").text
     unit.reference_number = unit_component.xpath("../unitid[@localtype='segnaturaAttuale']").text
-    unit.title = unit_component.xpath("../unittitle[@localtype='denominazione']").text.squish
-    unit.given_title = unit_component.xpath("../unittitle[@localtype='titoloAttribuito']").text.squish
+    unit.title = unit_component.xpath("../unittitle[@localtype='denominazione']").text
+    unit.given_title = unit_component.xpath("../unittitle[@localtype='titoloAttribuito']").text
     unit.tmp_reference_number = unit_component.xpath("../unitid[@localtype='segnaturaProvvisoriaNumero']").text
     unit.tmp_reference_string = unit_component.xpath("../unitid[@localtype='segnaturaProvvisoriaTesto']").text
 
@@ -454,14 +447,14 @@ class Import < ActiveRecord::Base
     if unit_component.xpath("../../odd[@localtype='ElementiTestuali']/p").present?
       sc2_textual_element = Sc2TextualElement.new
       sc2_textual_element.unit_id = unit.id
-      sc2_textual_element.isri = unit_component.xpath("../../odd[@localtype='ElementiTestuali']/p").text.squish
+      sc2_textual_element.isri = unit_component.xpath("../../odd[@localtype='ElementiTestuali']/p").text
       sc2_textual_element.save!
     end
 
     if unit_component.xpath("../../odd[@localtype='ElementiFigurati']/p").present?
       sc2_visual_elements = Sc2VisualElement.new
       sc2_visual_elements.unit_id = unit.id
-      sc2_visual_elements.stmd = unit_component.xpath("../../odd[@localtype='ElementiFigurati']/p").text.squish
+      sc2_visual_elements.stmd = unit_component.xpath("../../odd[@localtype='ElementiFigurati']/p").text
       sc2_visual_elements.save!
     end
 
@@ -823,7 +816,7 @@ class Import < ActiveRecord::Base
 
     if path.xpath("accessrestrict/p").present?
       terms = Term.where(vocabulary_id: Vocabulary.where(name: "fonds.access_condition").first.id).select(:term_key)
-      condition = path.xpath("accessrestrict/p").first.text.squish
+      condition = path.xpath("accessrestrict/p").first.text
       if terms.include? condition.downcase
         fond.access_condition = condition.downcase
       else
@@ -836,9 +829,9 @@ class Import < ActiveRecord::Base
       fond.published = true
     end
 
-    fond.history = path.xpath("custodhist/p").text.squish
+    fond.history = path.xpath("custodhist/p").text
 
-    fond.extent = path.xpath("did/physdesc").text.squish
+    fond.extent = path.xpath("did/physdesc").text
 
     path.xpath("did/physdescstructured").each do |pd|
       quantity = pd.xpath("quantity").text.squish
@@ -878,11 +871,11 @@ class Import < ActiveRecord::Base
       Rails.logger.info "Fondo: #{fond.name.squish} - Trovato ma non importato il tag 'ead/bibliography': #{path.xpath("bibliography").text.squish}"
     end
 
-    fond.description = path.xpath("scopecontent/p").text.squish
+    fond.description = path.xpath("scopecontent/p").text
 
     fond.arrangement_note = ""
     if path.xpath("arrangement/p").present?
-      fond.arrangement_note += "Criteri di ordinamento: " + path.xpath("arrangement/p").text.squish + "\n"
+      fond.arrangement_note += "Criteri di ordinamento: " + path.xpath("arrangement/p").text + "\n"
     end
 
     fond.sneaky_save!
@@ -927,8 +920,8 @@ class Import < ActiveRecord::Base
       path.xpath("controlaccess/genreform").each do |fond_document|
         rel__f_d = RelFondDocumentForm.new
         rel__f_d.name = fond_document.xpath("part[@localtype='denominazione']").text.squish
-        rel__f_d.description = fond_document.xpath("part[@localtype='descrizione']").text.squish
-        rel__f_d.note = fond_document.xpath("part[@localtype='note']").text.squish
+        rel__f_d.description = fond_document.xpath("part[@localtype='descrizione']").text
+        rel__f_d.note = fond_document.xpath("part[@localtype='note']").text
         if DocumentForm.where("document_forms.name = ?", rel__f_d.name).first.present?
           rel__f_d.document_form_id = DocumentForm.where("document_forms.name = ?", rel__f_d.name).first[:id]
           rel__f_d.fond_id = fond.id
@@ -992,7 +985,7 @@ class Import < ActiveRecord::Base
       if !fond.related_materials.present?
         fond.related_materials = ""
       end
-      fond.related_materials += path.xpath("relatedmaterials/archref/ref").text.squish
+      fond.related_materials += path.xpath("relatedmaterials/archref/ref").text
     end
 
     source = path.xpath("did/unitid")
@@ -3525,8 +3518,6 @@ class Import < ActiveRecord::Base
   #  def import_aef_file(user)
   def import_aef_file(user, ability)
     
-    # Upgrade 2.2.0 fine
-    
     #File.open(data_file) do |file|
     #  begin
     #    ActiveRecord::Base.transaction do
@@ -3556,35 +3547,32 @@ class Import < ActiveRecord::Base
 
     begin
       lines = File.readlines(data_file)
-      # Upgrade 2.2.0 inizio
       unit_aef_import_units_count = 0
-      # Upgrade 2.2.0 fine
       ActiveRecord::Base.transaction do
-        # Upgrade 2.0.0 inizio
         model = nil
         prev_model = nil
         object = nil
-        # Upgrade 2.0.0 fine
         lines.each do |line|
+          if line.include? "custodian_name"
+            line = line.gsub('"qualifier":"AU"', '"qualifier":"OT"')
+            line = line.gsub('"qualifier":"[\"OT\", \"AU\"]"', '"qualifier":"OT"')
+            line = line.gsub('"qualifier":"[\'OT\', \'AU\']"', '"qualifier":"OT"')
+          end 
+
           next if line.blank?
           data = ActiveSupport::JSON.decode(line.strip)
           key = data.keys.first
-          # Upgrade 2.1.0 inizio
           ipdata = data[key]
           if imported_file_version < "2.1.0"
             key = prv_adjust_ante_210_project(key, ipdata)
             key = prv_adjust_ante_210_project_credits(key, ipdata)
           end
-          # Upgrade 2.1.0 fine
           model = key.camelize.constantize
-          # Upgrade 2.1.0 inizio
           #data[key].delete_if{|k, v| not model.column_names.include? k}
           #object = model.new(data[key])
           ipdata.delete_if { |k, v| not model.column_names.include? k }
           object = model.new(ipdata)
-          # Upgrade 2.1.0 fine
           object.db_source = self.identifier
-          # Upgrade 2.2.0 inizio
           #object.group_id = user.group_id if object.has_attribute? 'group_id'
           if object.has_attribute? 'group_id'
             object.group_id = if user.is_multi_group_user?() then
@@ -3601,11 +3589,9 @@ class Import < ActiveRecord::Base
               unit_aef_import_units_count += 1
             end
           end
-          # Upgrade 2.2.0 fine
           object.created_by = user.id if object.has_attribute? 'created_by'
           object.updated_by = user.id if object.has_attribute? 'updated_by'
 
-          # Upgrade 2.0.0 inizio
           #object.send(:create_without_callbacks)
           object.sneaky_save!
           if model != prev_model && !prev_model.nil?
@@ -3617,12 +3603,8 @@ class Import < ActiveRecord::Base
         if !object.nil?
           set_lacking_field_values(object)
         end
-          # Upgrade 2.0.0 fine
       end
-      # Upgrade 2.2.0 inizio
-      #update_statements
       update_statements(unit_aef_import_units_count)
-      # Upgrade 2.2.0 fine
       return true
     rescue Exception => e
       Rails.logger.info "import_aef_file Errore=" + e.message.to_s

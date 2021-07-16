@@ -81,8 +81,9 @@ namespace :ead do
     xml_formatted = ''
     require "rexml/document"
     doc = REXML::Document.new(xml.to_s)
-    formatter = REXML::Formatters::Pretty.new
-    formatter.compact = true
+    #formatter = REXML::Formatters::Pretty.new   # Rimuove CR/LF
+    #formatter.compact = true                    # dai testi nelle Text Area
+    formatter = REXML::Formatters::Default.new
     formatter.write(doc, xml_formatted)
     
     File.open(file_dest, 'w+') { |f| f.write(xml_formatted) }

@@ -788,8 +788,9 @@ class Export < ActiveRecord::Base
     xml_formatted = ''
     require "rexml/document"
     doc = REXML::Document.new(xml.to_s)
-    formatter = REXML::Formatters::Pretty.new
-    formatter.compact = true
+    #formatter = REXML::Formatters::Pretty.new   # Rimuove CR/LF
+    #formatter.compact = true                    # dai testi nelle Text Area
+    formatter = REXML::Formatters::Default.new
     formatter.write(doc, xml_formatted)
     
     File.open(file_dest, 'w+') { |f| f.write(xml_formatted) }
@@ -801,7 +802,7 @@ class Export < ActiveRecord::Base
       file_dest.close
       File.delete(data_file_name) if File.exist?(data_file_name)
     rescue Exception => e
-      puts "ECCEZIONE export.rb > stream_icar_import: #{e.message}"
+      Rails.logger.info "ECCEZIONE export.rb > stream_icar_import: #{e.message}"
     end
 
     #oggetti digitali
@@ -819,10 +820,14 @@ class Export < ActiveRecord::Base
     if !digital_objects.empty?
       Zip::File.open(zip_file_name, false) do |zipfile|
         digital_objects.each do |digital_object|
+          begin
           dob_files = Dir.entries("#{Rails.root}/public/digital_objects/#{digital_object.access_token}").select {|f| !File.directory? f}
           dob_files.each do |dob_file_name|
             dob_file_path = "#{Rails.root}/public/digital_objects/#{digital_object.access_token}/#{dob_file_name}"
             zipfile.add("#{digital_object.access_token}/#{dob_file_name}", dob_file_path)
+            end
+          rescue Exception => e
+            Rails.logger.info "ERRORE export.rb > stream_icar_import > oggetti digitali: #{e.message}"
           end
         end
       end

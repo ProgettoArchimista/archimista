@@ -22,7 +22,16 @@ module ImportsHelper
     elsif (import.is_institution_importable_type?)
       caption = import.importable.name
     elsif (import.is_creator_importable_type? || import.is_custodian_importable_type?)
-      caption = import.importable.preferred_name.name
+      caption = import.importable.try(:preferred_name).try(:name).to_s
+      #if (caption.empty?)
+      #  caption = import.importable.try(:display_name).to_s
+      #end 
+      if (caption.empty?)
+        caption = import.importable.try(:name).to_s
+      end
+      if (caption.empty?)
+        caption = "(Denominazione non trovata)"
+      end 
     elsif (import.is_anagraphic_importable_type?)
       caption = import.importable.name
       if !import.importable.surname.nil? && !import.importable.surname.empty?
