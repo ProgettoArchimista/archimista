@@ -1,3 +1,10 @@
+## Archimista 3.1.1 rev20210716
+* Fix mantenimento formattazione testi in ICAR-Import
+* Miglioramento gestione assenza di oggetti digitali in ICAR-Export 
+* Aggiunto supporto per container docker e pubblicazione immagine su docker hub
+* Aggiunta conversione automatica custodian con qualifier 'AU' o '["OT", "AU"]' in 'OT' per import .aef
+* Corretto preferred_name assente per import di Creator o Custodian
+
 ## Archimista 3.1.1
 * Il ruolo admin può ora gestire le schede anagrafiche all'interno del suo gruppo.
 * Ripristinata l'anteprima delle text area nelle unità archivistiche.
