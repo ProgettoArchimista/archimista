@@ -33,7 +33,7 @@ Nel caso di aggiornamento da versioni precedenti dell'applicazione:
 
 ## Macchina virtuale
 È possibile utilizzare una macchina virtuale già pronta per l'utilizzo di archimista e archivista scaricandola dal seguente url:
-[http://archimista.icar.beniculturali.it/downloads/2021-02-06-archimista.ova](http://archimista.icar.beniculturali.it/downloads/2021-02-06-archimista.ova)
+[http://archimista.icar.beniculturali.it/downloads/2021-02-06-archimista.ova](http://archimista.icar.beniculturali.it/downloads/2021-02-06-archimista.ova) (*se si dovessero verificare problemi nell'apertura del link, è consigliato copiare e incollare l'url in un nuovo tab del browser manualmente*)
 
 Di seguito il link alla guida all'uso della macchina virtuale:
 [http://archimista.icar.beniculturali.it/downloads/VM-Archimista-manuale.pdf](http://archimista.icar.beniculturali.it/downloads/VM-Archimista-manuale.pdf)
